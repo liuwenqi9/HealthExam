@@ -14,8 +14,16 @@ public class LoginControllerTest {
 		
 		System.out.println(username);
 		System.out.println(password);
+		
 		System.out.println("收到登录请求");
 		ModelAndView mav = new ModelAndView("commonJsp/index.jsp");
+
+		return mav;
+	}
+	
+	@RequestMapping("toIndex.action")
+	public ModelAndView toIndex() {
+		ModelAndView mav = new ModelAndView("jsp/index");
 
 		return mav;
 	}

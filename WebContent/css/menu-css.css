@@ -1,0 +1,41 @@
+.menu-body-div {
+	height: 668px;
+    width: 15%;
+    background: #262626;
+    padding: 20px 0;
+    float: left;
+    min-width: 120px
+}
+
+ul{
+	margin: 1px 0;
+	padding: 0px 0px;
+}
+
+ul li {
+	list-style-type: none;
+    background: #575757;
+    width: 90%;
+    /* margin: 1px; */
+    padding-left: 10%;
+    height: 35px;
+    color: white;
+    vertical-align: middle;
+    line-height: 35px;
+}
+
+ul li ul{
+	padding: 0;
+}
+
+ul li ul li {
+    width: 80%;
+}
+
+ul li:hover {
+	background-image: -webkit-linear-gradient(left, red 10px, pink 200px);
+}
+
+.active{
+	display: none;
+}
