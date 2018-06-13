@@ -16,7 +16,7 @@
       http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-4.0.xsd	
       http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd ">
      
-     <bean id = "myDataSource" class = "org.apache.commons.dbcp.BasicDataSource"><!-- 连接数据库配置 -->
+     <bean id = "myDataSource" class = "org.apache.commons.dbcp2.BasicDataSource"><!-- 连接数据库配置 -->
      	<property name="driverClassName" value = "oracle.jdbc.OracleDriver"/>
      	<property name="url" value = "jdbc:oracle:thin:@47.106.207.97:1521:orcl"/>
      	<property name="username" value = "HealthExam"/>
@@ -24,7 +24,7 @@
      </bean>
      <bean id = "sessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean"><!-- 工厂 -->
      	<property name="dataSource" ref = "myDataSource"/>
-     	<property name="mapperLocations" value="classpath:com.health.mapper/*.xml"></property>
+     	<property name="mapperLocations" value="classpath:com/health/mapper/*.xml"></property>
      </bean>
      <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
      	<property name="sqlSessionFactory" ref="sessionFactory"/>

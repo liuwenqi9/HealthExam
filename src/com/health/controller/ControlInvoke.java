@@ -1,5 +1,6 @@
 package com.health.controller;
 
+import org.junit.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +14,7 @@ public class ControlInvoke {
 	 * @RequestMapping的action注解为 ：xxxx.action
 	 * 注意jsp路径直接使用  jsp/xxxx.jsp
 	 */
+
 	@RequestMapping("invokeTest.action")
 	public ModelAndView invokeTest() {
 		ModelAndView mav = new ModelAndView("jsp/index");

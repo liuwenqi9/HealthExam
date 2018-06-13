@@ -1,6 +1,5 @@
 package com.health.controller;
 
-import org.junit.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,10 +20,11 @@ public class LoginControllerTest {
 		return mav;
 	}
 	
+	
 	@RequestMapping("toIndex.action")
 	public ModelAndView toIndex() {
+		System.out.println("启动index");
 		ModelAndView mav = new ModelAndView("jsp/index");
-
 		return mav;
 	}
 	
