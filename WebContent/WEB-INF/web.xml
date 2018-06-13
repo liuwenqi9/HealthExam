@@ -5,6 +5,17 @@
     <welcome-file>/WEB-INF/commonJsp/index.jsp</welcome-file>
   </welcome-file-list>
   
+    <!-- 配置监听器  -->
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- 指定applicationContext.xml配置文件的位置 -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  
   <servlet>
      <servlet-name>spring_mvc</servlet-name>
      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
