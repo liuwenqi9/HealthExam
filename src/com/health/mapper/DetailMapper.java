@@ -4,7 +4,8 @@ import com.health.entity.Detail;
 import com.health.entity.DetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface DetailMapper {
     int countByExample(DetailExample example);
 

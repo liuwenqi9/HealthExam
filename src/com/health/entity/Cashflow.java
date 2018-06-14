@@ -1,7 +1,10 @@
 package com.health.entity;
 
-public class Chshflow {
-    private Integer chshflowid;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Cashflow {
+    private Integer cashflowid;
 
     private Object accountid;
 
@@ -11,12 +14,12 @@ public class Chshflow {
 
     private Short operation;
 
-    public Integer getChshflowid() {
-        return chshflowid;
+    public Integer getCashflowid() {
+        return cashflowid;
     }
 
-    public void setChshflowid(Integer chshflowid) {
-        this.chshflowid = chshflowid;
+    public void setCashflowid(Integer cashflowid) {
+        this.cashflowid = cashflowid;
     }
 
     public Object getAccountid() {

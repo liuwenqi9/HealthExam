@@ -4,7 +4,8 @@ import com.health.entity.Charge;
 import com.health.entity.ChargeExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface ChargeMapper {
     int countByExample(ChargeExample example);
 

@@ -4,7 +4,8 @@ import com.health.entity.Worker;
 import com.health.entity.WorkerExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface WorkerMapper {
     int countByExample(WorkerExample example);
 

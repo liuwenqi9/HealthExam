@@ -3,14 +3,16 @@ package com.health.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChshflowExample {
+import org.springframework.stereotype.Component;
+@Component
+public class CashflowExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ChshflowExample() {
+    public CashflowExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,63 +106,63 @@ public class ChshflowExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andChshflowidIsNull() {
-            addCriterion("CHSHFLOWID is null");
+        public Criteria andCashflowidIsNull() {
+            addCriterion("CashFLOWID is null");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidIsNotNull() {
-            addCriterion("CHSHFLOWID is not null");
+        public Criteria andCashflowidIsNotNull() {
+            addCriterion("CashFLOWID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidEqualTo(Integer value) {
-            addCriterion("CHSHFLOWID =", value, "chshflowid");
+        public Criteria andCashflowidEqualTo(Integer value) {
+            addCriterion("CashFLOWID =", value, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidNotEqualTo(Integer value) {
-            addCriterion("CHSHFLOWID <>", value, "chshflowid");
+        public Criteria andCashflowidNotEqualTo(Integer value) {
+            addCriterion("CashFLOWID <>", value, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidGreaterThan(Integer value) {
-            addCriterion("CHSHFLOWID >", value, "chshflowid");
+        public Criteria andCashflowidGreaterThan(Integer value) {
+            addCriterion("CashFLOWID >", value, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("CHSHFLOWID >=", value, "chshflowid");
+        public Criteria andCashflowidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("CashFLOWID >=", value, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidLessThan(Integer value) {
-            addCriterion("CHSHFLOWID <", value, "chshflowid");
+        public Criteria andCashflowidLessThan(Integer value) {
+            addCriterion("CashFLOWID <", value, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidLessThanOrEqualTo(Integer value) {
-            addCriterion("CHSHFLOWID <=", value, "chshflowid");
+        public Criteria andCashflowidLessThanOrEqualTo(Integer value) {
+            addCriterion("CashFLOWID <=", value, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidIn(List<Integer> values) {
-            addCriterion("CHSHFLOWID in", values, "chshflowid");
+        public Criteria andCashflowidIn(List<Integer> values) {
+            addCriterion("CashFLOWID in", values, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidNotIn(List<Integer> values) {
-            addCriterion("CHSHFLOWID not in", values, "chshflowid");
+        public Criteria andCashflowidNotIn(List<Integer> values) {
+            addCriterion("CashFLOWID not in", values, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidBetween(Integer value1, Integer value2) {
-            addCriterion("CHSHFLOWID between", value1, value2, "chshflowid");
+        public Criteria andCashflowidBetween(Integer value1, Integer value2) {
+            addCriterion("CashFLOWID between", value1, value2, "cashflowid");
             return (Criteria) this;
         }
 
-        public Criteria andChshflowidNotBetween(Integer value1, Integer value2) {
-            addCriterion("CHSHFLOWID not between", value1, value2, "chshflowid");
+        public Criteria andCashflowidNotBetween(Integer value1, Integer value2) {
+            addCriterion("CashFLOWID not between", value1, value2, "cashflowid");
             return (Criteria) this;
         }
 

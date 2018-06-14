@@ -4,7 +4,8 @@ import com.health.entity.Packages;
 import com.health.entity.PackagesExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface PackagesMapper {
     int countByExample(PackagesExample example);
 

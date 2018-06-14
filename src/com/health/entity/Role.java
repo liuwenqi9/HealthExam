@@ -1,5 +1,8 @@
 package com.health.entity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Role {
     private Integer roleid;
 
