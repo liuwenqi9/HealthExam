@@ -1,205 +1,121 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%@include file="header.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>科室设置</title>
 </head>
 <body class="no-skin">
-	<div>
-		<div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
-			<div class="row">
-				<div class="col-xs-6">
-					<div class="dataTables_lenght" id="dynamic-table_length">
-						<label>
-							"显示"
-							<select name="dynamic-table_length" aria-controls="dynamic-table" class="form-control input-sm">
-								<option value="10">10</option>
-								<option value="20">20</option>
-								<option value="30">30</option>
-								<option value="40">40</option>
-							</select>
-							"条数"
-						</label>
-					</div>
+	<%@include file="menu.jsp"%>
+	<div class="main-content">
+		<div class="breadcrumbs" id="breadcrumbs">
+			<script type="text/javascript">
+				try {
+					ace.settings.check('breadcrumbs', 'fixed')
+				} catch (e) {
+				}
+			</script>
+
+			<ul class="breadcrumb">
+				<li><i class="ace-icon fa fa-home home-icon"></i> <a
+					href="<%=request.getContextPath()%>/web/index.jsp">首页</a></li>
+				<li>系统管理</li>
+					<li class="active">科室设置</li>
+			</ul>
+
+			<!-- /.breadcrumb -->
+		</div>
+
+		<%--这里添加代码  --%>
+		<div class="page-content" id="dataBind">
+				<div class="page-header">	
+								<a href="" class="btn btn-sm btn-purple">
+								<i class="ace-icon fa fa-undo bigger-110"></i>刷新</a> 
+								<a data-toggle="modal" href="#drug-stop" class="btn btn-sm btn-success" onclick="$('#add-modal').modal('show');">
+								<i class="glyphicon glyphicon-plus bigger-110"></i>添加科室</a>									
 				</div>
-				<div class="col-xs-6">
-					<div id="dynamic-table_filter" class="dataTables_filter">
-						<label>
-							"搜索"
-							<input type="text" class="form-control input-sm" placeholder="科室 " aria-controls="dynamic-table">
-						</label>
-					</div>
-				</div>			
-			</div>
-			<table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dynamic-table_info">
-				<thead>
-					<tr role="row">
-						<th class="center sorting_disabled" rowspan="1" colspan="1" aria-label="">
-							<label class="pos-rel">
-								<input type="checkbox" class="ace">
-								<span class="lbl"></span>
-							</label>
-						</th>
-						<th class="sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">
-							"Price"
-						</th>
-						<th class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Click: activate to sort column ascending">
-							"Click"
-						</th>
-						<th class="sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Update: activate to sort column ascending">
-							<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-							"Update"
-						</th>
-						<th class="hidden-480 sorting" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">
-							"Status"
-						</th>
-						<th class="sorting_disabled" rowspan="1" colspan="1" aria-label></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr role="row" class="odd">
-						<td class="center">
-							<input type="checkbox" class="ace">
-							<span class="lbl"></span>
-						</td>
-						<td>
-							<a href="#" >a标签</a>
-						</td>
-						<td class="sorting_1">$20</td>	
-						<td class="hidden-480">1,000</td>					
-						<td class="sorting_1">Apr</td>
-						<td class="hidden-480">1,000</td>
-						<td class="label label-sm label-info arrowed arrowed-righ">
-							"Sold"
-						</td>
-						<td>
-							<div class="hidden-sm hidden-xs action-buttons">
-								<a class="blue" href="#">
-									<i class="ace-icon fa fa-search-plus bigger-130"></i>
-								</a>
-								<a class="green" href="#">
-									<i class="ace-icon fa fa-pencil bigger-130"></i>
-								</a>
-								<a class="red" href="#">
-									<i class="ace-icon fa fa-trash-o bigger-130"></i>
-								</a>
-							</div>
-							<div class="hidden-md hidden-lg">
-								<div class="inline pos-rel">
-									<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="false">
-										<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-									</button>
-									<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-										<li>
-											<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-												<span class="blue">
-													<i class="ace-icon fa fa-search-plus bigger-120"></i>
-												</span>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-												<span class="green">
-													<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-												</span>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-												<span class="red">
-													<i class="ace-icon fa fa-trash-o bigger-120"></i>
-												</span>
-											</a>
-										</li>
-									</ul>				
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="col-xs-12">
+								
+								<div>
+									<table id="dynamic-table" class="table table-striped table-bordered table-hover">
+										<thead>
+											<tr>
+												<th class="center">
+													<label class="pos-rel"> 
+														<input type="checkbox" class="ace" /> 
+														<span class="lbl"></span>
+													</label>
+												</th>
+												<th class="hidden">ID</th>
+												<th>科室名称</th>
+												<th>科室人员</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										
+										<!-- 表格体 -->
+										<tbody>
+										
+										</tbody>
+									</table>
 								</div>
-							</div>				
-						</td>				
-					</tr>				
-					<tr role="row" class="even">
-						<td class="center">
-							<input type="checkbox" class="ace">
-							<span class="lbl"></span>
-						</td>
-						<td>
-							<a href="#" >a标签</a>
-						</td>
-						<td class="sorting_1">$20</td>	
-						<td class="hidden-480">1,000</td>					
-						<td class="sorting_1">Apr</td>
-						<td class="hidden-480">1,000</td>
-						<td class="label label-sm label-info arrowed arrowed-righ">
-							"Flagged"
-						</td>
-						<td>
-							<div class="hidden-sm hidden-xs action-buttons">
-								<a class="blue" href="#">
-									<i class="ace-icon fa fa-search-plus bigger-130"></i>
-								</a>
-								<a class="green" href="#">
-									<i class="ace-icon fa fa-pencil bigger-130"></i>
-								</a>
-								<a class="red" href="#">
-									<i class="ace-icon fa fa-trash-o bigger-130"></i>
-								</a>
-							</div>
-							<div class="hidden-md hidden-lg">
-								<div class="inline pos-rel">
-									<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="false">
-										<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-									</button>
-									<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-										<li>
-											<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-												<span class="blue">
-													<i class="ace-icon fa fa-search-plus bigger-120"></i>
-												</span>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-												<span class="green">
-													<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-												</span>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-												<span class="red">
-													<i class="ace-icon fa fa-trash-o bigger-120"></i>
-												</span>
-											</a>
-										</li>
-									</ul>			
-								</div>
-							</div>				
-						</td>	
-					</tr>		
-				</tbody>
-			</table>
-			<div class="row">
-				<div class="col-xs-6">
-					<div class="dataTables_info" id="dynamic-table_info" role="status" aria-live="polite" >Showing 1 to 10 of 23 entries</div>
-				</div>
-				<div class="col-xs-6">
-					<div class="dataTables_paginate paging_simple_numbers" id="dynamic-table_paginate">
-						<ul class="pagination">
-							<li class="paginate_button previous disabled" aria-controls="dynamic-table" tabindex="0" id="dynamic-table_previous">
-								<a href="#">上一页</a>
-							</li>
-							<li class="paginate_button previous disabled" aria-controls="dynamic-table" tabindex="0">
-								<a href="#">1</a>
-							</li>
-							<li class="paginate_button previous disabled" aria-controls="dynamic-table" tabindex="0" id="dynamic-table_next">
-								<a href="#">下一页</a>
-							</li>
-						</ul>
+							</div>					
+						</div>
 					</div>
-				</div>
+				</div>	
+
+			<!-- /.row -->
+		</div>
+		<!-- /.page-content -->
+		
+		 <div id="add-modal" class="modal fade in" tabindex="-1" style="display: none;">
+		 	<form id="add-form" role="form" action="<%=request.getContextPath()%>/addDeptMg.action" method="post">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="smaller lighter blue no-margin">查询卡</h3>
+						</div>
+
+						<div class="modal-body" style="height: 300px"> 
+							<div class="row">
+								<div class="col-xs-12">
+									<span class="col-xs-4">科室名称:</span>
+									<input type="text" name="deptname"/> 
+								</div>
+							</div>
+							<div class="hr hr-14 hr-dotted"></div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">提交</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</form>
+		</div>
+	</div>
+	<!-- /.main-content -->
+
+	<div class="footer">
+		<div class="footer-inner">
+			<div class="footer-content">
+				<span class="bigger-120"> <span class="blue bolder">Ace</span>
+					小潘 © 2017 - 2018
+				</span>
 			</div>
 		</div>
 	</div>
+
+	<a href="#" id="btn-scroll-up"
+		class="btn-scroll-up btn btn-sm btn-inverse"> <i
+		class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+	</a>
+
+	<%@include file="footer.jsp"%>
 </body>
 </html>
