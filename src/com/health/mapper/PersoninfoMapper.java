@@ -4,7 +4,8 @@ import com.health.entity.Personinfo;
 import com.health.entity.PersoninfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface PersoninfoMapper {
     int countByExample(PersoninfoExample example);
 

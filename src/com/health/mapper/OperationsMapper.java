@@ -4,7 +4,8 @@ import com.health.entity.Operations;
 import com.health.entity.OperationsExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface OperationsMapper {
     int countByExample(OperationsExample example);
 

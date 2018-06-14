@@ -4,7 +4,8 @@ import com.health.entity.Items;
 import com.health.entity.ItemsExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface ItemsMapper {
     int countByExample(ItemsExample example);
 

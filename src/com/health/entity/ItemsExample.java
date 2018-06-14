@@ -3,6 +3,8 @@ package com.health.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+@Component
 public class ItemsExample {
     protected String orderByClause;
 

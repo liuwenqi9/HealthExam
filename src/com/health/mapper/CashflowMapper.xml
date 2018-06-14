@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.health.mapper.ChshflowMapper" >
-  <resultMap id="BaseResultMap" type="com.health.entity.Chshflow" >
-    <id column="CHSHFLOWID" property="chshflowid" jdbcType="DECIMAL" />
+<mapper namespace="com.health.mapper.CashflowMapper" >
+  <resultMap id="BaseResultMap" type="com.health.entity.Cashflow" >
+    <id column="CASHFLOWID" property="cashflowid" jdbcType="DECIMAL" />
     <result column="ACCOUNTID" property="accountid" jdbcType="OTHER" />
     <result column="REFERAMOUNT" property="referamount" jdbcType="DECIMAL" />
     <result column="TIME" property="time" jdbcType="OTHER" />
@@ -67,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    CHSHFLOWID, ACCOUNTID, REFERAMOUNT, TIME, OPERATION
+    CASHFLOWID, ACCOUNTID, REFERAMOUNT, TIME, OPERATION
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.ChshflowExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.CashflowExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from CHSHFLOW
+    from CASHFLOW
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,30 +86,30 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from CHSHFLOW
-    where CHSHFLOWID = #{chshflowid,jdbcType=DECIMAL}
+    from CASHFLOW
+    where CASHFLOWID = #{cashflowid,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from CHSHFLOW
-    where CHSHFLOWID = #{chshflowid,jdbcType=DECIMAL}
+    delete from CASHFLOW
+    where CASHFLOWID = #{cashflowid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.health.entity.ChshflowExample" >
-    delete from CHSHFLOW
+  <delete id="deleteByExample" parameterType="com.health.entity.CashflowExample" >
+    delete from CASHFLOW
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.health.entity.Chshflow" >
-    insert into CHSHFLOW (CHSHFLOWID, ACCOUNTID, REFERAMOUNT, 
+  <insert id="insert" parameterType="com.health.entity.Cashflow" >
+    insert into CASHFLOW (CASHFLOWID, ACCOUNTID, REFERAMOUNT, 
       TIME, OPERATION)
-    values (#{chshflowid,jdbcType=DECIMAL}, #{accountid,jdbcType=OTHER}, #{referamount,jdbcType=DECIMAL}, 
+    values (#{cashflowid,jdbcType=DECIMAL}, #{accountid,jdbcType=OTHER}, #{referamount,jdbcType=DECIMAL}, 
       #{time,jdbcType=OTHER}, #{operation,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="com.health.entity.Chshflow" >
-    insert into CHSHFLOW
+  <insert id="insertSelective" parameterType="com.health.entity.Cashflow" >
+    insert into CASHFLOW
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="chshflowid != null" >
-        CHSHFLOWID,
+      <if test="cashflowid != null" >
+        CASHFLOWID,
       </if>
       <if test="accountid != null" >
         ACCOUNTID,
@@ -125,8 +125,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="chshflowid != null" >
-        #{chshflowid,jdbcType=DECIMAL},
+      <if test="cashflowid != null" >
+        #{cashflowid,jdbcType=DECIMAL},
       </if>
       <if test="accountid != null" >
         #{accountid,jdbcType=OTHER},
@@ -142,17 +142,17 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.health.entity.ChshflowExample" resultType="java.lang.Integer" >
-    select count(*) from CHSHFLOW
+  <select id="countByExample" parameterType="com.health.entity.CashflowExample" resultType="java.lang.Integer" >
+    select count(*) from CASHFLOW
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update CHSHFLOW
+    update CASHFLOW
     <set >
-      <if test="record.chshflowid != null" >
-        CHSHFLOWID = #{record.chshflowid,jdbcType=DECIMAL},
+      <if test="record.cashflowid != null" >
+        CASHFLOWID = #{record.cashflowid,jdbcType=DECIMAL},
       </if>
       <if test="record.accountid != null" >
         ACCOUNTID = #{record.accountid,jdbcType=OTHER},
@@ -172,8 +172,8 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update CHSHFLOW
-    set CHSHFLOWID = #{record.chshflowid,jdbcType=DECIMAL},
+    update CASHFLOW
+    set CASHFLOWID = #{record.cashflowid,jdbcType=DECIMAL},
       ACCOUNTID = #{record.accountid,jdbcType=OTHER},
       REFERAMOUNT = #{record.referamount,jdbcType=DECIMAL},
       TIME = #{record.time,jdbcType=OTHER},
@@ -182,8 +182,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.health.entity.Chshflow" >
-    update CHSHFLOW
+  <update id="updateByPrimaryKeySelective" parameterType="com.health.entity.Cashflow" >
+    update CASHFLOW
     <set >
       <if test="accountid != null" >
         ACCOUNTID = #{accountid,jdbcType=OTHER},
@@ -198,14 +198,14 @@
         OPERATION = #{operation,jdbcType=DECIMAL},
       </if>
     </set>
-    where CHSHFLOWID = #{chshflowid,jdbcType=DECIMAL}
+    where CASHFLOWID = #{cashflowid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.health.entity.Chshflow" >
-    update CHSHFLOW
+  <update id="updateByPrimaryKey" parameterType="com.health.entity.Cashflow" >
+    update CASHFLOW
     set ACCOUNTID = #{accountid,jdbcType=OTHER},
       REFERAMOUNT = #{referamount,jdbcType=DECIMAL},
       TIME = #{time,jdbcType=OTHER},
       OPERATION = #{operation,jdbcType=DECIMAL}
-    where CHSHFLOWID = #{chshflowid,jdbcType=DECIMAL}
+    where CASHFLOWID = #{cashflowid,jdbcType=DECIMAL}
   </update>
 </mapper>

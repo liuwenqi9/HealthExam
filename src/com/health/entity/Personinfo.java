@@ -2,6 +2,8 @@ package com.health.entity;
 
 import java.math.BigDecimal;
 
+import org.springframework.stereotype.Component;
+@Component
 public class Personinfo {
     private Integer personinfoid;
 

@@ -1,5 +1,8 @@
 package com.health.entity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Dept {
     private Integer deptid;
 
