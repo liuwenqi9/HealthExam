@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.health.mapper.PackitemMapper" >
+  <resultMap id="BaseResultMap" type="com.health.entity.Packitem" >
+    <id column="PACKITEMID" property="packitemid" jdbcType="DECIMAL" />
+    <result column="PACKAGEID" property="packageid" jdbcType="DECIMAL" />
+    <result column="ITEMID" property="itemid" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PACKITEMID, PACKAGEID, ITEMID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.PackitemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PACKITEM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from PACKITEM
+    where PACKITEMID = #{packitemid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from PACKITEM
+    where PACKITEMID = #{packitemid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.health.entity.PackitemExample" >
+    delete from PACKITEM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.health.entity.Packitem" >
+    insert into PACKITEM (PACKITEMID, PACKAGEID, ITEMID
+      )
+    values (#{packitemid,jdbcType=DECIMAL}, #{packageid,jdbcType=DECIMAL}, #{itemid,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.health.entity.Packitem" >
+    insert into PACKITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="packitemid != null" >
+        PACKITEMID,
+      </if>
+      <if test="packageid != null" >
+        PACKAGEID,
+      </if>
+      <if test="itemid != null" >
+        ITEMID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="packitemid != null" >
+        #{packitemid,jdbcType=DECIMAL},
+      </if>
+      <if test="packageid != null" >
+        #{packageid,jdbcType=DECIMAL},
+      </if>
+      <if test="itemid != null" >
+        #{itemid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.health.entity.PackitemExample" resultType="java.lang.Integer" >
+    select count(*) from PACKITEM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PACKITEM
+    <set >
+      <if test="record.packitemid != null" >
+        PACKITEMID = #{record.packitemid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.packageid != null" >
+        PACKAGEID = #{record.packageid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemid != null" >
+        ITEMID = #{record.itemid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PACKITEM
+    set PACKITEMID = #{record.packitemid,jdbcType=DECIMAL},
+      PACKAGEID = #{record.packageid,jdbcType=DECIMAL},
+      ITEMID = #{record.itemid,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.health.entity.Packitem" >
+    update PACKITEM
+    <set >
+      <if test="packageid != null" >
+        PACKAGEID = #{packageid,jdbcType=DECIMAL},
+      </if>
+      <if test="itemid != null" >
+        ITEMID = #{itemid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PACKITEMID = #{packitemid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.health.entity.Packitem" >
+    update PACKITEM
+    set PACKAGEID = #{packageid,jdbcType=DECIMAL},
+      ITEMID = #{itemid,jdbcType=DECIMAL}
+    where PACKITEMID = #{packitemid,jdbcType=DECIMAL}
+  </update>
+</mapper>

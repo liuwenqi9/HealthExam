@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.health.mapper.OperationsMapper" >
+  <resultMap id="BaseResultMap" type="com.health.entity.Operations" >
+    <id column="OPERATIONID" property="operationid" jdbcType="DECIMAL" />
+    <result column="OPERATION" property="operation" jdbcType="OTHER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OPERATIONID, OPERATION
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.OperationsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from OPERATIONS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from OPERATIONS
+    where OPERATIONID = #{operationid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from OPERATIONS
+    where OPERATIONID = #{operationid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.health.entity.OperationsExample" >
+    delete from OPERATIONS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.health.entity.Operations" >
+    insert into OPERATIONS (OPERATIONID, OPERATION)
+    values (#{operationid,jdbcType=DECIMAL}, #{operation,jdbcType=OTHER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.health.entity.Operations" >
+    insert into OPERATIONS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operationid != null" >
+        OPERATIONID,
+      </if>
+      <if test="operation != null" >
+        OPERATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operationid != null" >
+        #{operationid,jdbcType=DECIMAL},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=OTHER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.health.entity.OperationsExample" resultType="java.lang.Integer" >
+    select count(*) from OPERATIONS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update OPERATIONS
+    <set >
+      <if test="record.operationid != null" >
+        OPERATIONID = #{record.operationid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operation != null" >
+        OPERATION = #{record.operation,jdbcType=OTHER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update OPERATIONS
+    set OPERATIONID = #{record.operationid,jdbcType=DECIMAL},
+      OPERATION = #{record.operation,jdbcType=OTHER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.health.entity.Operations" >
+    update OPERATIONS
+    <set >
+      <if test="operation != null" >
+        OPERATION = #{operation,jdbcType=OTHER},
+      </if>
+    </set>
+    where OPERATIONID = #{operationid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.health.entity.Operations" >
+    update OPERATIONS
+    set OPERATION = #{operation,jdbcType=OTHER}
+    where OPERATIONID = #{operationid,jdbcType=DECIMAL}
+  </update>
+</mapper>
