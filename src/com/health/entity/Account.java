@@ -4,53 +4,53 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Account {
-    private Object account;
+	private Object account;
 
-    private Object name;
+	private Object name;
 
-    private Object password;
+	private Object password;
 
-    private Short state;
+	private Short state;
 
-    private Long amount;
+	private Long amount;
 
-    public Object getAccount() {
-        return account;
-    }
+	public Object getAccount() {
+		return account;
+	}
 
-    public void setAccount(Object account) {
-        this.account = account;
-    }
+	public void setAccount(Object account) {
+		this.account = account;
+	}
 
-    public Object getName() {
-        return name;
-    }
+	public Object getName() {
+		return name;
+	}
 
-    public void setName(Object name) {
-        this.name = name;
-    }
+	public void setName(Object name) {
+		this.name = name;
+	}
 
-    public Object getPassword() {
-        return password;
-    }
+	public Object getPassword() {
+		return password;
+	}
 
-    public void setPassword(Object password) {
-        this.password = password;
-    }
+	public void setPassword(Object password) {
+		this.password = password;
+	}
 
-    public Short getState() {
-        return state;
-    }
+	public Short getState() {
+		return state;
+	}
 
-    public void setState(Short state) {
-        this.state = state;
-    }
+	public void setState(Short state) {
+		this.state = state;
+	}
 
-    public Long getAmount() {
-        return amount;
-    }
+	public Long getAmount() {
+		return amount;
+	}
 
-    public void setAmount(Long amount) {
-        this.amount = amount;
-    }
+	public void setAmount(Long amount) {
+		this.amount = amount;
+	}
 }
