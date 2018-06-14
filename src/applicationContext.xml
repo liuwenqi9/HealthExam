@@ -24,7 +24,7 @@
      </bean>
      <bean id = "sessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean"><!-- 工厂 -->
      	<property name="dataSource" ref = "myDataSource"/>
-     	<property name="mapperLocations" value="classpath:com/health/mapper/*.xml"></property>
+     	<property name="mapperLocations" value="classpath:com.health.mapper.*.xml"></property>
      </bean>
      <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
      	<property name="sqlSessionFactory" ref="sessionFactory"/>
