@@ -1,0 +1,30 @@
+package com.health.mapper;
+
+import com.health.entity.Packitem;
+import com.health.entity.PackitemExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface PackitemMapper {
+    int countByExample(PackitemExample example);
+
+    int deleteByExample(PackitemExample example);
+
+    int deleteByPrimaryKey(Integer packitemid);
+
+    int insert(Packitem record);
+
+    int insertSelective(Packitem record);
+
+    List<Packitem> selectByExample(PackitemExample example);
+
+    Packitem selectByPrimaryKey(Integer packitemid);
+
+    int updateByExampleSelective(@Param("record") Packitem record, @Param("example") PackitemExample example);
+
+    int updateByExample(@Param("record") Packitem record, @Param("example") PackitemExample example);
+
+    int updateByPrimaryKeySelective(Packitem record);
+
+    int updateByPrimaryKey(Packitem record);
+}
