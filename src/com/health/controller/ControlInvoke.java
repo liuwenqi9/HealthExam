@@ -1,6 +1,5 @@
 package com.health.controller;
 
-import org.junit.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +17,17 @@ public class ControlInvoke {
 	@RequestMapping("invokeTest.action")
 	public ModelAndView invokeTest() {
 		ModelAndView mav = new ModelAndView("jsp/index");
+		return mav;
+	}
+	
+	/*
+	 * 主界面点击系统设置->“团检单位设置”选项的时候请求的页面
+	 * @author罗杭春，6月14日
+	 */
+	@RequestMapping("AccountMg.action")
+	public ModelAndView accountMg() {
+		System.out.println("调用系统管理界面");
+		ModelAndView mav = new ModelAndView("jsp/systemMgJsp/accountMg");
 		return mav;
 	}
 
