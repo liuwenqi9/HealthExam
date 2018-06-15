@@ -55,7 +55,7 @@
 		<%@ include file="footer.jsp"%>
 		<script type="text/javascript">
 		$(function(){
-			$("a[href='index.jsp']").parent().addClass("active");
+			$("a[href='index.action']").parent().addClass("active");
 		});
 		</script>
 </html>

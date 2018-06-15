@@ -20,5 +20,6 @@ public class ControlInvoke {
 		ModelAndView mav = new ModelAndView("jsp/index");
 		return mav;
 	}
+	
 
 }

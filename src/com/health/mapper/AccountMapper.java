@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface AccountMapper {
+	
     int countByExample(AccountExample example);
 
     int deleteByExample(AccountExample example);
