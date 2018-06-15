@@ -214,11 +214,11 @@ String basePath=request.getScheme()+"://"
 			//公司全称失去焦点AJAX查询
 			$("#company_name").blur(function () {
 			var company_name=$(this).val();
-			if(company_name!=null||company_name!=""){
+			if(company_name!=null||company_name!=" "){
 			console.log("----注册公司全称----"+company_name);
 			//走AJAX
 			$.ajax({
-				url:"../register/checkAccount.action",
+				url:"../register/checkName.action",
 				type:"POST",
 				data:{
 					"companyName":company_name
@@ -231,17 +231,20 @@ String basePath=request.getScheme()+"://"
 					}	
 				}
 			});
+			}else{
+				console.log("----注册公司全称为空----");
 			}
+			
 			
 			});
 			//账号失去焦点
-			/* $("#company_account").blur(function () {
+			 $("#company_account").blur(function () {
 				var company_account=$(this).val();
 				if(company_account!=null||company_account!=""){
 				console.log("----注册公司账号----"+company_account);
 				//走AJAX
 				$.ajax({
-					url:"/register/addAccount.action",
+					url:"/register/checkAccount.action",
 					type:"POST",
 					data:{
 						"companyAccount":company_account
@@ -258,7 +261,7 @@ String basePath=request.getScheme()+"://"
 				});
 				}
 				
-				}); */
+				});
 			
 			
 			
