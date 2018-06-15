@@ -8,6 +8,15 @@
     <result column="DEPTID" property="deptid" jdbcType="DECIMAL" />
     <result column="STATE" property="state" jdbcType="DECIMAL" />
   </resultMap>
+  
+  
+  <select id="loginAdmin" parameterType="com.health.entity.Worker"   resultType="com.health.entity.Worker">
+       select * from Worker where name=#{name} and password=#{password}
+  </select>
+  
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
