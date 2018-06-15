@@ -1,26 +1,20 @@
 package com.health.controller;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 
->>>>>>> refs/heads/master
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
 import com.health.biz.ImplLoginBiz;
 import com.health.biz.IntLoginBiz;
 import com.health.entity.Worker;
 import com.health.entity.WorkerExample;
 import com.health.entity.WorkerExample.Criteria;
-=======
 import com.health.biz.ImplAccountMg;
 import com.health.entity.Account;
->>>>>>> refs/heads/master
 
 @Controller
 public class ControlInvoke {
