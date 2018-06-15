@@ -13,6 +13,10 @@
   	select * from ACCOUNT
   </select>
   
+   <update id="changeAccountState" parameterType="java.util.HashMap">
+	update account set state = #{state} where account = #{accountId}
+   </update>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

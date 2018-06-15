@@ -1,6 +1,7 @@
 package com.health.biz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 
@@ -11,7 +12,7 @@ import com.health.entity.AccountExample;
 import com.health.mapper.AccountMapper;
 
 @Service
-public class ImplAccountMg implements IntAccountMg {
+public class ImplAccountMg implements AccountMgBiz {
 
 	@Resource
 	AccountMapper accountMapper;
@@ -29,14 +30,8 @@ public class ImplAccountMg implements IntAccountMg {
 	}
 
 	@Override
-	public Account queryAccount(Account account) {
-		// AccountExample example = new AccountExample();
-		// ArrayList<Account> acList = (ArrayList<Account>)
-		// accountMapper.selectByExample(example);
-		// System.out.println(acList.size());
-		// for (Account account2 : acList) {
-		// account2.getName();
-		// }
+	public Account queryOneAccount(Account account) {
+
 		return null;
 	}
 
@@ -62,4 +57,10 @@ public class ImplAccountMg implements IntAccountMg {
 		return acList;
 	}
 
+
+	@Override
+	public int changeAccountState(HashMap<String, String> dataMap) {
+		int result = accountMapper.changeAccountState(dataMap);
+		return result;
+	}
 }

@@ -23,8 +23,11 @@
 	<div class="main-content">
 		<div class="breadcrumbs" id="breadcrumbs">
 			<script type="text/javascript">
-					try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-				</script>
+				try {
+					ace.settings.check('breadcrumbs', 'fixed')
+				} catch (e) {
+				}
+			</script>
 
 			<ul class="breadcrumb">
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a
@@ -77,39 +80,56 @@
 										<tr id="tr_ofAccount">
 											<td><c:out value="${account.getState()}"></c:out></td>
 											<td><c:out value="${account.getAccount()}"></c:out></td>
+
 											<td><c:out value="${account.getName()}"></c:out></td>
-											<td><c:out value="${account.getState()}"></c:out></td>
+
+											<c:choose>
+												<c:when test="${account.getState() eq '1'}">
+													<td><c:out value="在用状态 "></c:out></td>
+												</c:when>
+												<c:otherwise>
+													<td><c:out value="禁用状态"></c:out></td>
+												</c:otherwise>
+											</c:choose>
+
 											<td><c:out value="${account.getAmount()}"></c:out></td>
+											<td>
+												<div class="btn-group">
+
+													<c:choose>
+														<c:when test="${account.getState() eq '1'}">
+															<button value="${account.getAccount()}"
+																title="${account.getState()}"
+																class="btn btn-xs btn-success changeState">禁用</button>
+														</c:when>
+														<c:otherwise>
+															<button value="${account.getAccount()}"
+																title="${account.getState()}"
+																class="btn btn-xs btn-success changeState">启用</button>
+														</c:otherwise>
+													</c:choose>
+
+													<button class="btn btn-xs btn-info">
+														<i class="ace-icon fa fa-pencil bigger-120"></i>
+													</button>
+													<button class="btn btn-xs btn-danger">
+														<i class="ace-icon fa fa-trash-o bigger-120"></i>
+													</button>
+												</div>
+											</td>
 										</tr>
 									</c:forEach>
-<!-- 									<tr class="" v-for="(todo, index) in acList"> -->
-<!-- 										<td><span>{{index+1}}</span></td> -->
-<!-- 										<td><span>{{todo.account}}</span></td> -->
-<!-- 										<td><span>{{todo.state==1?"在用状态":todo.state==0?"禁用状态"}}</span></td> -->
-<!-- 										<td><span>{{todo.amount}}</span></td> -->
-<!-- 										<td> -->
-<!-- 											<div class="btn-group"> -->
-<!-- 												<button class="btn btn-xs btn-success"> -->
-<!-- 													<i class="ace-icon fa fa-check bigger-120"></i> -->
-<!-- 												</button> -->
-<!-- 												<button class="btn btn-xs btn-info"> -->
-<!-- 													<i class="ace-icon fa fa-pencil bigger-120"></i> -->
-<!-- 												</button> -->
-<!-- 												<button class="btn btn-xs btn-danger"> -->
-<!-- 													<i class="ace-icon fa fa-trash-o bigger-120"></i> -->
-<!-- 												</button> -->
-<!-- 												<button class="btn btn-xs btn-warning"> -->
-<!-- 													<i class="ace-icon fa fa-flag bigger-120"></i> -->
-<!-- 												</button> -->
-<!-- 											</div> -->
-<!-- 										</td> -->
-<!-- 									</tr> -->
+
 								</tbody>
-								<tbody v-if="ret.length<1">
-									<tr>
-										<td colspan="8" class="center">没有数据</td>
-									</tr>
+
+								<tbody>
+									<c:if test="${acList.size() < 1}">
+										<tr>
+											<td colspan="8" class="center">没有企业数据</td>
+										</tr>
+									</c:if>
 								</tbody>
+
 
 							</table>
 
@@ -213,119 +233,45 @@
 		class="btn-scroll-up btn btn-sm btn-inverse"> <i
 		class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 	</a>
-	</div>
-
 
 	<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='../js/ace-master/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
+		if ('ontouchstart' in document.documentElement)
+			document
+					.write("<script src='../js/ace-master/assets/js/jquery.mobile.custom.min.js'>"
+							+ "<"+"/script>");
+	</script>
 	<%@ include file="footer.jsp"%>
 	<script>
-		$(function(){
-			$("a[href='cardQuery.jsp']").parent().parent().parent().addClass("active");
-			$("a[href='cardQuery.jsp']").parent().parent().parent().addClass("open");
-			$("a[href='cardQuery.jsp']").parent().addClass("active");
-		});
-		$("#form").validate();
-
-	var modalVue = new Vue({
-		el: '#edit-modal',
-		data: {
-			dat: {}
-		},
-		methods:{
-
-		}
-	});
-
-	var req = new Vue({
-		el: '#dataBind',
-		data: {
-			selectItem:{},
-			ret: [],
-			pageCount:[],
-			pageNum:"",
-			searchModel: {}
-		},
-		methods:{
-			detailItem:function(cardid){
+		$(function() {
+			$(".changeState").click(function() {
+				var currentState = $(this).attr("title");
 				$.ajax({
-					url: "<%=request.getContextPath()%>/CardQueryServlet",
-					method: "POST",
-					data: { cmd : "detail", cardid : cardid},
-					dataType: "html",
-					success: function(msg){
-						modalVue.dat = JSON.parse(msg).dat;
-						$('#edit-modal').modal('show');
+					type : "POST",
+					url : "changeAccountState.action",
+					data : {
+						"accountId" : $(this).attr("value"),
+						"state" : $(this).attr("title")
 					},
-					error: function(){
-						alert("获取失败");
-					}
-				});
-			},
-			addClick:function(){
-				$('#my-modal').modal('show');
-			},
-			pageItem:function(index){
-				 $.ajax({
-						url: "<%=request.getContextPath()%>/CardQueryServlet",
-						method: "POST",
-						data: {page:index,searchItem:JSON.stringify(req.searchModel),selectItem:req.selectItem},
-						dataType: "html",
-						success: function(msg){
-							/* pageData = JSON.parse(msg); */
-							req.ret = JSON.parse(msg).req;
-							req.pageCount = JSON.parse(msg).pageCount;
-							req.pageNum = JSON.parse(msg).pageNum;
-							req.searchModel = JSON.parse(msg).searchItem;
-						},
-						error: function(){
-							alert("获取失败");
+
+					success : function(result) {
+						if (result == 1) {
+							if (currentState == 1) {
+								alert("即将禁用");
+								alert($(this));
+								$(this).text("禁用");
+							} else {
+								alert("即将启用");
+								//$(this).innerText("启用");
+							}
+						} else {
+							alert("修改状态失败，请重新设置");
 						}
-				 });
-			},
-			selectBtn:function(){
 
-				if (req.searchModel.S_beginDate != "") {
-					if(req.searchModel.S_endDate == ""){
-						alert("请填写结束时间");
-						return;
 					}
-				}
-				if (req.searchModel.S_beginDate != "") {
-					if(req.searchModel.S_endDate == ""){
-						alert("请填写开始时间");
-						return;
-					}
-				}
-				req.selectItem = true;
-				req.pageItem(1);
-			}
-		}
-	});
 
-	var request = $.ajax({
-		url: "<%=request.getContextPath()%>
-		/CardQueryServlet",
-			method : "POST",
-			data : {
-				page : 1,
-				searchItem : JSON.stringify(req.searchModel),
-				selectItem : false
-			},
-			dataType : "html",
-			success : function(msg) {
-				/* pageData = JSON.parse(msg); */
-				req.ret = JSON.parse(msg).req;
-				req.pageCount = JSON.parse(msg).pageCount;
-				req.pageNum = JSON.parse(msg).pageNum;
-				req.searchModel = JSON.parse(msg).searchItem;
-				req.selectItem = false;
-			},
-			error : function() {
-				alert("获取失败");
-			}
-		})
+				});
+			});
+		});
 	</script>
 </body>
 </html>
