@@ -11,7 +11,8 @@ import com.health.entity.Account;
 public interface RegisterBiz {
 		//注册
 		public int addAccount(Account account);
-		//查找
+		//查找bynames
 		public List<Account> findAccountByName(String name);
-		
+		//查找by account
+		public List<Account> findAccountByAccount(String account);
 }

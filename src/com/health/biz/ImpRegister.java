@@ -22,13 +22,14 @@ public class ImpRegister implements RegisterBiz {
 	@Resource
 	private AccountExample accountExample;	
 	
+	//注册企业数据
 	@Override
 	public int addAccount(Account account) {
 	
 		return accountMapper.insert(account);
 	}
 
-
+	//通过企业名称查找企业对象
 	@Override
 	public List<Account> findAccountByName(String name) {
 		
@@ -38,7 +39,16 @@ public class ImpRegister implements RegisterBiz {
 		return list;
 	}
 
+	//通过企业账号查找企业对象
+	@Override
+	public List<Account> findAccountByAccount(String account) {
+		Criteria criteria= accountExample.createCriteria();
+		criteria.andAccountEqualTo(account);
+		List<Account> list=accountMapper.selectByExample(accountExample);
+		return list;
+	}
 
+	
 		
 	
 	
