@@ -218,24 +218,24 @@ String basePath=request.getScheme()+"://"
 			console.log("----注册公司全称----"+company_name);
 			//走AJAX
 			$.ajax({
-				url:"/register/addAccount.action",
+				url:"../register/checkAccount.action",
 				type:"POST",
 				data:{
 					"companyName":company_name
 				},
 				success:function(msg){
+					if(msg!=null||msg!=""){
+						
 					alert(msg);
 					console.log("收到的结果"+data);
-					
-					
-					
+					}	
 				}
 			});
 			}
 			
 			});
 			//账号失去焦点
-			$("#company_account").blur(function () {
+			/* $("#company_account").blur(function () {
 				var company_account=$(this).val();
 				if(company_account!=null||company_account!=""){
 				console.log("----注册公司账号----"+company_account);
@@ -258,7 +258,7 @@ String basePath=request.getScheme()+"://"
 				});
 				}
 				
-				});
+				}); */
 			
 			
 			

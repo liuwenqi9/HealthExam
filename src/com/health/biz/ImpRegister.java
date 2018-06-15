@@ -11,9 +11,9 @@ import com.health.entity.AccountExample;
 import com.health.entity.AccountExample.Criteria;
 import com.health.mapper.AccountMapper;
 /**
- * 
+ *  注册biz实现类
  * @author JSY
- *
+ * @date 20180615
  */
 @Service
 public class ImpRegister implements RegisterBiz {

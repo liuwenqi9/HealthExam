@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.health.biz.RegisterBiz;
@@ -17,7 +18,7 @@ import com.health.entity.Account;
 /**
  * 
  * @author JSY
- *
+ * @date 20180615
  */
 @Controller
 @RequestMapping("/register")
@@ -30,7 +31,7 @@ public class RegisterController {
 	 * 跳转至注册界面
 	 * 
 	 */
-	@RequestMapping("resigster.action")
+	@RequestMapping(value ="/register.action")
 	public ModelAndView resigsterView() {
 		System.out.println("启动注册");
 		ModelAndView mav = new ModelAndView("jsp/commonJsp/companyregister");
@@ -41,10 +42,10 @@ public class RegisterController {
 	 * @param req
 	 * @param res
 	 */
-	@RequestMapping("addAccount.action")
-	public void addAccount(HttpServletRequest req,HttpServletResponse res) {
+	@RequestMapping(value = "/checkAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+	public void addAccount(HttpServletRequest req,HttpServletResponse res,String companyName) {
+		System.out.println("执行了公司名称查找");
 	//获取前端界面数据
-	String companyName=	req.getParameter("companyName");
 	System.out.println("查询的公司名称：--"+companyName);
 		if(companyName!=null) {//不为空时,查询数据库
 			
@@ -54,6 +55,7 @@ public class RegisterController {
 			}else {
 				sendMesg="该公司可以注册！";
 			}
+			System.out.println("反馈的消息:"+sendMesg);
 			feedBackData(res,sendMesg);	
 		}
 	
