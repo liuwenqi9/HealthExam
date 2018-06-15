@@ -4,6 +4,7 @@ import com.health.entity.Account;
 import com.health.entity.AccountExample;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Repository;
 public interface AccountMapper {
 
 	ArrayList<Account> queryAccountList(); // 查询所有的账户的方法
+	
+	int changeAccountState(HashMap<String, String> dataMap);  //修改账户状态的方法
 
 	int countByExample(AccountExample example);
 
