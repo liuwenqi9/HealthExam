@@ -29,6 +29,7 @@ public class ControlInvoke {
 		return mav;
 	}
 	
+
 	/*
 	 * 主界面点击系统设置->“团检单位设置”选项的时候请求的页面
 	 * @author罗杭春，6月14 日
@@ -41,5 +42,6 @@ public class ControlInvoke {
 		mav.addObject("acList", acList);
 		return mav;
 	}
+
 
 }

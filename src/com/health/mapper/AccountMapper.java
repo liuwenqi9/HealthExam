@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountMapper {
 
+ 
+
 	ArrayList<Account> queryAccountList(); // 查询所有的账户的方法
 
 	int countByExample(AccountExample example);
