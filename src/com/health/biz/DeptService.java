@@ -14,7 +14,7 @@ import com.health.entity.DeptExample;
 import com.health.mapper.DeptMapper;
 
 @Service
-@Transactional(isolation=Isolation.REPEATABLE_READ, propagation=Propagation.REQUIRED, readOnly=false)
+@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=false)
 public class DeptService {
 
 	@Resource
@@ -23,7 +23,7 @@ public class DeptService {
 	private DeptExample deptExample;
 	
 	//查询科室
-	@Transactional(isolation=Isolation.REPEATABLE_READ, propagation=Propagation.REQUIRED, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=true)
 	public List<Dept> checkDepts(){
 		
 		List<Dept> list = deptMapper.selectByExample(deptExample);
@@ -35,5 +35,13 @@ public class DeptService {
 	public int addDept(Dept record) {
 		int flag = deptMapper.insertSelective(record);
 		return flag;	
+	}
+	
+	//更改科室
+	public int updateDelt(Dept record) {
+		
+		int flag = deptMapper.updateByPrimaryKeySelective(record);
+		return flag;
+		
 	}
 }

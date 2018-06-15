@@ -1,5 +1,6 @@
-<%@page contentType="text/html"%>
+<%@page contentType="text/html; charset=UTF-8"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,10 +32,10 @@
 		<%--这里添加代码  --%>
 		<div class="page-content" id="dataBind">
 				<div class="page-header">	
-								<a href="" class="btn btn-sm btn-purple">
-								<i class="ace-icon fa fa-undo bigger-110"></i>刷新</a> 
-								<a data-toggle="modal" href="#drug-stop" class="btn btn-sm btn-success" onclick="$('#add-modal').modal('show');">
-								<i class="glyphicon glyphicon-plus bigger-110"></i>添加科室</a>									
+					<a href="" class="btn btn-sm btn-purple">
+					<i class="ace-icon fa fa-undo bigger-110"></i>刷新</a> 
+					<a data-toggle="modal" href="#drug-stop" class="btn btn-sm btn-success" onclick="$('#add-modal').modal('show');">
+					<i class="glyphicon glyphicon-plus bigger-110"></i>添加科室</a>									
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
@@ -49,18 +50,39 @@
 													<label class="pos-rel"> 
 														<input type="checkbox" class="ace" /> 
 														<span class="lbl"></span>
+														<button class="btn btn-xs btn-danger">
+															<i class="ace-icon fa fa-trash-o bigger-120"></i>
+														</button>
 													</label>
 												</th>
 												<th class="hidden">ID</th>
 												<th>科室名称</th>
-												<th>科室人员</th>
 												<th>操作</th>
 											</tr>
 										</thead>
 										
 										<!-- 表格体 -->
 										<tbody>
-										
+											<c:forEach items="${list}" var="list">
+												<tr>
+													<th class="center">
+														<label class="pos-rel"> 
+															<input type="checkbox" class="ace" /> 
+															<span class="lbl"></span>
+														</label>
+													</th>
+													<th class="hidden" title="${list.getDeptid()}">ID</th>
+													<th>${list.getDeptname()}</th>
+													<th>
+														<button class="btn btn-xs btn-danger delBtn">
+															<i class="ace-icon fa fa-trash-o bigger-120"></i>
+														</button>		
+														<button class="btn btn-xs btn-info changeBtn">
+															<i class="ace-icon fa fa-pencil bigger-120"></i>
+														</button>
+													</th>
+												</tr>				
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -74,31 +96,59 @@
 		<!-- /.page-content -->
 		
 		 <div id="add-modal" class="modal fade in" tabindex="-1" style="display: none;">
-		 	<form id="add-form" role="form" action="<%=request.getContextPath()%>/addDeptMg.action" method="post">
+		 	<form id="add-form" role="form" >
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h3 class="smaller lighter blue no-margin">查询卡</h3>
+							<h3 class="smaller lighter blue no-margin">添加科室</h3>
 						</div>
 
 						<div class="modal-body" style="height: 300px"> 
 							<div class="row">
 								<div class="col-xs-12">
 									<span class="col-xs-4">科室名称:</span>
-									<input type="text" name="deptname"/> 
+									<input type="text" name="deptname" id="deptname"/> 
 								</div>
 							</div>
 							<div class="hr hr-14 hr-dotted"></div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-dismiss="modal">提交</button>
+							<button type="button" class="btn btn-primary" id="insertDept">提交</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</form>
 		</div>
+		
+		<div id="change-modal" class="modal fade in" tabindex="-1" style="display: none;">
+		 	<form id="change-form" role="form" action="<%=request.getContextPath()%>/changeDepMg.action" method="post">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="smaller lighter blue no-margin">更改科室名称</h3>
+						</div>
+
+						<div class="modal-body" style="height: 300px"> 
+							<div class="row">
+								<div class="col-xs-12">
+									<span class="col-xs-4">科室名称:</span>
+									<input type="text" name="deptname" id="changeName"/> 
+								</div>
+							</div>
+							<div class="hr hr-14 hr-dotted"></div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="changeDept">提交</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</form>
+		</div>
+		
 	</div>
+
 	<!-- /.main-content -->
 
 	<div class="footer">
@@ -117,5 +167,6 @@
 	</a>
 
 	<%@include file="footer.jsp"%>
+	<script src="<%=request.getContextPath() %>/js/dept.js"></script>
 </body>
 </html>
