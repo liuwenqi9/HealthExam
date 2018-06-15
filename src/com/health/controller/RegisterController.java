@@ -40,7 +40,7 @@ public class RegisterController {
 	/**
 	 * 公司名称唯一性查找
 	 * @param req
-	 * @param res
+	 * @param res 
 	 */
 	@RequestMapping(value = "/checkAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
 	public void addAccount(HttpServletRequest req,HttpServletResponse res,String companyName) {
