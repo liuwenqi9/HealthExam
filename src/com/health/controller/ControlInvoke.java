@@ -31,7 +31,7 @@ public class ControlInvoke {
 	}
 
 	/*
-	 * 时间：2018.6.14 后台登陆界面显示
+	 * 时间：2018.6.14 后台登陆跳转
 	 */
 	@RequestMapping("loginJsp.action")
 	public ModelAndView loginJsp() {
@@ -39,7 +39,9 @@ public class ControlInvoke {
 		ModelAndView mav = new ModelAndView("jsp/loginBackend");
 		return mav;
 	}
-
+	/*
+	 * 时间：2018.6.14 后台登陆界面显示
+	 */
 	@RequestMapping("loginAdmin.action")
 	public ModelAndView loginAdmin(Worker worker) {
 		System.out.println(worker.getName()+""+worker.getPassword());
