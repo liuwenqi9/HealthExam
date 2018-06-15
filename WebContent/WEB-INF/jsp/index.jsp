@@ -37,7 +37,7 @@
 					<div class="footer-content">
 						<span class="bigger-120">
 							<span class="blue bolder">Ace</span>
-							小潘 © 2017 - 2018
+							健康体检团检 © 2017 - 2018
 						</span>
 					</div>
 				</div>

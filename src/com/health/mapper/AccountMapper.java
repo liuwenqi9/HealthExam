@@ -2,30 +2,36 @@ package com.health.mapper;
 
 import com.health.entity.Account;
 import com.health.entity.AccountExample;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
 @Repository
 public interface AccountMapper {
-    int countByExample(AccountExample example);
 
-    int deleteByExample(AccountExample example);
+	ArrayList<Account> queryAccountList(); // 查询所有的账户的方法
 
-    int deleteByPrimaryKey(Object account);
+	int countByExample(AccountExample example);
 
-    int insert(Account record);
+	int deleteByExample(AccountExample example);
 
-    int insertSelective(Account record);
+	int deleteByPrimaryKey(Object account);
 
-    List<Account> selectByExample(AccountExample example);
+	int insert(Account record);
 
-    Account selectByPrimaryKey(Object account);
+	int insertSelective(Account record);
 
-    int updateByExampleSelective(@Param("record") Account record, @Param("example") AccountExample example);
+	List<Account> selectByExample(AccountExample example);
 
-    int updateByExample(@Param("record") Account record, @Param("example") AccountExample example);
+	Account selectByPrimaryKey(Object account);
 
-    int updateByPrimaryKeySelective(Account record);
+	int updateByExampleSelective(@Param("record") Account record, @Param("example") AccountExample example);
 
-    int updateByPrimaryKey(Account record);
+	int updateByExample(@Param("record") Account record, @Param("example") AccountExample example);
+
+	int updateByPrimaryKeySelective(Account record);
+
+	int updateByPrimaryKey(Account record);
 }
