@@ -24,10 +24,8 @@ public class DeptService {
 	
 	//查询科室
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=true)
-	public List<Dept> checkDepts(){
-		
-		List<Dept> list = deptMapper.selectByExample(deptExample);
-		
+	public List<Dept> checkDepts(){		
+		List<Dept> list = deptMapper.selectByExample(deptExample);		
 		return list;
 	}
 	
@@ -38,10 +36,13 @@ public class DeptService {
 	}
 	
 	//更改科室
-	public int updateDelt(Dept record) {
-		
+	public int updateDelt(Dept record) {		
 		int flag = deptMapper.updateByPrimaryKeySelective(record);
-		return flag;
-		
+		return flag;		
+	}
+	
+	//删除科室
+	public void delDept(int deptid) {
+		deptMapper.deleteByPrimaryKey(deptid);
 	}
 }
