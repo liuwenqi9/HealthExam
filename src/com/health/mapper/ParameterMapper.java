@@ -4,7 +4,8 @@ import com.health.entity.Parameter;
 import com.health.entity.ParameterExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface ParameterMapper {
     int countByExample(ParameterExample example);
 
