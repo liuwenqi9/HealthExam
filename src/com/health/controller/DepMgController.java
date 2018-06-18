@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,13 +25,16 @@ public class DepMgController {
 	@RequestMapping(value = "/deptMg.action")
 	public String depMg(Model model) {
 		
-		//显示科室
-		List<Dept> list = deptService.checkDepts();
-		model.addAttribute("list", list);
 		return "jsp/systemMgJsp/deptMg";		
 	}
 	
-	
+	@RequestMapping(value = "/loadDept.action")
+	public @ResponseBody List<Dept> loadDept() {		
+		//显示科室
+		List<Dept> list = deptService.checkDepts();
+		return list;
+	}
+		
 	@RequestMapping(value = "/addDeptMg.action")
 	public String addDepMg(Model model, String deptname) {
 		
@@ -48,12 +50,19 @@ public class DepMgController {
 	
 	@RequestMapping(value = "/changeDepMg.action")
 	public @ResponseBody Dept changeName(Dept dept) {
-		
-		System.out.println("deptname" + dept.getDeptname());
-//		dept.setDeptname(deptname);
-//		deptService.updateDelt(dept);
-		
+		//科室更改
+		deptService.updateDelt(dept);		
 		return dept;
+	}
+	
+	@RequestMapping(value = "/deletDepMg.action")
+	public @ResponseBody List<Dept> deltDept(String deptid){
+				
+		//删除科室
+		deptService.delDept(Integer.parseInt(deptid));
+		//查找科室
+		List<Dept> list = deptService.checkDepts();
+		return list;
 	}
 	
 }

@@ -7,17 +7,21 @@
 <%@include file="header.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>科室设置</title>
+
+<!-- 面包屑 -->
+<script type="text/javascript">
+	try {
+		ace.settings.check('breadcrumbs', 'fixed')
+	} catch (e) {
+	}
+</script>
+
 </head>
 <body class="no-skin">
 	<%@include file="menu.jsp"%>
-	<div class="main-content">
+	<div class="main-content" id="dataBind">
+	
 		<div class="breadcrumbs" id="breadcrumbs">
-			<script type="text/javascript">
-				try {
-					ace.settings.check('breadcrumbs', 'fixed')
-				} catch (e) {
-				}
-			</script>
 
 			<ul class="breadcrumb">
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a
@@ -25,12 +29,11 @@
 				<li>系统管理</li>
 					<li class="active">科室设置</li>
 			</ul>
-
 			<!-- /.breadcrumb -->
 		</div>
 
 		<%--这里添加代码  --%>
-		<div class="page-content" id="dataBind">
+		<div class="page-content">
 				<div class="page-header">	
 					<a href="" class="btn btn-sm btn-purple">
 					<i class="ace-icon fa fa-undo bigger-110"></i>刷新</a> 
@@ -48,11 +51,12 @@
 											<tr>
 												<th class="center">
 													<label class="pos-rel"> 
-														<input type="checkbox" class="ace" /> 
-														<span class="lbl"></span>
-														<button class="btn btn-xs btn-danger">
+														序号
+<!-- 														<input type="checkbox" class="ace" /> 
+														<span class="lbl"></span> -->
+<!-- 														<button class="btn btn-xs btn-danger">
 															<i class="ace-icon fa fa-trash-o bigger-120"></i>
-														</button>
+														</button> -->
 													</label>
 												</th>
 												<th class="hidden">ID</th>
@@ -62,27 +66,19 @@
 										</thead>
 										
 										<!-- 表格体 -->
-										<tbody>
-											<c:forEach items="${list}" var="list">
-												<tr>
-													<th class="center">
-														<label class="pos-rel"> 
-															<input type="checkbox" class="ace" /> 
-															<span class="lbl"></span>
-														</label>
-													</th>
-													<th class="hidden" title="${list.getDeptid()}">ID</th>
-													<th>${list.getDeptname()}</th>
-													<th>
-														<button class="btn btn-xs btn-danger delBtn">
+										<tbody>	
+											<tr class="" v-for="(todo, index) in deptList">											
+												<td class="center">{{index+1}}</td>
+												<td>{{todo.deptname}}</td>
+												<td>
+													<button class="btn btn-xs btn-danger delBtn">
 															<i class="ace-icon fa fa-trash-o bigger-120"></i>
 														</button>		
-														<button class="btn btn-xs btn-info changeBtn">
+														<button class="btn btn-xs btn-info changeBtn" v-on:click="showModal">
 															<i class="ace-icon fa fa-pencil bigger-120"></i>
-														</button>
-													</th>
-												</tr>				
-											</c:forEach>
+													</button>
+												</td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -114,7 +110,7 @@
 							<div class="hr hr-14 hr-dotted"></div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="insertDept">提交</button>
+							<button type="button" class="btn btn-primary" v-on:click="addDept()">提交</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -140,7 +136,7 @@
 							<div class="hr hr-14 hr-dotted"></div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="changeDept">提交</button>
+							<button type="button" class="btn btn-primary" v-on:click="changeDept(''+todo.deptid)">提交</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
