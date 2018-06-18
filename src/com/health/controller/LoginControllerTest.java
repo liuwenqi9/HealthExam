@@ -37,16 +37,7 @@ public class LoginControllerTest {
 		ModelAndView mav = new ModelAndView("jsp/index");
 		return mav;
 	}
-	
 
-	public void queryAccount(Account account) {
-		AccountExample example = new AccountExample();
-		ArrayList<Account> acList = (ArrayList<Account>) accountMapper.selectByExample(example);
-		System.out.println(acList.size());
-		for (Account account2 : acList) {
-			account2.getName();
-		}
-	}
 	
 
 }
