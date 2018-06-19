@@ -21,10 +21,10 @@ public class ImplLoginBiz implements IntLoginBiz {
 	@Override
 	public Worker loginAdmin(Worker worker) {
 		
-		List<Worker> wokers= workerMapper.loginAdmin(worker);
+		Worker wokers= workerMapper.loginAdmin(worker);
 		
 		
-		return wokers.get(0);
+		return wokers;
 	}
 
 
