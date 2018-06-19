@@ -30,13 +30,48 @@
 		</div>
 		<!--面包线结束  -->
 		<!-- 内容开始 -->
-		<div class="page-content" id="dataBind">
+		<div class="page-content" id="">
 				<div class="page-header">	
-				<input type="text" placeholder="起始时间" class="form-control"/>		
-				<input type="text" placeholder="结束时间" class="form-control"/>										
+								<div class="pull-left">
+							
+							<a href="javascript:window.location.reload();"
+						class="btn btn-sm btn-purple"><i
+						class="ace-icon fa fa-undo bigger-110"></i>刷新</a>	
+							&nbsp;&nbsp;&nbsp;
+							</div>	
+							
+				<div class="pull-center ">
+						
+						<form class="form-inline">
+						
+							<div class="form-group">
+							<label class="control-label" for=""> 查询时间： </label>
+								<input type="date" placeholder="" class="form-control"
+									v-model="">
+							</div>
+							<div class="form-group">
+							<label class="control-label" for=""> 至 </label>
+								<input type="date" placeholder="" class="form-control"
+									v-model="">
+							</div>
+							<div class="form-group">
+							&nbsp;
+							<label class="control-label" for=""> 操作事项： </label>
+								<input type="text" placeholder="事项" class="form-control"
+									v-model="">
+							</div>
+							<div class="form-group">
+							&nbsp;
+							<label class="control-label" for=""> 操作人： </label>
+								<input type="text" placeholder="姓名" class="form-control"
+									v-model="">
+									&nbsp;
+							</div>
+							<a href="#" class="btn btn-sm btn-success" v-on:click="selectBtn"><i
+								class="glyphicon  glyphicon-search bigger-110"></i>查询</a>
+						</form>
+					</div>
 				</div>
-				
-				
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="row">
@@ -50,39 +85,18 @@
 													<label class="pos-rel"> 
 														<input type="checkbox" class="ace" /> 
 														<span class="lbl"></span>
-														<button class="btn btn-xs btn-danger">
-															<i class="ace-icon fa fa-trash-o bigger-120"></i>
-														</button>
 													</label>
 												</th>
-												<th class="hidden">ID</th>
-												<th>科室名称</th>
-												<th>操作</th>
+												<th class="hidden">序号</th>
+												<th>操作事项</th>
+												<th>操作时间</th>
+												<th>操作人</th>
 											</tr>
 										</thead>
 										
 										<!-- 表格体 -->
 										<tbody>
-											<c:forEach items="${list}" var="list">
-												<tr>
-													<th class="center">
-														<label class="pos-rel"> 
-															<input type="checkbox" class="ace" /> 
-															<span class="lbl"></span>
-														</label>
-													</th>
-													<th class="hidden" title="${list.getDeptid()}">ID</th>
-													<th>${list.getDeptname()}</th>
-													<th>
-														<button class="btn btn-xs btn-danger delBtn">
-															<i class="ace-icon fa fa-trash-o bigger-120"></i>
-														</button>		
-														<button class="btn btn-xs btn-info changeBtn">
-															<i class="ace-icon fa fa-pencil bigger-120"></i>
-														</button>
-													</th>
-												</tr>				
-											</c:forEach>
+											
 										</tbody>
 									</table>
 								</div>
@@ -116,9 +130,10 @@
 	</a>
 	<!-- 页脚结束 -->
 	<!--外联JS链接  -->
+	<%@ include file="footer.jsp"%>
 <script type="text/javascript">
 if('ontouchstart' in document.documentElement) document.write("<script src='../js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 </script>
-<%@ include file="footer.jsp"%>
+
 </body>
 </html>
