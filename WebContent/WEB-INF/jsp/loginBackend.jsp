@@ -60,27 +60,43 @@
 
 										<div class="space-6"></div>
 
-										<form action="loginAdmin.action" method="post">
+										<form action="loginAdmin.action" method="post" id="loginFrom" path=<%=path%>>
 											<fieldset>
 												<label class="block clearfix"> <span
 													class="block input-icon input-icon-right"> <input
-														id = "userName" type="text" name="name" class="form-control"
+														id="userName" type="text" name="name" class="form-control"
 														placeholder="Username" /> <i class="ace-icon fa fa-user"></i>
 												</span>
 												</label> <label class="block clearfix"> <span
 													class="block input-icon input-icon-right"> <input
-														id = "password" type="password" name="password" class="form-control"
-														placeholder="Password" /> <i class="ace-icon fa fa-lock"></i>
+														id="password" type="password" name="password"
+														class="form-control" placeholder="Password" /> <i
+														class="ace-icon fa fa-lock"></i>
 												</span>
 												</label>
-F
+
+												<!-- 													验证码:<input type="text" name="checkWorker" id="checkWorker" -->
+												<!-- 														maxlength="4" size="4"> <img -->
+												<%-- 														src="<%=path%>/imageServlet" alt="验证码" id="imageWorker" /> --%>
+												<!-- 													<a href="javascript:reloadWorker();"><label>看不清</label></a> -->
+
+												验证码：<input type="text" size="10px" name="VerificationCode"
+													placeholder="请输入验证码" id="VerificationCode" /> <span
+													style="padding: 0px;"> <a href="javascript:void(0);"
+													onclick="VerificationCode()"><img id="randCodeImage"
+														src="VerificationCode/generate.action" /></a>
+
+												</span>
+
+
+
 												<div class="space"></div>
 
 												<div class="clearfix">
 													<label class="inline"> <input type="checkbox"
 														class="ace" /> <span class="lbl"> Remember Me</span>
 													</label> -
-													<button type="submit" id="login"
+													<button type="button" id="login"
 														class="width-35 pull-right btn btn-sm btn-primary">
 														<i class="ace-icon fa fa-key"></i> <span
 															class="bigger-110">Login</span>
@@ -256,18 +272,10 @@ F
 		</div>
 		<!-- /.main-content -->
 	</div>
-	<!-- /.main-container -->
 
-	<!-- basic scripts -->
-
-	<!--[if !IE]> -->
 	<script src=<%=path + "/js/jquery-2.1.4.min.js"%>></script>
-
-	<!-- <![endif]-->
-
-	<!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
+	<script src=<%=path + "/js/jquery-1.11.3.min.js"%>></script>
+	<script src=<%=path + "/js/jquery.js"%>></script>
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement)
 			document.write("<script src='/js/jquery.mobile.custom.min.js'>"
@@ -276,64 +284,55 @@ F
 
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
-		jQuery(function($) {
-			$(document).on('click', '.toolbar a[data-target]', function(e) {
-				e.preventDefault();
-				var target = $(this).data('target');
-				$('.widget-box.visible').removeClass('visible');//hide others
-				$(target).addClass('visible');//show target
-			});
+
+		$("#login").click(function() {
+			var name = $("#userName").val();
+			var password = $("#password").val();
+			// 			var ret = /^[^\u4e00-\u9fa5]+$/;
+			if (name == null || name == "") {
+				alert("请输入帐户名")
+			} else if (password == null || password == "") {
+				alert("请输入密码")
+			}
+			// 			else if (!ret.test(password)) {
+			// 				alert("密码不能汉字");
+			// 			} 
+			else {
+// 				alert($("#userName").val());
+// 				alert($("#password").val());
+				$.ajax({
+					url : "loginAdmin.action",
+					type : "post",
+					dataType : "text",
+					data : {
+						"name" : $("#userName").val(),
+						"password" : $("#password").val()
+
+					},
+					success : function(data) {
+						if (data == "OK") {
+							alert("登陆成功");
+							var formNode = document.getElementById("loginFrom");
+							var basepath = formNode.getAttribute("path");
+
+							formNode.action = 'loginThis.action';
+							formNode.submit();
+
+						} else if (data == "FAIL") {
+
+							alert("账户或密码错误");
+
+						}
+					}
+				})
+
+			}
+
 		});
 
-		//you don't need this, just used for changing background
-		jQuery(function($) {
-			$('#btn-login-dark').on('click', function(e) {
-				$('body').attr('class', 'login-layout');
-				$('#id-text2').attr('class', 'white');
-				$('#id-company-text').attr('class', 'blue');
-
-				e.preventDefault();
-			});
-			$('#btn-login-light').on('click', function(e) {
-				$('body').attr('class', 'login-layout light-login');
-				$('#id-text2').attr('class', 'grey');
-				$('#id-company-text').attr('class', 'blue');
-
-				e.preventDefault();
-			});
-			$('#btn-login-blur').on('click', function(e) {
-				$('body').attr('class', 'login-layout blur-login');
-				$('#id-text2').attr('class', 'white');
-				$('#id-company-text').attr('class', 'light-blue');
-
-				e.preventDefault();
-			});
-
-		});
-
-// 		$("#login").click(function() {
-// 			alert($("#userName").val());
-// 			alert($("#password").val());
-// 			$.ajax({
-// 				url : "loginAdmin.action",
-// 				type : "post",
-// 				dataType : "JSON",
-// 				data : {
-// 					"name" : $("#userName").val(),
-// 					"password" : $("#password").val()
-// 				},
-// 				success : function(data) {
-// 					if (data == "OK") {
-// 						alert("登陆成功");
-// 					} else if (data == "FAIL") {
-
-// 						alert("查无此账户");
-
-// 					}
-// 				}
-// 			})
-
-// 		});
+		
+		
+		
 	</script>
 
 

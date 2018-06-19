@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkerMapper {
 	
-	public List<Worker> loginAdmin(Worker worker);  //登陆
+	public Worker loginAdmin(Worker worker);  //登陆
 	
     int countByExample(WorkerExample example);
 
