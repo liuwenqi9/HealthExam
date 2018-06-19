@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.health.mapper.DetailMapper" >
-  <resultMap id="BaseResultMap" type="com.health.entity.Detail" >
-    <id column="DETAILID" property="detailid" jdbcType="DECIMAL" />
-    <result column="NAME" property="name" jdbcType="OTHER" />
-    <result column="PARAMETERID" property="parameterid" jdbcType="DECIMAL" />
-    <result column="UPLIMIT" property="uplimit" jdbcType="DECIMAL" />
-    <result column="LOWLIMIT" property="lowlimit" jdbcType="DECIMAL" />
+<mapper namespace="com.health.mapper.OperationlogMapper" >
+  <resultMap id="BaseResultMap" type="com.health.entity.Operationlog" >
+    <id column="OPERATIONLOGID" property="operationlogid" jdbcType="DECIMAL" />
+    <result column="OPERATIONID" property="operationid" jdbcType="DECIMAL" />
+    <result column="WORKERID" property="workerid" jdbcType="DECIMAL" />
+    <result column="TIME" property="time" jdbcType="OTHER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    DETAILID, NAME, PARAMETERID, UPLIMIT, LOWLIMIT
+    OPERATIONLOGID, OPERATIONID, WORKERID, TIME
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.DetailExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.OperationlogExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from DETAIL
+    from OPERATIONLOG
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,85 +85,76 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from DETAIL
-    where DETAILID = #{detailid,jdbcType=DECIMAL}
+    from OPERATIONLOG
+    where OPERATIONLOGID = #{operationlogid,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from DETAIL
-    where DETAILID = #{detailid,jdbcType=DECIMAL}
+    delete from OPERATIONLOG
+    where OPERATIONLOGID = #{operationlogid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.health.entity.DetailExample" >
-    delete from DETAIL
+  <delete id="deleteByExample" parameterType="com.health.entity.OperationlogExample" >
+    delete from OPERATIONLOG
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.health.entity.Detail" >
-    insert into DETAIL (DETAILID, NAME, PARAMETERID, 
-      UPLIMIT, LOWLIMIT)
-    values (#{detailid,jdbcType=DECIMAL}, #{name,jdbcType=OTHER}, #{parameterid,jdbcType=DECIMAL}, 
-      #{uplimit,jdbcType=DECIMAL}, #{lowlimit,jdbcType=DECIMAL})
+  <insert id="insert" parameterType="com.health.entity.Operationlog" >
+    insert into OPERATIONLOG (OPERATIONLOGID, OPERATIONID, WORKERID, 
+      TIME)
+    values (#{operationlogid,jdbcType=DECIMAL}, #{operationid,jdbcType=DECIMAL}, #{workerid,jdbcType=DECIMAL}, 
+      #{time,jdbcType=OTHER})
   </insert>
-  <insert id="insertSelective" parameterType="com.health.entity.Detail" >
-    insert into DETAIL
+  <insert id="insertSelective" parameterType="com.health.entity.Operationlog" >
+    insert into OPERATIONLOG
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="detailid != null" >
-        DETAILID,
+      <if test="operationlogid != null" >
+        OPERATIONLOGID,
       </if>
-      <if test="name != null" >
-        NAME,
+      <if test="operationid != null" >
+        OPERATIONID,
       </if>
-      <if test="parameterid != null" >
-        PARAMETERID,
+      <if test="workerid != null" >
+        WORKERID,
       </if>
-      <if test="uplimit != null" >
-        UPLIMIT,
-      </if>
-      <if test="lowlimit != null" >
-        LOWLIMIT,
+      <if test="time != null" >
+        TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="detailid != null" >
-        #{detailid,jdbcType=DECIMAL},
+      <if test="operationlogid != null" >
+        #{operationlogid,jdbcType=DECIMAL},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=OTHER},
+      <if test="operationid != null" >
+        #{operationid,jdbcType=DECIMAL},
       </if>
-      <if test="parameterid != null" >
-        #{parameterid,jdbcType=DECIMAL},
+      <if test="workerid != null" >
+        #{workerid,jdbcType=DECIMAL},
       </if>
-      <if test="uplimit != null" >
-        #{uplimit,jdbcType=DECIMAL},
-      </if>
-      <if test="lowlimit != null" >
-        #{lowlimit,jdbcType=DECIMAL},
+      <if test="time != null" >
+        #{time,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.health.entity.DetailExample" resultType="java.lang.Integer" >
-    select count(*) from DETAIL
+  <select id="countByExample" parameterType="com.health.entity.OperationlogExample" resultType="java.lang.Integer" >
+    select count(*) from OPERATIONLOG
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update DETAIL
+    update OPERATIONLOG
     <set >
-      <if test="record.detailid != null" >
-        DETAILID = #{record.detailid,jdbcType=DECIMAL},
+      <if test="record.operationlogid != null" >
+        OPERATIONLOGID = #{record.operationlogid,jdbcType=DECIMAL},
       </if>
-      <if test="record.name != null" >
-        NAME = #{record.name,jdbcType=OTHER},
+      <if test="record.operationid != null" >
+        OPERATIONID = #{record.operationid,jdbcType=DECIMAL},
       </if>
-      <if test="record.parameterid != null" >
-        PARAMETERID = #{record.parameterid,jdbcType=DECIMAL},
+      <if test="record.workerid != null" >
+        WORKERID = #{record.workerid,jdbcType=DECIMAL},
       </if>
-      <if test="record.uplimit != null" >
-        UPLIMIT = #{record.uplimit,jdbcType=DECIMAL},
-      </if>
-      <if test="record.lowlimit != null" >
-        LOWLIMIT = #{record.lowlimit,jdbcType=DECIMAL},
+      <if test="record.time != null" >
+        TIME = #{record.time,jdbcType=OTHER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -172,40 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update DETAIL
-    set DETAILID = #{record.detailid,jdbcType=DECIMAL},
-      NAME = #{record.name,jdbcType=OTHER},
-      PARAMETERID = #{record.parameterid,jdbcType=DECIMAL},
-      UPLIMIT = #{record.uplimit,jdbcType=DECIMAL},
-      LOWLIMIT = #{record.lowlimit,jdbcType=DECIMAL}
+    update OPERATIONLOG
+    set OPERATIONLOGID = #{record.operationlogid,jdbcType=DECIMAL},
+      OPERATIONID = #{record.operationid,jdbcType=DECIMAL},
+      WORKERID = #{record.workerid,jdbcType=DECIMAL},
+      TIME = #{record.time,jdbcType=OTHER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.health.entity.Detail" >
-    update DETAIL
+  <update id="updateByPrimaryKeySelective" parameterType="com.health.entity.Operationlog" >
+    update OPERATIONLOG
     <set >
-      <if test="name != null" >
-        NAME = #{name,jdbcType=OTHER},
+      <if test="operationid != null" >
+        OPERATIONID = #{operationid,jdbcType=DECIMAL},
       </if>
-      <if test="parameterid != null" >
-        PARAMETERID = #{parameterid,jdbcType=DECIMAL},
+      <if test="workerid != null" >
+        WORKERID = #{workerid,jdbcType=DECIMAL},
       </if>
-      <if test="uplimit != null" >
-        UPLIMIT = #{uplimit,jdbcType=DECIMAL},
-      </if>
-      <if test="lowlimit != null" >
-        LOWLIMIT = #{lowlimit,jdbcType=DECIMAL},
+      <if test="time != null" >
+        TIME = #{time,jdbcType=OTHER},
       </if>
     </set>
-    where DETAILID = #{detailid,jdbcType=DECIMAL}
+    where OPERATIONLOGID = #{operationlogid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.health.entity.Detail" >
-    update DETAIL
-    set NAME = #{name,jdbcType=OTHER},
-      PARAMETERID = #{parameterid,jdbcType=DECIMAL},
-      UPLIMIT = #{uplimit,jdbcType=DECIMAL},
-      LOWLIMIT = #{lowlimit,jdbcType=DECIMAL}
-    where DETAILID = #{detailid,jdbcType=DECIMAL}
+  <update id="updateByPrimaryKey" parameterType="com.health.entity.Operationlog" >
+    update OPERATIONLOG
+    set OPERATIONID = #{operationid,jdbcType=DECIMAL},
+      WORKERID = #{workerid,jdbcType=DECIMAL},
+      TIME = #{time,jdbcType=OTHER}
+    where OPERATIONLOGID = #{operationlogid,jdbcType=DECIMAL}
   </update>
 </mapper>

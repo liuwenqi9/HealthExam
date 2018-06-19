@@ -227,63 +227,63 @@ public class DetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andParamidIsNull() {
-            addCriterion("PARAMID is null");
+        public Criteria andParameteridIsNull() {
+            addCriterion("PARAMETERID is null");
             return (Criteria) this;
         }
 
-        public Criteria andParamidIsNotNull() {
-            addCriterion("PARAMID is not null");
+        public Criteria andParameteridIsNotNull() {
+            addCriterion("PARAMETERID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andParamidEqualTo(Integer value) {
-            addCriterion("PARAMID =", value, "paramid");
+        public Criteria andParameteridEqualTo(Integer value) {
+            addCriterion("PARAMETERID =", value, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidNotEqualTo(Integer value) {
-            addCriterion("PARAMID <>", value, "paramid");
+        public Criteria andParameteridNotEqualTo(Integer value) {
+            addCriterion("PARAMETERID <>", value, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidGreaterThan(Integer value) {
-            addCriterion("PARAMID >", value, "paramid");
+        public Criteria andParameteridGreaterThan(Integer value) {
+            addCriterion("PARAMETERID >", value, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("PARAMID >=", value, "paramid");
+        public Criteria andParameteridGreaterThanOrEqualTo(Integer value) {
+            addCriterion("PARAMETERID >=", value, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidLessThan(Integer value) {
-            addCriterion("PARAMID <", value, "paramid");
+        public Criteria andParameteridLessThan(Integer value) {
+            addCriterion("PARAMETERID <", value, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidLessThanOrEqualTo(Integer value) {
-            addCriterion("PARAMID <=", value, "paramid");
+        public Criteria andParameteridLessThanOrEqualTo(Integer value) {
+            addCriterion("PARAMETERID <=", value, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidIn(List<Integer> values) {
-            addCriterion("PARAMID in", values, "paramid");
+        public Criteria andParameteridIn(List<Integer> values) {
+            addCriterion("PARAMETERID in", values, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidNotIn(List<Integer> values) {
-            addCriterion("PARAMID not in", values, "paramid");
+        public Criteria andParameteridNotIn(List<Integer> values) {
+            addCriterion("PARAMETERID not in", values, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidBetween(Integer value1, Integer value2) {
-            addCriterion("PARAMID between", value1, value2, "paramid");
+        public Criteria andParameteridBetween(Integer value1, Integer value2) {
+            addCriterion("PARAMETERID between", value1, value2, "parameterid");
             return (Criteria) this;
         }
 
-        public Criteria andParamidNotBetween(Integer value1, Integer value2) {
-            addCriterion("PARAMID not between", value1, value2, "paramid");
+        public Criteria andParameteridNotBetween(Integer value1, Integer value2) {
+            addCriterion("PARAMETERID not between", value1, value2, "parameterid");
             return (Criteria) this;
         }
 

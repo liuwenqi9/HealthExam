@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface PackitemMapper {
+	
+	String[] getItemIdsByPackageId(String packageId); //根据套餐id获取所有的项目ID
+	
     int countByExample(PackitemExample example);
 
     int deleteByExample(PackitemExample example);
