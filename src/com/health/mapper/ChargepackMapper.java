@@ -4,7 +4,8 @@ import com.health.entity.Chargepack;
 import com.health.entity.ChargepackExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface ChargepackMapper {
     int countByExample(ChargepackExample example);
 

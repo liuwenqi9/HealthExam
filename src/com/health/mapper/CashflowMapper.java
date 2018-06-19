@@ -4,7 +4,8 @@ import com.health.entity.Cashflow;
 import com.health.entity.CashflowExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface CashflowMapper {
     int countByExample(CashflowExample example);
 
