@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LogController {
 	
 	/**
-	 * 跳转至日志查看界面
+	 * 跳转至日志查看界面 
 	 */
 	@RequestMapping("queryLog.action")
 	public ModelAndView checkLogView() {
