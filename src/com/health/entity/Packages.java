@@ -1,7 +1,8 @@
 package com.health.entity;
 
-import org.springframework.stereotype.Component;
+import java.math.BigDecimal;
 
+import org.springframework.stereotype.Component;
 @Component
 public class Packages {
     private Integer packageid;
@@ -9,6 +10,8 @@ public class Packages {
     private Object packdetail;
 
     private Object packname;
+
+    private BigDecimal price;
 
     public Integer getPackageid() {
         return packageid;
@@ -32,5 +35,13 @@ public class Packages {
 
     public void setPackname(Object packname) {
         this.packname = packname;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

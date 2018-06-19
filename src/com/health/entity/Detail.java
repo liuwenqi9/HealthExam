@@ -9,7 +9,7 @@ public class Detail {
 
     private Object name;
 
-    private Integer paramid;
+    private Integer parameterid;
 
     private BigDecimal uplimit;
 
@@ -31,12 +31,12 @@ public class Detail {
         this.name = name;
     }
 
-    public Integer getParamid() {
-        return paramid;
+    public Integer getParameterid() {
+        return parameterid;
     }
 
-    public void setParamid(Integer paramid) {
-        this.paramid = paramid;
+    public void setParameterid(Integer parameterid) {
+        this.parameterid = parameterid;
     }
 
     public BigDecimal getUplimit() {

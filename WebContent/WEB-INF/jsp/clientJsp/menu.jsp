@@ -107,7 +107,7 @@
 
 			<ul class="submenu">
 
-				<li class=""><a href="teamOpen.action"> <i
+				<li class=""><a href="getTeamOpenJsp.action"> <i
 						class="menu-icon fa fa-caret-right"></i> 团检开单
 				</a> <b class="arrow"></b></li>
 
