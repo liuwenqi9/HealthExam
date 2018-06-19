@@ -6,7 +6,32 @@
 
 $(function () {
 	
-	$("#companyaccept").prop("checked")==false;
+	/*$("#companyaccept").prop("checked")==false;*/
+	
+	 $('#btn-login-dark').on('click', function(e) {
+			$('body').attr('class', 'login-layout');
+			$('#id-text2').attr('class', 'white');
+			$('#id-company-text').attr('class', 'blue');
+			
+			e.preventDefault();
+		 });
+		 $('#btn-login-light').on('click', function(e) {
+			$('body').attr('class', 'login-layout light-login');
+			$('#id-text2').attr('class', 'grey');
+			$('#id-company-text').attr('class', 'blue');
+			
+			e.preventDefault();
+		 });
+		 $('#btn-login-blur').on('click', function(e) {
+			$('body').attr('class', 'login-layout blur-login');
+			$('#id-text2').attr('class', 'white');
+			$('#id-company-text').attr('class', 'light-blue');
+			
+			e.preventDefault();
+		 });
+	
+	
+	
 			//公司名称失去焦点
 		 $("#company_name").blur(function () {
 			 var textFormat = /^[^ ]+$/;//不能带空格符
@@ -130,6 +155,9 @@ function checkAccount(company_account) {
 		}
 	});
 };	
+
+
+
 //注册账号
 function addAccount(name,account,pwd,address) {
 	//走AJAX
@@ -156,13 +184,13 @@ function addAccount(name,account,pwd,address) {
 	//点击注册条款
 	$("#readterms_a").click(function () {
 		console.log("--点击了注册条款--");
-		$("#read_modal").modal('show');
+		$("#read-modal").modal('show');
 
 	});
 	//点击接收条款，关闭模态框，接受复选框勾选
 	$("#accept_btn").click(function () {
+		console.log("--点击了同意注册条款--");
 		$("#read-modal").modal('hide');
-		$("#companyaccept").prop("checked")==true;
 		
 	});
 		

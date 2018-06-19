@@ -25,6 +25,7 @@ import com.health.entity.Account;
 public class RegisterController {
 	@Resource
 	private RegisterBiz impRegister;
+	
 	private  String sendMesg =null;
 	
 	/**

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+0<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 String path=request.getContextPath();
@@ -30,17 +30,8 @@ String basePath=request.getScheme()+"://"
 			<link rel="stylesheet" href="assets/css/ace-part2.min.css" />
 		<![endif]-->
 		<link rel="stylesheet" href=<%=path+"/css/ace-rtl.min.css" %> />
-
-		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
-
-		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-		<!--[if lte IE 8]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
+		<link  rel="stylesheet" href=<%=path+"/csscommon/companyregister.css" %> /> 	
+		
 
 </head>
 <body class="login-layout">
@@ -80,7 +71,7 @@ String basePath=request.getScheme()+"://"
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text"  id="company_name" class="form-control" placeholder="公司全称" />
+															<input type="text"  id="company_name" class="form-control" placeholder="公司全称" autocomplete="off" />
 															<i class="ace-icon glyphicon glyphicon-home"></i>
 														</span>
 															<span class="block input-icon input-icon-right" id="span_name">
@@ -120,12 +111,9 @@ String basePath=request.getScheme()+"://"
 													<!--地址选择  -->
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<select class="form-control" id="company_address">
-															<option value="">选择企业地址</option> 
-															<option value="FZ">福州</option>
-															<option value="XM">厦门</option>
-														</select>
-									
+															<input class="form-control" name="" id="city" type="text" placeholder="点击请选择地址" autocomplete="off" readonly="true"/>
+														
+															<i class="ace-icon fa fa-angle-down"></i>
 														<!-- 	<i class="ace-icon fa fa-globe"></i> -->
 														</span>
 														<span class="block input-icon input-icon-right" id="span_addre">
@@ -134,7 +122,7 @@ String basePath=request.getScheme()+"://"
 													</label>
 													
 													<label class="block">
-														<input type="checkbox" id="companyaccept" class="ace" />
+														<input type="checkbox" id="companyaccept" class="ace" autocomplete="off" />
 														<span class="lbl">
 															我接受
 															<a href="#" id="readterms_a" data-toggle="modal">注册条款</a>
@@ -191,7 +179,7 @@ String basePath=request.getScheme()+"://"
 			</div><!-- /.main-content -->
 		</div><!-- /.main-container -->
 		<!-- 阅读注册条款modal -->
-		 <div id="read_modal" class="modal fade in" tabindex="-1" style="display: none;">
+		 <div id="read-modal" class="modal fade in" tabindex="-1" style="display: none;">
 		 	<form id="read-form" role="form" >
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -209,7 +197,7 @@ String basePath=request.getScheme()+"://"
 							<div class="hr hr-14 hr-dotted"></div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="accept_btn">接收条款</button>
+							<button type="button" class="btn btn-primary" id="accept_btn">确定</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -221,16 +209,14 @@ String basePath=request.getScheme()+"://"
 
 
 
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
-		<script src=<%=path+"/js/jquery-2.1.4.min.js" %>></script>
+		<%@include file="footer.jsp" %>
 		<script type="text/javascript"  src=<%=path+"/jscommon/companyregister.js" %>></script>
-		<!-- <![endif]-->
+		
+			<script type="text/javascript" src=<%=path+"/js/Popt.js" %>></script>
+			<script type="text/javascript" src=<%=path+"/js/city.json.js" %>></script>
+			<script type="text/javascript" src=<%=path+"/js/citySet.js" %>></script>
 
-		<!--[if IE]>
-		<script src="assets/js/jquery-1.11.3.min.js"></script>
-		<![endif]-->
+
 		<script type="text/javascript">
 		if('ontouchstart' in document.documentElement) document.write("<script src='../js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		
@@ -260,6 +246,12 @@ String basePath=request.getScheme()+"://"
 		 
 		});
 		
+		$("#city").click(function (e) {
+			SelCity(this,e);
+		});
+		$("s").click(function (e) {
+			SelCity(document.getElementById("city"),e);
+		});
 		
 		
 		
