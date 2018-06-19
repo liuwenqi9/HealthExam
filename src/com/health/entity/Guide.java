@@ -12,6 +12,8 @@ public class Guide {
 
     private Integer personinfoid;
 
+    private Object allsummary;
+
     public Integer getGuideid() {
         return guideid;
     }
@@ -42,5 +44,13 @@ public class Guide {
 
     public void setPersoninfoid(Integer personinfoid) {
         this.personinfoid = personinfoid;
+    }
+
+    public Object getAllsummary() {
+        return allsummary;
+    }
+
+    public void setAllsummary(Object allsummary) {
+        this.allsummary = allsummary;
     }
 }

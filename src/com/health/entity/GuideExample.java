@@ -345,6 +345,66 @@ public class GuideExample {
             addCriterion("PERSONINFOID not between", value1, value2, "personinfoid");
             return (Criteria) this;
         }
+
+        public Criteria andAllsummaryIsNull() {
+            addCriterion("ALLSUMMARY is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryIsNotNull() {
+            addCriterion("ALLSUMMARY is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryEqualTo(Object value) {
+            addCriterion("ALLSUMMARY =", value, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryNotEqualTo(Object value) {
+            addCriterion("ALLSUMMARY <>", value, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryGreaterThan(Object value) {
+            addCriterion("ALLSUMMARY >", value, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryGreaterThanOrEqualTo(Object value) {
+            addCriterion("ALLSUMMARY >=", value, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryLessThan(Object value) {
+            addCriterion("ALLSUMMARY <", value, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryLessThanOrEqualTo(Object value) {
+            addCriterion("ALLSUMMARY <=", value, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryIn(List<Object> values) {
+            addCriterion("ALLSUMMARY in", values, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryNotIn(List<Object> values) {
+            addCriterion("ALLSUMMARY not in", values, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryBetween(Object value1, Object value2) {
+            addCriterion("ALLSUMMARY between", value1, value2, "allsummary");
+            return (Criteria) this;
+        }
+
+        public Criteria andAllsummaryNotBetween(Object value1, Object value2) {
+            addCriterion("ALLSUMMARY not between", value1, value2, "allsummary");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -6,6 +6,7 @@
     <result column="STATE" property="state" jdbcType="DECIMAL" />
     <result column="TIME" property="time" jdbcType="OTHER" />
     <result column="PERSONINFOID" property="personinfoid" jdbcType="DECIMAL" />
+    <result column="ALLSUMMARY" property="allsummary" jdbcType="OTHER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    GUIDEID, STATE, TIME, PERSONINFOID
+    GUIDEID, STATE, TIME, PERSONINFOID, ALLSUMMARY
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.GuideExample" >
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.health.entity.Guide" >
     insert into GUIDE (GUIDEID, STATE, TIME, 
-      PERSONINFOID)
+      PERSONINFOID, ALLSUMMARY)
     values (#{guideid,jdbcType=DECIMAL}, #{state,jdbcType=DECIMAL}, #{time,jdbcType=OTHER}, 
-      #{personinfoid,jdbcType=DECIMAL})
+      #{personinfoid,jdbcType=DECIMAL}, #{allsummary,jdbcType=OTHER})
   </insert>
   <insert id="insertSelective" parameterType="com.health.entity.Guide" >
     insert into GUIDE
@@ -119,6 +120,9 @@
       <if test="personinfoid != null" >
         PERSONINFOID,
       </if>
+      <if test="allsummary != null" >
+        ALLSUMMARY,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="guideid != null" >
@@ -132,6 +136,9 @@
       </if>
       <if test="personinfoid != null" >
         #{personinfoid,jdbcType=DECIMAL},
+      </if>
+      <if test="allsummary != null" >
+        #{allsummary,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.personinfoid != null" >
         PERSONINFOID = #{record.personinfoid,jdbcType=DECIMAL},
       </if>
+      <if test="record.allsummary != null" >
+        ALLSUMMARY = #{record.allsummary,jdbcType=OTHER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set GUIDEID = #{record.guideid,jdbcType=DECIMAL},
       STATE = #{record.state,jdbcType=DECIMAL},
       TIME = #{record.time,jdbcType=OTHER},
-      PERSONINFOID = #{record.personinfoid,jdbcType=DECIMAL}
+      PERSONINFOID = #{record.personinfoid,jdbcType=DECIMAL},
+      ALLSUMMARY = #{record.allsummary,jdbcType=OTHER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="personinfoid != null" >
         PERSONINFOID = #{personinfoid,jdbcType=DECIMAL},
       </if>
+      <if test="allsummary != null" >
+        ALLSUMMARY = #{allsummary,jdbcType=OTHER},
+      </if>
     </set>
     where GUIDEID = #{guideid,jdbcType=DECIMAL}
   </update>
@@ -190,7 +204,8 @@
     update GUIDE
     set STATE = #{state,jdbcType=DECIMAL},
       TIME = #{time,jdbcType=OTHER},
-      PERSONINFOID = #{personinfoid,jdbcType=DECIMAL}
+      PERSONINFOID = #{personinfoid,jdbcType=DECIMAL},
+      ALLSUMMARY = #{allsummary,jdbcType=OTHER}
     where GUIDEID = #{guideid,jdbcType=DECIMAL}
   </update>
 </mapper>

@@ -107,62 +107,62 @@ public class CashflowExample {
         }
 
         public Criteria andCashflowidIsNull() {
-            addCriterion("CashFLOWID is null");
+            addCriterion("CASHFLOWID is null");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidIsNotNull() {
-            addCriterion("CashFLOWID is not null");
+            addCriterion("CASHFLOWID is not null");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidEqualTo(Integer value) {
-            addCriterion("CashFLOWID =", value, "cashflowid");
+            addCriterion("CASHFLOWID =", value, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidNotEqualTo(Integer value) {
-            addCriterion("CashFLOWID <>", value, "cashflowid");
+            addCriterion("CASHFLOWID <>", value, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidGreaterThan(Integer value) {
-            addCriterion("CashFLOWID >", value, "cashflowid");
+            addCriterion("CASHFLOWID >", value, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("CashFLOWID >=", value, "cashflowid");
+            addCriterion("CASHFLOWID >=", value, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidLessThan(Integer value) {
-            addCriterion("CashFLOWID <", value, "cashflowid");
+            addCriterion("CASHFLOWID <", value, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidLessThanOrEqualTo(Integer value) {
-            addCriterion("CashFLOWID <=", value, "cashflowid");
+            addCriterion("CASHFLOWID <=", value, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidIn(List<Integer> values) {
-            addCriterion("CashFLOWID in", values, "cashflowid");
+            addCriterion("CASHFLOWID in", values, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidNotIn(List<Integer> values) {
-            addCriterion("CashFLOWID not in", values, "cashflowid");
+            addCriterion("CASHFLOWID not in", values, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidBetween(Integer value1, Integer value2) {
-            addCriterion("CashFLOWID between", value1, value2, "cashflowid");
+            addCriterion("CASHFLOWID between", value1, value2, "cashflowid");
             return (Criteria) this;
         }
 
         public Criteria andCashflowidNotBetween(Integer value1, Integer value2) {
-            addCriterion("CashFLOWID not between", value1, value2, "cashflowid");
+            addCriterion("CASHFLOWID not between", value1, value2, "cashflowid");
             return (Criteria) this;
         }
 

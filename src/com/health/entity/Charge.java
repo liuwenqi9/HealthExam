@@ -10,6 +10,8 @@ public class Charge {
 
     private Long amount;
 
+    private Object pretime;
+
     private Object time;
 
     private Short state;
@@ -36,6 +38,14 @@ public class Charge {
 
     public void setAmount(Long amount) {
         this.amount = amount;
+    }
+
+    public Object getPretime() {
+        return pretime;
+    }
+
+    public void setPretime(Object pretime) {
+        this.pretime = pretime;
     }
 
     public Object getTime() {

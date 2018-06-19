@@ -3,6 +3,7 @@ package com.health.biz;
 import java.util.List;
 
 import com.health.entity.Account;
+import com.health.entity.Location;
 /**
  *  注册biz接口
  * @author JSY
@@ -15,4 +16,5 @@ public interface RegisterBiz {
 		public List<Account> findAccountByName(String name);
 		//查找by account
 		public List<Account> findAccountByAccount(String account);
+		
 }

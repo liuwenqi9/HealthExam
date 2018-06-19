@@ -286,6 +286,66 @@ public class ChargeExample {
             return (Criteria) this;
         }
 
+        public Criteria andPretimeIsNull() {
+            addCriterion("PRETIME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeIsNotNull() {
+            addCriterion("PRETIME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeEqualTo(Object value) {
+            addCriterion("PRETIME =", value, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeNotEqualTo(Object value) {
+            addCriterion("PRETIME <>", value, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeGreaterThan(Object value) {
+            addCriterion("PRETIME >", value, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeGreaterThanOrEqualTo(Object value) {
+            addCriterion("PRETIME >=", value, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeLessThan(Object value) {
+            addCriterion("PRETIME <", value, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeLessThanOrEqualTo(Object value) {
+            addCriterion("PRETIME <=", value, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeIn(List<Object> values) {
+            addCriterion("PRETIME in", values, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeNotIn(List<Object> values) {
+            addCriterion("PRETIME not in", values, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeBetween(Object value1, Object value2) {
+            addCriterion("PRETIME between", value1, value2, "pretime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPretimeNotBetween(Object value1, Object value2) {
+            addCriterion("PRETIME not between", value1, value2, "pretime");
+            return (Criteria) this;
+        }
+
         public Criteria andTimeIsNull() {
             addCriterion("TIME is null");
             return (Criteria) this;
