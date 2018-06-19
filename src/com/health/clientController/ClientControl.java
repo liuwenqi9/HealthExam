@@ -49,7 +49,6 @@ public class ClientControl {
 
 	/**
 	 * 企业用户对自己员工添加体检套餐
-	 * 
 	 * @return 返回一个模型和视图的对象，转发到相应页面
 	 */
 	@RequestMapping("makeCharge.action")
