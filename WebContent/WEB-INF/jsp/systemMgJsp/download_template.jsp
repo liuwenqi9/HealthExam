@@ -54,7 +54,7 @@ String basePath=request.getScheme()+"://"
 				</div>
 						<!--表格头部-->
 					<div class="table-header">
-						下载企业团建人员登记模板格式如下：请填写完整数据,确保准确性！
+						下载企业团建人员登记模板格式如下：请填写完整数据,确保准确性!!
 					</div>
 
 						<!-- div.table-responsive -->
