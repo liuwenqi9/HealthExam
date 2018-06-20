@@ -10,11 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.health.biz.DeptService;
 import com.health.entity.Dept;
+import com.health.util.PageUtil;
 
 import org.springframework.ui.Model;
 
@@ -27,8 +27,8 @@ public class DepMgController {
 	@Resource
 	private Dept dept;
 	
-	private int dataNum = 1; //每页显示数据
-	private Map<String, Object> deptMsg = new HashMap<String, Object>();
+	private int dataNum = 10; //每页显示数据
+	private Map<String, Object> deptMsg = new HashMap<String, Object>(); //ajax数据回传
 	
 	@RequestMapping(value = "/deptMg.action")
 	public String depMg() {
@@ -40,25 +40,14 @@ public class DepMgController {
 	public @ResponseBody Map<String, Object> loadDept() {		
 		//显示科室
 		PageHelper.startPage(1, dataNum);
-		List<Dept> list = deptService.checkDepts();		
-		PageInfo pageInfo = new PageInfo<>(list);
+		List<Dept> list = deptService.checkDepts();	
 		
+		//分页
+		List<Object> pageContanier = PageUtil.displayPage(list, 1);		
 		deptMsg.clear();
 		//数据
-		deptMsg = new HashMap<String, Object>();
 		deptMsg.put("depModel", list);
-		deptMsg.put("pageInfo", pageInfo);	
-		
-	    long totalCount = pageInfo.getTotal();  
-	    System.out.println("总记录数："+totalCount);  
-	    int pages = pageInfo.getPages();  
-	    System.out.println("总页数："+pages);  
-	    int pageSize = pageInfo.getPageSize();  
-	    System.out.println("每页展示数："+pageSize);  
-	    int lastPage = pageInfo.getNavigateFirstPage();  
-	    System.out.println("首页："+lastPage);  
-	    int nextPage = pageInfo.getNextPage();  
-	    System.out.println("下一页："+nextPage);
+		deptMsg.put("pageContanier", pageContanier);	
 	    
 		return deptMsg;
 	}
@@ -103,24 +92,23 @@ public class DepMgController {
 	@RequestMapping(value = "/pageItem.action")
 	public @ResponseBody Map<String, Object> pageMethod(String deptname, String currentPage){
 		
-		deptMsg.clear();
+		deptMsg.clear(); //清空历史分页参数
 		//判断是否携带搜索条件
-		if(deptname.equals("")) {
-			
+		List<Dept> list;
+		if(deptname.equals("")) {			
 			PageHelper.startPage(Integer.parseInt(currentPage), dataNum);
-			List<Dept> list = deptService.checkDepts();
-			PageInfo pageInfo = new PageInfo<>(list);
-			deptMsg.put("depModel", list);
-			deptMsg.put("pageInfo", pageInfo);
+			list = deptService.checkDepts();
 			
-		}else {
-			
+		}else {			
 			PageHelper.startPage(Integer.parseInt(currentPage), dataNum);
-			List<Dept> list = deptService.serachDept(deptname);
-			PageInfo pageInfo = new PageInfo<>(list);
-			deptMsg.put("depModel", list);
-			deptMsg.put("pageInfo", pageInfo);	
+			list = deptService.serachDept(deptname);
 		}
+		//分页
+		List<Object> pageContanier = PageUtil.displayPage(list, 1);		
+		//数据
+		deptMsg.put("depModel", list);
+		deptMsg.put("pageContanier", pageContanier);
+		
 		return deptMsg;
 	}
 	
