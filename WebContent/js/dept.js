@@ -5,21 +5,10 @@ $.ajax({
 	url:"loadDept.action",
 	method:"post",
 	datayType:"json",
-	success:function(data){
-		
-		req.deptList = data.depModel;
-		req.pageNum = data.pageInfo.pages; //总页数
-		
-		var array = [];
-		
-		for(var i = 0;i<req.pageNum ;i++){
-			
-			
-			array[i] = i+1;
-		}
-		
-		req.pageCount = array;
-		req.currentPage = 1;
+	success:function(data){		
+		req.deptList = data.depModel; //数据
+		req.pageCount = data.pageContanier; //总页数
+		req.currentPage = 1; //当前页
 	},
 	error: function(){
 		alert("获取失败，请检查是否联网");
@@ -31,9 +20,7 @@ var req = new Vue({
 	data:{
 		deptList:[], //科室列表
 		pageCount:[], //页码
-		pageNum:"",   //总页数
 		currentPage:"", //当前页
-		displayPage:""
 	},
 	methods:{		
 		showModal:function(deptid,no){
@@ -135,19 +122,17 @@ var req = new Vue({
 				method:"post",
 				dataType:"json",
 				success:function(data){
+					req.deptList = data.depModel; //数据
+					req.pageCount = data.pageContanier; //总页数
 					
-					req.deptList = data.depModel;
-					req.pageNum = data.pageInfo.pages; //总页数
-					
-					var array = [];
-					
-					for(var i = 0;i<req.pageNum ;i++){
-						array[i] = i+1;
+					//判断当前页数是否合法
+					if(page < 1){ 
+						page = 1; 
+					}else if(page > req.pageCount.length){
+						page = req.pageCount.length;
 					}
 					
-					req.pageCount = array;
-					req.currentPage = page;
-					
+					req.currentPage = page; //当前页					
 				},
 				error:function(){
 					alert("查询失败，请检查是否联网");
