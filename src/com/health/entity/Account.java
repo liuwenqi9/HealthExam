@@ -9,11 +9,11 @@ public class Account {
     private Object name;
 
     private Object password;
-
+    //状态
     private Short state;
-
+    //人数
     private Long amount;
-
+    //地址
     private Integer locationid;
 
     public Object getAccount() {

@@ -1,4 +1,4 @@
-0<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 String path=request.getContextPath();
@@ -67,62 +67,53 @@ String basePath=request.getScheme()+"://"
 											<div class="space-6"></div>
 											<p> 请填入注册信息: </p>
 
-											<form id="register_form">
+											<form id="register_form"  >
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text"  id="company_name" class="form-control" placeholder="公司全称" autocomplete="off" />
+															<input type="text"  id="company_name" name="name" class="form-control" placeholder="公司全称" autocomplete="off" required />
 															<i class="ace-icon glyphicon glyphicon-home"></i>
 														</span>
-															<span class="block input-icon input-icon-right" id="span_name">
-															&nbsp;
-															</span>
+															
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" id="company_account" class="form-control" placeholder="公司账号(4~9位：字母/数字/字母+数字)" />
+															<input type="text" id="company_account" name="account"  class="form-control" placeholder="公司账号(4~9位：字母/数字/字母+数字)"  autocomplete="off" required/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
-														<span class="block input-icon input-icon-right" id="span_account">
-															&nbsp;
-															</span>
+														
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" id="company_pwd" class="form-control" placeholder="密码为5~14位非空字符" />
+															<input type="password" id="company_pwd"  name="password" class="form-control" placeholder="密码为5~14位非空字符" autocomplete="off" required/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
-														<span class="block input-icon input-icon-right" id="span_pwd">
-																&nbsp;
-															</span>
+														
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" id="company_repwd" class="form-control" placeholder="确认密码" />
+															<input type="password" id="company_repwd" name="company_repwd"  class="form-control" placeholder="确认密码" autocomplete="off" required/>
 															<i class="ace-icon fa fa-retweet"></i>
 														</span>
-														<span class="block input-icon input-icon-right" id="span_repwd">
-																&nbsp;
-															</span>
+														
 													</label>
 													<!--地址选择  -->
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input class="form-control" name="" id="city" type="text" placeholder="点击请选择地址" autocomplete="off" readonly="true"/>
+															<input class="form-control" name="locationid" id="city" type="text" placeholder="点击选择地址" autocomplete="off" readonly="true" required/>
 														
 															<i class="ace-icon fa fa-angle-down"></i>
 														<!-- 	<i class="ace-icon fa fa-globe"></i> -->
 														</span>
-														<span class="block input-icon input-icon-right" id="span_addre">
-																&nbsp;
-															</span>
+														
 													</label>
 													
 													<label class="block">
-														<input type="checkbox" id="companyaccept" class="ace" autocomplete="off" />
+													
+														<input type="checkbox" id="companyaccept" name="agree" class="ace" autocomplete="off" />
 														<span class="lbl">
 															我接受
 															<a href="#" id="readterms_a" data-toggle="modal">注册条款</a>
@@ -137,7 +128,7 @@ String basePath=request.getScheme()+"://"
 															<span class="bigger-110">重置</span>
 														</button>
 
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success" id="register_btn">
+														<button type="submit" class="width-65 pull-right btn btn-sm btn-success" id="register_btn">
 															<span class="bigger-110">注 册</span>
 
 															<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
@@ -210,41 +201,20 @@ String basePath=request.getScheme()+"://"
 
 
 		<%@include file="footer.jsp" %>
-		<script type="text/javascript"  src=<%=path+"/jscommon/companyregister.js" %>></script>
 		
+			<script type="text/javascript" src=<%=path+"/js/json2.js" %>></script>
 			<script type="text/javascript" src=<%=path+"/js/Popt.js" %>></script>
 			<script type="text/javascript" src=<%=path+"/js/city.json.js" %>></script>
 			<script type="text/javascript" src=<%=path+"/js/citySet.js" %>></script>
+			<script type="text/javascript" src=<%=path+"/js/md5.js" %>></script>
+		<script type="text/javascript"  src=<%=path+"/jscommon/companyregister.js" %>></script>
 
 
 		<script type="text/javascript">
 		if('ontouchstart' in document.documentElement) document.write("<script src='../js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		
 		//you don't need this, just used for changing background
-		jQuery(function($) {
-		 $('#btn-login-dark').on('click', function(e) {
-			$('body').attr('class', 'login-layout');
-			$('#id-text2').attr('class', 'white');
-			$('#id-company-text').attr('class', 'blue');
-			
-			e.preventDefault();
-		 });
-		 $('#btn-login-light').on('click', function(e) {
-			$('body').attr('class', 'login-layout light-login');
-			$('#id-text2').attr('class', 'grey');
-			$('#id-company-text').attr('class', 'blue');
-			
-			e.preventDefault();
-		 });
-		 $('#btn-login-blur').on('click', function(e) {
-			$('body').attr('class', 'login-layout blur-login');
-			$('#id-text2').attr('class', 'white');
-			$('#id-company-text').attr('class', 'light-blue');
-			
-			e.preventDefault();
-		 });
-		 
-		});
+	
 		
 		$("#city").click(function (e) {
 			SelCity(this,e);

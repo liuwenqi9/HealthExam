@@ -44,20 +44,20 @@ public class RegisterController {
 	 * @param res 
 	 */
 	@RequestMapping(value = "/checkName.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public void checkName(HttpServletRequest req,HttpServletResponse res,String companyName) {
+	public void checkName(HttpServletRequest req,HttpServletResponse res,String name) {
 		System.out.println("------执行了公司名称查找");
 	//获取前端界面数据
-	System.out.println("查询的公司名称：--"+companyName);
-		if(companyName!=null) {//不为空时,查询数据库
+	System.out.println("查询的公司名称：--"+name);
+		if(name!=null) {//不为空时,查询数据库
 			
-	 List<Account>  accountList=impRegister.findAccountByName(companyName);
+	 List<Account>  accountList=impRegister.findAccountByName(name);
 			if(accountList.size()==0) {//找到该对象
-				sendMesg="该公司可以注册!";
+				sendMesg="true";
 			}else {
-				sendMesg="该公司已注册，请直接登录!";
+				sendMesg="false";
 			}
 			System.out.println("--查找的数量："+accountList.size());
-			System.out.println("--反回的消息:"+sendMesg);
+			System.out.println("--返回的消息:"+sendMesg);
 			feedBackData(res,sendMesg);	
 		}
 	
@@ -70,20 +70,20 @@ public class RegisterController {
 	 * @param account 6月18日补充
 	 */
 	@RequestMapping(value = "/checkAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public void checkAccount(HttpServletRequest req,HttpServletResponse res,String companyAccount) {
+	public void checkAccount(HttpServletRequest req,HttpServletResponse res,String account) {
 		System.out.println("---------执行了公司账号查找");
 	//获取前端界面数据
-	System.out.println("查询的公司账号：--"+companyAccount);
-		if(companyAccount!=null) {//不为空时,查询数据库
+	System.out.println("查询的公司账号：--"+account);
+		if(account!=null) {//不为空时,查询数据库
 			
-	 List<Account>  accountList=impRegister.findAccountByAccount(companyAccount);
+	 List<Account>  accountList=impRegister.findAccountByAccount(account);
 			if(accountList.size()==0) {//找到该对象
-				sendMesg="该账号可以注册!";
+				sendMesg="true";
 			}else {
-				sendMesg="该账号已存在，请更改!";
+				sendMesg="false";
 			}
 			System.out.println("--查找的数量："+accountList.size());
-			System.out.println("--反回的消息:"+sendMesg);
+			System.out.println("--返回的消息:"+sendMesg);
 			feedBackData(res,sendMesg);	
 		}
 	
@@ -97,15 +97,26 @@ public class RegisterController {
 	 * @param account 对象 6月18日
 	 */
 	@RequestMapping(value = "/addAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public void addAccount(HttpServletRequest req,HttpServletResponse res,Account account) {
-		System.out.println("---------执行了企业注册");
-		account.setState((short) 1);
+	public void addAccount(HttpServletRequest req,HttpServletResponse res,
+			String name,String account,String password,String locationid) {
+			
 		
-		 int result=impRegister.addAccount(account);
+		System.out.println("---------执行了企业注册");
+		System.out.println("--接收到企业的全称："+name);
+		System.out.println("--接收到企业的账号："+account);
+		System.out.println("--接收到企业的密码："+password);
+		System.out.println("--接收到企业的地址："+locationid);
+		Account companyAccount=new Account();
+		companyAccount.setName(name);
+		companyAccount.setAccount(account);
+		companyAccount.setPassword(password);
+		companyAccount.setState((short) 1);
+		
+		 int result=impRegister.addAccount(companyAccount);
 		if(result>0) {//注册成功
-			sendMesg="注册成功!";
+			sendMesg="success";
 		}else {
-			sendMesg="注册失败!";
+			sendMesg="failure";
 		}
 		feedBackData(res,sendMesg);	
 		System.out.println("--注册结果：--"+sendMesg);
