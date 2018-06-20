@@ -225,6 +225,14 @@ public class DeptExample {
             addCriterion("DEPTNAME not between", value1, value2, "deptname");
             return (Criteria) this;
         }
+        
+        //额外添加
+        public Criteria andDeptnameLike(Object value) {
+        	System.out.println("value = " + value);
+        	addCriterion("DEPTNAME like", value, "deptname");
+        	return (Criteria) this;
+        }
+        
     }
 
     public static class Criteria extends GeneratedCriteria {

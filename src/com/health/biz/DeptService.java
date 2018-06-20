@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.health.entity.Dept;
 import com.health.entity.DeptExample;
+import com.health.entity.DeptExample.Criteria;
 import com.health.mapper.DeptMapper;
 
 @Service
@@ -24,7 +25,9 @@ public class DeptService {
 	
 	//查询科室
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=true)
-	public List<Dept> checkDepts(){		
+	public List<Dept> checkDepts(){	
+		deptExample.clear();//清空Where条件
+		deptExample.setOrderByClause("deptid DESC"); //对ID进行倒序排列
 		List<Dept> list = deptMapper.selectByExample(deptExample);		
 		return list;
 	}
@@ -44,5 +47,17 @@ public class DeptService {
 	//删除科室
 	public void delDept(int deptid) {
 		deptMapper.deleteByPrimaryKey(deptid);
+	}
+	
+	//搜索科室
+	public List<Dept> serachDept(String name) {	
+		
+		deptExample.clear(); //清空Where条件
+		Criteria criteria = deptExample.createCriteria();
+		String sql = "%" + name + "%";
+		criteria.andDeptnameLike(sql);
+		deptExample.setOrderByClause("deptid DESC"); //对ID进行倒序排列
+		List<Dept> list = deptMapper.selectByExample(deptExample);
+		return list;
 	}
 }
