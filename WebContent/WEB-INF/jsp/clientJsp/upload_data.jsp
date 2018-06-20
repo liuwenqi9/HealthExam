@@ -79,7 +79,7 @@ String basePath=request.getScheme()+"://"
 		<div class="footer-inner">
 			<div class="footer-content">
 				<span class="bigger-120"> <span class="blue bolder"></span>
-					JSY © 2017 - 2018
+					jsy © 2017 - 2018
 				</span>
 			</div>
 		</div>
