@@ -18,7 +18,7 @@ public class Personinfo {
     private Object telephone;
 
     private Object account;
-
+    //条形码
     private BigDecimal barcode;
 
     public Integer getPersoninfoid() {

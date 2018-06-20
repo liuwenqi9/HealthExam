@@ -10,6 +10,8 @@ String basePath=request.getScheme()+"://"
 <html>
 <head>
 <%@ include file="header.jsp"%>
+<link rel="stylesheet" type="text/css" href=<%=path+"/css/jquery.dataTables.css" %>>
+<link rel="stylesheet" type="text/css" href=<%=path+"/css/buttons.dataTables.min.css" %>>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>下载模板窗口</title>
 </head>
@@ -29,7 +31,7 @@ String basePath=request.getScheme()+"://"
 			<ul class="breadcrumb">
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a
 					href="<%=request.getContextPath()%>/web/index.jsp">首页</a></li>
-				<li>系统管理</li>
+				<li>上传建档</li>
 					<li class="active">下载登记模板</li>
 			</ul>
 			<!-- /.breadcrumb -->
@@ -39,10 +41,19 @@ String basePath=request.getScheme()+"://"
 		<div class="page-content" id="">
 			<div class="page-header">
 			<!--陈述下载说明  -->
-			<h3 class="header smaller lighter blue">模板下载</h3>
+			<h3 class="header smaller lighter blue">
+			模板下载步骤：
+			</h3>
+			<h4>①请点击右下角的下载按钮下载团检登记模板表格，
+			填写顺序如下表格所示，填写时请删除第一行参考数据，并填入需提交的实际数据。<br>
+			②表头：<span style="color: #FF5722">企业（医院注册）账号-（体检）员工姓名、身份证、性别、年龄、电话;</span>
+			<span style="color: #307ECC">请勿删除！！！</span>以免影响之后的读取数据。<br>
+			③第一行示例参考数据：<span style="color: 	#FFA500">CYKJ123-小简-350627199308014567-男-25-15759581890;</span>
+			<span style="color: #FF4500">请在登记数据时删除！</span>以免影响上传数据出错！
+			</h4>
 		</div>
 			<!--分隔线-->
-			<div class="hr hr-18 dotted hr-double"></div>
+			
 
 				<div class="row">
 					<div class="col-xs-12">
@@ -50,11 +61,14 @@ String basePath=request.getScheme()+"://"
 				<!--打印按钮位置-->
 				<div class="clearfix">
 						<!--按钮位置  -->
+						<div class="pull-right">
+							<label class="control-label" for="">下载模板按钮： </label>
 						<div class="pull-right tableTools-container"></div>
+							</div>
 				</div>
 						<!--表格头部-->
 					<div class="table-header">
-						下载企业团建人员登记模板格式如下：请填写完整数据,确保准确性!!
+						填写企业团建人员登记模板格式如下：请下载填写完整数据,确保准确性!
 					</div>
 
 						<!-- div.table-responsive -->
@@ -64,95 +78,49 @@ String basePath=request.getScheme()+"://"
 				<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 					<thead>
 									<tr>
-										<th class="center">
+										<!-- <th class="center">
 													<label class="pos-rel">
 														<input type="checkbox" class="ace" />
 														<span class="lbl"></span>
 														</label>
-														</th>
+														</th> -->
 														<th>序号</th>
-														<th>企业（医院注册）全称</th>
-														<th class="hidden-480">企业（医院注册）账号</th>
-
-														<th>
-															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-															（体检）员工姓名
-														</th>
-														<th class="hidden-480">（体检）员工身份证</th>
-
-														<th></th>
+														<th>企业（医院注册）账号</th>
+													
+														<th>（体检）员工姓名</th>
+														<th >（体检）员工身份证</th>
+														<th >（体检）员工性别</th>
+														<th >（体检）员工年龄</th>
+														<th >（体检）员工联系电话</th>
+														
 													</tr>
 												</thead>
 
 												<tbody>
 													<tr>
-														<td class="center">
+														<!-- <td class="center">
 															<label class="pos-rel">
 																<input type="checkbox" class="ace" />
 																<span class="lbl"></span>
 															</label>
-														</td>
+														</td> -->
 
 														<td>
-															<a href="#">1</a>
-														</td>
-														<td>传一科技有限公司</td>
-														<td class="hidden-480">CYKJ123</td>
+															1
+														</td>												
+														<td >CYKJ123</td>
 														<td>小简</td>
 
-														<td class="hidden-480">
-															<span class="label label-sm label-warning">350627</span>
-														</td>
-
-														<td>
-															<div class="hidden-sm hidden-xs action-buttons">
-																<a class="blue" href="#">
-																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
-																</a>
-
-																<a class="green" href="#">
-																	<i class="ace-icon fa fa-pencil bigger-130"></i>
-																</a>
-
-																<a class="red" href="#">
-																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																</a>
-															</div>
-
-															<div class="hidden-md hidden-lg">
-																<div class="inline pos-rel">
-																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-																	</button>
-
-																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-																		<li>
-																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-																				<span class="blue">
-																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																				</span>
-																			</a>
-																		</li>
-
-																		<li>
-																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-																				<span class="green">
-																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																				</span>
-																			</a>
-																		</li>
-
-																		<li>
-																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-																				<span class="red">
-																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																				</span>
-																			</a>
-																		</li>
-																	</ul>
-																</div>
-															</div>
-														</td>
+														<td >350627199308014567	</td>
+															
+													
+														<td>男</td>
+												
+														<td>25</td>
+													
+												
+														<td>15759581890</td>
+														
 													</tr>
 												
 												
@@ -171,7 +139,7 @@ String basePath=request.getScheme()+"://"
 						</div><!-- /.row -->
 		
 		
-</div>
+
 <!--内容结束  -->
 <!-- 页脚 -->
 <div class="footer">
@@ -190,12 +158,28 @@ String basePath=request.getScheme()+"://"
 	</a>
 	<!-- 页脚结束 -->
 	<!--外联JS链接  -->
-<%@ include file="footer.jsp"%>
-<script type="text/javascript"  src=<%=path+"/jscommon/download_template.js" %>></script>
+
+
 <script type="text/javascript">
 if('ontouchstart' in document.documentElement) document.write("<script src='../js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 </script>
+	<%@ include file="footer.jsp"%>
+	<script type="text/javascript"  src=<%=path+"/js/jquery.dataTables.min.js" %>></script>
+	<script type="text/javascript"  src=<%=path+"/js/jquery.dataTables.bootstrap.min.js" %>></script>
+	<script type="text/javascript"  src=<%=path+"/js/dataTables.buttons.min.js" %>></script>	
+	<script type="text/javascript" src=<%=path+"/js/jszip.min.js" %>></script>
+	<script type="text/javascript"  src=<%=path+"/js/buttons.flash.min.js" %>></script>	
+	<script type="text/javascript"  src=<%=path+"/js/buttons.html5.min.js" %>></script>	
+	<script type="text/javascript"  src=<%=path+"/js/buttons.print.min.js" %>></script>
+	<script type="text/javascript"  src=<%=path+"/js/buttons.colVis.min.js" %>></script>
+	<script type="text/javascript"  src=<%=path+"/js/dataTables.select.min.js" %>></script>	
+			
+			
 
 
+
+	
+			
+<script type="text/javascript"  src=<%=path+"/jscommon/download_template.js" %>></script>
 </body>
 </html>
