@@ -7,6 +7,11 @@
     <result column="ITEMID" property="itemid" jdbcType="DECIMAL" />
     <result column="SUMMARY" property="summary" jdbcType="OTHER" />
   </resultMap>
+  
+  <select id="insertGuideItem" parameterType="com.health.entity.Guideitem">
+  	  insert into guideitem(guideid,itemid) values(#{guideid},#{itemid})
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

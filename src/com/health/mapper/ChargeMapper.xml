@@ -9,6 +9,20 @@
     <result column="TIME" property="time" jdbcType="OTHER" />
     <result column="STATE" property="state" jdbcType="DECIMAL" />
   </resultMap>
+  
+  <insert id="insertCharge" parameterType="com.health.entity.Charge">
+  	 insert into charge(account,amount,pretime,state)
+  	 	values(#{account}, #{amount}, #{pretime}, #{state}) 
+  </insert>
+  
+  <select id="getMaxChargeId" resultType="java.lang.String">
+  	 select max(chargeid) from charge
+  </select>
+  
+  <update id="updateAmountOfCharge" parameterType = "java.util.HashMap">
+  		update charge set amount = #{amount} where chargeId = #{chargeId}
+  </update>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

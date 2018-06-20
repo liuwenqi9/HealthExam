@@ -10,7 +10,7 @@ public class Chargepack {
 
     private Integer packageid;
 
-    private Integer number;
+    private Integer numbers;
 
     public Integer getChargepackid() {
         return chargepackid;
@@ -36,11 +36,11 @@ public class Chargepack {
         this.packageid = packageid;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getNumbers() {
+        return numbers;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setNumbers(Integer numbers) {
+        this.numbers = numbers;
     }
 }

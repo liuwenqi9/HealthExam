@@ -12,6 +12,15 @@
   	  select * from packages
   </select>
   
+  <select id="getPackageById" parameterType="java.lang.String" resultType="com.health.entity.Packages">
+  	  select * from packages where packageid = #{packageId}
+  </select>
+  
+  
+ <select id="getPriceByPackageId" parameterType="java.lang.String" resultType="java.lang.String">
+ 	select price from packages where packageid = #{packageId}
+ </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

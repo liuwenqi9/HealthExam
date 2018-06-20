@@ -286,63 +286,63 @@ public class ChargepackExample {
             return (Criteria) this;
         }
 
-        public Criteria andNumberIsNull() {
-            addCriterion("NUMBER is null");
+        public Criteria andNumbersIsNull() {
+            addCriterion("NUMBERS is null");
             return (Criteria) this;
         }
 
-        public Criteria andNumberIsNotNull() {
-            addCriterion("NUMBER is not null");
+        public Criteria andNumbersIsNotNull() {
+            addCriterion("NUMBERS is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNumberEqualTo(Integer value) {
-            addCriterion("NUMBER =", value, "number");
+        public Criteria andNumbersEqualTo(Integer value) {
+            addCriterion("NUMBERS =", value, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberNotEqualTo(Integer value) {
-            addCriterion("NUMBER <>", value, "number");
+        public Criteria andNumbersNotEqualTo(Integer value) {
+            addCriterion("NUMBERS <>", value, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberGreaterThan(Integer value) {
-            addCriterion("NUMBER >", value, "number");
+        public Criteria andNumbersGreaterThan(Integer value) {
+            addCriterion("NUMBERS >", value, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberGreaterThanOrEqualTo(Integer value) {
-            addCriterion("NUMBER >=", value, "number");
+        public Criteria andNumbersGreaterThanOrEqualTo(Integer value) {
+            addCriterion("NUMBERS >=", value, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberLessThan(Integer value) {
-            addCriterion("NUMBER <", value, "number");
+        public Criteria andNumbersLessThan(Integer value) {
+            addCriterion("NUMBERS <", value, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberLessThanOrEqualTo(Integer value) {
-            addCriterion("NUMBER <=", value, "number");
+        public Criteria andNumbersLessThanOrEqualTo(Integer value) {
+            addCriterion("NUMBERS <=", value, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberIn(List<Integer> values) {
-            addCriterion("NUMBER in", values, "number");
+        public Criteria andNumbersIn(List<Integer> values) {
+            addCriterion("NUMBERS in", values, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberNotIn(List<Integer> values) {
-            addCriterion("NUMBER not in", values, "number");
+        public Criteria andNumbersNotIn(List<Integer> values) {
+            addCriterion("NUMBERS not in", values, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberBetween(Integer value1, Integer value2) {
-            addCriterion("NUMBER between", value1, value2, "number");
+        public Criteria andNumbersBetween(Integer value1, Integer value2) {
+            addCriterion("NUMBERS between", value1, value2, "numbers");
             return (Criteria) this;
         }
 
-        public Criteria andNumberNotBetween(Integer value1, Integer value2) {
-            addCriterion("NUMBER not between", value1, value2, "number");
+        public Criteria andNumbersNotBetween(Integer value1, Integer value2) {
+            addCriterion("NUMBERS not between", value1, value2, "numbers");
             return (Criteria) this;
         }
     }
