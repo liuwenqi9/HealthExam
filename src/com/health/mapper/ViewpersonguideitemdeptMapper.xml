@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.health.mapper.GuideMapper" >
-  <resultMap id="BaseResultMap" type="com.health.entity.Guide" >
-    <id column="GUIDEID" property="guideid" jdbcType="DECIMAL" />
-    <result column="STATE" property="state" jdbcType="DECIMAL" />
+<mapper namespace="com.health.mapper.ViewpersonguideitemdeptMapper" >
+  <resultMap id="BaseResultMap" type="com.health.entity.Viewpersonguideitemdept" >
+    <result column="ROWNUMBER" property="rownumber" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="OTHER" />
+    <result column="ACCOUNT" property="account" jdbcType="OTHER" />
     <result column="TIME" property="time" jdbcType="OTHER" />
-    <result column="PERSONINFOID" property="personinfoid" jdbcType="DECIMAL" />
-    <result column="ALLSUMMARY" property="allsummary" jdbcType="OTHER" />
+    <result column="ITEMNAME" property="itemname" jdbcType="OTHER" />
+    <result column="DEPTNAME" property="deptname" jdbcType="OTHER" />
   </resultMap>
   
-  <select id="getMaxGuideId" resultType="int">
-  	 select max(guideid) from guide
-  </select>
-  
-  <insert id="insertGuide" parameterType="com.health.entity.Guide">
-  	 insert into guide(GUIDEID,STATE,TIME,PERSONINFOID)
-  	 	values(#{guideid}, #{state}, #{time}, #{personinfoid}) 
-  </insert>
-  
+   <select id="getOrderInfo" parameterType="java.lang.String" resultType="com.health.entity.Viewpersonguideitemdept">
+  	   select * from ViewPersonGuideItemDept where account = #{account}
+   </select>
   
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,15 +73,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    GUIDEID, STATE, TIME, PERSONINFOID, ALLSUMMARY
+    ROWNUMBER, NAME, ACCOUNT, TIME, ITEMNAME, DEPTNAME
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.GuideExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.ViewpersonguideitemdeptExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from GUIDE
+    from VIEWPERSONGUIDEITEMDEPT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,88 +89,87 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from GUIDE
-    where GUIDEID = #{guideid,jdbcType=DECIMAL}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from GUIDE
-    where GUIDEID = #{guideid,jdbcType=DECIMAL}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.health.entity.GuideExample" >
-    delete from GUIDE
+  <delete id="deleteByExample" parameterType="com.health.entity.ViewpersonguideitemdeptExample" >
+    delete from VIEWPERSONGUIDEITEMDEPT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.health.entity.Guide" >
-    insert into GUIDE (GUIDEID, STATE, TIME, 
-      PERSONINFOID, ALLSUMMARY)
-    values (#{guideid,jdbcType=DECIMAL}, #{state,jdbcType=DECIMAL}, #{time,jdbcType=OTHER}, 
-      #{personinfoid,jdbcType=DECIMAL}, #{allsummary,jdbcType=OTHER})
+  <insert id="insert" parameterType="com.health.entity.Viewpersonguideitemdept" >
+    insert into VIEWPERSONGUIDEITEMDEPT (ROWNUMBER, NAME, ACCOUNT, 
+      TIME, ITEMNAME, DEPTNAME)
+    values (#{rownumber,jdbcType=DECIMAL}, #{name,jdbcType=OTHER}, #{account,jdbcType=OTHER}, 
+      #{time,jdbcType=OTHER}, #{itemname,jdbcType=OTHER}, #{deptname,jdbcType=OTHER})
   </insert>
-  <insert id="insertSelective" parameterType="com.health.entity.Guide" >
-    insert into GUIDE
+  <insert id="insertSelective" parameterType="com.health.entity.Viewpersonguideitemdept" >
+    insert into VIEWPERSONGUIDEITEMDEPT
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="guideid != null" >
-        GUIDEID,
+      <if test="rownumber != null" >
+        ROWNUMBER,
       </if>
-      <if test="state != null" >
-        STATE,
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
       </if>
       <if test="time != null" >
         TIME,
       </if>
-      <if test="personinfoid != null" >
-        PERSONINFOID,
+      <if test="itemname != null" >
+        ITEMNAME,
       </if>
-      <if test="allsummary != null" >
-        ALLSUMMARY,
+      <if test="deptname != null" >
+        DEPTNAME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="guideid != null" >
-        #{guideid,jdbcType=DECIMAL},
+      <if test="rownumber != null" >
+        #{rownumber,jdbcType=DECIMAL},
       </if>
-      <if test="state != null" >
-        #{state,jdbcType=DECIMAL},
+      <if test="name != null" >
+        #{name,jdbcType=OTHER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=OTHER},
       </if>
       <if test="time != null" >
         #{time,jdbcType=OTHER},
       </if>
-      <if test="personinfoid != null" >
-        #{personinfoid,jdbcType=DECIMAL},
+      <if test="itemname != null" >
+        #{itemname,jdbcType=OTHER},
       </if>
-      <if test="allsummary != null" >
-        #{allsummary,jdbcType=OTHER},
+      <if test="deptname != null" >
+        #{deptname,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.health.entity.GuideExample" resultType="java.lang.Integer" >
-    select count(*) from GUIDE
+  <select id="countByExample" parameterType="com.health.entity.ViewpersonguideitemdeptExample" resultType="java.lang.Integer" >
+    select count(*) from VIEWPERSONGUIDEITEMDEPT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update GUIDE
+    update VIEWPERSONGUIDEITEMDEPT
     <set >
-      <if test="record.guideid != null" >
-        GUIDEID = #{record.guideid,jdbcType=DECIMAL},
+      <if test="record.rownumber != null" >
+        ROWNUMBER = #{record.rownumber,jdbcType=DECIMAL},
       </if>
-      <if test="record.state != null" >
-        STATE = #{record.state,jdbcType=DECIMAL},
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=OTHER},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=OTHER},
       </if>
       <if test="record.time != null" >
         TIME = #{record.time,jdbcType=OTHER},
       </if>
-      <if test="record.personinfoid != null" >
-        PERSONINFOID = #{record.personinfoid,jdbcType=DECIMAL},
+      <if test="record.itemname != null" >
+        ITEMNAME = #{record.itemname,jdbcType=OTHER},
       </if>
-      <if test="record.allsummary != null" >
-        ALLSUMMARY = #{record.allsummary,jdbcType=OTHER},
+      <if test="record.deptname != null" >
+        DEPTNAME = #{record.deptname,jdbcType=OTHER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -183,40 +177,15 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update GUIDE
-    set GUIDEID = #{record.guideid,jdbcType=DECIMAL},
-      STATE = #{record.state,jdbcType=DECIMAL},
+    update VIEWPERSONGUIDEITEMDEPT
+    set ROWNUMBER = #{record.rownumber,jdbcType=DECIMAL},
+      NAME = #{record.name,jdbcType=OTHER},
+      ACCOUNT = #{record.account,jdbcType=OTHER},
       TIME = #{record.time,jdbcType=OTHER},
-      PERSONINFOID = #{record.personinfoid,jdbcType=DECIMAL},
-      ALLSUMMARY = #{record.allsummary,jdbcType=OTHER}
+      ITEMNAME = #{record.itemname,jdbcType=OTHER},
+      DEPTNAME = #{record.deptname,jdbcType=OTHER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.health.entity.Guide" >
-    update GUIDE
-    <set >
-      <if test="state != null" >
-        STATE = #{state,jdbcType=DECIMAL},
-      </if>
-      <if test="time != null" >
-        TIME = #{time,jdbcType=OTHER},
-      </if>
-      <if test="personinfoid != null" >
-        PERSONINFOID = #{personinfoid,jdbcType=DECIMAL},
-      </if>
-      <if test="allsummary != null" >
-        ALLSUMMARY = #{allsummary,jdbcType=OTHER},
-      </if>
-    </set>
-    where GUIDEID = #{guideid,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.health.entity.Guide" >
-    update GUIDE
-    set STATE = #{state,jdbcType=DECIMAL},
-      TIME = #{time,jdbcType=OTHER},
-      PERSONINFOID = #{personinfoid,jdbcType=DECIMAL},
-      ALLSUMMARY = #{allsummary,jdbcType=OTHER}
-    where GUIDEID = #{guideid,jdbcType=DECIMAL}
   </update>
 </mapper>

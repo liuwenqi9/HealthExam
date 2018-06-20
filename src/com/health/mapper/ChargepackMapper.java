@@ -5,6 +5,7 @@ import com.health.entity.ChargepackExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
 @Repository
 public interface ChargepackMapper {
     int countByExample(ChargepackExample example);
@@ -28,4 +29,6 @@ public interface ChargepackMapper {
     int updateByPrimaryKeySelective(Chargepack record);
 
     int updateByPrimaryKey(Chargepack record);
+    
+	void insertChargePack(Chargepack chargepack);  //插入一条记录到订单记账套餐关系表中
 }

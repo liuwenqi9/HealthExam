@@ -5,8 +5,13 @@
     <id column="CHARGEPACKID" property="chargepackid" jdbcType="DECIMAL" />
     <result column="CHARGEID" property="chargeid" jdbcType="DECIMAL" />
     <result column="PACKAGEID" property="packageid" jdbcType="DECIMAL" />
-    <result column="NUMBER" property="number" jdbcType="DECIMAL" />
+    <result column="NUMBERS" property="numbers" jdbcType="DECIMAL" />
   </resultMap>
+  
+    <insert id="insertChargePack" parameterType="com.health.entity.Chargepack">
+  		insert into CHARGEPACK(CHARGEID,PACKAGEID,NUMBERS) values(#{chargeid}, #{packageid}, #{numbers})
+  	</insert>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -66,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    CHARGEPACKID, CHARGEID, PACKAGEID, NUMBER
+    CHARGEPACKID, CHARGEID, PACKAGEID, NUMBERS
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.ChargepackExample" >
     select
@@ -100,9 +105,9 @@
   </delete>
   <insert id="insert" parameterType="com.health.entity.Chargepack" >
     insert into CHARGEPACK (CHARGEPACKID, CHARGEID, PACKAGEID, 
-      NUMBER)
+      NUMBERS)
     values (#{chargepackid,jdbcType=DECIMAL}, #{chargeid,jdbcType=DECIMAL}, #{packageid,jdbcType=DECIMAL}, 
-      #{number,jdbcType=DECIMAL})
+      #{numbers,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.health.entity.Chargepack" >
     insert into CHARGEPACK
@@ -116,8 +121,8 @@
       <if test="packageid != null" >
         PACKAGEID,
       </if>
-      <if test="number != null" >
-        NUMBER,
+      <if test="numbers != null" >
+        NUMBERS,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -130,8 +135,8 @@
       <if test="packageid != null" >
         #{packageid,jdbcType=DECIMAL},
       </if>
-      <if test="number != null" >
-        #{number,jdbcType=DECIMAL},
+      <if test="numbers != null" >
+        #{numbers,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -153,8 +158,8 @@
       <if test="record.packageid != null" >
         PACKAGEID = #{record.packageid,jdbcType=DECIMAL},
       </if>
-      <if test="record.number != null" >
-        NUMBER = #{record.number,jdbcType=DECIMAL},
+      <if test="record.numbers != null" >
+        NUMBERS = #{record.numbers,jdbcType=DECIMAL},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -166,7 +171,7 @@
     set CHARGEPACKID = #{record.chargepackid,jdbcType=DECIMAL},
       CHARGEID = #{record.chargeid,jdbcType=DECIMAL},
       PACKAGEID = #{record.packageid,jdbcType=DECIMAL},
-      NUMBER = #{record.number,jdbcType=DECIMAL}
+      NUMBERS = #{record.numbers,jdbcType=DECIMAL}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -180,8 +185,8 @@
       <if test="packageid != null" >
         PACKAGEID = #{packageid,jdbcType=DECIMAL},
       </if>
-      <if test="number != null" >
-        NUMBER = #{number,jdbcType=DECIMAL},
+      <if test="numbers != null" >
+        NUMBERS = #{numbers,jdbcType=DECIMAL},
       </if>
     </set>
     where CHARGEPACKID = #{chargepackid,jdbcType=DECIMAL}
@@ -190,7 +195,7 @@
     update CHARGEPACK
     set CHARGEID = #{chargeid,jdbcType=DECIMAL},
       PACKAGEID = #{packageid,jdbcType=DECIMAL},
-      NUMBER = #{number,jdbcType=DECIMAL}
+      NUMBERS = #{numbers,jdbcType=DECIMAL}
     where CHARGEPACKID = #{chargepackid,jdbcType=DECIMAL}
   </update>
 </mapper>

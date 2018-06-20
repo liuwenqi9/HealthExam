@@ -37,15 +37,15 @@
 			</ul>
 			<div class="page-content" id="dataBind">
 				<div class="page-header">
-					<form action = "makeCharge.action">
+					<form action="makeCharge.action">
 						<div class="row">
 							<div class="col-xs-2">
 								<table id="grid-table"
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
-											<th width="50%">选择员工</th>
-											<th width="50%">员工名称</th>
+											<th width="50%">选择</th>
+											<th width="50%">员工</th>
 										</tr>
 									</thead>
 
@@ -79,14 +79,14 @@
 								<!-- PAGE CONTENT ENDS -->
 							</div>
 							<!-- /.col -->
-							<div class="col-xs-4">
+							<div class="col-xs-3">
 								<table id="grid-table"
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
-											<th width="25%">选择套餐</th>
+											<th width="25%">选择</th>
 											<th width="50%">套餐名称</th>
-											<th width="25%">套餐价格</th>
+											<th width="25%">详情</th>
 										</tr>
 									</thead>
 
@@ -127,7 +127,46 @@
 								<!-- PAGE CONTENT ENDS -->
 							</div>
 							<!-- /.col -->
+							<div class="col-xs-6">
+								<table id="grid-table"
+									class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th width="20%">序号</th>
+											<th width="20%">员工</th>
+											<th width="20%">开单时间</th>
+											<th width="20%">检查项目</th>
+											<th width="20%">接收科室</th>
+										</tr>
+									</thead>
 
+									<tbody>
+
+										<c:forEach var="order" items="${orderList}">
+											<tr>
+												<td><c:out value="${order.getRownumber()}"></c:out></td>
+												<td><c:out value="${order.getName()}"></c:out></td>
+												<td><c:out value="${order.getTime()}"></c:out></td>
+												<td><c:out value="${order.getItemname()}"></c:out></td>
+												<td><c:out value="${order.getDeptname()}"></c:out></td>
+											</tr>
+										</c:forEach>
+
+									</tbody>
+
+									<tbody>
+										<c:if test="${orderList.size() < 1}">
+											<tr>
+												<td colspan="8" class="center">没有人员数据</td>
+											</tr>
+										</c:if>
+									</tbody>
+
+
+								</table>
+
+								<!-- PAGE CONTENT ENDS -->
+							</div>
 						</div>
 					</form>
 					<!-- /.row -->

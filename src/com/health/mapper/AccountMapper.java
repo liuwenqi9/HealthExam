@@ -30,6 +30,6 @@ public interface AccountMapper {
     int updateByPrimaryKeySelective(Account record);
 
     int updateByPrimaryKey(Account record);
-
+    
 	int changeAccountState(HashMap<String, String> dataMap);
 }

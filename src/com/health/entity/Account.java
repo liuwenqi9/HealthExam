@@ -16,6 +16,8 @@ public class Account {
 
     private Integer locationid;
 
+    private Object locationname;
+
     public Object getAccount() {
         return account;
     }
@@ -62,5 +64,13 @@ public class Account {
 
     public void setLocationid(Integer locationid) {
         this.locationid = locationid;
+    }
+
+    public Object getLocationname() {
+        return locationname;
+    }
+
+    public void setLocationname(Object locationname) {
+        this.locationname = locationname;
     }
 }
