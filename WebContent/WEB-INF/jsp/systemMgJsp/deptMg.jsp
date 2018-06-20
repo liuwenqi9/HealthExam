@@ -35,10 +35,19 @@
 		<%--这里添加代码  --%>
 		<div class="page-content">
 				<div class="page-header">	
-					<a href="" class="btn btn-sm btn-purple">
-					<i class="ace-icon fa fa-undo bigger-110"></i>刷新</a> 
+<!-- 					<a href="" class="btn btn-sm btn-purple">
+					<i class="ace-icon fa fa-undo bigger-110"></i>刷新</a>  -->
 					<a data-toggle="modal" href="#drug-stop" class="btn btn-sm btn-success" onclick="$('#add-modal').modal('show');">
-					<i class="glyphicon glyphicon-plus bigger-110"></i>添加科室</a>									
+					<i class="glyphicon glyphicon-plus bigger-110"></i>添加科室</a>
+					
+					<div class="pull-right">
+						<form class="form-inline">
+				    		<a href="#" class="btn btn-sm btn-primary" v-on:click="searchDept"><i class="glyphicon  glyphicon-search bigger-110"></i>查询</a>
+							<div class="form-group">
+						    	<input type="text" placeholder="科室名称" class="form-control" id="seachName">
+						  	</div>
+						</form>
+					</div>									
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
@@ -59,7 +68,6 @@
 														</button> -->
 													</label>
 												</th>
-												<th class="hidden">ID</th>
 												<th>科室名称</th>
 												<th>操作</th>
 											</tr>
@@ -71,16 +79,22 @@
 												<td class="center">{{index+1}}</td>
 												<td>{{todo.deptname}}</td>
 												<td>
-													<button class="btn btn-xs btn-danger delBtn">
+													<button class="btn btn-xs btn-danger" v-on:click="deletDept(''+todo.deptid)">
 															<i class="ace-icon fa fa-trash-o bigger-120"></i>
 														</button>		
-														<button class="btn btn-xs btn-info changeBtn" v-on:click="showModal">
+														<button class="btn btn-xs btn-info" v-on:click="showModal(''+todo.deptid,index)">
 															<i class="ace-icon fa fa-pencil bigger-120"></i>
 													</button>
 												</td>
 											</tr>
 										</tbody>
 									</table>
+									
+									<ul class="pagination">
+										<li v-on:click=(pageItem(currentPage-1))><a href="#">&laquo;</a></li>
+										<li v-for="todo in pageCount" v-bind:class="{active:todo==currentPage}" v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
+										<li v-on:click=(pageItem(currentPage+1))><a href="#">&raquo;</a></li>	
+									</ul>
 								</div>
 							</div>					
 						</div>
@@ -118,7 +132,7 @@
 		</div>
 		
 		<div id="change-modal" class="modal fade in" tabindex="-1" style="display: none;">
-		 	<form id="change-form" role="form" action="<%=request.getContextPath()%>/changeDepMg.action" method="post">
+		 	<form id="change-form" role="form">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -136,7 +150,7 @@
 							<div class="hr hr-14 hr-dotted"></div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" v-on:click="changeDept(''+todo.deptid)">提交</button>
+							<button type="button" class="btn btn-primary" v-on:click="changeDept()">提交</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
