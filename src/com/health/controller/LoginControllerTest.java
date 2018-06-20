@@ -34,7 +34,7 @@ public class LoginControllerTest {
 	@RequestMapping("toIndex.action")
 	public ModelAndView toIndex() {
 		System.out.println("启动index");
-		ModelAndView mav = new ModelAndView("jsp/index");
+		ModelAndView mav = new ModelAndView("jsp/loginBackend");
 		return mav;
 	}
 

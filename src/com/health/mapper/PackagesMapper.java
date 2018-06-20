@@ -2,12 +2,16 @@ package com.health.mapper;
 
 import com.health.entity.Packages;
 import com.health.entity.PackagesExample;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface PackagesMapper {
-    int countByExample(PackagesExample example);
+	ArrayList<Packages> getAllPackages(); //获取所有的套餐
+
+	int countByExample(PackagesExample example);
 
     int deleteByExample(PackagesExample example);
 
@@ -28,4 +32,6 @@ public interface PackagesMapper {
     int updateByPrimaryKeySelective(Packages record);
 
     int updateByPrimaryKey(Packages record);
+
+
 }

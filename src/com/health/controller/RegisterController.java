@@ -25,6 +25,7 @@ import com.health.entity.Account;
 public class RegisterController {
 	@Resource
 	private RegisterBiz impRegister;
+	
 	private  String sendMesg =null;
 	
 	/**
@@ -42,7 +43,7 @@ public class RegisterController {
 	 * @param req
 	 * @param res 
 	 */
-	@RequestMapping(value = "/checkname.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+	@RequestMapping(value = "/checkName.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
 	public void checkName(HttpServletRequest req,HttpServletResponse res,String companyName) {
 		System.out.println("------执行了公司名称查找");
 	//获取前端界面数据
@@ -51,9 +52,9 @@ public class RegisterController {
 			
 	 List<Account>  accountList=impRegister.findAccountByName(companyName);
 			if(accountList.size()==0) {//找到该对象
-				sendMesg="该公司可以注册！";
+				sendMesg="该公司可以注册!";
 			}else {
-				sendMesg="该公司已注册，请直接登录！";
+				sendMesg="该公司已注册，请直接登录!";
 			}
 			System.out.println("--查找的数量："+accountList.size());
 			System.out.println("--反回的消息:"+sendMesg);
@@ -62,7 +63,12 @@ public class RegisterController {
 	
 		sendMesg=null;
 	}
-	
+	/**
+	 * 公司账号唯一性查找
+	 * @param req
+	 * @param res 
+	 * @param account 6月18日补充
+	 */
 	@RequestMapping(value = "/checkAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
 	public void checkAccount(HttpServletRequest req,HttpServletResponse res,String companyAccount) {
 		System.out.println("---------执行了公司账号查找");
@@ -72,9 +78,9 @@ public class RegisterController {
 			
 	 List<Account>  accountList=impRegister.findAccountByAccount(companyAccount);
 			if(accountList.size()==0) {//找到该对象
-				sendMesg="该账号可以注册！";
+				sendMesg="该账号可以注册!";
 			}else {
-				sendMesg="该账号已存在，请更改！";
+				sendMesg="该账号已存在，请更改!";
 			}
 			System.out.println("--查找的数量："+accountList.size());
 			System.out.println("--反回的消息:"+sendMesg);
@@ -83,7 +89,28 @@ public class RegisterController {
 	
 		sendMesg=null;
 	}
-	
+	/**
+	 * 注册用户
+	 * 日期：6月16日
+	 * @param req
+	 * @param res
+	 * @param account 对象 6月18日
+	 */
+	@RequestMapping(value = "/addAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+	public void addAccount(HttpServletRequest req,HttpServletResponse res,Account account) {
+		System.out.println("---------执行了企业注册");
+		account.setState((short) 1);
+		
+		 int result=impRegister.addAccount(account);
+		if(result>0) {//注册成功
+			sendMesg="注册成功!";
+		}else {
+			sendMesg="注册失败!";
+		}
+		feedBackData(res,sendMesg);	
+		System.out.println("--注册结果：--"+sendMesg);
+		sendMesg=null;
+	}
 	
 	
 	

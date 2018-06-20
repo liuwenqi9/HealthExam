@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkerMapper {
+	
+	public Worker loginAdmin(Worker worker);  //登陆
+	
     int countByExample(WorkerExample example);
 
     int deleteByExample(WorkerExample example);
@@ -28,4 +31,7 @@ public interface WorkerMapper {
     int updateByPrimaryKeySelective(Worker record);
 
     int updateByPrimaryKey(Worker record);
+    
+    
+    
 }

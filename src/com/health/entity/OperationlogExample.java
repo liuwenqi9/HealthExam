@@ -1,19 +1,18 @@
 package com.health.entity;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 @Component
-public class PackagesExample {
+public class OperationlogExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public PackagesExample() {
+    public OperationlogExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -107,243 +106,243 @@ public class PackagesExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andPackageidIsNull() {
-            addCriterion("PACKAGEID is null");
+        public Criteria andOperationlogidIsNull() {
+            addCriterion("OPERATIONLOGID is null");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidIsNotNull() {
-            addCriterion("PACKAGEID is not null");
+        public Criteria andOperationlogidIsNotNull() {
+            addCriterion("OPERATIONLOGID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidEqualTo(Integer value) {
-            addCriterion("PACKAGEID =", value, "packageid");
+        public Criteria andOperationlogidEqualTo(Integer value) {
+            addCriterion("OPERATIONLOGID =", value, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidNotEqualTo(Integer value) {
-            addCriterion("PACKAGEID <>", value, "packageid");
+        public Criteria andOperationlogidNotEqualTo(Integer value) {
+            addCriterion("OPERATIONLOGID <>", value, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidGreaterThan(Integer value) {
-            addCriterion("PACKAGEID >", value, "packageid");
+        public Criteria andOperationlogidGreaterThan(Integer value) {
+            addCriterion("OPERATIONLOGID >", value, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("PACKAGEID >=", value, "packageid");
+        public Criteria andOperationlogidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("OPERATIONLOGID >=", value, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidLessThan(Integer value) {
-            addCriterion("PACKAGEID <", value, "packageid");
+        public Criteria andOperationlogidLessThan(Integer value) {
+            addCriterion("OPERATIONLOGID <", value, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidLessThanOrEqualTo(Integer value) {
-            addCriterion("PACKAGEID <=", value, "packageid");
+        public Criteria andOperationlogidLessThanOrEqualTo(Integer value) {
+            addCriterion("OPERATIONLOGID <=", value, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidIn(List<Integer> values) {
-            addCriterion("PACKAGEID in", values, "packageid");
+        public Criteria andOperationlogidIn(List<Integer> values) {
+            addCriterion("OPERATIONLOGID in", values, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidNotIn(List<Integer> values) {
-            addCriterion("PACKAGEID not in", values, "packageid");
+        public Criteria andOperationlogidNotIn(List<Integer> values) {
+            addCriterion("OPERATIONLOGID not in", values, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidBetween(Integer value1, Integer value2) {
-            addCriterion("PACKAGEID between", value1, value2, "packageid");
+        public Criteria andOperationlogidBetween(Integer value1, Integer value2) {
+            addCriterion("OPERATIONLOGID between", value1, value2, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackageidNotBetween(Integer value1, Integer value2) {
-            addCriterion("PACKAGEID not between", value1, value2, "packageid");
+        public Criteria andOperationlogidNotBetween(Integer value1, Integer value2) {
+            addCriterion("OPERATIONLOGID not between", value1, value2, "operationlogid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailIsNull() {
-            addCriterion("PACKDETAIL is null");
+        public Criteria andOperationidIsNull() {
+            addCriterion("OPERATIONID is null");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailIsNotNull() {
-            addCriterion("PACKDETAIL is not null");
+        public Criteria andOperationidIsNotNull() {
+            addCriterion("OPERATIONID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailEqualTo(Object value) {
-            addCriterion("PACKDETAIL =", value, "packdetail");
+        public Criteria andOperationidEqualTo(Integer value) {
+            addCriterion("OPERATIONID =", value, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailNotEqualTo(Object value) {
-            addCriterion("PACKDETAIL <>", value, "packdetail");
+        public Criteria andOperationidNotEqualTo(Integer value) {
+            addCriterion("OPERATIONID <>", value, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailGreaterThan(Object value) {
-            addCriterion("PACKDETAIL >", value, "packdetail");
+        public Criteria andOperationidGreaterThan(Integer value) {
+            addCriterion("OPERATIONID >", value, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailGreaterThanOrEqualTo(Object value) {
-            addCriterion("PACKDETAIL >=", value, "packdetail");
+        public Criteria andOperationidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("OPERATIONID >=", value, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailLessThan(Object value) {
-            addCriterion("PACKDETAIL <", value, "packdetail");
+        public Criteria andOperationidLessThan(Integer value) {
+            addCriterion("OPERATIONID <", value, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailLessThanOrEqualTo(Object value) {
-            addCriterion("PACKDETAIL <=", value, "packdetail");
+        public Criteria andOperationidLessThanOrEqualTo(Integer value) {
+            addCriterion("OPERATIONID <=", value, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailIn(List<Object> values) {
-            addCriterion("PACKDETAIL in", values, "packdetail");
+        public Criteria andOperationidIn(List<Integer> values) {
+            addCriterion("OPERATIONID in", values, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailNotIn(List<Object> values) {
-            addCriterion("PACKDETAIL not in", values, "packdetail");
+        public Criteria andOperationidNotIn(List<Integer> values) {
+            addCriterion("OPERATIONID not in", values, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailBetween(Object value1, Object value2) {
-            addCriterion("PACKDETAIL between", value1, value2, "packdetail");
+        public Criteria andOperationidBetween(Integer value1, Integer value2) {
+            addCriterion("OPERATIONID between", value1, value2, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPackdetailNotBetween(Object value1, Object value2) {
-            addCriterion("PACKDETAIL not between", value1, value2, "packdetail");
+        public Criteria andOperationidNotBetween(Integer value1, Integer value2) {
+            addCriterion("OPERATIONID not between", value1, value2, "operationid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameIsNull() {
-            addCriterion("PACKNAME is null");
+        public Criteria andWorkeridIsNull() {
+            addCriterion("WORKERID is null");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameIsNotNull() {
-            addCriterion("PACKNAME is not null");
+        public Criteria andWorkeridIsNotNull() {
+            addCriterion("WORKERID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameEqualTo(Object value) {
-            addCriterion("PACKNAME =", value, "packname");
+        public Criteria andWorkeridEqualTo(Integer value) {
+            addCriterion("WORKERID =", value, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameNotEqualTo(Object value) {
-            addCriterion("PACKNAME <>", value, "packname");
+        public Criteria andWorkeridNotEqualTo(Integer value) {
+            addCriterion("WORKERID <>", value, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameGreaterThan(Object value) {
-            addCriterion("PACKNAME >", value, "packname");
+        public Criteria andWorkeridGreaterThan(Integer value) {
+            addCriterion("WORKERID >", value, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameGreaterThanOrEqualTo(Object value) {
-            addCriterion("PACKNAME >=", value, "packname");
+        public Criteria andWorkeridGreaterThanOrEqualTo(Integer value) {
+            addCriterion("WORKERID >=", value, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameLessThan(Object value) {
-            addCriterion("PACKNAME <", value, "packname");
+        public Criteria andWorkeridLessThan(Integer value) {
+            addCriterion("WORKERID <", value, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameLessThanOrEqualTo(Object value) {
-            addCriterion("PACKNAME <=", value, "packname");
+        public Criteria andWorkeridLessThanOrEqualTo(Integer value) {
+            addCriterion("WORKERID <=", value, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameIn(List<Object> values) {
-            addCriterion("PACKNAME in", values, "packname");
+        public Criteria andWorkeridIn(List<Integer> values) {
+            addCriterion("WORKERID in", values, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameNotIn(List<Object> values) {
-            addCriterion("PACKNAME not in", values, "packname");
+        public Criteria andWorkeridNotIn(List<Integer> values) {
+            addCriterion("WORKERID not in", values, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameBetween(Object value1, Object value2) {
-            addCriterion("PACKNAME between", value1, value2, "packname");
+        public Criteria andWorkeridBetween(Integer value1, Integer value2) {
+            addCriterion("WORKERID between", value1, value2, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPacknameNotBetween(Object value1, Object value2) {
-            addCriterion("PACKNAME not between", value1, value2, "packname");
+        public Criteria andWorkeridNotBetween(Integer value1, Integer value2) {
+            addCriterion("WORKERID not between", value1, value2, "workerid");
             return (Criteria) this;
         }
 
-        public Criteria andPriceIsNull() {
-            addCriterion("PRICE is null");
+        public Criteria andTimeIsNull() {
+            addCriterion("TIME is null");
             return (Criteria) this;
         }
 
-        public Criteria andPriceIsNotNull() {
-            addCriterion("PRICE is not null");
+        public Criteria andTimeIsNotNull() {
+            addCriterion("TIME is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPriceEqualTo(BigDecimal value) {
-            addCriterion("PRICE =", value, "price");
+        public Criteria andTimeEqualTo(Object value) {
+            addCriterion("TIME =", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotEqualTo(BigDecimal value) {
-            addCriterion("PRICE <>", value, "price");
+        public Criteria andTimeNotEqualTo(Object value) {
+            addCriterion("TIME <>", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceGreaterThan(BigDecimal value) {
-            addCriterion("PRICE >", value, "price");
+        public Criteria andTimeGreaterThan(Object value) {
+            addCriterion("TIME >", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("PRICE >=", value, "price");
+        public Criteria andTimeGreaterThanOrEqualTo(Object value) {
+            addCriterion("TIME >=", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceLessThan(BigDecimal value) {
-            addCriterion("PRICE <", value, "price");
+        public Criteria andTimeLessThan(Object value) {
+            addCriterion("TIME <", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("PRICE <=", value, "price");
+        public Criteria andTimeLessThanOrEqualTo(Object value) {
+            addCriterion("TIME <=", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceIn(List<BigDecimal> values) {
-            addCriterion("PRICE in", values, "price");
+        public Criteria andTimeIn(List<Object> values) {
+            addCriterion("TIME in", values, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotIn(List<BigDecimal> values) {
-            addCriterion("PRICE not in", values, "price");
+        public Criteria andTimeNotIn(List<Object> values) {
+            addCriterion("TIME not in", values, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("PRICE between", value1, value2, "price");
+        public Criteria andTimeBetween(Object value1, Object value2) {
+            addCriterion("TIME between", value1, value2, "time");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("PRICE not between", value1, value2, "price");
+        public Criteria andTimeNotBetween(Object value1, Object value2) {
+            addCriterion("TIME not between", value1, value2, "time");
             return (Criteria) this;
         }
     }

@@ -6,6 +6,11 @@
     <result column="PACKAGEID" property="packageid" jdbcType="DECIMAL" />
     <result column="ITEMID" property="itemid" jdbcType="DECIMAL" />
   </resultMap>
+  
+   <select id="getItemIdsByPackageId" parameterType = "java.lang.String" resultType = "java.lang.String">
+   		select ITEMID from PACKITEM WHERE PACKAGEID = #{packageId}
+   </select>
+   
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
