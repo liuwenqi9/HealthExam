@@ -7,8 +7,12 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.health.entity.Detail;
+import com.health.entity.DetailExample;
 import com.health.mapper.DetailMapper;
 import com.health.mapper.ItemsMapper;
 import com.health.mapper.PackitemMapper;
@@ -19,6 +23,7 @@ import com.health.mapper.PackitemMapper;
  * @date 6月19日
  */
 @Service
+@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=false)
 public class ImplFinerItemMealBiz implements FinerItemMealBiz{
 	
 	@Resource
@@ -27,6 +32,8 @@ public class ImplFinerItemMealBiz implements FinerItemMealBiz{
 	ItemsMapper itemsMapper;
 	@Resource
 	PackitemMapper packitemMapper;
+	@Resource
+	DetailExample detailExample;
 	
 	/*
 	 * 细项分页查询
@@ -34,9 +41,11 @@ public class ImplFinerItemMealBiz implements FinerItemMealBiz{
 	 * param2: type 查询的表
 	 * return: List<Object> 列表
 	 */
-	public List<Detail> selectPage(int page){
-		List<Detail> list;
-		list = detailMapper.selectPageList(page);
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=true)
+	public List<Detail> selectDetailPage(){
+		detailExample.clear();
+		detailExample.setOrderByClause("detailid DESC");
+		List<Detail> list = detailMapper.selectByExample(detailExample);
 		return list;
 	}
 

@@ -1,5 +1,7 @@
 package com.health.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageHelper;
 import com.health.biz.FinerItemMealBiz;
+import com.health.entity.Detail;
+import com.health.util.PageUtil;
 
 import net.sf.json.JSONObject;
 
@@ -49,19 +54,19 @@ public class FinerItemMealController {
 	 * method: 获取细项分页数据，带条件
 	 */
 	@RequestMapping("detailMgPage.action")
-	public @ResponseBody Map<String, Object> detailMgPage() {
+	public @ResponseBody List<Detail> detailMgPage() {
 		//显示科室
-				PageHelper.startPage(1, dataNum);
-				List<Dept> list = deptService.checkDepts();	
+//				PageHelper.startPage(1, 10);
+				List<Detail> list = implFinerItemMealBiz.selectDetailPage();	
 				
 				//分页
-				List<Object> pageContanier = PageUtil.displayPage(list, 1);		
-				deptMsg.clear();
-				//数据
-				deptMsg.put("depModel", list);
-				deptMsg.put("pageContanier", pageContanier);	
+//				List<Object> pageContanier = PageUtil.displayPage(list, 1);		
+//				deptMsg.clear();
+//				//数据
+//				deptMsg.put("req", list);
+//				deptMsg.put("pageContanier", pageContanier);	
 			    
-				return deptMsg;
+				return list;
 	}
 
 }

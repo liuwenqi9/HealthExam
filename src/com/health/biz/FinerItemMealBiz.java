@@ -12,6 +12,6 @@ import com.health.entity.Detail;
 
 public interface FinerItemMealBiz {
 	
-	public List<Detail> selectPage(int page);
+	public List<Detail> selectDetailPage();
 
 }
