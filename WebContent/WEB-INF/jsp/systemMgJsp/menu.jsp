@@ -105,6 +105,10 @@
 						class="menu-icon fa fa-caret-right"></i> 项目配置
 				</a> <b class="arrow"></b></li>
 
+				<li class=""><a href="mealMg.action"> <i
+						class="menu-icon fa fa-caret-right"></i> 套餐配置
+				</a> <b class="arrow"></b></li>
+
 				<li class=""><a href="queryLog.action"> <i
 						class="menu-icon fa fa-caret-right"></i> 日志查看
 				</a> <b class="arrow"></b></li>
