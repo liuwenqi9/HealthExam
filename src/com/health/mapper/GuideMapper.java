@@ -28,7 +28,7 @@ public interface GuideMapper {
     int updateByPrimaryKeySelective(Guide record);
 
     int updateByPrimaryKey(Guide record);
-
+    
     int getMaxGuideId(); //获取导检表中现在ID号的最大值
 
 	int insertGuide(Guide currentGuide);  //用于插入一条导检信息记录

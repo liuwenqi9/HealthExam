@@ -28,6 +28,7 @@ public interface GuideitemMapper {
     int updateByPrimaryKeySelective(Guideitem record);
 
     int updateByPrimaryKey(Guideitem record);
+    
+    String insertGuideItem(Guideitem guideitem);   //用于插入记录到导检项目表
 
-	String insertGuideItem(Guideitem guideitem);   //用于插入记录到导检项目表
 }

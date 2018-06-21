@@ -405,6 +405,66 @@ public class GuideExample {
             addCriterion("ALLSUMMARY not between", value1, value2, "allsummary");
             return (Criteria) this;
         }
+
+        public Criteria andOvertimeIsNull() {
+            addCriterion("OVERTIME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeIsNotNull() {
+            addCriterion("OVERTIME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeEqualTo(Object value) {
+            addCriterion("OVERTIME =", value, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeNotEqualTo(Object value) {
+            addCriterion("OVERTIME <>", value, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeGreaterThan(Object value) {
+            addCriterion("OVERTIME >", value, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeGreaterThanOrEqualTo(Object value) {
+            addCriterion("OVERTIME >=", value, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeLessThan(Object value) {
+            addCriterion("OVERTIME <", value, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeLessThanOrEqualTo(Object value) {
+            addCriterion("OVERTIME <=", value, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeIn(List<Object> values) {
+            addCriterion("OVERTIME in", values, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeNotIn(List<Object> values) {
+            addCriterion("OVERTIME not in", values, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeBetween(Object value1, Object value2) {
+            addCriterion("OVERTIME between", value1, value2, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeNotBetween(Object value1, Object value2) {
+            addCriterion("OVERTIME not between", value1, value2, "overtime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -252,21 +252,8 @@
 						"accountId" : $(this).attr("value"),
 						"state" : $(this).attr("title")
 					},
-
 					success : function(result) {
-						if (result == 1) {
-							if (currentState == 1) {
-								alert("即将禁用");
-								alert($(this));
-								$(this).text("禁用");
-							} else {
-								alert("即将启用");
-								//$(this).innerText("启用");
-							}
-						} else {
-							alert("修改状态失败，请重新设置");
-						}
-
+						window.location.reload();   //刷新
 					}
 
 				});
