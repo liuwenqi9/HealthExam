@@ -14,7 +14,10 @@
        select * from Worker where name=#{name} and password=#{password}
   </select>
   
-  
+  <update id="changeWorkerState"
+		parameterType="java.util.HashMap">
+		update worker set state = #{state} where workerid = #{workerid}
+	</update>
   
   
   <sql id="Example_Where_Clause" >

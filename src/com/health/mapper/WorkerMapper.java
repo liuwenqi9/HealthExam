@@ -2,6 +2,8 @@ package com.health.mapper;
 
 import com.health.entity.Worker;
 import com.health.entity.WorkerExample;
+
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -31,6 +33,11 @@ public interface WorkerMapper {
     int updateByPrimaryKeySelective(Worker record);
 
     int updateByPrimaryKey(Worker record);
+    
+    /**
+     * 范帅增加修改工作人员状态接k
+     */
+    int changeWorkerState(HashMap<String, String> dataMap);
     
     
     
