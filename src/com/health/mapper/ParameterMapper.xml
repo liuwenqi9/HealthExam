@@ -6,6 +6,24 @@
     <result column="PARENTID" property="parentid" jdbcType="DECIMAL" />
     <result column="PARAMNAME" property="paramname" jdbcType="OTHER" />
   </resultMap>
+  
+   <select id="queryParameter"  resultType="com.health.entity.Parameter">
+      select * from Parameter
+  </select>
+  
+  <insert id="insertParameter" parameterType="com.health.entity.Parameter">
+     insert into Parameter values(#{parameterid},0, #{paramname})
+  </insert>
+  
+  <select id="lengthId" resultType="int">
+       select max(parameterid) from Parameter
+  </select>
+  
+  <delete id="deleteParameter" parameterType="com.health.entity.Parameter" >
+       delete from parameter where paramname=#{paramname}
+  </delete>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -12,6 +12,16 @@
 			jdbcType="DECIMAL" />
 	</resultMap>
 
+
+  <select id="loginClient" parameterType="com.health.entity.Account"   resultType="com.health.entity.Account">
+       select * from Account where account=#{account} and password=#{password}
+  </select>
+
+  
+
+
+
+
 	<select id="queryAccountList"
 		resultType="com.health.entity.Account">
 		select * from ACCOUNT

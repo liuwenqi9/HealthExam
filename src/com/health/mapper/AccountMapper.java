@@ -2,6 +2,7 @@ package com.health.mapper;
 
 import com.health.entity.Account;
 import com.health.entity.AccountExample;
+import com.health.entity.Worker;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountMapper {
+	
+	public Account loginClient(Account account);  //登陆
+	
     int countByExample(AccountExample example);
 
     int deleteByExample(AccountExample example);
