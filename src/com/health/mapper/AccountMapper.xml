@@ -25,6 +25,10 @@
 		parameterType="java.util.HashMap">
 		update account set state = #{state} where account = #{accountId}
 	</update>
+	
+	<select id="queryAccountById" parameterType = "java.lang.String" resultType = "com.health.entity.Account">
+		select * from Account where account = #{accountId}
+	</select>
   
   <sql id="Example_Where_Clause" >
     <where >
