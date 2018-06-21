@@ -4,6 +4,7 @@ import com.health.entity.Account;
 import com.health.entity.AccountExample;
 import com.health.entity.Worker;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -36,4 +37,9 @@ public interface AccountMapper {
     int updateByPrimaryKey(Account record);
     
 	int changeAccountState(HashMap<String, String> dataMap);
+
+	ArrayList<Account> queryAccountList();
+
+	Account queryAccountById(String accountId); //根据ID号查找一个企业账号
+
 }

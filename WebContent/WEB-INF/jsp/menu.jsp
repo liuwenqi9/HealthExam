@@ -28,8 +28,8 @@
 
 					<ul
 						class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-						<li><a href="updatePwd.action">
-								<i class="ace-icon fa fa-power-off"></i> 修改密码
+						<li><a href="updatePwd.action"> <i
+								class="ace-icon fa fa-power-off"></i> 修改密码
 						</a></li>
 						<li><a href="<%=request.getContextPath()%>/jsp/login.action">
 								<i class="ace-icon fa fa-power-off"></i> 退出
@@ -121,10 +121,6 @@
 		</a> <b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class=""><a href="openExam.action"> <i
-						class="menu-icon fa fa-caret-right"></i> 团检开单
-				</a> <b class="arrow"></b></li>
-
 				<li class=""><a href="charge.action"> <i
 						class="menu-icon fa fa-caret-right"></i> 记账
 				</a> <b class="arrow"></b></li>
@@ -190,15 +186,15 @@
 				</a> <b class="arrow"></b></li>
 
 			</ul></li>
-			
-			
+
+
 		<li class=""><a href="#" class="dropdown-toggle"> <i
 				class="menu-icon fa fa-list"></i> <span class="menu-text">
 					辅助功能</span> <b class="arrow fa fa-angle-down"></b>
 		</a> <b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class=""><a href="summary.action"> <i
+				<li class=""><a href="updatePassword.action"> <i
 						class="menu-icon fa fa-caret-right"></i> 修改密码
 				</a> <b class="arrow"></b></li>
 

@@ -12,6 +12,8 @@ public class Guideitem {
 
     private Object summary;
 
+    private Object examtime;
+
     public Integer getGuideitemid() {
         return guideitemid;
     }
@@ -42,5 +44,13 @@ public class Guideitem {
 
     public void setSummary(Object summary) {
         this.summary = summary;
+    }
+
+    public Object getExamtime() {
+        return examtime;
+    }
+
+    public void setExamtime(Object examtime) {
+        this.examtime = examtime;
     }
 }

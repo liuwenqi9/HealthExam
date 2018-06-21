@@ -13,6 +13,8 @@ public class Viewpersonguideitemdept {
 
     private Object time;
 
+    private Short state;
+
     private Object itemname;
 
     private Object deptname;
@@ -47,6 +49,14 @@ public class Viewpersonguideitemdept {
 
     public void setTime(Object time) {
         this.time = time;
+    }
+
+    public Short getState() {
+        return state;
+    }
+
+    public void setState(Short state) {
+        this.state = state;
     }
 
     public Object getItemname() {

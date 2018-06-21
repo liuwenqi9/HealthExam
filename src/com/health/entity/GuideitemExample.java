@@ -345,6 +345,66 @@ public class GuideitemExample {
             addCriterion("SUMMARY not between", value1, value2, "summary");
             return (Criteria) this;
         }
+
+        public Criteria andExamtimeIsNull() {
+            addCriterion("EXAMTIME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeIsNotNull() {
+            addCriterion("EXAMTIME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeEqualTo(Object value) {
+            addCriterion("EXAMTIME =", value, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeNotEqualTo(Object value) {
+            addCriterion("EXAMTIME <>", value, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeGreaterThan(Object value) {
+            addCriterion("EXAMTIME >", value, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeGreaterThanOrEqualTo(Object value) {
+            addCriterion("EXAMTIME >=", value, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeLessThan(Object value) {
+            addCriterion("EXAMTIME <", value, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeLessThanOrEqualTo(Object value) {
+            addCriterion("EXAMTIME <=", value, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeIn(List<Object> values) {
+            addCriterion("EXAMTIME in", values, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeNotIn(List<Object> values) {
+            addCriterion("EXAMTIME not in", values, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeBetween(Object value1, Object value2) {
+            addCriterion("EXAMTIME between", value1, value2, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamtimeNotBetween(Object value1, Object value2) {
+            addCriterion("EXAMTIME not between", value1, value2, "examtime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
