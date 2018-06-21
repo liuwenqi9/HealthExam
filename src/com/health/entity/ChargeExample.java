@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+
+import com.health.entity.DeptExample.Criteria;
 @Component
 public class ChargeExample {
     protected String orderByClause;
@@ -464,6 +466,12 @@ public class ChargeExample {
         public Criteria andStateNotBetween(Short value1, Short value2) {
             addCriterion("STATE not between", value1, value2, "state");
             return (Criteria) this;
+        }
+        
+        //额外添加
+        public Criteria andAccountLike(Object value) {
+        	addCriterion("ACCOUNT like", value, "account");
+        	return (Criteria) this;
         }
     }
 

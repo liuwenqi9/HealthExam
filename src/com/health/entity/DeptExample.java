@@ -228,7 +228,6 @@ public class DeptExample {
         
         //额外添加
         public Criteria andDeptnameLike(Object value) {
-        	System.out.println("value = " + value);
         	addCriterion("DEPTNAME like", value, "deptname");
         	return (Criteria) this;
         }
