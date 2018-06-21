@@ -40,8 +40,8 @@
 					<div class="login-container">
 						<div class="center">
 							<h1>
-								<i class="ace-icon fa fa-leaf green"></i> <span class="red">后台</span>
-								<span class="white" id="id-text2">管理系统</span>
+								<i class="ace-icon fa fa-leaf green"></i> <span class="red">企业</span>
+								<span class="white" id="id-text2">健康体检</span>
 							</h1>
 							<h4 class="blue" id="id-company-text">&copy; Company Name</h4>
 						</div>
@@ -60,11 +60,11 @@
 
 										<div class="space-6"></div>
 
-										<form action="loginAdmin.action" method="post" id="loginFrom" path=<%=path%>>
+										<form action="loginClietJsp.action" method="post" id="loginFrom" path=<%=path%>>
 											<fieldset>
 												<label class="block clearfix"> <span
 													class="block input-icon input-icon-right"> <input
-														id="userName" type="text" name="name" class="form-control"
+														id="account" type="text" name="account" class="form-control"
 														placeholder="Username" /> <i class="ace-icon fa fa-user"></i>
 												</span>
 												</label> <label class="block clearfix"> <span
@@ -286,10 +286,10 @@
 	<script type="text/javascript">
 
 		$("#login").click(function() {
-			var name = $("#userName").val();
+			var account = $("#account").val();
 			var password = $("#password").val();
 			// 			var ret = /^[^\u4e00-\u9fa5]+$/;
-			if (name == null || name == "") {
+			if (account == null || account == "") {
 				alert("请输入帐户名")
 			} else if (password == null || password == "") {
 				alert("请输入密码")
@@ -301,11 +301,11 @@
 // 				alert($("#userName").val());
 // 				alert($("#password").val());
 				$.ajax({
-					url : "loginAdmin.action",
+					url : "loginCliet.action",
 					type : "post",
 					dataType : "text",
 					data : {
-						"name" : $("#userName").val(),
+						"account" : $("#account").val(),
 						"password" : $("#password").val()
 
 					},
@@ -315,7 +315,7 @@
 							var formNode = document.getElementById("loginFrom");
 							var basepath = formNode.getAttribute("path");
 
-							formNode.action = 'loginThis.action';
+							formNode.action = 'loginClientThis.action';
 							formNode.submit();
 
 						} else if (data == "FAIL") {

@@ -7,6 +7,13 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface ParameterMapper {
+	
+	List<Parameter> queryParameter();  //参数列表查询
+	int  insertParameter(Parameter parameter);  //     参数增加
+	int deleteParameter(String paramname);    //通过参数名删除参数
+	
+	int lengthId();
+	
     int countByExample(ParameterExample example);
 
     int deleteByExample(ParameterExample example);

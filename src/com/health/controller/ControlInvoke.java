@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,13 +69,16 @@ public class ControlInvoke {
 	// }
 
 	@RequestMapping("loginAdmin.action")
-	public void loginAdmin(HttpServletResponse response, Worker worker) throws IOException {
+	public void loginAdmin(HttpServletResponse response,HttpServletRequest request, Worker worker) throws IOException {
 		response.setContentType("text/text");
 		response.setCharacterEncoding("UTF-8");
 		System.out.println(worker.getName() + "" + worker.getPassword());
 		Worker login = impLoginBiz.loginAdmin(worker);
+	
+		HttpSession session = request.getSession();
 		PrintWriter printWriter = response.getWriter();
 		if (login != null) {
+			session.setAttribute("WorkerName", worker.getName());
 			printWriter.print("OK");
 			printWriter.flush();
 			printWriter.close();		
