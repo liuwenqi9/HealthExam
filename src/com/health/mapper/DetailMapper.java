@@ -4,6 +4,7 @@ import com.health.entity.Detail;
 import com.health.entity.DetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface DetailMapper {
@@ -28,4 +29,6 @@ public interface DetailMapper {
     int updateByPrimaryKeySelective(Detail record);
 
     int updateByPrimaryKey(Detail record);
+    
+    List<Detail> selectPageList(int page);
 }
