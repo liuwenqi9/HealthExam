@@ -12,6 +12,8 @@ public interface ParameterMapper {
 	int  insertParameter(Parameter parameter);  //     参数增加
 	int deleteParameter(String paramname);    //通过参数名删除参数
 	
+	int updataParameter(Parameter paramname);
+	
 	int lengthId();
 	
     int countByExample(ParameterExample example);

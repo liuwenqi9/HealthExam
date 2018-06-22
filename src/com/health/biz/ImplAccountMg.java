@@ -63,4 +63,11 @@ public class ImplAccountMg implements AccountMgBiz {
 		int result = accountMapper.changeAccountState(dataMap);
 		return result;
 	}
+
+	@Override
+	public ArrayList<Account> queryAccount(String name) {
+		ArrayList<Account> queryListAcc=accountMapper.queryAccountName(name);
+		
+		return queryListAcc;
+	}
 }

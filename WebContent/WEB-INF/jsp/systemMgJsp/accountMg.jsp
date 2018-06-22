@@ -45,7 +45,7 @@
 					<div class="pull-right">
 						<form class="form-inline">
 							<div class="form-group">
-								<input type="text" placeholder="账户名称" class="form-control"
+								<input id="name" name="name" type="text" placeholder="账户名称" class="form-control"
 									v-model="searchModel.S_cardNum">
 							</div>
 							<div class="form-group">
@@ -55,8 +55,9 @@
 									<option value="0">禁用</option>
 								</select>
 							</div>
-							<a href="#" class="btn btn-sm btn-success" v-on:click="selectBtn"><i
-								class="glyphicon  glyphicon-search bigger-110"></i>查询</a>
+							<button id="queryAcMg" type="" class="btn btn-sm btn-success" v-on:click="selectBtn">
+								<i class="glyphicon  glyphicon-search bigger-110"></i>查询
+							</button>
 						</form>
 					</div>
 					<div class="row">
@@ -157,65 +158,7 @@
 
 			<!-- /.breadcrumb -->
 		</div>
-		<div id="edit-modal" class="modal fade in" tabindex="-1"
-			style="display: none;">
-			<form id="edit-form" role="form">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">×</button>
-							<h3 class="smaller lighter blue no-margin">查询卡</h3>
-						</div>
-
-						<div class="modal-body" style="height: 300px">
-							<div class="row">
-								<div class="col-xs-6">
-									<span class="col-xs-4">卡号:</span> <span class="col-xs-8">{{dat.CARD_INFO_PREFIX}}{{dat.CARD_INFO_NUM}}</span>
-								</div>
-								<div class="col-xs-6">
-									<span class="col-xs-4">卡余额:</span> <span class="col-xs-8">{{dat.PATIENT_BALANCE}}</span>
-								</div>
-							</div>
-							<div class="hr hr-14 hr-dotted"></div>
-							<div class="row">
-								<div class="col-xs-6">
-									<span class="col-xs-4">卡状态:</span> <span class="col-xs-8">{{dat.PARAMETER_ID==0?"待领用":dat.PARAMETER_ID==1?"待销售":dat.PARAMETER_ID==2?"已售卡":dat.PARAMETER_ID==3?"已退卡":dat.PARAMETER_ID==4?"已注销":"未知"}}</span>
-								</div>
-								<div class="col-xs-6">
-									<span class="col-xs-4">就诊人:</span> <span class="col-xs-8">{{dat.PATIENT_NAME}}</span>
-								</div>
-							</div>
-							<div class="hr hr-14 hr-dotted"></div>
-							<div class="row">
-								<div class="col-xs-6">
-									<span class="col-xs-4">领用人:</span> <span class="col-xs-8">{{dat.OPTION_PERSON}}</span>
-								</div>
-								<div class="col-xs-6">
-									<span class="col-xs-4">领用时间:</span> <span class="col-xs-8">{{dat.OPTION_TIME}}</span>
-								</div>
-							</div>
-							<div class="hr hr-14 hr-dotted"></div>
-							<div class="row">
-								<div class="col-xs-6">
-									<span class="col-xs-4">售卡人:</span> <span class="col-xs-8">{{dat.SALE_TIME==null||dat.SALE_TIME==""?"":dat.OPTION_PERSON}}</span>
-								</div>
-								<div class="col-xs-6">
-									<span class="col-xs-4">售卡时间:</span> <span class="col-xs-8">{{dat.SALE_TIME}}</span>
-								</div>
-							</div>
-						</div>
-
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button>
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal-dialog -->
-			</form>
-		</div>
+		
 	</div>
 	<!-- /.main-content -->
 
@@ -270,6 +213,26 @@
 					}
 
 				});
+			});
+			
+			
+			$("#queryAcMg").click(function(){
+				
+				alert("查询："+$("#name").val());
+				
+				$.ajax({
+					url : "AccountMg.action",
+					type : "post",
+					dataType : "text",
+					data : {
+				
+
+					}
+				
+				
+					
+				})
+				
 			});
 		});
 	</script>

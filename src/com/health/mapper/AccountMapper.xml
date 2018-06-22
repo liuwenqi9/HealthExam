@@ -20,6 +20,11 @@
 	<select id="queryAccountList"  resultType="com.health.entity.Account">
 		select * from ACCOUNT
 	</select>
+	
+	<select id="queryAccountName" parameterType="String" resultType="com.health.entity.Account">
+	   select * from ACCOUNT where name like  #{name} ORDER BY account ASC
+	
+	</select>
 
 	<update id="changeAccountState"
 		parameterType="java.util.HashMap">
