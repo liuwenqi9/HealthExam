@@ -40,7 +40,7 @@ $(function () {
 			    		cname:true,
 	                	remote:{  
 		                    type:"POST",  
-		                    url:"../register/checkName.action", //请求地址  
+		                    url:"../register/checkName.action" //请求地址  
 		                  /*  data:{  
 		                    	name:function(){
 		                    		return $("#company_name").val(); 
@@ -53,7 +53,7 @@ $(function () {
 			    		caccount:true,
 	                	remote:{  
 		                    type:"POST",  
-		                    url:"../register/checkAccount.action", //请求地址  
+		                    url:"../register/checkAccount.action" //请求地址  
 		                   /* data:{  
 		                    	companyAccount:function(){ return $("#company_account").val(); }  
 		                    } */ 
@@ -69,8 +69,8 @@ $(function () {
 			    		equalTo:"#company_pwd" 
 			    	},
 			    	
-			    	locationid: "required",//地址
-			    	 agree: "required",//同意
+			    	locationname: "required",//地址
+			    	 agree: "required"//同意
 			 
 			    		 
 			    		 
@@ -96,19 +96,25 @@ $(function () {
 			    		equalTo:"两次密码不一致" 
 			    	},
 			    	agree: "请同意注册条款",//同意
-			    	locationid: "请选择地址"
+			    	locationname: "请选择地址"
 				
 			    },
 			    submitHandler:function(form){
 			    	//密码加密
 			    /*	var encryption= hex_md5($("#company_pwd").val());*/
 			    /*	console.log("--加密后的注册密码："+encryption);*/
+			    	/*var formdata=new FormData();*/
+			    		
+			    	var formdata=$("#register_form").serialize();
+			    	  $.param(formdata);  
+			    	
+			        console.log("表单序列化=============="+formdata);  
 			    	
 			    console.log("运行到提交注册了");
 			    	$.ajax({
 			    		url: "../register/addAccount.action",  
 			    		 type: 'post',  
-			    		 	    					    
+			    		 data:formdata,	    					    			    	
 			    		 success: function(result){  
 			                  if(result=="success"){//注册成功
 			                	  console.log("-----注册成功");

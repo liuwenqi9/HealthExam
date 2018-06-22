@@ -6,12 +6,13 @@
     <result column="GUIDEID" property="guideid" jdbcType="DECIMAL" />
     <result column="ITEMID" property="itemid" jdbcType="DECIMAL" />
     <result column="SUMMARY" property="summary" jdbcType="OTHER" />
+    <result column="EXAMTIME" property="examtime" jdbcType="OTHER" />
   </resultMap>
   
-  <select id="insertGuideItem" parameterType="com.health.entity.Guideitem">
+    <select id="insertGuideItem" parameterType="com.health.entity.Guideitem">
   	  insert into guideitem(guideid,itemid) values(#{guideid},#{itemid})
-  </select>
-  
+   </select>
+   
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    GUIDEITEMID, GUIDEID, ITEMID, SUMMARY
+    GUIDEITEMID, GUIDEID, ITEMID, SUMMARY, EXAMTIME
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.GuideitemExample" >
     select
@@ -105,9 +106,9 @@
   </delete>
   <insert id="insert" parameterType="com.health.entity.Guideitem" >
     insert into GUIDEITEM (GUIDEITEMID, GUIDEID, ITEMID, 
-      SUMMARY)
+      SUMMARY, EXAMTIME)
     values (#{guideitemid,jdbcType=DECIMAL}, #{guideid,jdbcType=DECIMAL}, #{itemid,jdbcType=DECIMAL}, 
-      #{summary,jdbcType=OTHER})
+      #{summary,jdbcType=OTHER}, #{examtime,jdbcType=OTHER})
   </insert>
   <insert id="insertSelective" parameterType="com.health.entity.Guideitem" >
     insert into GUIDEITEM
@@ -124,6 +125,9 @@
       <if test="summary != null" >
         SUMMARY,
       </if>
+      <if test="examtime != null" >
+        EXAMTIME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="guideitemid != null" >
@@ -137,6 +141,9 @@
       </if>
       <if test="summary != null" >
         #{summary,jdbcType=OTHER},
+      </if>
+      <if test="examtime != null" >
+        #{examtime,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
@@ -161,6 +168,9 @@
       <if test="record.summary != null" >
         SUMMARY = #{record.summary,jdbcType=OTHER},
       </if>
+      <if test="record.examtime != null" >
+        EXAMTIME = #{record.examtime,jdbcType=OTHER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -171,7 +181,8 @@
     set GUIDEITEMID = #{record.guideitemid,jdbcType=DECIMAL},
       GUIDEID = #{record.guideid,jdbcType=DECIMAL},
       ITEMID = #{record.itemid,jdbcType=DECIMAL},
-      SUMMARY = #{record.summary,jdbcType=OTHER}
+      SUMMARY = #{record.summary,jdbcType=OTHER},
+      EXAMTIME = #{record.examtime,jdbcType=OTHER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -188,6 +199,9 @@
       <if test="summary != null" >
         SUMMARY = #{summary,jdbcType=OTHER},
       </if>
+      <if test="examtime != null" >
+        EXAMTIME = #{examtime,jdbcType=OTHER},
+      </if>
     </set>
     where GUIDEITEMID = #{guideitemid,jdbcType=DECIMAL}
   </update>
@@ -195,7 +209,8 @@
     update GUIDEITEM
     set GUIDEID = #{guideid,jdbcType=DECIMAL},
       ITEMID = #{itemid,jdbcType=DECIMAL},
-      SUMMARY = #{summary,jdbcType=OTHER}
+      SUMMARY = #{summary,jdbcType=OTHER},
+      EXAMTIME = #{examtime,jdbcType=OTHER}
     where GUIDEITEMID = #{guideitemid,jdbcType=DECIMAL}
   </update>
 </mapper>

@@ -99,7 +99,7 @@ $(function () {
 		 
 			
 	            extend: 'excelHtml5',
-            	title: '传一人民医院-企业注册人员模板',
+            	title: '传一人民医院-企业登记人员模板',
     			text: "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>下载模板</span>",
     			className: "btn btn-white btn-primary btn-bold",
     			exportOptions: {  

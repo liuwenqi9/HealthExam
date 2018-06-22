@@ -26,5 +26,10 @@ public interface AccountMgBiz {
 	public ArrayList<Account> queryAccountList();
 	
 	public int changeAccountState(HashMap<String, String> dataMap);
+	
+
+	public Account queryAccountById(String accountId);
+
+	public ArrayList<Account> queryAccount(String name);  //用于团检单位 模糊查询
 
 }

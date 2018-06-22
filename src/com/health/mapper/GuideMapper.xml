@@ -7,9 +7,10 @@
     <result column="TIME" property="time" jdbcType="OTHER" />
     <result column="PERSONINFOID" property="personinfoid" jdbcType="DECIMAL" />
     <result column="ALLSUMMARY" property="allsummary" jdbcType="OTHER" />
+    <result column="OVERTIME" property="overtime" jdbcType="OTHER" />
   </resultMap>
   
-  <select id="getMaxGuideId" resultType="int">
+   <select id="getMaxGuideId" resultType="int">
   	 select max(guideid) from guide
   </select>
   
@@ -78,7 +79,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    GUIDEID, STATE, TIME, PERSONINFOID, ALLSUMMARY
+    GUIDEID, STATE, TIME, PERSONINFOID, ALLSUMMARY, OVERTIME
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.GuideExample" >
     select
@@ -112,9 +113,11 @@
   </delete>
   <insert id="insert" parameterType="com.health.entity.Guide" >
     insert into GUIDE (GUIDEID, STATE, TIME, 
-      PERSONINFOID, ALLSUMMARY)
+      PERSONINFOID, ALLSUMMARY, OVERTIME
+      )
     values (#{guideid,jdbcType=DECIMAL}, #{state,jdbcType=DECIMAL}, #{time,jdbcType=OTHER}, 
-      #{personinfoid,jdbcType=DECIMAL}, #{allsummary,jdbcType=OTHER})
+      #{personinfoid,jdbcType=DECIMAL}, #{allsummary,jdbcType=OTHER}, #{overtime,jdbcType=OTHER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.health.entity.Guide" >
     insert into GUIDE
@@ -134,6 +137,9 @@
       <if test="allsummary != null" >
         ALLSUMMARY,
       </if>
+      <if test="overtime != null" >
+        OVERTIME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="guideid != null" >
@@ -150,6 +156,9 @@
       </if>
       <if test="allsummary != null" >
         #{allsummary,jdbcType=OTHER},
+      </if>
+      <if test="overtime != null" >
+        #{overtime,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
@@ -177,6 +186,9 @@
       <if test="record.allsummary != null" >
         ALLSUMMARY = #{record.allsummary,jdbcType=OTHER},
       </if>
+      <if test="record.overtime != null" >
+        OVERTIME = #{record.overtime,jdbcType=OTHER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,7 +200,8 @@
       STATE = #{record.state,jdbcType=DECIMAL},
       TIME = #{record.time,jdbcType=OTHER},
       PERSONINFOID = #{record.personinfoid,jdbcType=DECIMAL},
-      ALLSUMMARY = #{record.allsummary,jdbcType=OTHER}
+      ALLSUMMARY = #{record.allsummary,jdbcType=OTHER},
+      OVERTIME = #{record.overtime,jdbcType=OTHER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -208,6 +221,9 @@
       <if test="allsummary != null" >
         ALLSUMMARY = #{allsummary,jdbcType=OTHER},
       </if>
+      <if test="overtime != null" >
+        OVERTIME = #{overtime,jdbcType=OTHER},
+      </if>
     </set>
     where GUIDEID = #{guideid,jdbcType=DECIMAL}
   </update>
@@ -216,7 +232,8 @@
     set STATE = #{state,jdbcType=DECIMAL},
       TIME = #{time,jdbcType=OTHER},
       PERSONINFOID = #{personinfoid,jdbcType=DECIMAL},
-      ALLSUMMARY = #{allsummary,jdbcType=OTHER}
+      ALLSUMMARY = #{allsummary,jdbcType=OTHER},
+      OVERTIME = #{overtime,jdbcType=OTHER}
     where GUIDEID = #{guideid,jdbcType=DECIMAL}
   </update>
 </mapper>

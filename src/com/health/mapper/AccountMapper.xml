@@ -11,20 +11,23 @@
     <result column="LOCATIONNAME" property="locationname" jdbcType="OTHER" />
   </resultMap>
   
-
-  <select id="loginClient" parameterType="com.health.entity.Account"   resultType="com.health.entity.Account">
-       select * from Account where account=#{account} and password=#{password}
-  </select>
-
-
-	<select id="queryAccountList"  resultType="com.health.entity.Account">
+  	<select id="queryAccountList"  resultType="com.health.entity.Account">
 		select * from ACCOUNT
+	</select>
+	
+	<select id="queryAccountName" parameterType="String" resultType="com.health.entity.Account">
+	   select * from ACCOUNT where name like  #{name} ORDER BY account ASC
+	
 	</select>
 
 	<update id="changeAccountState"
 		parameterType="java.util.HashMap">
 		update account set state = #{state} where account = #{accountId}
 	</update>
+	
+	<select id="queryAccountById" parameterType = "java.lang.String" resultType = "com.health.entity.Account">
+		select * from Account where account = #{accountId}
+	</select>
   
   <sql id="Example_Where_Clause" >
     <where >

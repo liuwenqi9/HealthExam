@@ -82,7 +82,7 @@
 													<button class="btn btn-xs btn-danger" v-on:click="deletDept(''+todo.deptid)">
 															<i class="ace-icon fa fa-trash-o bigger-120"></i>
 														</button>		
-														<button class="btn btn-xs btn-info" v-on:click="showModal(''+todo.deptid,index)">
+													<button class="btn btn-xs btn-info" v-on:click="showModal(''+todo.deptid,index)">
 															<i class="ace-icon fa fa-pencil bigger-120"></i>
 													</button>
 												</td>

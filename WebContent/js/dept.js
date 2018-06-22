@@ -53,7 +53,9 @@ var req = new Vue({
 				method:"post",
 				dataType:"json",
 				success:function(data){
-					req.deptList=data;
+					req.deptList = data.depModel; //数据
+					req.pageCount = data.pageContanier; //总页数
+					req.currentPage = 1; //当前页
 					$("#add-modal").modal('hide');
 				},
 				error: function(){
@@ -70,7 +72,9 @@ var req = new Vue({
 					method:"post",
 					dataType:"json",
 					success:function(data){
-						req.deptList=data;
+						req.deptList = data.depModel; //数据
+						req.pageCount = data.pageContanier; //总页数
+						req.currentPage = 1; //当前页
 						alert("删除成功");
 					},
 					error: function(){
@@ -81,30 +85,31 @@ var req = new Vue({
 		},
 		searchDept:function(){ //科室查询
 			var seachName = $("#seachName").val().replace(/\s|\xA0/g, ""); //去除全部空格
-			var nowUrl;
 			if(seachName == ""){
-				nowUrl = "loadDept.action";
 				$.ajax({
-					url:nowUrl,
+					url:"loadDept.action",
 					data:{"deptname":seachName},
 					method:"post",
 					dataType:"json",
 					success:function(data){
-						req.deptList=data;
+						req.deptList = data.depModel; //数据
+						req.pageCount = data.pageContanier; //总页数
+						req.currentPage = 1; //当前页
 					},
 					error:function(){
 						alert("查询失败，请检查是否联网");
 					}
 				})
 			}else{
-				nowUrl = "searchDepMg.action";
 				$.ajax({
-					url:nowUrl,
+					url:"searchDepMg.action",
 					data:{"deptname":seachName},
 					method:"post",
 					dataType:"json",
 					success:function(data){
-						req.deptList=data;
+						req.deptList = data.depModel; //数据
+						req.pageCount = data.pageContanier; //总页数
+						req.currentPage = 1; //当前页
 					},
 					error:function(){
 						alert("查询失败，请检查是否联网");

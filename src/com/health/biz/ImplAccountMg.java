@@ -31,7 +31,6 @@ public class ImplAccountMg implements AccountMgBiz {
 
 	@Override
 	public Account queryOneAccount(Account account) {
-
 		return null;
 	}
 
@@ -57,10 +56,34 @@ public class ImplAccountMg implements AccountMgBiz {
 		return acList;
 	}
 
-
+	/*
+	 * 实现查询所有的账户的方法
+	 * @author 罗杭春
+	 * @date 6月14日
+	 */
 	@Override
 	public int changeAccountState(HashMap<String, String> dataMap) {
 		int result = accountMapper.changeAccountState(dataMap);
 		return result;
+	}
+
+
+	/*
+	 * 根据一个账户id号来查询账户
+	 * @author 罗杭春   6月21日
+	 * @param 一个账户ID号
+	 * @return 返回一个账户对象
+	 */
+	@Override
+	public Account queryAccountById(String accountId) {
+		return accountMapper.queryAccountById(accountId);
+
+	}
+	@Override
+	public ArrayList<Account> queryAccount(String name) {
+		ArrayList<Account> queryListAcc=accountMapper.queryAccountName(name);
+		
+		return queryListAcc;
+
 	}
 }

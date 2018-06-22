@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.health.biz.DeptService;
 import com.health.entity.Dept;
 import com.health.util.PageUtil;
-
-import org.springframework.ui.Model;
 
 @Controller
 public class DepMgController {
@@ -30,14 +27,10 @@ public class DepMgController {
 	private int dataNum = 10; //每页显示数据
 	private Map<String, Object> deptMsg = new HashMap<String, Object>(); //ajax数据回传
 	
-	@RequestMapping(value = "/deptMg.action")
-	public String depMg() {
-		
-		return "jsp/systemMgJsp/deptMg";		
-	}
 	
-	@RequestMapping(value = "/loadDept.action")
-	public @ResponseBody Map<String, Object> loadDept() {		
+	//加载科室
+	public Map<String, Object> loadingDept() {
+		
 		//显示科室
 		PageHelper.startPage(1, dataNum);
 		List<Dept> list = deptService.checkDepts();	
@@ -47,22 +40,33 @@ public class DepMgController {
 		deptMsg.clear();
 		//数据
 		deptMsg.put("depModel", list);
-		deptMsg.put("pageContanier", pageContanier);	
+		deptMsg.put("pageContanier", pageContanier);
+		
+		return deptMsg;
+	}
+	
+	@RequestMapping(value = "/deptMg.action")
+	public String depMg() {		
+		return "jsp/systemMgJsp/deptMg";		
+	}
+	
+	@RequestMapping(value = "/loadDept.action")
+	public @ResponseBody Map<String, Object> loadDept() {		
+		//加载科室
+		deptMsg = loadingDept();
 	    
 		return deptMsg;
 	}
 		
 	@RequestMapping(value = "/addDeptMg.action")
-	public @ResponseBody List<Dept> addDepMg(Model model, String deptname) {
+	public @ResponseBody Map<String, Object> addDepMg(String deptname) {
 		
 		//增加科室
 		dept.setDeptname(deptname);
 		deptService.addDept(dept);
-		//查找科室
-		List<Dept> list = deptService.checkDepts();
-		model.addAttribute("list", list);
-		
-		return list;
+		//重新加载科室
+		deptMsg = loadingDept();
+		return deptMsg;
 	}
 	
 	@RequestMapping(value = "/changeDepMg.action")
@@ -73,20 +77,27 @@ public class DepMgController {
 	}
 	
 	@RequestMapping(value = "/deletDepMg.action")
-	public @ResponseBody List<Dept> deltDept(String deptid){
+	public @ResponseBody Map<String, Object> deltDept(String deptid){
 				
 		//删除科室
 		deptService.delDept(Integer.parseInt(deptid));
-		//查找科室
-		List<Dept> list = deptService.checkDepts();
-		return list;
+		//重新加载科室
+		deptMsg = loadingDept();
+		return deptMsg;
 	}
 	
 	@RequestMapping(value = "/searchDepMg.action")
-	public @ResponseBody List<Dept> checkDept(String deptname){			
+	public @ResponseBody Map<String, Object> checkDept(String deptname){			
 		//搜索科室	
-		List<Dept> list = deptService.serachDept(deptname);
-		return list;
+		PageHelper.startPage(1, dataNum);
+		List<Dept> list = deptService.serachDept(deptname);		
+		//分页
+		List<Object> pageContanier = PageUtil.displayPage(list, 1);		
+		deptMsg.clear();
+		//数据
+		deptMsg.put("depModel", list);
+		deptMsg.put("pageContanier", pageContanier);
+		return deptMsg;
 	}
 	
 	@RequestMapping(value = "/pageItem.action")
@@ -104,7 +115,7 @@ public class DepMgController {
 			list = deptService.serachDept(deptname);
 		}
 		//分页
-		List<Object> pageContanier = PageUtil.displayPage(list, 1);		
+		List<Object> pageContanier = PageUtil.displayPage(list, Integer.parseInt(currentPage));		
 		//数据
 		deptMsg.put("depModel", list);
 		deptMsg.put("pageContanier", pageContanier);

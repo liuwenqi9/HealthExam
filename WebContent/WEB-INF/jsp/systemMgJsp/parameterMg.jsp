@@ -65,12 +65,12 @@
 
 										<c:forEach var="account" begin="0" items="${paList}" varStatus="idx">
 											<tr id="tr_ofAccount" align="center">
-												<td class="pid" ><c:out value="${idx.index+1}"></c:out></td>
+												<td class="pid" ><c:out value="${account.getParameterid()}"></c:out></td>
 												<td><c:out value="${account.getParamname()}"></c:out></td>
 												<td>
 													<div class="btn-group">
-													
-														<button id="updataParam" onclick="$('#change-modal').modal('show');" class="btn btn-xs btn-info">
+<!-- 													$('#change-modal').modal('show');  -->
+														<button id="updataParam"  onclick="updataParam(this)"  class="btn btn-xs btn-info">
 															<i class="ace-icon fa fa-pencil bigger-120"></i>
 														</button>
 														<button id="deleteParam" onclick="deleteParam(this)" class="btn btn-xs btn-danger">
@@ -160,7 +160,7 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<span class="col-xs-4">参数名称:</span> <input type="text"
-										name="deptname" id="changeName" />
+										name="changeName" id="changeName" />
 								</div>
 							</div>
 							<div class="hr hr-14 hr-dotted"></div>
