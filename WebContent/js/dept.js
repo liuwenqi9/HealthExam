@@ -29,39 +29,65 @@ var req = new Vue({
 			currentIndex=no;
 		},		
 		changeDept:function(){ //更改科室
-			var deptname = $("#changeName").val();
-			$.ajax({
-				url:"changeDepMg.action",
-				data:{"deptid":currentId, "deptname":deptname},
-				method:"post",
-				dataType:"json",
-				success:function(data){
-					req.deptList[currentIndex].deptname = data.deptname;
-					$("#change-modal").modal("hide");
-				},
-				error: function(){
-					alert("更改失败，请检查是否联网");
-				}
-			})
+			var deptname = $("#changeName").val().replace(/\s|\xA0/g, ""); //去除所有空格
+			
+			if(deptname != ""){
+				
+				$.ajax({
+					url:"changeDepMg.action",
+					data:{"deptid":currentId, "deptname":deptname},
+					method:"post",
+					dataType:"json",
+					success:function(data){
+						if(data.deptname != "Exist"){							
+							req.deptList[currentIndex].deptname = data.deptname;
+							$("#change-modal").modal("hide");
+							
+						}else{
+							alert("该科室已存在");
+							$("#change-modal").modal("hide");
+						}
+						$("#changeName").val("");
+					},
+					error: function(){
+						alert("更改失败，请检查是否联网");
+					}
+				})
+				
+			}else{
+				alert("请输入科室名称！");
+			}
 			
 		},
 		addDept:function(){ //增加科室			
-			var deptname = $("#deptname").val();
-			$.ajax({
-				url:"addDeptMg.action",
-				data:{"deptname":deptname},
-				method:"post",
-				dataType:"json",
-				success:function(data){
-					req.deptList = data.depModel; //数据
-					req.pageCount = data.pageContanier; //总页数
-					req.currentPage = 1; //当前页
-					$("#add-modal").modal('hide');
-				},
-				error: function(){
-					alert("添加失败，请检查是否联网");
-				}
-			})
+			var deptname = $("#deptname").val().replace(/\s|\xA0/g, ""); //去除所有空格
+			if(deptname != ""){	
+				$.ajax({
+					url:"addDeptMg.action",
+					data:{"deptname":deptname},
+					method:"post",
+					dataType:"json",
+					success:function(data){
+						if(data.dept != "Exist"){						
+							req.deptList = data.depModel; //数据
+							req.pageCount = data.pageContanier; //总页数
+							req.currentPage = 1; //当前页
+							$("#add-modal").modal('hide');
+							
+						}else{
+							alert("该科室已存在");
+							$("#add-modal").modal('hide');
+						}						
+						$("#deptname").val("");
+					},
+					error: function(){
+						alert("添加失败，请检查是否联网");
+					}
+				})
+				
+			}else{
+				alert("请输入科室名称！");
+			}
 		},
 		deletDept:function(deptid){//删除科室			
 			var flag = confirm("是否确认删除该科室？");			
@@ -135,8 +161,7 @@ var req = new Vue({
 						page = 1; 
 					}else if(page > req.pageCount.length){
 						page = req.pageCount.length;
-					}
-					
+					}					
 					req.currentPage = page; //当前页					
 				},
 				error:function(){

@@ -75,20 +75,20 @@
 								<td >{{todo.amount}}</td>
 								<td >{{todo.pretime}}</td>
 								<td >{{todo.time}}</td>
-								<td v-if=(todo.state)==1>
-									<span class="label label-sm label-warning arrowed-in">待支付</span>
+								<td >
+									<span v-if=(todo.state)==2 class="label label-lg label-warning arrowed-in">待接收</span>
+									<span v-if=(todo.state)==1 class="label label-lg label-pink arrowed-in arrowed-in-right">已接收</span>
+									<span v-if=(todo.state)==0 class="label label-lg label-success arrowed arrowed-right">已完成</span>		
 								</td>
-								<td v-else=(todo.state)==0>
-									<span class="label label-sm label-success arrowed-in">已支付</span>
-								</td>
-								<td v-if=(todo.state)==1>
-									<button class="btn btn-xs btn-info" v-on:click="showModal(''+todo.chargeid, index)">
+
+								<td v-if=(todo.state)==2>
+									<button class="btn btn-xs btn-primary" v-on:click="showModal(''+todo.chargeid, index)">
 										<i class="ace-icon fa fa-pencil bigger-110"></i>
 										<span class="bigger-100">记账</span>
 									</button>
 								</td>
-								<td v-else=(todo.state)==0>
-									<button class="btn btn-xs btn-info" v-on:click="showModal(''+todo.chargeid, index)">
+								<td v-else=(todo.state)!=2>
+									<button class="btn btn-xs btn-primary" v-on:click="showModal(''+todo.chargeid, index)">
 										<i class="ace-icon fa fa-tags bigger-110"></i>
 										<span class="bigger-100">详情</span>
 									</button>
@@ -138,25 +138,27 @@
 									</div>
 								</div>
 								<div class="profile-info-row">
-									<div class="profile-info-name">记账时间</div>
+									<div class="profile-info-name">接收/结算</div>
 									<div class="profile-info-value">
-										<span class="label label-info arrowed" v-if=(billObj.time)==null>该订单还未记账</span>
-										<span class="label label-info arrowed" v-else=(billObj.time)!=null>{{billObj.time}}</span>
+										<span class="label label-danger arrowed" v-if="(billObj.time)==null">该订单还未接收</span>
+										<span class="label label-info arrowed" v-if="(billObj.time)!=null&&(billObj.state)==1">已接收：{{billObj.time}}</span>
+										<span class="label label-success arrowed" v-if="(billObj.time)!=null&&(billObj.state)==0">已结算：{{billObj.time}}</span>
 									</div>
 								</div>
 								<div class="profile-info-row">
 									<div class="profile-info-name">订单状态</div>
 									<div class="profile-info-value">
-										<span class="label label-info arrowed" v-if=(billObj.state)==1>待支付</span>
-										<span class="label label-info arrowed" v-else=(billObj.state)==0>已支付</span>
+										<span class="label label-warning arrowed" v-if="(billObj.state)==2">待接收</span>
+										<span class="label label-primary arrowed" v-if="(billObj.state)==1">已接收</span>
+										<span class="label label-success arrowed" v-if="(billObj.state)==0">已完成</span>
 									</div>
 								</div>
 							</div>
 							<div class="hr hr-14 hr-dotted"></div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" v-if=(billObj.state)==1 v-on:click="recoderBill">记账</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal" v-else=(billObj.state)==0>关闭</button>
+							<button type="button" class="btn btn-primary" v-if=(billObj.state)==2 v-on:click="recoderBill">记账</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal" v-else=(billObj.state)!=2>关闭</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->

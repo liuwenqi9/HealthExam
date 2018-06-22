@@ -5,6 +5,7 @@ import com.health.entity.DeptExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
 @Repository
 public interface DeptMapper {
     int countByExample(DeptExample example);

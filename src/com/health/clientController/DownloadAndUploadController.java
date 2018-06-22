@@ -28,7 +28,7 @@ public class DownloadAndUploadController {
 	 * @date 6月20日
 	 * @return
 	 */
-	@RequestMapping("charge.action")
+	@RequestMapping("uploadNameList.action")
 	public ModelAndView showUploadView() {
 		System.out.println("跳转上传名单界面");
 	ModelAndView mav=new ModelAndView("jsp/clientJsp/upload_data");	

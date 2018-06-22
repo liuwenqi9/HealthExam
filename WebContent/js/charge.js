@@ -45,7 +45,7 @@ var req = new Vue({
 		recoderBill:function(){ //记账
 			$.ajax({
 				url:"recoderBill.action",
-				data:{"chargeid":currentid, "state":0},
+				data:{"chargeid":currentid, "state":1},
 				method:"post",
 				dataType:"json",
 				success:function(data){

@@ -8,6 +8,8 @@ public class Dept {
 
     private Object deptname;
 
+    private int state;
+
     public Integer getDeptid() {
         return deptid;
     }
@@ -22,5 +24,13 @@ public class Dept {
 
     public void setDeptname(Object deptname) {
         this.deptname = deptname;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
