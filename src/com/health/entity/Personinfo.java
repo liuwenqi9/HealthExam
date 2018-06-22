@@ -1,22 +1,27 @@
 package com.health.entity;
 
 import java.math.BigDecimal;
-
 import org.springframework.stereotype.Component;
+/**
+ * 
+ * @author JSY修改
+ * @date 6月21日
+ */
 @Component
 public class Personinfo {
+	//id
     private Integer personinfoid;
-
+    //身份证
     private Object identity;
-
+    //名字
     private Object name;
-
+    //年龄
     private Integer age;
-
+    //性别
     private Object sex;
-
+    //电话号码
     private Object telephone;
-
+    //企业账号
     private Object account;
     //条形码
     private BigDecimal barcode;

@@ -9,11 +9,65 @@ String basePath=request.getScheme()+"://"
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%@ include file="header.jsp"%>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>上传名单窗口</title>
+<%@ include file="header.jsp"%>
+<link rel="stylesheet" type="text/css" href=<%=path+"/css/bootstrap-theme.min.css" %>>
+<!-- <style>
+   
+    #actions {
+      margin: 2em 0;
+    }
 
+
+    /* Mimic table appearance */
+    div.table {
+      display: table;
+    }
+    div.table .file-row {
+      display: table-row;
+    }
+    div.table .file-row > div {
+      display: table-cell;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+      padding: 8px;
+    }
+    div.table .file-row:nth-child(odd) {
+      background: #f9f9f9;
+    }
+
+
+
+    /* The total progress gets shown by event listeners */
+    #total-progress {
+      opacity: 0;
+      transition: opacity 0.3s linear;
+    }
+
+    /* Hide the progress bar when finished */
+    #previews .file-row.dz-success .progress {
+      opacity: 0;
+      transition: opacity 0.3s linear;
+    }
+
+    /* Hide the delete button initially */
+    #previews .file-row .delete {
+      display: none;
+    }
+
+    /* Hide the start and cancel buttons and show the delete button */
+
+    #previews .file-row.dz-success .start,
+    #previews .file-row.dz-success .cancel {
+      display: none;
+    }
+    #previews .file-row.dz-success .delete {
+      display: block;
+    }
+
+
+  </style> -->
 </head>
 <body class="no-skin">
 <%@ include file="menu.jsp"%>
@@ -45,7 +99,7 @@ String basePath=request.getScheme()+"://"
 			<h3 class="header smaller lighter blue">
 			名单上传步骤：
 			</h3>
-			<h4>①请点击右下角的上传名单按钮，选择需要上传的文件<span style="color: #FF5722">（严格要求上传的文件为门户下载的登记模板<br>"传一人民医院-企业注册人员模板.xlsx"）请注意文件格式为xlsx。</span><br>		
+			<h4>①请点击（或拖拽至）下面的上传名单区域，选择需要上传的文件<span style="color: #FF5722">（严格要求上传的文件为门户下载的登记模板<br>"传一人民医院-企业注册人员模板.xlsx"）请注意文件格式为xlsx。</span><br>		
 			②请确保表头包含：<span style="color: #FF5722">企业（医院注册）账号-（体检）员工姓名、身份证、性别、年龄、电话;</span>以确保数据读取准确。<br>		
 			③登记体检人数据如：<span style="color: 	#FFA500">CYKJ123-小简-350627199308014567-男-25-15759581890;</span>请确保身份证和电话正常显示！<br>	
 			<span style="color: #FF4500">（错误的显示为科学计数法的手机号：1.58E+10,将影响数据的准确读取）。</span>
@@ -54,17 +108,170 @@ String basePath=request.getScheme()+"://"
 		    <!--陈述上传说明结束  -->
 		    <!-- 表格数据开始 -->
 				<div class="row">
-				<div class="col-xs-12">
+				<div class="col-xs-3">
 				<!--上传按钮位置-->
-				<div class="clearfix">
-						<!--按钮位置  -->
-						<div class="pull-left">
+			 	<div class="clearfix">
+						按钮位置 
+					 <div class="pull-left">
 							<label class="control-label" for="">上传文件按钮： </label>
-							<input type="file"  >
 							
-							</div>
-				</div>
+							 <form action="filehandle.action" method="post" enctype="multipart/form-data">
+     					请选择文件:<input type="file" name="files">
+     					 
+     					 <button type="submit" class="btn btn-primary start">
+           				 <i class="glyphicon glyphicon-upload"></i>
+         				   <span>上传</span>
+      					  </button> 
+    						 </form>
+							</div> 
+				</div> 
+						<!-- PAGE CONTENT BEGINS -->
+								<div class="alert alert-info">
+									<i class="ace-icon fa fa-hand-o-right"></i>
+
+								请参考上传名单规定.
+									<button class="close" data-dismiss="alert">
+										<i class="ace-icon fa fa-times"></i>
+									</button>
+								</div>
+
+								<div>
+									<form action="filehandle.action"  method="post" class="dropzone well" id="dropzone"enctype="multipart/form-data" >
+										<div class="fallback">
+											<input name="file" type="file"  multiple= ""/>
+										</div>
+									</form>
+								</div>
+
+								<div id="preview-template" class="hide">
+									<div class="dz-preview dz-file-preview">
+										<div class="dz-image">
+											<img data-dz-thumbnail="" />
+										</div>
+
+										<div class="dz-details">
+											<div class="dz-size">
+												<span data-dz-size=""></span>
+											</div>
+
+											<div class="dz-filename">
+												<span data-dz-name=""></span>
+											</div>
+										</div>
+
+										<div class="dz-progress">
+											<span class="dz-upload" data-dz-uploadprogress=""></span>
+										</div>
+
+										<div class="dz-error-message">
+											<span data-dz-errormessage=""></span>
+										</div>
+
+										<div class="dz-success-mark">
+											<span class="fa-stack fa-lg bigger-150">
+												<i class="fa fa-circle fa-stack-2x white"></i>
+
+												<i class="fa fa-check fa-stack-1x fa-inverse green"></i>
+											</span>
+										</div>
+
+										<div class="dz-error-mark">
+											<span class="fa-stack fa-lg bigger-150">
+												<i class="fa fa-circle fa-stack-2x white"></i>
+
+												<i class="fa fa-remove fa-stack-1x fa-inverse red"></i>
+											</span>
+										</div>
+									</div>
+								</div> 
+								<!-- PAGE CONTENT ENDS -->	
+			<!-- 新加按钮 开始-->
+	<!-- <div class="container" id="container">
+
+   		form开始
+   		 <form action="filehandle.action" class="dropzone" method="post" enctype="multipart/form-data">
+    <div id="actions" class="row">
+
+      <div class="col-lg-7">
+        The fileinput-button span is used to style the file input field as button
+        <span class="btn btn-success fileinput-button" >
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>添加文件</span>
+        </span>
+        <button type="submit" class="btn btn-primary start">
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>开始上传</span>
+        </button> 
+       <button type="reset" class="btn btn-warning cancel">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>取消上传</span>
+        </button> 
+      </div>
+
+      <div class="col-lg-5">
+        The global file processing state
+        <span class="fileupload-process">
+          <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+          </div>
+        </span>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <div class="table table-striped files" id="previews">
+
+      <div id="template" class="file-row">
+        This is used as the file preview template
+        <div>
+            <span class="preview"><img data-dz-thumbnail /></span>
+        </div>
+        <div>
+            <p class="name" data-dz-name></p>
+            <strong class="error text-danger" data-dz-errormessage></strong>
+        </div>
+        <div>
+            <p class="size" data-dz-size></p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+            </div>
+        </div>
+        <div>
+         <button class="btn btn-primary start">
+              <i class="glyphicon glyphicon-upload"></i>
+              <span>开始</span>
+          </button> 
+          <button data-dz-remove class="btn btn-warning cancel">
+              <i class="glyphicon glyphicon-ban-circle"></i>
+              <span>取消</span>
+          </button>
+          <button data-dz-remove class="btn btn-danger delete">
+            <i class="glyphicon glyphicon-trash"></i>
+            <span>清空</span>
+          </button>
+        </div>
+      </div>
+
+    
+	</div>
+   
+</form>
+form结束
+  </div>
 				
+				 -->
+				
+				
+				
+				
+				<!-- 新加按钮 结束-->
 			</div>
 			</div>
 			<!--表格数据结束  -->
@@ -79,7 +286,7 @@ String basePath=request.getScheme()+"://"
 		<div class="footer-inner">
 			<div class="footer-content">
 				<span class="bigger-120"> <span class="blue bolder"></span>
-					jsy © 2017 - 2018
+					JSY © 2017 - 2018
 				</span>
 			</div>
 		</div>
@@ -98,6 +305,117 @@ if('ontouchstart' in document.documentElement) document.write("<script src='../j
 </script>
 	<%@ include file="footer.jsp"%>
 	
+	 <script type="text/javascript"  src=<%=path+"/js/dropzone.min.js" %>></script> 
+	 <script type="text/javascript"  src=<%=path+"/jscommon/upload_data.js" %>></script> 
+		 <!-- <script type="text/javascript">
+		 try {
+		 Dropzone.autoDiscover = false;
+      // Get the template HTML and remove it from the doument
+      var previewNode = document.querySelector("#template");
+      previewNode.id = "";
+      var previewTemplate = previewNode.parentNode.innerHTML;
+      previewNode.parentNode.removeChild(previewNode);
+
+      var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+        url: "filehandle.action", // Set the url
+        method : "post",
+        paramName:"files",
+        maxFiles:1,
+	    maxFilesize: 10,
+        thumbnailWidth: 80,
+        thumbnailHeight: 80,
+        parallelUploads: 20,
+        acceptedFiles:".xlsx,.xls",
+        previewTemplate: previewTemplate,
+        autoQueue: false, // Make sure the files aren't queued until manually added
+        previewsContainer: "#previews", // Define the container to display the previews
+        clickable: ".fileinput-button" ,// Define the element that should be used as click trigger to select files.
+       		 dictMaxFilesExceeded : "您最多只能上传{{maxFiles}}个文件！",
+    	     dictResponseError: '文件上传失败!',
+    	     dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.xlsx,*.xls",
+    	     dictFallbackMessage:"浏览器不受支持",   	  
+    	     dictFileTooBig:"文件过大({{filesize}}MB). 上传文件最大支持: {{maxFilesize}}MB."	
+        
+      });
+
+      myDropzone.on("addedfile", function(file) {
+        // Hookup the start button
+        file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+      });
+
+      // Update the total progress bar
+      myDropzone.on("totaluploadprogress", function(progress) {
+        document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+      });
+
+      myDropzone.on("sending", function(file) {
+        // Show the total progress bar when upload starts
+        document.querySelector("#total-progress").style.opacity = "1";
+        // And disable the start button
+        file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+      });
+
+      // Hide the total progress bar when nothing's uploading anymore
+      myDropzone.on("queuecomplete", function(progress) {
+        document.querySelector("#total-progress").style.opacity = "0";
+      });
+
+      // Setup the buttons for all transfers
+      // The "add files" button doesn't need to be setup because the config
+      // `clickable` has already been specified.
+      document.querySelector("#actions .start").onclick = function() {
+        myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+      };
+      document.querySelector("#actions .cancel").onclick = function() {
+        myDropzone.removeAllFiles(true);
+      };
+
+
+
+
+
+      // Now fake the file upload, since GitHub does not handle file uploads
+      // and returns a 404
+
+      var minSteps = 6,
+          maxSteps = 60,
+          timeBetweenSteps = 100,
+          bytesPerStep = 100000;
+
+      myDropzone.uploadFiles = function(files) {
+        var self = this;
+
+        for (var i = 0; i < files.length; i++) {
+
+          var file = files[i];
+          totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+
+          for (var step = 0; step < totalSteps; step++) {
+            var duration = timeBetweenSteps * (step + 1);
+            setTimeout(function(file, totalSteps, step) {
+              return function() {
+                file.upload = {
+                  progress: 100 * (step + 1) / totalSteps,
+                  total: file.size,
+                  bytesSent: (step + 1) * file.size / totalSteps
+                };
+
+                self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
+                if (file.upload.progress == 100) {
+                  file.status = Dropzone.SUCCESS;
+                  self.emit("success", file, 'success', null);
+                  self.emit("complete", file);
+                  self.processQueue();
+                }
+              };
+            }(file, totalSteps, step), duration);
+          }
+        }
+      }
+		 } catch(e) {
+			  alert('浏览器不支持Dropzone.js !');
+			}
+    </script>	 -->
 			
 		
 </body>

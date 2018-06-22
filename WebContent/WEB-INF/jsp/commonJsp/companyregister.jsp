@@ -103,7 +103,7 @@ String basePath=request.getScheme()+"://"
 													<!--地址选择  -->
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input class="form-control" name="locationid" id="city" type="text" placeholder="点击选择地址" autocomplete="off" readonly="true" required/>
+															<input class="form-control" name="locationname" id="city" type="text" placeholder="点击选择地址" autocomplete="off" readonly="true" required/>
 														
 															<i class="ace-icon fa fa-angle-down"></i>
 														<!-- 	<i class="ace-icon fa fa-globe"></i> -->

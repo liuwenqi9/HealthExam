@@ -98,20 +98,24 @@ public class RegisterController {
 	 */
 	@RequestMapping(value = "/addAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
 	public void addAccount(HttpServletRequest req,HttpServletResponse res,
-			String name,String account,String password,String locationid) {
+			String name,String account,String password,String locationname) {
 			
 		
 		System.out.println("---------执行了企业注册");
 		System.out.println("--接收到企业的全称："+name);
 		System.out.println("--接收到企业的账号："+account);
 		System.out.println("--接收到企业的密码："+password);
-		System.out.println("--接收到企业的地址："+locationid);
+		System.out.println("--接收到企业的地址："+locationname);
+		if(name!=null&&account!=null&&password!=null&&locationname!=null) {
+			
+		
 		Account companyAccount=new Account();
+			
 		companyAccount.setName(name);
 		companyAccount.setAccount(account);
 		companyAccount.setPassword(password);
-		companyAccount.setState((short) 1);
-		
+		companyAccount.setLocationname(locationname);
+		companyAccount.setState((short) 1);//状态
 		 int result=impRegister.addAccount(companyAccount);
 		if(result>0) {//注册成功
 			sendMesg="success";
@@ -121,6 +125,7 @@ public class RegisterController {
 		feedBackData(res,sendMesg);	
 		System.out.println("--注册结果：--"+sendMesg);
 		sendMesg=null;
+		}
 	}
 	
 	
