@@ -46,4 +46,13 @@ public class ImplParameterBiz implements ParameterMgBiz {
 		return i;
 	}
 
+	@Override
+	public int updataParameter(Parameter paramname) {
+	   
+		int resultup=parameterMapper.updataParameter(paramname);
+		
+		
+		return resultup;
+	}
+
 }

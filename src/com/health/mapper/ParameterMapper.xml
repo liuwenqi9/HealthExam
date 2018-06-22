@@ -8,7 +8,7 @@
   </resultMap>
   
    <select id="queryParameter"  resultType="com.health.entity.Parameter">
-      select * from Parameter
+      select * from Parameter ORDER BY parameterid ASC
   </select>
   
   <insert id="insertParameter" parameterType="com.health.entity.Parameter">
@@ -22,6 +22,11 @@
   <delete id="deleteParameter" parameterType="com.health.entity.Parameter" >
        delete from parameter where paramname=#{paramname}
   </delete>
+  
+  <update id="updataParameter" parameterType="com.health.entity.Parameter" >
+  
+       update parameter set paramname=#{paramname}  where parameterid=#{parameterid}
+  </update>
   
   
   <sql id="Example_Where_Clause" >

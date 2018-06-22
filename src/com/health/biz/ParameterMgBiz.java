@@ -22,4 +22,6 @@ public interface ParameterMgBiz {
 	
 	public int deleteParameter(String paramname);  
 	
+	public int updataParameter(Parameter paramname);
+	
 }

@@ -67,6 +67,7 @@ public class ImplAccountMg implements AccountMgBiz {
 		return result;
 	}
 
+
 	/*
 	 * 根据一个账户id号来查询账户
 	 * @author 罗杭春   6月21日
@@ -76,5 +77,13 @@ public class ImplAccountMg implements AccountMgBiz {
 	@Override
 	public Account queryAccountById(String accountId) {
 		return accountMapper.queryAccountById(accountId);
+
+	}
+	@Override
+	public ArrayList<Account> queryAccount(String name) {
+		ArrayList<Account> queryListAcc=accountMapper.queryAccountName(name);
+		
+		return queryListAcc;
+
 	}
 }
