@@ -13,7 +13,9 @@
 	color: red;
 }
 </style>
+
 <%@ include file="header.jsp"%>
+
 </head>
 <body class="no-skin">
 	<%@ include file="menu.jsp"%>
@@ -30,39 +32,22 @@
 			<ul class="breadcrumb">
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a
 					href="<%=request.getContextPath()%>/web/index.jsp">首页</a></li>
-				<li>体检工作</li>
-				<li class="active">打印导检单和条码</li>
+				<li>体检开单</li>
+				<li class="active">团检开单</li>
 			</ul>
 			<div class="page-content" id="dataBind">
 				<div class="page-header">
-
-					<div class="pull-left">
-						<form id="accountForm" action="printGuide.action"
-							class="form-inline">
-							<div class="form-group">
-
-
-								<select class="form-control">
-									<option value="" selected="selected">选择企业账号</option>
-									<option v-for="todo in accountList" v-bind:value="todo.account"
-										v-on:click="accountChange(todo.account,todo.name,todo.amount)">{{todo.name}}</option>
-								</select> <span id="userName" style="color: green"></span> <span
-									id="currentAmount" style="color: green"></span>
-							</div>
-						</form>
-						<button class="btn btn-xs btn-success">打印此企业员工的导检单</button>
-
-					</div>
 					<form action="makeCharge.action">
 						<div class="row">
 
+					
 							<div class="col-xs-12">
 								<table id="grid-table"
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
 											<th width="20%">序号</th>
-											<th width="20%">姓名</th>
+											<th width="20%">员工</th>
 											<th width="20%">开单时间</th>
 											<th width="20%">检查项目</th>
 											<th width="20%">接收科室</th>
@@ -70,20 +55,23 @@
 									</thead>
 
 									<tbody>
-										<tr class="" v-for="(todo, index) in guideInfoList">
-											<td class="center">{{todo.rownumber}}</td>
-											<td>{{todo.name}}</td>
-											<td>{{todo.time}}</td>
-											<td>{{todo.itemname}}</td>
-											<td>{{todo.deptname}}</td>
-										</tr>
+
+										<c:forEach var="order" items="${orderList}">
+											<tr>
+												<td><c:out value="${order.getRownumber()}"></c:out></td>
+												<td><c:out value="${order.getName()}"></c:out></td>
+												<td><c:out value="${order.getTime()}"></c:out></td>
+												<td><c:out value="${order.getItemname()}"></c:out></td>
+												<td><c:out value="${order.getDeptname()}"></c:out></td>
+											</tr>
+										</c:forEach>
 
 									</tbody>
 
 									<tbody>
-										<c:if test="${guideInfoList.size() < 1}">
+										<c:if test="${orderList.size() < 1}">
 											<tr>
-												<td colspan="8" class="center">没有该企业的导检信息</td>
+												<td colspan="8" class="center">没有人员数据</td>
 											</tr>
 										</c:if>
 									</tbody>
@@ -91,20 +79,12 @@
 
 								</table>
 
-								<!-- 分页  -->
-								<ul class="pagination">
-									<li v-on:click=(pageItem(currentPage-1))><a href="#">&laquo;</a></li>
-									<li v-for="todo in pageCount"
-										v-bind:class="{active:todo==currentPage}"
-										v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
-									<li v-on:click=(pageItem(currentPage+1))><a href="#">&raquo;</a></li>
-								</ul>
-
 								<!-- PAGE CONTENT ENDS -->
 							</div>
 						</div>
 					</form>
 					<!-- /.row -->
+
 				</div>
 				<!-- /.page-content -->
 			</div>
@@ -137,7 +117,10 @@
 							+ "<"+"/script>");
 	</script>
 	<%@ include file="footer.jsp"%>
-	<script src="<%=request.getContextPath()%>/js/printGuide.js"></script>
+	<script>
+		$(function() {
 
+		});
+	</script>
 </body>
 </html>

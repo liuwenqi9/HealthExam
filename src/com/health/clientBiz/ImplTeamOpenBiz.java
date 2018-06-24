@@ -11,17 +11,22 @@ import com.health.entity.Charge;
 import com.health.entity.Chargepack;
 import com.health.entity.Guide;
 import com.health.entity.Guideitem;
+import com.health.entity.Guidepack;
+import com.health.entity.GuidepackExample;
 import com.health.entity.Packages;
+import com.health.entity.PackagesExample;
 import com.health.entity.Personinfo;
 import com.health.entity.Viewpersonguideitemdept;
 import com.health.mapper.ChargeMapper;
 import com.health.mapper.ChargepackMapper;
 import com.health.mapper.GuideMapper;
 import com.health.mapper.GuideitemMapper;
+import com.health.mapper.GuidepackMapper;
 import com.health.mapper.PackagesMapper;
 import com.health.mapper.PackitemMapper;
 import com.health.mapper.PersoninfoMapper;
 import com.health.mapper.ViewpersonguideitemdeptMapper;
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Woodstox;
 
 /**
  * TeamOpenBiz接口的实现类
@@ -47,6 +52,10 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	private ChargepackMapper chargepackMapper;
 	@Resource
 	private ViewpersonguideitemdeptMapper viewPgidMapper;
+	@Resource 
+	private GuidepackMapper guidepackMapper;
+	@Resource
+	private PackagesExample packagesExample;
 	
 	/**
 	 * 实现获取特定账户下的所有员工列表
@@ -138,7 +147,7 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	 */
 	@Override
 	public Packages getPackageById(String packageId) {
-		return packagesMapper.getPackageById(packageId);
+		return packagesMapper.selectByPrimaryKey(Integer.valueOf(packageId));
 	}
 
 	/**
@@ -179,6 +188,16 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	public ArrayList<Viewpersonguideitemdept> getOrderInfo(String account) {
 		return viewPgidMapper.getOrderInfo(account);
 	}
-	
+
+	/**
+	 * 要把记录插入到导检套餐关系表中
+	 * @param 接收一个导检套餐关系作为参数
+	 * @author 罗杭春  6月23日
+	 */
+	@Override
+	public int insertGuidePack(Guidepack record) {
+		return guidepackMapper.insertSelective(record);
+	}
+
 
 }

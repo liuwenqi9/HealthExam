@@ -9,6 +9,7 @@ import com.health.entity.Charge;
 import com.health.entity.Chargepack;
 import com.health.entity.Guide;
 import com.health.entity.Guideitem;
+import com.health.entity.Guidepack;
 import com.health.entity.Packages;
 import com.health.entity.Personinfo;
 import com.health.entity.Viewpersonguideitemdept;
@@ -47,5 +48,7 @@ public interface TeamOpenBiz {
 	public void updateAmountOfCharge(HashMap<String, Object> updateCostMap); //更新记账表某个记录的价格
 
 	public ArrayList<Viewpersonguideitemdept> getOrderInfo(String account);   //获取所有的已经预定体检的项目详细信息
+	
+	public int insertGuidePack(Guidepack record);
 
 }
