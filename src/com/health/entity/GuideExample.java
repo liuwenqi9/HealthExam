@@ -3,8 +3,6 @@ package com.health.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-@Component
 public class GuideExample {
     protected String orderByClause;
 
@@ -463,6 +461,66 @@ public class GuideExample {
 
         public Criteria andOvertimeNotBetween(Object value1, Object value2) {
             addCriterion("OVERTIME not between", value1, value2, "overtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidIsNull() {
+            addCriterion("CHARGEID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidIsNotNull() {
+            addCriterion("CHARGEID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidEqualTo(Integer value) {
+            addCriterion("CHARGEID =", value, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidNotEqualTo(Integer value) {
+            addCriterion("CHARGEID <>", value, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidGreaterThan(Integer value) {
+            addCriterion("CHARGEID >", value, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("CHARGEID >=", value, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidLessThan(Integer value) {
+            addCriterion("CHARGEID <", value, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidLessThanOrEqualTo(Integer value) {
+            addCriterion("CHARGEID <=", value, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidIn(List<Integer> values) {
+            addCriterion("CHARGEID in", values, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidNotIn(List<Integer> values) {
+            addCriterion("CHARGEID not in", values, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidBetween(Integer value1, Integer value2) {
+            addCriterion("CHARGEID between", value1, value2, "chargeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeidNotBetween(Integer value1, Integer value2) {
+            addCriterion("CHARGEID not between", value1, value2, "chargeid");
             return (Criteria) this;
         }
     }

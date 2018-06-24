@@ -135,16 +135,9 @@
 							</table>
 
 							<ul class="pagination">
-								<li v-on:click="pageItem(pageNum-1)" v-if="pageNum > 1"><a
-									href="#">&laquo;</a></li>
-								<li class="disabled" v-if="pageNum == 1"><a href="#">&laquo;</a></li>
-								<li class="" v-for="todo in pageCount"
-									v-bind:class="{active:todo==pageNum}"
-									v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
-								<li v-on:click="pageItem(pageNum+1)"
-									v-if="pageNum < pageCount.length"><a href="#">&raquo;</a></li>
-								<li class="disabled" v-if="pageNum == pageCount.length"><a
-									href="#">&raquo;</a></li>
+								<li v-on:click=(pageItem(currentPage-1))><a href="#">&laquo;</a></li>
+								<li v-for="todo in pageCount" v-bind:class="{active:todo==currentPage}" v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
+								<li v-on:click=(pageItem(currentPage+1))><a href="#">&raquo;</a></li>
 							</ul>
 							<!-- PAGE CONTENT ENDS -->
 						</div>
@@ -196,7 +189,7 @@
 						"state" : $(this).attr("title")
 					},
 					success : function(result) {
-						window.location.reload();   //刷新
+						window.location.reload(); //刷新
 					}
 
 				});

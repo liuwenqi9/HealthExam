@@ -4,8 +4,7 @@ import com.health.entity.Guide;
 import com.health.entity.GuideExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-@Repository
+
 public interface GuideMapper {
     int countByExample(GuideExample example);
 
@@ -28,8 +27,8 @@ public interface GuideMapper {
     int updateByPrimaryKeySelective(Guide record);
 
     int updateByPrimaryKey(Guide record);
-    
-    int getMaxGuideId(); //获取导检表中现在ID号的最大值
 
-	int insertGuide(Guide currentGuide);  //用于插入一条导检信息记录
+	int getMaxGuideId();
+
+	int insertGuide(Guide currentGuide);
 }

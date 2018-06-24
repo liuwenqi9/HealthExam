@@ -29,7 +29,7 @@ public class ChargeBiz {
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=true)
 	public List<Charge> getAllBill() {
 		chargeExample.clear(); //清空静态缓存
-		chargeExample.setOrderByClause("time DESC"); //对下单时间进行倒序排列
+		chargeExample.setOrderByClause("time DESC");  //对下单时间进行倒序排列
 		List<Charge> list = chargeMapper.selectByExample(chargeExample);
 		return list;
 	}

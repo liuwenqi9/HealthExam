@@ -16,6 +16,8 @@ public class ImplAccountMg implements AccountMgBiz {
 
 	@Resource
 	AccountMapper accountMapper;
+	@Resource
+	AccountExample acountExample;
 
 	@Override
 	public int insertAccount() {
@@ -48,11 +50,7 @@ public class ImplAccountMg implements AccountMgBiz {
 	@Override
 	public ArrayList<Account> queryAccountList() {
 		//方式1：使用Example来查询
-		AccountExample example = new AccountExample();
-		ArrayList<Account> acList = (ArrayList<Account>) accountMapper.selectByExample(example);
-
-		//方式2：使用自定义的映射语句
-//		ArrayList<Account> accountList = accountMapper.queryAccountList();
+		ArrayList<Account> acList = (ArrayList<Account>) accountMapper.selectByExample(acountExample);
 		return acList;
 	}
 

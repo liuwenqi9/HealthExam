@@ -1,8 +1,5 @@
 package com.health.entity;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Guide {
     private Integer guideid;
 
@@ -15,6 +12,8 @@ public class Guide {
     private Object allsummary;
 
     private Object overtime;
+
+    private Integer chargeid;
 
     public Integer getGuideid() {
         return guideid;
@@ -62,5 +61,13 @@ public class Guide {
 
     public void setOvertime(Object overtime) {
         this.overtime = overtime;
+    }
+
+    public Integer getChargeid() {
+        return chargeid;
+    }
+
+    public void setChargeid(Integer chargeid) {
+        this.chargeid = chargeid;
     }
 }
