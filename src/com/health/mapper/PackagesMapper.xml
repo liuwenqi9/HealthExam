@@ -8,10 +8,6 @@
     <result column="PRICE" property="price" jdbcType="DECIMAL" />
   </resultMap>
   
-  <select id="getAllPackages" resultType="com.health.entity.Packages">
-  	  select * from packages
-  </select>
-  
   <select id="getPackageById" parameterType="java.lang.String" resultType="com.health.entity.Packages">
   	  select * from packages where packageid = #{packageId}
   </select>

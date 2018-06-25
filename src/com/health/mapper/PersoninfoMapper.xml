@@ -14,10 +14,6 @@
 		<result column="ACCOUNT" property="account" jdbcType="OTHER" />
 		<result column="BARCODE" property="barcode" jdbcType="DECIMAL" />
 	</resultMap>
-
-	<select id="getPersonList" parameterType="java.lang.String" resultType = "com.health.entity.Personinfo">
-		select * from personinfo where account = #{account}
-	</select>
 	
 	<sql id="Example_Where_Clause">
 		<where>

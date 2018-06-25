@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.health.clientBiz.TeamOpenBiz;
@@ -37,45 +39,56 @@ public class TeamOpenControl {
 
 	@Resource
 	private TeamOpenBiz implTeamOpenBiz;
+	private HashMap<String, Object> teamOpenMap = new HashMap<>();
 
 	/**
 	 * 获取团检开单的页面
-	 * 
-	 * @return 返回一个模型和视图的对象，转发到相应页面
+	 * @return 返回指定的页面
 	 */
 	@RequestMapping("getTeamOpenJsp.action")
-	public ModelAndView getTeamOpenJsp() {
+	public String getTeamOpenJsp() {
+		return "jsp/clientJsp/teamOpen";
+	}
 
+	
+	/**
+	 * 获取该企业的人员列表和所有的套餐列表
+	 * @return 返回装载了数据的map
+	 * @author 罗杭春 6月24日
+	 */
+	@RequestMapping("getOriginalData.action")
+	public @ResponseBody HashMap<String, Object> getOriginalData() {
 		// 此处要根据登录的企业账号来搜索该账号下所有的员工
-		ArrayList<Personinfo> personList = implTeamOpenBiz.getPersonList("cykj123"); // 获取所有的员工信息
+		ArrayList<Personinfo> personList = implTeamOpenBiz.getPersonListByAccount("4399kj"); // 获取所有的员工信息
 		// 获取所有的套餐信息，发送到前端
 		ArrayList<Packages> packageList = implTeamOpenBiz.getAllPackages();
-		// 获取所有的已经预定的体检项目信息，发送到前端
-		ArrayList<Viewpersonguideitemdept> orderList = implTeamOpenBiz.getOrderInfo("cykj123");
 
-		ModelAndView mav = new ModelAndView("jsp/clientJsp/teamOpen");
-		mav.addObject("personList", personList);
-		mav.addObject("packageList", packageList);
-		mav.addObject("orderList", orderList);
-
-		return mav;
+		teamOpenMap.put("personList", personList);
+		teamOpenMap.put("packageList", packageList);
+		return teamOpenMap;
 	}
 
 	/**
 	 * 企业用户对自己员工添加体检套餐
-	 * 
 	 * @author 罗杭春 6月19日
 	 * @return 返回一个模型和视图的对象，转发到相应页面
 	 */
 	@RequestMapping("makeCharge.action")
-	public ModelAndView makeCharge(HttpServletRequest request) {
-		System.out.println("请求makeCharge");
+	public ModelAndView makeCharge(String[] personIdList,String[] packageIdList) {
+		System.out.println("!!!!!--------请求makeCharge");
+		for (int i = 0; i < personIdList.length; i++) {
+			System.out.println(personIdList[i]);
+		}
+		for (int i = 0; i < packageIdList.length; i++) {
+			System.out.println(packageIdList[i]);
+		}
 
-		// 第一步：获取选中的员工的ID号
-		String[] personIdList = request.getParameterValues("personIdList");
+//		// 第一步：获取选中的员工的ID号
+//		String[] personIdList = request.getParameterValues("personIdList");
+//
+//		// 第二步：获取选中的套餐ID号
+//		String[] packageIdList = request.getParameterValues("packageIdList");
 
-		// 第二步：获取选中的套餐ID号
-		String[] packageIdList = request.getParameterValues("packageIdList");
 
 		String maxChargeId = null; // 当前最大的订单ID号
 		int maxGuideId; // 当前最大的导检单ID号
@@ -86,7 +99,7 @@ public class TeamOpenControl {
 
 		// 第三步：定义一条新的订单记账记录，插入到记账表中，并且如果成功，则查询插入记录的ID号
 		Charge currentCharge = new Charge();
-		currentCharge.setAccount("cykj123"); // 此时从session中获取账号???????????????????????????????????????
+		currentCharge.setAccount("4399kj"); // 此时从session中获取账号???????????????????????????????????????
 		currentCharge.setAmount(0L);
 		currentCharge.setPretime(MyTimeUtil.getTimeNowTogether());
 		currentCharge.setState(chargeState);
@@ -102,16 +115,14 @@ public class TeamOpenControl {
 
 			// 第四步：遍历相应员工的ID列表，为每个员工插入导检单（生成导检单）
 			maxGuideId = implTeamOpenBiz.getMaxGuideId(); // 获取当前最大ID号
-			System.out.println("即将插入导检表的数据  " + (maxGuideId + 1) + ":" + personIdList[i]);
+			System.out.println("即将插入导检表的数据  " + (maxGuideId + 1) + " 体检人ID:" + personIdList[i]);
 			Guide currentGuide = new Guide();
 			currentGuide.setGuideid(maxGuideId + 1);
 			currentGuide.setState(guideState);
 			currentGuide.setChargeid(Integer.valueOf(maxChargeId));
-			// currentGuide.setTime(dateFormat.format(new Date()));
 			currentGuide.setTime(MyTimeUtil.getTimeNowTogether());
 			currentGuide.setPersoninfoid(Integer.valueOf(personIdList[i]));
 			int result = implTeamOpenBiz.insertGuide(currentGuide);
-			System.out.println("插入导检表的结果为---------：" + result);
 
 			// 第五步：插入导检项目关系表：
 			for (int k = 0; k < packageIdList.length; k++) {
@@ -121,7 +132,8 @@ public class TeamOpenControl {
 					guideitem.setGuideid((maxGuideId + 1));
 					guideitem.setItemid(Integer.valueOf(ItemIdList[j]));
 					implTeamOpenBiz.insertGuideItem(guideitem); // 插入记录到导检项目表
-					System.out.println("插入导检项目表  " + (maxGuideId + 1) + ":" + ItemIdList[j]);
+					// System.out.println("！！！！！！！插入导检项目表 " + (maxGuideId + 1) + ":" +
+					// ItemIdList[j]);
 				}
 
 				/**
@@ -131,13 +143,13 @@ public class TeamOpenControl {
 				guidepack.setGuideid(maxGuideId + 1);
 				guidepack.setPackageid(Integer.valueOf(packageIdList[k]));
 				result = implTeamOpenBiz.insertGuidePack(guidepack);
-				System.out.println("￥￥￥￥￥$$$$$$插入导检套餐关系表结果为：" + result);
+				System.out.println("$$$$$$插入导检套餐关系表结果为：" + result);
 
 				/**
 				 * 6月24日增加代码：计算出每个套餐的价格，然后加入到总价中，用于记账使用
 				 */
 				String price = implTeamOpenBiz.getPriceByPackageId(packageIdList[k]);
-				System.out.println("当前套餐价格为：" + price);
+				// System.out.println("当前套餐价格为：" + price);
 				allCost += Integer.valueOf(price); // 加入到总价当中
 
 			}
@@ -178,6 +190,7 @@ public class TeamOpenControl {
 
 	/**
 	 * 获取查询所有的开单信息页面
+	 * 
 	 * @author 罗杭春 6月24日
 	 * @return 返回一个模型视图到前端页面
 	 */

@@ -14,11 +14,6 @@
 		<result column="DEPTNAME" property="deptname" jdbcType="OTHER" />
 	</resultMap>
 
-	<select id="getOrderInfo" parameterType="java.lang.String"
-		resultType="com.health.entity.Viewpersonguideitemdept">
-		select * from ViewPersonGuideItemDept where account = #{account}
-	</select>
-
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria"

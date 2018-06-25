@@ -40,8 +40,6 @@
 						<form id="accountForm" action="printGuide.action"
 							class="form-inline">
 							<div class="form-group">
-
-
 								<select class="form-control">
 									<option value="" selected="selected">选择企业账号</option>
 									<option v-for="todo in accountList" v-bind:value="todo.account"
@@ -51,13 +49,21 @@
 							</div>
 						</form>
 						<button class="btn btn-xs btn-success">打印此企业员工的导检单</button>
+						<a
+							class="dt-button buttons-print btn btn-white btn-primary btn-bold"
+							tabindex="0" aria-controls="dynamic-table" data-original-title=""
+							title="">
+							<span><i class="fa fa-print bigger-110 grey"></i>
+								<span class="hidden">Print</span>
+							</span>
+						</a>
 
 					</div>
 					<form action="makeCharge.action">
 						<div class="row">
 
 							<div class="col-xs-12">
-								<table id="grid-table"
+								<table id="dynamic-table"
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>

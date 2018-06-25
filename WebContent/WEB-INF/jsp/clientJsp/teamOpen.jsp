@@ -35,9 +35,9 @@
 				<li>体检开单</li>
 				<li class="active">团检开单</li>
 			</ul>
-			<div class="page-content" id="dataBind">
+			<div class="page-content" id="teamOpenDataBind">
 				<div class="page-header">
-					<form action="makeCharge.action">
+					<form id="teamOpenFormId" action="makeCharge.action">
 						<div class="row">
 							<div class="col-xs-4">
 								<table id="grid-table"
@@ -51,17 +51,12 @@
 
 									<tbody>
 
-										<c:forEach var="person" items="${personList}">
-											<tr id="tr_ofPerson">
-												<th class="center"><label class="pos-rel"> <input
-														type="checkbox" name="personIdList"
-														value="${person.getPersoninfoid()}" class="ace" /> <span
-														class="lbl"></span>
-												</label></th>
-												<td><c:out value="${person.getName()}"></c:out></td>
-
-											</tr>
-										</c:forEach>
+										<tr class="" v-for="(todo, index) in personList">
+											<td class="center"><input type="checkbox"
+												name="personIdList" v-bind:value="todo.personinfoid"
+												v-model="personIdList" /></td>
+											<td class="center">{{todo.name}}</td>
+										</tr>
 
 									</tbody>
 
@@ -73,14 +68,13 @@
 										</c:if>
 									</tbody>
 
-
 								</table>
 
-								<!-- PAGE CONTENT ENDS -->
+								<!-- 								PAGE CONTENT ENDS -->
 							</div>
-							<!-- /.col -->
+							<!-- 							/.col -->
 							<div class="col-xs-7">
-								<table id="grid-table"
+								<table id="person-table"
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
@@ -92,19 +86,13 @@
 
 									<tbody>
 
-										<c:forEach var="packages" items="${packageList}">
-											<tr id="tr_ofPackage">
-												<th class="center"><label class="pos-rel"> <input
-														type="checkbox" name="packageIdList"
-														value="${packages.getPackageid()}" class="ace" /> <span
-														class="lbl"></span>
-												</label></th>
-												<td><c:out value="${packages.getPackname()}"></c:out></td>
-												<td><c:out value="${packages.getPrice()} 元"></c:out></td>
-
-											</tr>
-										</c:forEach>
-
+										<tr class="" v-for="(todo, index) in packageList">
+											<td class="center"><input type="checkbox"
+												name="packageIdList" v-bind:value="todo.packageid"
+												v-model="packageIdList" /></td>
+											<td class="center">{{todo.packname}}</td>
+											<td class="center">{{todo.price}} 元</td>
+										</tr>
 									</tbody>
 
 									<tbody>
@@ -118,19 +106,20 @@
 
 								</table>
 
-								<!-- PAGE CONTENT ENDS -->
+								<!-- 								PAGE CONTENT ENDS -->
 							</div>
-							<!-- /.col -->
+							<!-- 							/.col -->
 							<div class="col-xs-1">
-								<button type="submit" class="btn btn-success">确认添加</button>
+								<button type="button" class="btn btn-success"
+									v-on:click="sureOpen()">确认下单</button>
 
-								<!-- PAGE CONTENT ENDS -->
+								<!-- 								PAGE CONTENT ENDS -->
 							</div>
-							<!-- /.col -->
+							<!-- 							/.col -->
 
 						</div>
 					</form>
-					<!-- /.row -->
+					<!-- 					/.row -->
 
 				</div>
 				<!-- /.page-content -->
@@ -157,17 +146,10 @@
 		class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 	</a>
 
-	<script type="text/javascript">
-		if ('ontouchstart' in document.documentElement)
-			document
-					.write("<script src='../js/ace-master/assets/js/jquery.mobile.custom.min.js'>"
-							+ "<"+"/script>");
-	</script>
 	<%@ include file="footer.jsp"%>
+	<script src="<%=request.getContextPath()%>/js/teamOpen.js"></script>
 	<script>
-		$(function() {
-
-		});
+		
 	</script>
 </body>
 </html>

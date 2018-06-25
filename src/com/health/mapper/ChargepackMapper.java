@@ -29,6 +29,4 @@ public interface ChargepackMapper {
     int updateByPrimaryKeySelective(Chargepack record);
 
     int updateByPrimaryKey(Chargepack record);
-    
-	void insertChargePack(Chargepack chargepack);  //插入一条记录到订单记账套餐关系表中
 }

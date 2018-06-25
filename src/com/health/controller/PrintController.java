@@ -31,6 +31,7 @@ import com.health.util.PageUtil;
 
 /**
  * 用于打印导检单、体检报告等功能
+ * 
  * @author 罗杭春
  * @date 6月21日
  */
@@ -42,13 +43,13 @@ public class PrintController {
 	private PrintPaperBiz implPrintPaperBiz;
 	@Resource
 	private AccountMgBiz implAccountMg;
-	
-	private int dataNum = 5;
 
+	private int dataNum = 5;
 	private HashMap<String, Object> guideInfoMap = new HashMap<String, Object>(); // 导检信息，用于ajax数据回传
 
 	/*
 	 * 获取打印导检单的页面，切换到该页面
+	 * 
 	 * @author 罗杭春 6月22日修改
 	 */
 	@RequestMapping(value = "printGuide.action")
@@ -58,6 +59,7 @@ public class PrintController {
 
 	/**
 	 * 获取导检数据的方法
+	 * 
 	 * @author 罗杭春 6月22日
 	 * @return 返回承载数据的Map
 	 */
@@ -78,19 +80,25 @@ public class PrintController {
 
 		ArrayList<Account> accountList = implAccountMg.queryAccountList();// 获取所有的企业名称列表，发到前端使用
 		guideInfoMap.put("accountList", accountList);
-		
+
 		PageHelper.startPage(1, dataNum);
 		List<Viewpersonguideitemdept> guideInfolist = implPrintPaperBiz.getGuideDataByAccount(accountId);
-		
-		List<Object> pageContanier = PageUtil.displayPage(guideInfolist, 1); //分页	 	
-		
-		guideInfoMap.clear();   //装载数据
+
+		List<Object> pageContanier = PageUtil.displayPage(guideInfolist, 1); // 分页
+
+		guideInfoMap.clear(); // 装载数据
 		guideInfoMap.put("guideInfolist", guideInfolist);
 		guideInfoMap.put("pageContanier", pageContanier);
-		
+
 		return guideInfoMap;
 	}
+
 	
+	/**
+	 * 根据请求页码来发送当前页的数据
+	 * @author 罗杭春 6月22日
+	 * @return 返回承载数据的Map
+	 */
 	@RequestMapping(value = "getGuideInfoByPage.action")
 	public @ResponseBody HashMap<String, Object> getGuideInfoByPage(String accountId, int currentPage) {
 		guideInfoMap.clear();
@@ -106,68 +114,4 @@ public class PrintController {
 		return guideInfoMap;
 
 	}
-	
-
-	
-	//加载所有的导检信息
-//	public HashMap<String, Object> getAllGuideData(String accountId){
-//
-//		PageHelper.startPage(1, dataNum);
-//		List<Viewpersonguideitemdept> guideInfolist = implPrintPaperBiz.getGuideDataByAccount(accountId);
-//		
-//		//分页
-//		List<Object> pageContanier = PageUtil.displayPage(guideInfolist, 1);		
-//		//数据
-//		guideInfoMap.clear();
-//		guideInfoMap.put("guideInfolist", guideInfolist);
-//		guideInfoMap.put("pageContanier", pageContanier);
-//		
-//		return guideInfoMap;
-//	}
-	
-	
-	
-	// @RequestMapping("getGuideInfoById.action")
-	// public HashMap<String, Object> getGuideInfoById() {
-	// // 获取所有的企业名称列表，发到前端使用
-	// ArrayList<Account> accountList = implAccountMg.queryAccountList();
-	//
-	// ModelAndView mav = new ModelAndView("jsp/examJsp/printGuide");
-	// mav.addObject(accountList);
-	//
-	// // 如果前端有根据账号进行选择，获取所有的已经预定的体检项目信息，发送到前端
-	// String currentAcID = request.getParameter("accountOption");
-	// if (currentAcID != null) {
-	// ArrayList<Viewpersonguideitemdept> orderList =
-	// implTeamOpenBiz.getOrderInfo(currentAcID);
-	// mav.addObject("orderList", orderList);
-	//
-	// Account currentAccount = implAccountMg.queryAccountById(currentAcID);
-	// System.out.println(currentAccount);
-	// mav.addObject("currentAccount", currentAccount);
-	// }
-	// return guideInfoMap;
-	// }
-
-	// @RequestMapping("printGuide.action")
-	// public ModelAndView getPrintGuidePage(HttpServletRequest request) {
-	// // 获取所有的企业名称列表，发到前端使用
-	// ArrayList<Account> accountList = implAccountMg.queryAccountList();
-	// ModelAndView mav = new ModelAndView("jsp/examJsp/printGuide");
-	// mav.addObject(accountList);
-	//
-	// // 如果前端有根据账号进行选择，获取所有的已经预定的体检项目信息，发送到前端
-	// String currentAcID = request.getParameter("accountOption");
-	// if (currentAcID != null) {
-	// ArrayList<Viewpersonguideitemdept> orderList =
-	// implTeamOpenBiz.getOrderInfo(currentAcID);
-	// mav.addObject("orderList", orderList);
-	//
-	// Account currentAccount = implAccountMg.queryAccountById(currentAcID);
-	// System.out.println(currentAccount);
-	// mav.addObject("currentAccount", currentAccount);
-	// }
-	// return mav;
-	// }
-
 }

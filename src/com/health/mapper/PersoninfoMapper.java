@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PersoninfoMapper {
 	
-	ArrayList<Personinfo> getPersonList(String account); //实现获取特定账户下的所有员工列表
-	
     int countByExample(PersoninfoExample example);
 
     int deleteByExample(PersoninfoExample example);

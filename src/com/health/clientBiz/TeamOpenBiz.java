@@ -23,7 +23,7 @@ import com.health.entity.Viewpersonguideitemdept;
 
 public interface TeamOpenBiz {
 
-	public ArrayList<Personinfo> getPersonList(String account); // 查询特定账户下的所有员工信息
+	public ArrayList<Personinfo> getPersonListByAccount(String account); // 查询特定账户下的所有员工信息
 
 	public ArrayList<Packages> getAllPackages(); // 用于插叙所有的套餐信息
 
@@ -37,7 +37,7 @@ public interface TeamOpenBiz {
 
 	public String getMaxChargeId(); 
 
-	public String insertGuideItem(Guideitem guideitem);
+	public int insertGuideItem(Guideitem guideitem);
 
 	public Packages getPackageById(String packageId);
 

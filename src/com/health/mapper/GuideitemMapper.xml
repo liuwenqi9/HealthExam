@@ -9,9 +9,6 @@
     <result column="EXAMTIME" property="examtime" jdbcType="OTHER" />
   </resultMap>
   
-    <select id="insertGuideItem" parameterType="com.health.entity.Guideitem">
-  	  insert into guideitem(guideid,itemid) values(#{guideid},#{itemid})
-   </select>
    
   <sql id="Example_Where_Clause" >
     <where >

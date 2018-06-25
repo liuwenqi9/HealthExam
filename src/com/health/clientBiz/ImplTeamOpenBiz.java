@@ -2,6 +2,7 @@ package com.health.clientBiz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -16,7 +17,9 @@ import com.health.entity.GuidepackExample;
 import com.health.entity.Packages;
 import com.health.entity.PackagesExample;
 import com.health.entity.Personinfo;
+import com.health.entity.PersoninfoExample;
 import com.health.entity.Viewpersonguideitemdept;
+import com.health.entity.ViewpersonguideitemdeptExample;
 import com.health.mapper.ChargeMapper;
 import com.health.mapper.ChargepackMapper;
 import com.health.mapper.GuideMapper;
@@ -52,10 +55,15 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	private ChargepackMapper chargepackMapper;
 	@Resource
 	private ViewpersonguideitemdeptMapper viewPgidMapper;
+	@Resource
+	private ViewpersonguideitemdeptExample viewPgidExample;
 	@Resource 
 	private GuidepackMapper guidepackMapper;
 	@Resource
 	private PackagesExample packagesExample;
+	@Resource
+	private PersoninfoExample personinfoExample;
+   
 	
 	/**
 	 * 实现获取特定账户下的所有员工列表
@@ -64,8 +72,10 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	 * @return 返回一个员工信息列表
 	 */
 	@Override
-	public ArrayList<Personinfo> getPersonList(String account) {
-		ArrayList<Personinfo> personList = personinfoMapper.getPersonList(account);
+	public ArrayList<Personinfo> getPersonListByAccount(String account) {
+		PersoninfoExample.Criteria criteria = personinfoExample.createCriteria();
+		criteria.andAccountEqualTo(account);
+		ArrayList<Personinfo> personList = (ArrayList<Personinfo>) personinfoMapper.selectByExample(personinfoExample);
 		return personList;
 	}
 
@@ -75,7 +85,7 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	 */
 	@Override
 	public ArrayList<Packages> getAllPackages() {
-		ArrayList<Packages> packageList = packagesMapper.getAllPackages();
+		ArrayList<Packages> packageList = (ArrayList<Packages>) packagesMapper.selectByExample(packagesExample);
 		return packageList;
 	}
 
@@ -136,8 +146,8 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	 * @return 返回一个结果（整数）
 	 */
 	@Override
-	public String insertGuideItem(Guideitem guideitem) {
-		return guideitemMapper.insertGuideItem(guideitem);
+	public int insertGuideItem(Guideitem guideitem) {
+		return guideitemMapper.insertSelective(guideitem);
 	}
 
 	/**
@@ -156,7 +166,7 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	 */
 	@Override
 	public void insertChargePack(Chargepack chargepack) {
-		chargepackMapper.insertChargePack(chargepack);
+		chargepackMapper.insertSelective(chargepack);
 		
 	}
 
@@ -186,7 +196,10 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	 */
 	@Override
 	public ArrayList<Viewpersonguideitemdept> getOrderInfo(String account) {
-		return viewPgidMapper.getOrderInfo(account);
+		viewPgidExample.clear();
+		ViewpersonguideitemdeptExample.Criteria criteria = viewPgidExample.createCriteria();
+		criteria.andAccountEqualTo(account);
+		return (ArrayList<Viewpersonguideitemdept>) viewPgidMapper.selectByExample(viewPgidExample);
 	}
 
 	/**
