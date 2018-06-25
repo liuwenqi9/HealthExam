@@ -12,7 +12,7 @@ $(function() {
 			type : "post",
 			dataType : "text",
 			data : {
-				"paramname" : $("#paramname").val(),
+				"paramname" : $("#paramname").val()
 
 			},
 			success : function(data) {

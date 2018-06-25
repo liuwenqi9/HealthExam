@@ -86,4 +86,10 @@ public class ImplAccountMg implements AccountMgBiz {
 		return queryListAcc;
 
 	}
+
+	@Override
+	public int updateAcName(Account account) {
+		int resultUpName= accountMapper.updateAcName(account);
+		return resultUpName;
+	}
 }

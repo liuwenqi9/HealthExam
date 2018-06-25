@@ -31,21 +31,25 @@ public class AccountControl {
 	 * @date 6月14日
 	 * 
 	 * 
-	 * 增加团检单位 模糊查询  当name不为null时，进行模糊查询
+	 * 增加团检单位 模糊查询 当name不为null时，进行模糊查询
+	 * 
 	 * @author 毛聪
+	 * 
 	 * @date 6月22日
 	 */
-	
+	PrintWriter out;
+
 	@RequestMapping("AccountMg.action")
-	public ModelAndView getAccountMg(String name) {
-		ModelAndView mav = new ModelAndView("jsp/systemMgJsp/accountMg");	
-	    System.out.println(name);
-		if (name==null) {
+	public ModelAndView getAccountMg(HttpServletRequest request,String name) {
+		ModelAndView mav = new ModelAndView("jsp/systemMgJsp/accountMg");
+		System.out.println(name);
+		if (name == null) {
 			ArrayList<Account> acList = implAccountMg.queryAccountList();
 			mav.addObject("acList", acList);
 		} else {
-
-			ArrayList<Account> resultList = implAccountMg.queryAccount("%"+name+"%");
+			String state= request.getParameter("state");
+			System.out.println(state);
+			ArrayList<Account> resultList = implAccountMg.queryAccount("%" + name + "%");
 			mav.addObject("acList", resultList);
 		}
 		return mav;
@@ -67,7 +71,7 @@ public class AccountControl {
 
 		int result = implAccountMg.changeAccountState(dataMap);
 
-		PrintWriter out = null;
+		out = null;
 		out = response.getWriter();
 		out.print(result);
 		out.flush();
@@ -75,21 +79,38 @@ public class AccountControl {
 	}
 
 	/*
-	 * 团检单位设置功能的条件查询
+	 * 团检单位设置功能的修改功能
 	 * 
 	 * @author毛聪
 	 * 
-	 * @date 6月21日
+	 * @date 6月22日
 	 */
-	@RequestMapping("queryAccount.action")
-	public ModelAndView queryAccount(Account account) {
-//		System.out.println("团检单位设置功能的条件查询:" + account.getName());
-//		ArrayList<Account> resultList = implAccountMg.queryAccount(account.getName());
-//		if (resultList.size() > 0) {
-//			ModelAndView mav = new ModelAndView("jsp/systemMgJsp/accountMg");
-//			mav.addObject("acList", resultList);
-//			return mav;
-//		}
-		return null;
+	@RequestMapping("upataAccName.action")
+	public void upataAccName(HttpServletResponse response, Account account) throws IOException {
+		System.out.println(account.getAccount() + "" + account.getName());
+		int resultUp = 0;
+
+		try {
+			resultUp = implAccountMg.updateAcName(account);
+
+		} catch (Exception e) {
+			System.out.println("修改:catch模块" + e.getMessage());
+		} finally {
+
+			out = response.getWriter();
+			if (resultUp > 0) {
+				out.print("OK");
+				out.flush();
+				out.close();
+				System.out.println("修改成功");
+			} else {
+				out.print("FAIL");
+				out.flush();
+				out.close();
+				System.out.println("已存在");
+			}
+		}
+
 	}
+
 }

@@ -60,7 +60,8 @@
 
 										<div class="space-6"></div>
 
-										<form action="loginAdmin.action" method="post" id="loginFrom" path=<%=path%>>
+										<form action="loginAdmin.action" method="post" id="loginFrom"
+											path=<%=path%>>
 											<fieldset>
 												<label class="block clearfix"> <span
 													class="block input-icon input-icon-right"> <input
@@ -80,13 +81,12 @@
 												<%-- 														src="<%=path%>/imageServlet" alt="验证码" id="imageWorker" /> --%>
 												<!-- 													<a href="javascript:reloadWorker();"><label>看不清</label></a> -->
 
-												验证码：<input type="text" size="10px" name="VerificationCode"
-													placeholder="请输入验证码" id="VerificationCode" /> <span
-													style="padding: 0px;"> <a href="javascript:void(0);"
-													onclick="VerificationCode()"><img id="randCodeImage"
-														src="VerificationCode/generate.action" /></a>
 
-												</span>
+						<input type="text" size="10px" id="VerificationCode" name="VerificationCode"
+													placeholder="请输入验证码" id="VerificationCode" />
+					 <img id="image-code" src=<%=path + "/createImage.action"%> onclick="changeCodes()"  align="middle">
+
+											
 
 
 
@@ -284,55 +284,70 @@
 
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
+		$("#login").click(
+				function() {
+					var name = $("#userName").val();
+					var password = $("#password").val();
+					var veriCode=$("#VerificationCode").val();
+					// 			var ret = /^[^\u4e00-\u9fa5]+$/;
+					if (name == null || name == "") {
+						alert("请输入帐户名")
+					} else if (password == null || password == "") {
+						alert("请输入密码")
+					}else if (veriCode==null || veriCode=="") {
+						alert("请输入验证码");
+					} 
+					else {
+						// 				alert($("#userName").val());
+						// 				alert($("#password").val());
+						$.ajax({
+							url : "loginAdmin.action",
+							type : "post",
+							dataType : "text",
+							data : {
+								"name" : name,
+								"password" :password,
+								"VerificationCode":veriCode
 
-		$("#login").click(function() {
-			var name = $("#userName").val();
-			var password = $("#password").val();
-			// 			var ret = /^[^\u4e00-\u9fa5]+$/;
-			if (name == null || name == "") {
-				alert("请输入帐户名")
-			} else if (password == null || password == "") {
-				alert("请输入密码")
-			}
-			// 			else if (!ret.test(password)) {
-			// 				alert("密码不能汉字");
-			// 			} 
-			else {
-// 				alert($("#userName").val());
-// 				alert($("#password").val());
-				$.ajax({
-					url : "loginAdmin.action",
-					type : "post",
-					dataType : "text",
-					data : {
-						"name" : $("#userName").val(),
-						"password" : $("#password").val()
+							},
+							success : function(data) {
+								if (data == "OK") {
+									alert("登陆成功");
+									var formNode = document
+											.getElementById("loginFrom");
+									var basepath = formNode
+											.getAttribute("path");
 
-					},
-					success : function(data) {
-						if (data == "OK") {
-							alert("登陆成功");
-							var formNode = document.getElementById("loginFrom");
-							var basepath = formNode.getAttribute("path");
+									formNode.action = 'loginThis.action';
+									formNode.submit();
 
-							formNode.action = 'loginThis.action';
-							formNode.submit();
+								} else if (data == "FAIL") {
 
-						} else if (data == "FAIL") {
+									alert("账户或密码错误");
 
-							alert("账户或密码错误");
+								}else if(data=="FAILCode"){
+									alert("验证码错误");
+									changeCodes();
+								}
+							}
+						})
 
-						}
 					}
-				})
 
-			}
+				});
 
-		});
 
-		
-		
-		
+		var temp;
+		$(function() {
+
+			temp = $("#image-code").attr("src");
+		})
+		// 更换验证码
+		function changeCodes() {
+			$("#image-code").attr("src", "");
+			$("#image-code")
+					.attr("src", temp + "?data=" + new Date().getTime());
+		}
 	</script>
 
 

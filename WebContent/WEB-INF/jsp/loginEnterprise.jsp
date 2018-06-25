@@ -80,13 +80,9 @@
 												<%-- 														src="<%=path%>/imageServlet" alt="验证码" id="imageWorker" /> --%>
 												<!-- 													<a href="javascript:reloadWorker();"><label>看不清</label></a> -->
 
-												验证码：<input type="text" size="10px" name="VerificationCode"
-													placeholder="请输入验证码" id="VerificationCode" /> <span
-													style="padding: 0px;"> <a href="javascript:void(0);"
-													onclick="VerificationCode()"><img id="randCodeImage"
-														src="VerificationCode/generate.action" /></a>
-
-												</span>
+												验证码：		<input type="text" size="10px" id="VerificationCode" name="VerificationCode"
+													placeholder="请输入验证码" id="VerificationCode" />
+					 <img id="image-code" src=<%=path + "/createImage.action"%> onclick="changeCodes()"  align="middle">
 
 
 
@@ -288,15 +284,16 @@
 		$("#login").click(function() {
 			var account = $("#account").val();
 			var password = $("#password").val();
+			var veriCode=$("#VerificationCode").val();
 			// 			var ret = /^[^\u4e00-\u9fa5]+$/;
 			if (account == null || account == "") {
 				alert("请输入帐户名")
 			} else if (password == null || password == "") {
 				alert("请输入密码")
 			}
-			// 			else if (!ret.test(password)) {
-			// 				alert("密码不能汉字");
-			// 			} 
+			else if (veriCode==null || veriCode=="") {
+				alert("请输入验证码");
+			} 	
 			else {
 // 				alert($("#userName").val());
 // 				alert($("#password").val());
@@ -305,8 +302,9 @@
 					type : "post",
 					dataType : "text",
 					data : {
-						"account" : $("#account").val(),
-						"password" : $("#password").val()
+						"account" :account,
+						"password" : password,
+						"VerificationCode":veriCode
 
 					},
 					success : function(data) {
@@ -322,6 +320,9 @@
 
 							alert("账户或密码错误");
 
+						}else if(data=="FAILCode"){
+							alert("验证码错误");
+							changeCodes();
 						}
 					}
 				})
@@ -330,7 +331,17 @@
 
 		});
 
-		
+		var temp;
+		$(function() {
+
+			temp = $("#image-code").attr("src");
+		})
+		// 更换验证码
+		function changeCodes() {
+			$("#image-code").attr("src", "");
+			$("#image-code")
+					.attr("src", temp + "?data=" + new Date().getTime());
+		}
 		
 		
 	</script>

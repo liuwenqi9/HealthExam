@@ -43,19 +43,20 @@
 					<!-- <span class="text-error" data-bind="text:errormsg"></span> -->
 
 					<div class="pull-right">
-						<form class="form-inline">
+						<form class="form-inline" action="AccountMg.action">
 							<div class="form-group">
-								<input id="name" name="name" type="text" placeholder="账户名称" class="form-control"
-									v-model="searchModel.S_cardNum">
+								<input id="name" name="name" type="text" placeholder="账户名称"
+									class="form-control" v-model="searchModel.S_cardNum">
 							</div>
 							<div class="form-group">
-								<select class="form-control" v-model="searchModel.S_cardStatus">
+								<select id="opt" class="form-control" v-model="searchModel.S_cardStatus">
 									<option value="" selected="selected">账户状态</option>
 									<option value="1">启用</option>
 									<option value="0">禁用</option>
 								</select>
 							</div>
-							<button id="queryAcMg" type="" class="btn btn-sm btn-success" v-on:click="selectBtn">
+							<button id="queryAcMg" type="button"
+								class="btn btn-sm btn-success" v-on:click="selectBtn">
 								<i class="glyphicon  glyphicon-search bigger-110"></i>查询
 							</button>
 						</form>
@@ -77,9 +78,10 @@
 
 								<tbody>
 
-									<c:forEach var="account" items="${acList}">
+									<c:forEach var="account" begin="0" items="${acList}"
+										varStatus="idx">
 										<tr id="tr_ofAccount">
-											<td><c:out value="${account.getState()}"></c:out></td>
+											<td><c:out value="${idx.index+1}"></c:out></td>
 											<td><c:out value="${account.getAccount()}"></c:out></td>
 
 											<td><c:out value="${account.getName()}"></c:out></td>
@@ -110,12 +112,11 @@
 														</c:otherwise>
 													</c:choose>
 
-													<button class="btn btn-xs btn-info">
+													<button id="updataAcc" onclick="updataBtn(this)"
+														class="btn btn-xs btn-info">
 														<i class="ace-icon fa fa-pencil bigger-120"></i>
 													</button>
-													<button class="btn btn-xs btn-danger">
-														<i class="ace-icon fa fa-trash-o bigger-120"></i>
-													</button>
+
 												</div>
 											</td>
 										</tr>
@@ -158,8 +159,40 @@
 
 			<!-- /.breadcrumb -->
 		</div>
-		
+
 	</div>
+
+	<div id="updata-modal" class="modal fade in" tabindex="-1"
+		style="display: none;">
+		<form id="updata-form" role="form" action="">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h3 class="smaller lighter blue no-margin">修改企业名称</h3>
+					</div>
+
+					<div class="modal-body" style="height: 300px">
+						<div class="row">
+							<div class="col-xs-12">
+								<span class="col-xs-4">企业名称:</span> <input type="text"
+									name="name" id="updataName" />
+							</div>
+						</div>
+						<div class="hr hr-14 hr-dotted"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="updataDept">提交</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</form>
+	</div>
+
+
 	<!-- /.main-content -->
 
 	<div class="footer">
@@ -185,7 +218,29 @@
 	</script>
 	<%@ include file="footer.jsp"%>
 	<script>
+	var updataAccid ;
 		$(function() {
+		   $("#queryAcMg").click(function(){
+			   alert("查询");
+			   
+			   var state=document.getElementById("opt").value;
+			   alert(state);
+			   
+			   $.ajax({
+					type : "POST",
+					url : "AccountMg.action",
+					data : {
+						'name':$("#name").val(),
+					     'state':state
+					},
+					success : function(result) {
+						
+					}
+			   });
+		   })
+			
+			
+			
 			$(".changeState").click(function() {
 				var currentState = $(this).attr("title");
 				$.ajax({
@@ -196,29 +251,62 @@
 						"state" : $(this).attr("title")
 					},
 					success : function(result) {
-						window.location.reload();   //刷新
+						window.location.reload(); //刷新
 					}
 
 				});
 			});
-			
-			
-			$("#queryAcMg").click(function(){					
-				$.ajax({
-					url : "AccountMg.action",
-					type : "post",
-					dataType : "text",
-					data : {
-				
 
-					}
-				
-				
-					
-				})
-				
-			});
+			$("#updataDept").click(
+					function() {
+						$.ajax({
+							url : "upataAccName.action",
+							type : "post",
+							dataType : "text",
+							data : {
+                                'account':updataAccid,
+								'name' : $("#updataName").val()
+								
+							},
+							success : function(data) {
+								if (data == "OK") {
+									alert("修改成功")
+									var formNode = document.getElementById("updata-form");
+
+									formNode.action = 'AccountMg.action';
+									formNode.submit();
+
+								} else if (data == "FAIL") {
+
+									alert("已存在");
+
+								}
+							}
+						})
+
+					})
+
 		});
+
+		function updataBtn(node) {
+			$('#updata-modal').modal('show')
+			var chileArr = node.parentElement.parentElement.parentElement; // 获取当前节点的所需要的父级节点
+			var nodes = filterSpaceNode(chileArr);
+			var rowNum = nodes.rowIndex; // 当前点击行号
+			updataAccid = document.getElementById('grid-table').rows[rowNum].cells[1].innerText; //获取要修改的参数名称
+		
+		}
+
+		function filterSpaceNode(nodes) {
+			for (var i = 0; i < nodes.length; i++) {
+				if (nodes[i].nodeType == 3 && /^\s+$/.test(nodes[i].nodeValue)) {
+					// 得到空白节点之后，移到父节点上，删除子节点
+					nodes[i].parentNode.removeChild(nodes[i]);
+
+				}
+			}
+			return nodes;
+		}
 	</script>
 </body>
 </html>

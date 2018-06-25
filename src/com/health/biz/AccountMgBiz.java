@@ -27,6 +27,7 @@ public interface AccountMgBiz {
 	
 	public int changeAccountState(HashMap<String, String> dataMap);
 	
+	public int updateAcName(Account account);  //用于团检单位修改名称
 
 	public Account queryAccountById(String accountId);
 
