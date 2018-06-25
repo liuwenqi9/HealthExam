@@ -1,11 +1,17 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@ include file="header.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8" />
+<style type="text/css">
+			td,th {
+	text-align: center;
+}
+		</style>
 <title>菜单管理</title>
 </head>
 <body class="no-skin">
@@ -43,9 +49,19 @@
 					  <a href="#" class="btn btn-sm btn-success" v-on:click="selectBtn" ><i class="glyphicon  glyphicon-search bigger-110"></i>查询</a>
 					</form>	
 				</div>
+				<!-- 蓝色框框 -->
+				<div class="widget-box widget-color-blue ui-sortable-handle">
+						<div class="widget-header" >
+							<h5 class="widget-title bigger lighter">
+							<font style="vertical-align: inherit;">
+								角色管理
+								<span style="float:right" id="sp_sysTime"></span>
+							</font>
+							</h5>
+							</div>
 				<div class="row">
 				<div class="col-xs-12" style="text-align: center;">
-					<table id="grid-table" class="table table-striped table-bordered table-hover">
+					<table style="font-size: 20px;" id="grid-table" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
 								  <th width="10%">
@@ -61,37 +77,35 @@
 						</thead>
 
 						<tbody >
-							<tr class="" v-for="(todo, index) in ret">
-								 <td>
-									<span>{{index+1}}</span>
-								 </td>
-								 <td>
-									<span>{{todo.WORKER_NAME}}</span>
-								 </td>
-								<td>
-									<div class="btn-group" style="text-align: center;">
-										    
-										<button class="btn btn-info" title="修改" onclick="$('#update-modal').modal('show');">
-											修改
-										</button>
-										<button class="btn btn-success" title="启用"  value="1" onclick="$('#enable-modal').modal('show');">
-											启用
-										</button>
-										<button class="btn btn btn-danger" title="禁用"  value="0" onclick="$('#disable-modal').modal('show');">
-											禁用
-										</button>
-										<button class="btn btn-purple" title="删除"  onclick="$('#delete-modal').modal('show');">
-											删除
-										</button>
-									</div>
+							<c:forEach var = "role" items="${rlList}" varStatus="number" >
+								<tr id="tr_ofRole">
+									<td><c:out value="${number.index+1}"></c:out></td>
+									<td><c:out value="${role.getRolename()}"></c:out></td>
+									<td>
+										<div class="btn-group" style="text-align: center;">
+											    
+											<button class="btn btn-info" title="修改" onclick="$('#update-modal').modal('show');">
+												修改
+											</button>
+											<button class="btn btn-purple" title="删除"  onclick="deleteRole(this)">
+												删除
+											</button>
+										</div>
 								</td>
-							</tr>
+								</tr>
+								
+							
+							</c:forEach  >
+								
+							
 						</tbody>
-						<tbody v-if="ret.length<1">
-							<tr>
-								<td colspan="3"  class="center">没有数据</td>
-							</tr>
-						</tbody>
+						<c:if test="${rlList==null }">
+							<tbody>
+								<tr>
+									<td colspan="3"  class="center">暂无数据</td>
+								</tr>
+							</tbody>
+						</c:if>
 						
 					</table>
 
@@ -135,69 +149,8 @@
 						</form>
 					</div><!-- /.modal-dialog -->
 					
-					<!-- 禁用。。。。。。。 -->
-					<div id="disable-modal" class="modal fade in" tabindex="-1" style="display: none;">
-					<form id="disable-form" role="form">
-					<div class="modal-dialog" style="margin-top: 220px">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 class="smaller lighter blue no-margin">禁用提示</h3>
-							</div>
-
-							<div class="modal-body" style="height: 150px;"> 
-								<div class="row">
-									<h2 style="margin-left: 30px;color: red;">温馨提示！<br><br>您是否要禁用{{菜单名称}}这个菜单?</h2>
-								</div>
-								
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">确定禁用</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-						</div>
-						</div><!-- /.modal-content -->
-						</form>
+					
 					</div><!-- /.modal-dialog -->
-					<!-- 启用。。。。。。 -->
-					<div id="enable-modal" class="modal fade in" tabindex="-1" style="display: none;">
-					<form id="enable-form" role="form">
-					<div class="modal-dialog" style="margin-top: 220px">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 class="smaller lighter blue no-margin">启用提示</h3>
-							</div>
-
-							<div class="modal-body" style="height: 150px;"> 
-								<div class="row">
-									<h2 style="margin-left: 30px;">温馨提示！<br><br>您是否要启用{{菜单名称}}这个菜单?</h2>
-								</div>
-								
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">确定启用</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-						</div>
-						</div><!-- /.modal-content -->
-						</form>
-					</div><!-- /.modal-dialog -->
-						<!-- 删除。。。。。。 -->
-					<div id="delete-modal" class="modal fade in" tabindex="-1" style="display: none;">
-					<form id="delete-form" role="form">
-					<div class="modal-dialog" style="margin-top: 220px">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 class="smaller lighter blue no-margin">删除</h3>
-							</div>
-							<div class="modal-body" style="height: 250px;"> 
-								<div class="row">
-									<h2 style="margin-left: 30px;">温馨提示！<br><br>您是否要删除{{本行的姓名}}这位工作人员的<br>所有信息?</h2>
-								</div>
-							</div>
-						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-success" data-dismiss="modal">删除</button>
 							<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
@@ -205,28 +158,7 @@
 						</div><!-- /.modal-content -->
 						</form>
 					</div><!-- /.modal-dialog -->
-						<!-- 重置密码。。。。。。 -->
-					<div id="resetpassword-modal" class="modal fade in" tabindex="-1" style="display: none;">
-					<form id="resetpassword-form" role="form">
-					<div class="modal-dialog" style="margin-top: 220px">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 class="smaller lighter blue no-margin">重置密码</h3>
-							</div>
-							<div class="modal-body" style="height: 250px;"> 
-								<div class="row">
-									<h2 style="margin-left: 30px;color: red;">温馨提示！<br><br>您是否要对{{本行的姓名}}这位工作人员的<br>密码进行重置?<br>重置密码为'123456'。</h2>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">重置密码</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-						</div>
-						</div><!-- /.modal-content -->
-						</form>
-					</div><!-- /.modal-dialog -->
+					
 				</div>
 		<!-- 增加菜单的模态框  -->
 		 <div id="edit-modal" class="modal fade in" tabindex="-1" style="display: none;">
@@ -241,7 +173,7 @@
 							<div class="modal-body" style="height: 200px;"> 
 								<div class="row">
 									<div class="col-xs-6">
-										<span class="col-xs-8"><input type="text" title="角色名称" placeholder="角色名称" class="form-control"  style="margin-left: 15px;width: 480px;"></span>
+										<span class="col-xs-8"><input id="rolename" type="text" title="角色名称" placeholder="角色名称" class="form-control"  style="margin-left: 15px;width: 480px;"></span>
 									</div>
 									<br><br>
 									
@@ -257,7 +189,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">确定提交</button>
+							<button  onclick="addRole();" type="button" class="btn btn-success" data-dismiss="modal">确定提交</button>
 							<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
 						</div>
 						</div><!-- /.modal-content -->
@@ -290,19 +222,82 @@
 		<%@ include file="footer.jsp"%>
 		<script type="text/javascript">
 		$(function(){
-			$("a[href='menuMg.action']").parent().parent().parent().addClass("active");
-			$("a[href='menuMg.action']").parent().parent().parent().addClass("open");
-			$("a[href='menuMg.action']").parent().addClass("active");
+			$("a[href='roleMg.action']").parent().parent().parent().addClass("active");
+			$("a[href='roleMg.action']").parent().parent().parent().addClass("open");
+			$("a[href='roleMg.action']").parent().addClass("active");
+			//获取系统时间
+			setInterval('sysTime()',1000);
 		});
-		/* //新增人员弹出
-		bootbox.setDefaults("locale","zh_CN");  //弹窗设置中文
-		bootbox.confirm("投票已结束，是否直接查看投票结果？",function(re){
-	 	if(re) {
-	       voteResults(id,title); 
-	  		}
-		});
- */
+		
+		function sysTime() {
+			var today = new Date();// 系统时间（今天）
+			var dateAndTime = today.toLocaleString();
+			$("#sp_sysTime").html(dateAndTime+"&nbsp;&nbsp;"); 
+		}
+		function deleteRole(node) {
 
+			var con;
+			con = confirm("确定要删除吗？"); // 在页面上弹出对话框
+			
+			 if (con == true) {
+				var chileArr = node.parentElement.parentElement.parentElement;  //获取当前节点的所需要的父级节点
+				var nodes = filterSpaceNode(chileArr); 
+				var rowNum = nodes.rowIndex;  //当前点击行号
+				var rolename = document.getElementById('grid-table').rows[rowNum].cells[1].innerText;
+				$.ajax({
+					url : "deleteRoleMg.action",
+					type : "POST",
+					dataType : "text",
+					data : {
+						"rolename":rolename,
+					},
+					success : function(data) {
+						if (data == "OK") {
+							
+							alert("删除成功");
+							parent.location.reload();
+						} else if (data == "FAIL") {
+
+							alert("该数据可能被使用中，无法删除!");
+							parent.location.reload();
+						}
+					}
+				});
+				
+				
+			} 
+		}
+		function filterSpaceNode(nodes) {
+			for (var i = 0; i < nodes.length; i++) {
+				if (nodes[i].nodeType == 3 && /^\s+$/.test(nodes[i].nodeValue)) {
+					// 得到空白节点之后，移到父节点上，删除子节点
+					nodes[i].parentNode.removeChild(nodes[i]);
+				}
+			}
+			return nodes;
+		}
+		
+		function addRole() {
+			alert("增加");
+			$.ajax({
+				url:"insertroleMg.action",
+				type:"POST",
+				dataType:"text",
+				data:{
+					"rolename":$("#rolename").val()
+				},
+				success : function(data) {
+					if (data="OK") {
+						alert("增加成功");
+						parent.location.reload();
+					} else {
+						alert("增加失败,可能已存在或网络异常!")
+					}
+				}
+			});
+		}	
+			
+		
 	
 			
 		</script>

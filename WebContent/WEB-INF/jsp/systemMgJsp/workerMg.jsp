@@ -118,7 +118,7 @@
 								<td><c:out value="待定"></c:out></td>
 								<td><c:out value="待定"></c:out></td>
 								<td><c:out value="待定"></c:out></td>
-								<%-- <td><c:out value="${worker.getState()}"></c:out> --%>
+								
 								<c:choose>
 									<c:when test="${worker.getState() eq '1' }">
 										<td id="state" style="color: green;" ><c:out value="启用"><font ></font></c:out></td>
