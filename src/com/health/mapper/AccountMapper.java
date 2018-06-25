@@ -21,6 +21,8 @@ public interface AccountMapper {
 	
 	public ArrayList<Account> queryAccountName(String name);  //团检单位模糊查询
 	
+	int updateAcName(Account account);    //团检单位名称修改
+	
     int countByExample(AccountExample example);
 
     int deleteByExample(AccountExample example);
