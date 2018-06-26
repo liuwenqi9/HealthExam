@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.health.biz.RegisterBiz;
@@ -44,8 +45,9 @@ public class RegisterController {
 	 * @param res 
 	 */
 	@RequestMapping(value = "/checkName.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public void checkName(HttpServletRequest req,HttpServletResponse res,String name) {
+	public @ResponseBody String checkName(HttpServletRequest req,HttpServletResponse res,String name) {
 		System.out.println("------执行了公司名称查找");
+		sendMesg=null;
 	//获取前端界面数据
 	System.out.println("查询的公司名称：--"+name);
 		if(name!=null) {//不为空时,查询数据库
@@ -58,10 +60,9 @@ public class RegisterController {
 			}
 			System.out.println("--查找的数量："+accountList.size());
 			System.out.println("--返回的消息:"+sendMesg);
-			feedBackData(res,sendMesg);	
 		}
 	
-		sendMesg=null;
+		return sendMesg;
 	}
 	/**
 	 * 公司账号唯一性查找
@@ -70,9 +71,10 @@ public class RegisterController {
 	 * @param account 6月18日补充
 	 */
 	@RequestMapping(value = "/checkAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public void checkAccount(HttpServletRequest req,HttpServletResponse res,String account) {
+	public @ResponseBody String checkAccount(HttpServletRequest req,HttpServletResponse res,String account) {
 		System.out.println("---------执行了公司账号查找");
 	//获取前端界面数据
+		sendMesg=null;
 	System.out.println("查询的公司账号：--"+account);
 		if(account!=null) {//不为空时,查询数据库
 			
@@ -84,10 +86,10 @@ public class RegisterController {
 			}
 			System.out.println("--查找的数量："+accountList.size());
 			System.out.println("--返回的消息:"+sendMesg);
-			feedBackData(res,sendMesg);	
+		
 		}
 	
-		sendMesg=null;
+		return sendMesg;
 	}
 	/**
 	 * 注册用户
@@ -97,9 +99,9 @@ public class RegisterController {
 	 * @param account 对象 6月18日
 	 */
 	@RequestMapping(value = "/addAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public void addAccount(HttpServletRequest req,HttpServletResponse res,
+	public @ResponseBody String addAccount(HttpServletRequest req,HttpServletResponse res,
 			String name,String account,String password,String locationname) {
-			
+		sendMesg=null;
 		
 		System.out.println("---------执行了企业注册");
 		System.out.println("--接收到企业的全称："+name);
@@ -122,10 +124,11 @@ public class RegisterController {
 		}else {
 			sendMesg="failure";
 		}
-		feedBackData(res,sendMesg);	
-		System.out.println("--注册结果：--"+sendMesg);
-		sendMesg=null;
+	
+		
 		}
+		System.out.println("--注册结果：--"+sendMesg);
+		return sendMesg;
 	}
 	
 	

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.health.entity.Account;
 import com.health.entity.AccountExample;
 import com.health.entity.AccountExample.Criteria;
-import com.health.entity.Location;
+
 import com.health.mapper.AccountMapper;
 import com.health.mapper.LocationMapper;
 /**
@@ -29,7 +29,7 @@ public class ImpRegister implements RegisterBiz {
 	@Override
 	public int addAccount(Account account) {
 	
-		return accountMapper.insert(account);
+		return accountMapper.insertSelective(account);
 	}
 
 	//通过企业名称查找企业对象
