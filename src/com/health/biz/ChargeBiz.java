@@ -29,7 +29,7 @@ public class ChargeBiz {
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=true)
 	public List<Charge> getAllBill() {
 		chargeExample.clear(); //清空静态缓存
-		chargeExample.setOrderByClause("time DESC"); //对下单时间进行倒序排列
+		chargeExample.setOrderByClause("time ASC"); //对下单时间进行倒序排列
 		List<Charge> list = chargeMapper.selectByExample(chargeExample);
 		return list;
 	}
@@ -55,5 +55,13 @@ public class ChargeBiz {
 		chargeExample.setOrderByClause("chargeid DESC");
 		List<Charge> list = chargeMapper.selectByExample(chargeExample);
 		return list;
+	}
+	
+	//改变订单状态 --- 结算
+	public int changeBill(Charge record) {
+		chargeExample.clear(); //清空静态缓存
+		record.setTime(MyTimeUtil.getTimeNowTogether());
+		int result = chargeMapper.updateByPrimaryKeySelective(record);
+		return result;
 	}
 }

@@ -73,12 +73,24 @@
 								<td class="center">{{index+1}}</td>
 								<td >{{todo.account}}</td>
 								<td >{{todo.amount}}</td>
-								<td >{{todo.pretime}}</td>
-								<td >{{todo.time}}</td>
+								<td >
+									<i class="ace-icon fa fa-calendar success bigger-110"></i>
+									<span class="bigger-100">{{todo.pretime}}</span>
+								</td>
+								<td >
+									<span v-if="(todo.state)==2" class="label label-warning label-white middle">
+										<i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>
+										该订单未记账
+									</span>
+									<span v-if="(todo.state)!=2" class="label label-success label-white middle">
+										<i class="ace-icon fa fa-check-square-o bigger-120"></i>
+										{{todo.time}}
+									</span>
+								</td>
 								<td >
 									<span v-if=(todo.state)==2 class="label label-lg label-warning arrowed-in">待接收</span>
-									<span v-if=(todo.state)==1 class="label label-lg label-pink arrowed-in arrowed-in-right">已接收</span>
-									<span v-if=(todo.state)==0 class="label label-lg label-success arrowed arrowed-right">已完成</span>		
+									<span v-if=(todo.state)==1 class="label label-lg label-success arrowed-in arrowed-in-right">已接收</span>
+									<span v-if=(todo.state)==0 class="label label-lg label-primary arrowed arrowed-right">已完成</span>		
 								</td>
 
 								<td v-if=(todo.state)==2>

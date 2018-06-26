@@ -236,4 +236,15 @@
       OVERTIME = #{overtime,jdbcType=OTHER}
     where GUIDEID = #{guideid,jdbcType=DECIMAL}
   </update>
+  
+  <update id="updateBatch" parameterType="java.util.List">
+    update GUIDE 
+    set STATE=2
+    where GUIDEID in
+    <foreach collection="list" index="index" item="item" 
+        separator="," open="(" close=")">
+        #{item.guideid,jdbcType=BIGINT}
+    </foreach>
+ </update>
+ 
 </mapper>
