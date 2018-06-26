@@ -208,4 +208,30 @@
       LOWLIMIT = #{lowlimit,jdbcType=DECIMAL}
     where DETAILID = #{detailid,jdbcType=DECIMAL}
   </update>
+  
+  
+  <resultMap id="SecondMap" type="com.health.entity.Detail" extends="BaseResultMap">
+    <result column="PARAMNAME" property="paramname" jdbcType="OTHER" />
+  </resultMap>
+  <select id="selectPageList" parameterType="String" resultMap="SecondMap">
+  	select d.*,p.PARAMNAME from DETAIL d, PARAMETER p where d.PARAMETERID = p.PARAMETERID 
+  	<if test="sItemName != null">
+  		and d.NAME like concat(concat('%',#{sItemName}),'%')
+  	</if>
+  </select>
+  
+  <resultMap id="paramMap" type="com.health.entity.Parameter" >
+    <id column="PARAMETERID" property="parameterid" jdbcType="DECIMAL" />
+    <result column="PARENTID" property="parentid" jdbcType="DECIMAL" />
+    <result column="PARAMNAME" property="paramname" jdbcType="OTHER" />
+  </resultMap>
+  
+	<select id="selectAllParameter" resultMap="paramMap">
+  		select * from PARAMETER where PARENTID = 1
+	</select>
+	
+	<select id="selectByItemId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select d.* from DETAIL d,ITEMDETAIL itd where d.DETAILID = itd.DETAILID and itd.ITEMID = #{itemId,jdbcType=DECIMAL}
+	</select>
+  
 </mapper>

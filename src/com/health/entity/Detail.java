@@ -14,6 +14,8 @@ public class Detail {
     private BigDecimal uplimit;
 
     private BigDecimal lowlimit;
+    
+    private Object paramname;
 
     public Integer getDetailid() {
         return detailid;
@@ -54,4 +56,13 @@ public class Detail {
     public void setLowlimit(BigDecimal lowlimit) {
         this.lowlimit = lowlimit;
     }
+
+	public Object getParamname() {
+		return paramname;
+	}
+
+	public void setParamname(Object paramname) {
+		this.paramname = paramname;
+	}
+    
 }

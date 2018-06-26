@@ -2,6 +2,8 @@ package com.health.mapper;
 
 import com.health.entity.Detail;
 import com.health.entity.DetailExample;
+import com.health.entity.Parameter;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
@@ -30,5 +32,9 @@ public interface DetailMapper {
 
     int updateByPrimaryKey(Detail record);
     
-    List<Detail> selectPageList(int page);
+    List<Detail> selectPageList(@Param("sItemName") String sItemName);
+    
+    List<Parameter> selectAllParameter();
+    
+    List<Detail> selectByItemId(Integer itemId);
 }

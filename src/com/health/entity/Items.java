@@ -11,6 +11,8 @@ public class Items {
     private Integer deptid;
 
     private Long cost;
+    
+    private Object deptname;
 
     public Integer getItemid() {
         return itemid;
@@ -43,4 +45,12 @@ public class Items {
     public void setCost(Long cost) {
         this.cost = cost;
     }
+
+	public Object getDeptname() {
+		return deptname;
+	}
+
+	public void setDeptname(Object deptname) {
+		this.deptname = deptname;
+	}
 }
