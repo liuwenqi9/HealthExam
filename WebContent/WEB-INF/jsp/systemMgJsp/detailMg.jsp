@@ -13,7 +13,7 @@
 	<body class="no-skin">
 		<%@ include file="menu.jsp"%>
 
-			<div class="main-content" id="dataBind">
+			<div class="main-content">
 				<div class="breadcrumbs" id="breadcrumbs">
 					<script type="text/javascript">
 						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
@@ -28,15 +28,16 @@
 					<!-- /.breadcrumb -->
 				</div>
 
-				<div class="page-content">
+				<div class="page-content" id="dataBind">
 					<div class="page-header">
 						<a href="javascript:window.location.reload();" class="btn btn-sm btn-purple"><i class="ace-icon fa fa-undo bigger-110"></i>刷新</a>
+						<a href="#" class="btn btn-sm btn-success" v-on:click="addButton"><i class="glyphicon glyphicon-plus bigger-110"></i>新增细项</a>
 						<!-- <span class="text-error" data-bind="text:errormsg"></span> -->
 						
 						<div class="pull-right">
 							<form class="form-inline">
 							  <div class="form-group">
-							    <input type="text" placeholder="细项名称" class="form-control" v-model="searchModel.S_itemName">
+							    <input type="text" placeholder="细项名称" class="form-control" v-model="S_itemName">
 							  </div>
 							  <a href="#" class="btn btn-sm btn-success" v-on:click="selectBtn" ><i class="glyphicon  glyphicon-search bigger-110"></i>查询</a>
 							</form>	
@@ -78,7 +79,7 @@
 												<span>{{todo.name}}</span>
 											 </td>
 											 <td>
-												<span>{{todo.parameterid}}</span>
+												<span>{{todo.paramname}}</span>
 											 </td>
 											 <td>
 												<span>{{todo.uplimit}}</span>
@@ -89,8 +90,12 @@
 											<td>
 											<div class="btn-group">
 												    
-												<button class="btn btn-xs btn-success" title="审核" v-on:click="editItem(todo.detailid)">
+												<button class="btn btn-xs btn-success" title="修改" v-on:click="editButton(todo)">
 													修改
+												</button>
+												
+												<button class="btn btn-xs btn-danger" title="删除" v-on:click="deleteItem(todo.detailid,index)">
+													<i class="ace-icon fa fa-trash-o bigger-120"></i>
 												</button>
 												
 											</div>
@@ -117,56 +122,111 @@
 						</div><!-- /.row -->
 				   
 					</div> 
+					<!-- add-modal -->
+					<div id="add-modal" class="modal fade in" tabindex="-1" style="display: none;">
+						<form id="add-form" role="form">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h3 class="smaller lighter blue no-margin">添加细项</h3>
+									</div>
+									
+									<div class="modal-body" style="height: 300px"> 
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="col-xs-2">细项名称:</span>
+												<input class="col-xs-10" type="text" id="detailName" name="detailName" v-model="addItem.name" required="required"/>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="col-xs-2">计量单位:</span>
+												<select class="col-xs-10" v-model="addItem.parameterid">
+													<option v-for="todo in paramList" v-bind:value="todo.parameterid">{{todo.paramname}}</option>
+												</select>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="col-xs-2">上限值:</span>
+												<input class="col-xs-10" type="number" id="uplimit" name="uplimit" v-model="addItem.uplimit" min="0" required="required"/>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="col-xs-2">下限值:</span>
+												<input class="col-xs-10" type="number" id="lowlimit" name="lowlimit" v-model="addItem.lowlimit" min="0" required="required"/>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+									</div>
+									
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" v-on:click="insertBtn(addItem)">添加</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</form>
+					</div><!-- /.edit-modal -->
+					
+					<!-- edit-modal -->
+					<div id="edit-modal" class="modal fade in" tabindex="-1" style="display: none;">
+						<form id="edit-form" role="form">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h3 class="smaller lighter blue no-margin">修改</h3>
+									</div>
+									
+									<div class="modal-body" style="height: 300px"> 
+										<div class="row">
+											<div class="col-xs-12">
+												<input class="col-xs-10" type="text" id="detailName" name="detailName" v-model="editItem.name" required="required"/>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="col-xs-2">计量单位:</span>
+												<select class="col-xs-10" v-model="editItem.parameterid">
+													<option value="">计量单位</option>
+													<option v-for="todo in paramList" v-bind:value="todo.parameterid">{{todo.paramname}}</option>
+												</select>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="col-xs-2">上限值:</span>
+												<input class="col-xs-10" type="number" id="uplimit" name="uplimit" v-model="editItem.uplimit" min="0" required="required"/>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+										<div class="row">
+											<div class="col-xs-12">
+												<span class="col-xs-2">下限值:</span>
+												<input class="col-xs-10" type="number" id="lowlimit" name="lowlimit" v-model="editItem.lowlimit" min="0" required="required"/>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+									</div>
+									
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" v-on:click="updateBtn(editItem)">修改</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</form>
+					</div><!-- /.edit-modal -->
 				</div><!-- /.page-content -->
 				
-				<!-- edit-modal -->
-				<div id="edit-modal" class="modal fade in" tabindex="-1" style="display: none;">
-					<form id="edit-form" role="form">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									<h3 class="smaller lighter blue no-margin">查询卡</h3>
-								</div>
-								
-								<div class="modal-body" style="height: 300px"> 
-									<div class="row">
-										<div class="col-xs-12">
-											<span class="col-xs-2">细项名称:</span>
-											<span class="col-xs-10">{{editItem.name}}</span>
-										</div>
-									</div>
-									<div class="hr hr-14 hr-dotted"></div>
-									<div class="row">
-										<div class="col-xs-12">
-											<span class="col-xs-2">计量单位:</span>
-											<span class="col-xs-10">{{editItem.parameterid}}</span>
-										</div>
-									</div>
-									<div class="hr hr-14 hr-dotted"></div>
-									<div class="row">
-										<div class="col-xs-12">
-											<span class="col-xs-2">上限值:</span>
-											<span class="col-xs-10">{{editItem.uplimit}}</span>
-										</div>
-									</div>
-									<div class="hr hr-14 hr-dotted"></div>
-									<div class="row">
-										<div class="col-xs-12">
-											<span class="col-xs-2">下限值:</span>
-											<span class="col-xs-10">{{editItem.lowlimit}}</span>
-										</div>
-									</div>
-									<div class="hr hr-14 hr-dotted"></div>
-								</div>
-								
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</form>
-				</div><!-- /.edit-modal -->
 				
 			</div><!-- /.main-content -->
 
@@ -201,33 +261,80 @@
 		var req = new Vue({
 			el: '#dataBind',
 			data: {
-				selectItem:{},
+				S_itemName:{},
 				ret: [],
 				pageCount:[],
 				pageNum:"",
 				searchModel: {},
-				editItem:{}
+				addItem:{},
+				editItem:{},
+				paramList:[]
 			},
 			methods:{
-				editItem:function(item){
+				deleteItem:function(detailid,index){
+					if(window.confirm("确定要删除吗？")){
+						$.ajax({
+							url: "detailMgDelete.action",
+							method: "POST",
+							data: { detailid: detailid },
+							dataType: "json",
+							success: function(msg){
+								req.ret.splice(index, 1);
+							},
+							error: function(){
+								alert("删除失败");
+							}
+						});
+					}
+				},
+				editButton:function(item){
 					req.editItem = item;
 					$('#edit-modal').modal('show');
 				},
-				addClick:function(){
-					$('#my-modal').modal('show');
+				updateBtn:function(detail){
+					 $.ajax({
+						url: "detailMgUpdate.action",
+						method: "POST",
+						data: {detailid:detail.detailid,name:detail.name,parameterid:detail.parameterid,lowlimit:detail.lowlimit,uplimit:detail.uplimit},
+						dataType: "json",
+						success: function(msg){
+							alert(msg.status);
+							window.location.reload();
+						},
+						error: function(){
+							alert("获取失败");
+						}
+					 });
+				},
+				addButton:function(){
+					$('#add-modal').modal('show');
+				},
+				insertBtn:function(detail){
+					$.ajax({
+						url: "detailMgInsert.action",
+						method: "POST",
+						data: {detailid:detail.detailid,name:detail.name,parameterid:detail.parameterid,lowlimit:detail.lowlimit,uplimit:detail.uplimit},
+						dataType: "json",
+						success: function(msg){
+							alert(msg.status);
+							window.location.reload();
+						},
+						error: function(){
+							alert("获取失败");
+						}
+					 });
 				},
 				pageItem:function(index){
 					 $.ajax({
-							url: "<%=request.getContextPath() %>/CardQueryServlet",
+							url: "detailMgPage.action",
 							method: "POST",
-							data: {page:index,searchItem:JSON.stringify(req.searchModel),selectItem:req.selectItem},
-							dataType: "html",
+							data: {page:index,sItemName:req.S_itemName,selectItem:req.selectItem},
+							dataType: "json",
 							success: function(msg){
-								/* pageData = JSON.parse(msg); */
-								req.ret = JSON.parse(msg).req;
-								req.pageCount = JSON.parse(msg).pageCount;
-								req.pageNum = JSON.parse(msg).pageNum;
-								req.searchModel = JSON.parse(msg).searchItem;
+								req.ret = msg.req;
+								req.pageCount = msg.pageCount;
+								req.pageNum = msg.pageNum;
+								req.S_itemName = msg.sItemName;
 							},
 							error: function(){
 								alert("获取失败");
@@ -235,19 +342,6 @@
 					 });
 				},
 				selectBtn:function(){
-					
-					if (req.searchModel.S_beginDate != "") {
-						if(req.searchModel.S_endDate == ""){
-							alert("请填写结束时间");
-							return;
-						}
-					}
-					if (req.searchModel.S_beginDate != "") {
-						if(req.searchModel.S_endDate == ""){
-							alert("请填写开始时间");
-							return;
-						}
-					}
 					req.selectItem = true;
 					req.pageItem(1);
 				}
@@ -257,15 +351,15 @@
 		var request = $.ajax({
 			url: "detailMgPage.action",
 			method: "POST",
-			data: {page:1,searchItem:JSON.stringify(req.searchModel),selectItem: false},
+			data: {page:1,sItemName:req.S_itemName,selectItem: false},
 			dataType: "json",
 			success: function(msg){
-				/* pageData = JSON.parse(msg); */
-				req.ret = JSON.parse(msg).req;
-				req.pageCount = JSON.parse(msg).pageCount;
-				req.pageNum = JSON.parse(msg).pageNum;
-				req.searchModel = JSON.parse(msg).searchItem;
-				req.selectItem = false;
+				req.ret = msg.req;
+				req.pageCount = msg.pageCount;
+				req.pageNum = msg.pageNum;
+				req.S_itemName = msg.sItemName;
+				req.paramList = msg.paramList;
+				req.selectItem = false; 
 			},
 			error: function(){
 				alert("获取失败");

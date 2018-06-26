@@ -193,4 +193,14 @@
       COST = #{cost,jdbcType=DECIMAL}
     where ITEMID = #{itemid,jdbcType=DECIMAL}
   </update>
+  
+  <resultMap id="SecondMap" type="com.health.entity.Items" extends="BaseResultMap">
+    <result column="DEPTNAME" property="deptname" jdbcType="OTHER" />
+  </resultMap>
+  <select id="selectPageList" parameterType="String" resultMap="SecondMap">
+  	select d.*,p.DEPTNAME from ITEMS d, DEPT p where d.DEPTID = p.DEPTID 
+  	<if test="sItemName != null">
+  		and d.ITEMNAME like concat(concat('%',#{sItemName}),'%')
+  	</if>
+  </select>
 </mapper>

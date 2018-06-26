@@ -28,4 +28,6 @@ public interface ItemsMapper {
     int updateByPrimaryKeySelective(Items record);
 
     int updateByPrimaryKey(Items record);
+
+    List<Items> selectPageList(@Param("sItemName") String sItemName);
 }
