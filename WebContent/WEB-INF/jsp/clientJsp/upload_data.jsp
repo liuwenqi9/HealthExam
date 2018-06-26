@@ -13,7 +13,7 @@ String basePath=request.getScheme()+"://"
 <title>上传名单窗口</title>
 <%@ include file="header.jsp"%>
 <link rel="stylesheet" type="text/css" href=<%=path+"/css/bootstrap-theme.min.css" %>>
-<!-- <style>
+ <style>
    
     #actions {
       margin: 2em 0;
@@ -67,7 +67,7 @@ String basePath=request.getScheme()+"://"
     }
 
 
-  </style> -->
+  </style>
 </head>
 <body class="no-skin">
 <%@ include file="menu.jsp"%>
@@ -92,6 +92,7 @@ String basePath=request.getScheme()+"://"
 		</div>
 		<!--面包线结束  -->
 		<!-- 表格内容开始 -->
+		
 		<div class="page-content" id="">
 	
 			<!--陈述上传说明开始  -->
@@ -116,7 +117,7 @@ String basePath=request.getScheme()+"://"
 							<label class="control-label" for="">上传文件按钮： </label>
 							
 							 <form action="filehandle.action" method="post" enctype="multipart/form-data">
-     					请选择文件:<input type="file" name="files">
+     					请选择文件:<input type="file" name="files"class="file">
      					 
      					 <button type="submit" class="btn btn-primary start">
            				 <i class="glyphicon glyphicon-upload"></i>
@@ -126,7 +127,7 @@ String basePath=request.getScheme()+"://"
 							</div> 
 				</div> 
 						<!-- PAGE CONTENT BEGINS -->
-								<div class="alert alert-info">
+							<!-- 	<div class="alert alert-info">
 									<i class="ace-icon fa fa-hand-o-right"></i>
 
 								请参考上传名单规定.
@@ -183,17 +184,17 @@ String basePath=request.getScheme()+"://"
 											</span>
 										</div>
 									</div>
-								</div> 
+								</div>  -->
 								<!-- PAGE CONTENT ENDS -->	
 			<!-- 新加按钮 开始-->
-	<!-- <div class="container" id="container">
+	 <div class="container" id="container">
 
-   		form开始
-   		 <form action="filehandle.action" class="dropzone" method="post" enctype="multipart/form-data">
+   		
+   		
     <div id="actions" class="row">
 
       <div class="col-lg-7">
-        The fileinput-button span is used to style the file input field as button
+      <!--   The fileinput-button span is used to style the file input field as button -->
         <span class="btn btn-success fileinput-button" >
             <i class="glyphicon glyphicon-plus"></i>
             <span>添加文件</span>
@@ -209,7 +210,7 @@ String basePath=request.getScheme()+"://"
       </div>
 
       <div class="col-lg-5">
-        The global file processing state
+       <!--  The global file processing state -->
         <span class="fileupload-process">
           <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
@@ -229,7 +230,7 @@ String basePath=request.getScheme()+"://"
     <div class="table table-striped files" id="previews">
 
       <div id="template" class="file-row">
-        This is used as the file preview template
+       <!--  This is used as the file preview template -->
         <div>
             <span class="preview"><img data-dz-thumbnail /></span>
         </div>
@@ -244,6 +245,7 @@ String basePath=request.getScheme()+"://"
             </div>
         </div>
         <div>
+        
          <button class="btn btn-primary start">
               <i class="glyphicon glyphicon-upload"></i>
               <span>开始</span>
@@ -256,24 +258,110 @@ String basePath=request.getScheme()+"://"
             <i class="glyphicon glyphicon-trash"></i>
             <span>清空</span>
           </button>
+      
         </div>
       </div>
 
     
 	</div>
    
-</form>
-form结束
+
+
   </div>
-				
-				 -->
-				
-				
-				
-				
 				<!-- 新加按钮 结束-->
+				
 			</div>
 			</div>
+			<!--上传按钮数据结束  -->
+			<!--表格数据开始  -->
+			<div class="row">
+					<div class="col-xs-12">
+					
+				<!--打印按钮位置-->
+				<div class="clearfix">
+						<!--按钮位置  -->
+						
+				</div>
+						<!--表格头部-->
+					<div class="table-header">
+						导入的员工信息如下：目前无数据，下面数据写死
+					</div>
+
+						<!-- div.table-responsive -->
+
+				<!-- div.dataTables_borderWrap -->
+					<div>
+				<table id="dynamic-table" class="table table-striped table-bordered table-hover">
+					<thead>
+									<tr>
+										<!-- <th class="center">
+													<label class="pos-rel">
+														<input type="checkbox" class="ace" />
+														<span class="lbl"></span>
+														</label>
+														</th> -->
+														<th>序号</th>
+														<th>企业（医院注册）账号</th>
+													
+														<th>（体检）员工姓名</th>
+														<th >（体检）员工身份证</th>
+														<th >（体检）员工性别</th>
+														<th >（体检）员工年龄</th>
+														<th >（体检）员工联系电话</th>
+														
+													</tr>
+												</thead>
+
+												<tbody>
+													<tr>
+														<!-- <td class="center">
+															<label class="pos-rel">
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td> -->
+
+														<td>
+															1
+														</td>												
+														<td >CYKJ123</td>
+														<td>小简</td>
+
+														<td >350627199308014567	</td>
+															
+													
+														<td>男</td>
+												
+														<td>25</td>
+													
+												
+														<td>15759581890</td>
+														
+													</tr>
+												
+												
+												
+												</tbody>
+													<!--假数据结束-->
+													
+													
+											</table>
+										</div>
+									</div>
+								</div>
+								<div>
+								 <div class="pull-right">
+								 <button type="" class="btn btn-primary save">
+          							  <i class="glyphicon glyphicon-saved"></i>
+
+           						 <span>保存数据</span>
+        						</button> 
+												
+									</div>
+								
+								</div>
+			
+			
 			<!--表格数据结束  -->
 		</div><!-- /.col -->
 		</div><!-- /.row -->
@@ -306,8 +394,8 @@ if('ontouchstart' in document.documentElement) document.write("<script src='../j
 	<%@ include file="footer.jsp"%>
 	
 	 <script type="text/javascript"  src=<%=path+"/js/dropzone.min.js" %>></script> 
-	 <script type="text/javascript"  src=<%=path+"/jscommon/upload_data.js" %>></script> 
-		 <!-- <script type="text/javascript">
+	<%--  <script type="text/javascript"  src=<%=path+"/jscommon/upload_data.js" %>></script>  --%>
+	<script type="text/javascript">
 		 try {
 		 Dropzone.autoDiscover = false;
       // Get the template HTML and remove it from the doument
@@ -415,7 +503,7 @@ if('ontouchstart' in document.documentElement) document.write("<script src='../j
 		 } catch(e) {
 			  alert('浏览器不支持Dropzone.js !');
 			}
-    </script>	 -->
+    </script>	
 			
 		
 </body>

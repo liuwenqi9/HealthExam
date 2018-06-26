@@ -1,17 +1,26 @@
 package com.health.entity;
 
+import org.springframework.stereotype.Component;
+/**
+ * 
+ * @author JSY补充备注
+ * @date 6月23
+ *  导诊卡
+ */
+
+@Component
 public class Guide {
-    private Integer guideid;
+    private Integer guideid;//导诊卡id
 
-    private Short state;
+    private Short state;//状态
 
-    private Object time;
+    private Object time;//开导诊卡单时间
 
-    private Integer personinfoid;
+    private Integer personinfoid;//体检者iD
 
-    private Object allsummary;
+    private Object allsummary;//体检总结
 
-    private Object overtime;
+    private Object overtime;//体检结束时间
 
     private Integer chargeid;
 
