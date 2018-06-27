@@ -37,7 +37,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<table id="dynamic-table" class="table table-striped table-bordered table-hover">
-												<!-- 表头  -->
+						<!-- 表头  -->
 						<thead>
 							<tr>
 								<th class="center">
@@ -109,7 +109,7 @@
 		</div>
 		<!-- /.page-content -->
 		
-		 <div id="settle-modal" class="modal fade in" tabindex="-1" style="display: none; padding-right: 17px;">
+		<div id="settle-modal" class="modal fade in" tabindex="-1" style="display: none; padding-right: 17px;">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
