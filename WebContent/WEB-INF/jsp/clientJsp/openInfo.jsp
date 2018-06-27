@@ -40,17 +40,17 @@
 					<form action="makeCharge.action">
 						<div class="row">
 
-					
+
 							<div class="col-xs-12">
 								<table id="grid-table"
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
-											<th width="20%">序号</th>
-											<th width="20%">员工</th>
-											<th width="20%">开单时间</th>
-											<th width="20%">检查项目</th>
-											<th width="20%">接收科室</th>
+											<th class="center" width="20%">序号</th>
+											<th class="center" width="20%">员工</th>
+											<th class="center" width="20%">开单时间</th>
+											<th class="center" width="20%">体检套餐</th>
+											<th class="center" width="20%">套餐价格</th>
 										</tr>
 									</thead>
 
@@ -58,11 +58,11 @@
 
 										<c:forEach var="order" items="${orderList}">
 											<tr>
-												<td><c:out value="${order.getRownumber()}"></c:out></td>
-												<td><c:out value="${order.getName()}"></c:out></td>
-												<td><c:out value="${order.getTime()}"></c:out></td>
-												<td><c:out value="${order.getItemname()}"></c:out></td>
-												<td><c:out value="${order.getDeptname()}"></c:out></td>
+												<td class="center"><c:out value="${order.getRownumber()}"></c:out></td>
+												<td class="center"><c:out value="${order.getName()}"></c:out></td>
+												<td class="center"><c:out value="${order.getTime()}"></c:out></td>
+												<td class="center"><c:out value="${order.getPackname()}"></c:out></td>
+												<td class="center"><c:out value="￥${order.getPrice()}"></c:out></td>
 											</tr>
 										</c:forEach>
 

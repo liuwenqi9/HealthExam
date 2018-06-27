@@ -12,7 +12,7 @@ import com.health.entity.Guideitem;
 import com.health.entity.Guidepack;
 import com.health.entity.Packages;
 import com.health.entity.Personinfo;
-import com.health.entity.Viewpersonguideitemdept;
+import com.health.entity.Viewpersonguidepack;
 
 /**
  * 处理团队开单业务的接口
@@ -47,7 +47,7 @@ public interface TeamOpenBiz {
 
 	public void updateAmountOfCharge(HashMap<String, Object> updateCostMap); //更新记账表某个记录的价格
 
-	public ArrayList<Viewpersonguideitemdept> getOrderInfo(String account);   //获取所有的已经预定体检的项目详细信息
+	public ArrayList<Viewpersonguidepack> getOrderInfo(String account);   //获取所有的已经预定体检的项目详细信息
 	
 	public int insertGuidePack(Guidepack record);
 

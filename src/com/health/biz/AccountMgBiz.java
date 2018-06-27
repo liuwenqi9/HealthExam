@@ -26,7 +26,6 @@ public interface AccountMgBiz {
 	public ArrayList<Account> queryAccountList();
 	
 	public int changeAccountState(HashMap<String, String> dataMap);
-	
 
 	public Account queryAccountById(String accountId);
 

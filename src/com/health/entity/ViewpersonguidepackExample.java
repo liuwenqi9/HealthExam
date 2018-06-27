@@ -6,14 +6,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 @Component
-public class ViewpersonguideitemdeptExample {
+public class ViewpersonguidepackExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ViewpersonguideitemdeptExample() {
+    public ViewpersonguidepackExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -287,6 +287,66 @@ public class ViewpersonguideitemdeptExample {
             return (Criteria) this;
         }
 
+        public Criteria andGuideidIsNull() {
+            addCriterion("GUIDEID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidIsNotNull() {
+            addCriterion("GUIDEID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidEqualTo(Integer value) {
+            addCriterion("GUIDEID =", value, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidNotEqualTo(Integer value) {
+            addCriterion("GUIDEID <>", value, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidGreaterThan(Integer value) {
+            addCriterion("GUIDEID >", value, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("GUIDEID >=", value, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidLessThan(Integer value) {
+            addCriterion("GUIDEID <", value, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidLessThanOrEqualTo(Integer value) {
+            addCriterion("GUIDEID <=", value, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidIn(List<Integer> values) {
+            addCriterion("GUIDEID in", values, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidNotIn(List<Integer> values) {
+            addCriterion("GUIDEID not in", values, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidBetween(Integer value1, Integer value2) {
+            addCriterion("GUIDEID between", value1, value2, "guideid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGuideidNotBetween(Integer value1, Integer value2) {
+            addCriterion("GUIDEID not between", value1, value2, "guideid");
+            return (Criteria) this;
+        }
+
         public Criteria andTimeIsNull() {
             addCriterion("TIME is null");
             return (Criteria) this;
@@ -407,123 +467,183 @@ public class ViewpersonguideitemdeptExample {
             return (Criteria) this;
         }
 
-        public Criteria andItemnameIsNull() {
-            addCriterion("ITEMNAME is null");
+        public Criteria andPackageidIsNull() {
+            addCriterion("PACKAGEID is null");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameIsNotNull() {
-            addCriterion("ITEMNAME is not null");
+        public Criteria andPackageidIsNotNull() {
+            addCriterion("PACKAGEID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameEqualTo(Object value) {
-            addCriterion("ITEMNAME =", value, "itemname");
+        public Criteria andPackageidEqualTo(Integer value) {
+            addCriterion("PACKAGEID =", value, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameNotEqualTo(Object value) {
-            addCriterion("ITEMNAME <>", value, "itemname");
+        public Criteria andPackageidNotEqualTo(Integer value) {
+            addCriterion("PACKAGEID <>", value, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameGreaterThan(Object value) {
-            addCriterion("ITEMNAME >", value, "itemname");
+        public Criteria andPackageidGreaterThan(Integer value) {
+            addCriterion("PACKAGEID >", value, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameGreaterThanOrEqualTo(Object value) {
-            addCriterion("ITEMNAME >=", value, "itemname");
+        public Criteria andPackageidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("PACKAGEID >=", value, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameLessThan(Object value) {
-            addCriterion("ITEMNAME <", value, "itemname");
+        public Criteria andPackageidLessThan(Integer value) {
+            addCriterion("PACKAGEID <", value, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameLessThanOrEqualTo(Object value) {
-            addCriterion("ITEMNAME <=", value, "itemname");
+        public Criteria andPackageidLessThanOrEqualTo(Integer value) {
+            addCriterion("PACKAGEID <=", value, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameIn(List<Object> values) {
-            addCriterion("ITEMNAME in", values, "itemname");
+        public Criteria andPackageidIn(List<Integer> values) {
+            addCriterion("PACKAGEID in", values, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameNotIn(List<Object> values) {
-            addCriterion("ITEMNAME not in", values, "itemname");
+        public Criteria andPackageidNotIn(List<Integer> values) {
+            addCriterion("PACKAGEID not in", values, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameBetween(Object value1, Object value2) {
-            addCriterion("ITEMNAME between", value1, value2, "itemname");
+        public Criteria andPackageidBetween(Integer value1, Integer value2) {
+            addCriterion("PACKAGEID between", value1, value2, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andItemnameNotBetween(Object value1, Object value2) {
-            addCriterion("ITEMNAME not between", value1, value2, "itemname");
+        public Criteria andPackageidNotBetween(Integer value1, Integer value2) {
+            addCriterion("PACKAGEID not between", value1, value2, "packageid");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameIsNull() {
-            addCriterion("DEPTNAME is null");
+        public Criteria andPacknameIsNull() {
+            addCriterion("PACKNAME is null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameIsNotNull() {
-            addCriterion("DEPTNAME is not null");
+        public Criteria andPacknameIsNotNull() {
+            addCriterion("PACKNAME is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameEqualTo(Object value) {
-            addCriterion("DEPTNAME =", value, "deptname");
+        public Criteria andPacknameEqualTo(Object value) {
+            addCriterion("PACKNAME =", value, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameNotEqualTo(Object value) {
-            addCriterion("DEPTNAME <>", value, "deptname");
+        public Criteria andPacknameNotEqualTo(Object value) {
+            addCriterion("PACKNAME <>", value, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameGreaterThan(Object value) {
-            addCriterion("DEPTNAME >", value, "deptname");
+        public Criteria andPacknameGreaterThan(Object value) {
+            addCriterion("PACKNAME >", value, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameGreaterThanOrEqualTo(Object value) {
-            addCriterion("DEPTNAME >=", value, "deptname");
+        public Criteria andPacknameGreaterThanOrEqualTo(Object value) {
+            addCriterion("PACKNAME >=", value, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameLessThan(Object value) {
-            addCriterion("DEPTNAME <", value, "deptname");
+        public Criteria andPacknameLessThan(Object value) {
+            addCriterion("PACKNAME <", value, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameLessThanOrEqualTo(Object value) {
-            addCriterion("DEPTNAME <=", value, "deptname");
+        public Criteria andPacknameLessThanOrEqualTo(Object value) {
+            addCriterion("PACKNAME <=", value, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameIn(List<Object> values) {
-            addCriterion("DEPTNAME in", values, "deptname");
+        public Criteria andPacknameIn(List<Object> values) {
+            addCriterion("PACKNAME in", values, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameNotIn(List<Object> values) {
-            addCriterion("DEPTNAME not in", values, "deptname");
+        public Criteria andPacknameNotIn(List<Object> values) {
+            addCriterion("PACKNAME not in", values, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameBetween(Object value1, Object value2) {
-            addCriterion("DEPTNAME between", value1, value2, "deptname");
+        public Criteria andPacknameBetween(Object value1, Object value2) {
+            addCriterion("PACKNAME between", value1, value2, "packname");
             return (Criteria) this;
         }
 
-        public Criteria andDeptnameNotBetween(Object value1, Object value2) {
-            addCriterion("DEPTNAME not between", value1, value2, "deptname");
+        public Criteria andPacknameNotBetween(Object value1, Object value2) {
+            addCriterion("PACKNAME not between", value1, value2, "packname");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIsNull() {
+            addCriterion("PRICE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIsNotNull() {
+            addCriterion("PRICE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceEqualTo(BigDecimal value) {
+            addCriterion("PRICE =", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotEqualTo(BigDecimal value) {
+            addCriterion("PRICE <>", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceGreaterThan(BigDecimal value) {
+            addCriterion("PRICE >", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("PRICE >=", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceLessThan(BigDecimal value) {
+            addCriterion("PRICE <", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("PRICE <=", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIn(List<BigDecimal> values) {
+            addCriterion("PRICE in", values, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotIn(List<BigDecimal> values) {
+            addCriterion("PRICE not in", values, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("PRICE between", value1, value2, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("PRICE not between", value1, value2, "price");
             return (Criteria) this;
         }
     }

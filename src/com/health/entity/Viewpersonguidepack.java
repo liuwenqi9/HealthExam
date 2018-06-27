@@ -3,21 +3,26 @@ package com.health.entity;
 import java.math.BigDecimal;
 
 import org.springframework.stereotype.Component;
+
 @Component
-public class Viewpersonguideitemdept {
+public class Viewpersonguidepack {
     private BigDecimal rownumber;
 
     private Object name;
 
     private Object account;
 
+    private Integer guideid;
+
     private Object time;
 
     private Short state;
 
-    private Object itemname;
+    private Integer packageid;
 
-    private Object deptname;
+    private Object packname;
+
+    private BigDecimal price;
 
     public BigDecimal getRownumber() {
         return rownumber;
@@ -43,6 +48,14 @@ public class Viewpersonguideitemdept {
         this.account = account;
     }
 
+    public Integer getGuideid() {
+        return guideid;
+    }
+
+    public void setGuideid(Integer guideid) {
+        this.guideid = guideid;
+    }
+
     public Object getTime() {
         return time;
     }
@@ -59,19 +72,27 @@ public class Viewpersonguideitemdept {
         this.state = state;
     }
 
-    public Object getItemname() {
-        return itemname;
+    public Integer getPackageid() {
+        return packageid;
     }
 
-    public void setItemname(Object itemname) {
-        this.itemname = itemname;
+    public void setPackageid(Integer packageid) {
+        this.packageid = packageid;
     }
 
-    public Object getDeptname() {
-        return deptname;
+    public Object getPackname() {
+        return packname;
     }
 
-    public void setDeptname(Object deptname) {
-        this.deptname = deptname;
+    public void setPackname(Object packname) {
+        this.packname = packname;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }
