@@ -1,15 +1,12 @@
 package com.health.biz;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.health.entity.Viewpersonguideitemdept;
+import com.health.entity.Viewpersonguidepack;
 
 public interface PrintPaperBiz {
 	
-	public ArrayList<Viewpersonguideitemdept> getGuideListByAccount();  //根据企业账号获取导检单列表
-
-	public List<Viewpersonguideitemdept> getGuideDataByAccount(String accountId);  //根据企业id获取导检信息
+	public List<Viewpersonguidepack> getGuideDataByAccount(String accountId);  //根据企业id获取导检信息
 
 
 

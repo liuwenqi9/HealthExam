@@ -30,32 +30,38 @@
 			<ul class="breadcrumb">
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a
 					href="<%=request.getContextPath()%>/web/index.jsp">首页</a></li>
-				<li>体检工作</li>
-				<li class="active">打印导检单和条码</li>
+				<li>统计查询</li>
+				<li class="active">体检综合查询</li>
 			</ul>
-			<div class="page-content" id="dataBind">
+			<div class="page-content" id="multiQueryDataBind">
 				<div class="page-header">
 
-					<div class="pull-left">
-						<form id="accountForm" action="printGuide.action"
-							class="form-inline">
+					<div  class="form-inline">
 							<div class="form-group">
-								<select class="form-control">
+								<select class="form-control" v-model="multiCondition.account" >
 									<option value="" selected="selected">选择企业账号</option>
-									<option v-for="todo in accountList" v-bind:value="todo.account"
-										v-on:click="accountChange(todo.account,todo.name,todo.amount)">{{todo.name}}</option>
-								</select> <span id="userName" style="color: green"></span> <span
-									id="currentAmount" style="color: green"></span>
+									<option v-for="todo in accountList" v-bind:value="todo.account" >{{todo.name}}</option>
+								</select> 
+								
+								<input type="text" placeholder="输入要搜索的姓名" class="form-control" v-model="multiCondition.name"> 
+								<input type="text" placeholder="输入要搜索的电话号码" class="form-control"  v-model="multiCondition.telephone"> 
+									
+								<select class="form-control" v-model="multiCondition.state" >
+									<option value="" selected="selected" >所有体检状态</option>
+									<option value="1">未检查</option>
+									<option value="0">已经检查</option>
+								</select>
+								
+								<button id="multiQueryBtn" class="btn btn-sm btn-success" v-on:click="multiQuery()">
+									<i class="glyphicon  glyphicon-search bigger-110"></i>查询
+								</button>
 							</div>
-						</form>
-						<button class="btn btn-xs btn-success">打印此企业员工的导检单</button>
+
 						<a
 							class="dt-button buttons-print btn btn-white btn-primary btn-bold"
 							tabindex="0" aria-controls="dynamic-table" data-original-title=""
-							title="">
-							<span><i class="fa fa-print bigger-110 grey"></i>
-								<span class="hidden">Print</span>
-							</span>
+							title=""> <span><i class="fa fa-print bigger-110 grey"></i>
+								<span class="hidden">Print</span> </span>
 						</a>
 
 					</div>
@@ -67,30 +73,27 @@
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
-											<th class="center" width="20%">序号</th>
-											<th class="center" width="20%">姓名</th>
-											<th class="center" width="20%">开单时间</th>
-											<th class="center" width="20%">检查项目</th>
-											<th class="center" width="20%">接收科室</th>
+											<th class="center" width="10%">姓名</th>
+											<th class="center" width="20%">所属公司</th>
+											<th class="center" width="10%">联系电话</th>
+											<th class="center" width="15%">体检时间</th>
+											<th class="center" width="15%">检查项目</th>
+											<th class="center" width="15%">体检小结详情</th>
+											<th class="center" width="15%">体检总结详情</th>
 										</tr>
 									</thead>
 
 									<tbody>
-										<tr class="" v-for="(todo, index) in guideInfoList">
-											<td class="center">{{todo.rownumber}}</td>
+										<tr class="" v-for="(todo, index) in multiInfoList">
 											<td class="center">{{todo.name}}</td>
+											<td class="center">{{todo.accountname}}</td>
+											<td class="center">{{todo.telephone}}</td>
 											<td class="center">{{todo.time}}</td>
 											<td class="center">{{todo.itemname}}</td>
-											<td class="center">{{todo.deptname}}</td>
-<%-- 											<td v-if="(todo.length) < 1">没有该企业的导检信息</td> --%>
+											<td class="center"><a>小结详情</a></td>
+											<td class="center"><a>总结详情</a></td>
 										</tr>
-
 									</tbody>
-
-									<tbody>
-									</tbody>
-
-
 								</table>
 
 								<!-- 分页  -->
@@ -139,7 +142,7 @@
 							+ "<"+"/script>");
 	</script>
 	<%@ include file="footer.jsp"%>
-	<script src="<%=request.getContextPath()%>/js/printGuide.js"></script>
+	<script src="<%=request.getContextPath()%>/js/multiquery.js"></script>
 
 </body>
 </html>

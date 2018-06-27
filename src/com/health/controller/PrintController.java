@@ -25,8 +25,8 @@ import com.health.entity.Account;
 import com.health.entity.Charge;
 import com.health.entity.Packages;
 import com.health.entity.Personinfo;
-import com.health.entity.Viewpersonguideitemdept;
-import com.health.mapper.ViewpersonguideitemdeptMapper;
+import com.health.entity.Viewpersonguidepack;
+import com.health.mapper.ViewpersonguidepackMapper;
 import com.health.util.PageUtil;
 
 /**
@@ -82,7 +82,7 @@ public class PrintController {
 		guideInfoMap.put("accountList", accountList);
 
 		PageHelper.startPage(1, dataNum);
-		List<Viewpersonguideitemdept> guideInfolist = implPrintPaperBiz.getGuideDataByAccount(accountId);
+		List<Viewpersonguidepack> guideInfolist = implPrintPaperBiz.getGuideDataByAccount(accountId);
 
 		List<Object> pageContanier = PageUtil.displayPage(guideInfolist, 1); // 分页
 
@@ -104,7 +104,7 @@ public class PrintController {
 		guideInfoMap.clear();
 		System.out.println("请求页码为" + currentPage);
 		PageHelper.startPage(currentPage, dataNum);
-		List<Viewpersonguideitemdept> guideInfolist = implPrintPaperBiz.getGuideDataByAccount(accountId);
+		List<Viewpersonguidepack> guideInfolist = implPrintPaperBiz.getGuideDataByAccount(accountId);
 		List<Object> pageContanier = PageUtil.displayPage(guideInfolist, currentPage); // 分页
 
 		guideInfoMap.clear(); // 装载数据

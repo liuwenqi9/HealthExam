@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.health.mapper.ViewmultiqueryMapper" >
+  <resultMap id="BaseResultMap" type="com.health.entity.Viewmultiquery" >
+    <result column="ACCOUNTNAME" property="accountname" jdbcType="OTHER" />
+    <result column="PERSONINFOID" property="personinfoid" jdbcType="DECIMAL" />
+    <result column="IDENTITY" property="identity" jdbcType="OTHER" />
+    <result column="NAME" property="name" jdbcType="OTHER" />
+    <result column="AGE" property="age" jdbcType="DECIMAL" />
+    <result column="SEX" property="sex" jdbcType="OTHER" />
+    <result column="TELEPHONE" property="telephone" jdbcType="OTHER" />
+    <result column="ACCOUNT" property="account" jdbcType="OTHER" />
+    <result column="BARCODE" property="barcode" jdbcType="DECIMAL" />
+    <result column="GUIDEID" property="guideid" jdbcType="DECIMAL" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="TIME" property="time" jdbcType="OTHER" />
+    <result column="ALLSUMMARY" property="allsummary" jdbcType="OTHER" />
+    <result column="OVERTIME" property="overtime" jdbcType="OTHER" />
+    <result column="ITEMID" property="itemid" jdbcType="DECIMAL" />
+    <result column="SUMMARY" property="summary" jdbcType="OTHER" />
+    <result column="EXAMTIME" property="examtime" jdbcType="OTHER" />
+    <result column="ITEMNAME" property="itemname" jdbcType="OTHER" />
+    <result column="DEPTID" property="deptid" jdbcType="DECIMAL" />
+    <result column="COST" property="cost" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  
+<!--     <select id="selectByMultiCondition" parameterType="com.health.entity.Viewmultiquery"  -->
+<!--   resultType="com.health.entity.Viewmultiquery"> -->
+<!--   		select * from VIEWMULTIQUERY WHERE 1 = 1  -->
+<!--   		<if test="account != null"> -->
+<!--   			and ACCOUNT =  #{account}  -->
+<!--   		</if> -->
+<!--   		<if test="name != null"> -->
+<!--   			and NAME like '%#{name}%' -->
+<!--   		</if> -->
+<!--   		<if test="telephone != null"> -->
+<!--   			and TELEPHONE like '%#{telephone}%' -->
+<!--   		</if> -->
+<!--   		<if test="state != null"> -->
+<!--   			and STATE = #{state} -->
+<!--   		</if> -->
+  
+<!--   </select> -->
+  
+<!--   <select id="selectByMultiCondition" parameterType="com.health.entity.Viewmultiquery"  -->
+<!--   resultType="com.health.entity.Viewmultiquery"> -->
+<!--   		select * from VIEWMULTIQUERY WHERE 1 = 1  -->
+<!--   		<if test="multiCondition.account != null"> -->
+<!--   			and ACCOUNT = #{multiCondition.account} -->
+<!--   		</if> -->
+<!--   		<if test="multiCondition.name != null"> -->
+<!--   			and NAME like %#{multiCondition.name}% -->
+<!--   		</if> -->
+<!--   		<if test="multiCondition.telephone != null"> -->
+<!--   			and TELEPHONE like %#{multiCondition.telephone}% -->
+<!--   		</if> -->
+<!--   		<if test="multiCondition.state != null"> -->
+<!--   			and STATE = #{multiCondition.state} -->
+<!--   		</if> -->
+  
+<!--   </select> -->
+  
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ACCOUNTNAME, PERSONINFOID, IDENTITY, NAME, AGE, SEX, TELEPHONE, ACCOUNT, BARCODE, 
+    GUIDEID, STATE, TIME, ALLSUMMARY, OVERTIME, ITEMID, SUMMARY, EXAMTIME, ITEMNAME, 
+    DEPTID, COST
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.ViewmultiqueryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from VIEWMULTIQUERY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.health.entity.ViewmultiqueryExample" >
+    delete from VIEWMULTIQUERY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.health.entity.Viewmultiquery" >
+    insert into VIEWMULTIQUERY (ACCOUNTNAME, PERSONINFOID, IDENTITY, 
+      NAME, AGE, SEX, TELEPHONE, 
+      ACCOUNT, BARCODE, GUIDEID, 
+      STATE, TIME, ALLSUMMARY, 
+      OVERTIME, ITEMID, SUMMARY, 
+      EXAMTIME, ITEMNAME, DEPTID, 
+      COST)
+    values (#{accountname,jdbcType=OTHER}, #{personinfoid,jdbcType=DECIMAL}, #{identity,jdbcType=OTHER}, 
+      #{name,jdbcType=OTHER}, #{age,jdbcType=DECIMAL}, #{sex,jdbcType=OTHER}, #{telephone,jdbcType=OTHER}, 
+      #{account,jdbcType=OTHER}, #{barcode,jdbcType=DECIMAL}, #{guideid,jdbcType=DECIMAL}, 
+      #{state,jdbcType=DECIMAL}, #{time,jdbcType=OTHER}, #{allsummary,jdbcType=OTHER}, 
+      #{overtime,jdbcType=OTHER}, #{itemid,jdbcType=DECIMAL}, #{summary,jdbcType=OTHER}, 
+      #{examtime,jdbcType=OTHER}, #{itemname,jdbcType=OTHER}, #{deptid,jdbcType=DECIMAL}, 
+      #{cost,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.health.entity.Viewmultiquery" >
+    insert into VIEWMULTIQUERY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountname != null" >
+        ACCOUNTNAME,
+      </if>
+      <if test="personinfoid != null" >
+        PERSONINFOID,
+      </if>
+      <if test="identity != null" >
+        IDENTITY,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="age != null" >
+        AGE,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="barcode != null" >
+        BARCODE,
+      </if>
+      <if test="guideid != null" >
+        GUIDEID,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="time != null" >
+        TIME,
+      </if>
+      <if test="allsummary != null" >
+        ALLSUMMARY,
+      </if>
+      <if test="overtime != null" >
+        OVERTIME,
+      </if>
+      <if test="itemid != null" >
+        ITEMID,
+      </if>
+      <if test="summary != null" >
+        SUMMARY,
+      </if>
+      <if test="examtime != null" >
+        EXAMTIME,
+      </if>
+      <if test="itemname != null" >
+        ITEMNAME,
+      </if>
+      <if test="deptid != null" >
+        DEPTID,
+      </if>
+      <if test="cost != null" >
+        COST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountname != null" >
+        #{accountname,jdbcType=OTHER},
+      </if>
+      <if test="personinfoid != null" >
+        #{personinfoid,jdbcType=DECIMAL},
+      </if>
+      <if test="identity != null" >
+        #{identity,jdbcType=OTHER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=OTHER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=DECIMAL},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=OTHER},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=OTHER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=OTHER},
+      </if>
+      <if test="barcode != null" >
+        #{barcode,jdbcType=DECIMAL},
+      </if>
+      <if test="guideid != null" >
+        #{guideid,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=OTHER},
+      </if>
+      <if test="allsummary != null" >
+        #{allsummary,jdbcType=OTHER},
+      </if>
+      <if test="overtime != null" >
+        #{overtime,jdbcType=OTHER},
+      </if>
+      <if test="itemid != null" >
+        #{itemid,jdbcType=DECIMAL},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=OTHER},
+      </if>
+      <if test="examtime != null" >
+        #{examtime,jdbcType=OTHER},
+      </if>
+      <if test="itemname != null" >
+        #{itemname,jdbcType=OTHER},
+      </if>
+      <if test="deptid != null" >
+        #{deptid,jdbcType=DECIMAL},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.health.entity.ViewmultiqueryExample" resultType="java.lang.Integer" >
+    select count(*) from VIEWMULTIQUERY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update VIEWMULTIQUERY
+    <set >
+      <if test="record.accountname != null" >
+        ACCOUNTNAME = #{record.accountname,jdbcType=OTHER},
+      </if>
+      <if test="record.personinfoid != null" >
+        PERSONINFOID = #{record.personinfoid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.identity != null" >
+        IDENTITY = #{record.identity,jdbcType=OTHER},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=OTHER},
+      </if>
+      <if test="record.age != null" >
+        AGE = #{record.age,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex,jdbcType=OTHER},
+      </if>
+      <if test="record.telephone != null" >
+        TELEPHONE = #{record.telephone,jdbcType=OTHER},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=OTHER},
+      </if>
+      <if test="record.barcode != null" >
+        BARCODE = #{record.barcode,jdbcType=DECIMAL},
+      </if>
+      <if test="record.guideid != null" >
+        GUIDEID = #{record.guideid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=DECIMAL},
+      </if>
+      <if test="record.time != null" >
+        TIME = #{record.time,jdbcType=OTHER},
+      </if>
+      <if test="record.allsummary != null" >
+        ALLSUMMARY = #{record.allsummary,jdbcType=OTHER},
+      </if>
+      <if test="record.overtime != null" >
+        OVERTIME = #{record.overtime,jdbcType=OTHER},
+      </if>
+      <if test="record.itemid != null" >
+        ITEMID = #{record.itemid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.summary != null" >
+        SUMMARY = #{record.summary,jdbcType=OTHER},
+      </if>
+      <if test="record.examtime != null" >
+        EXAMTIME = #{record.examtime,jdbcType=OTHER},
+      </if>
+      <if test="record.itemname != null" >
+        ITEMNAME = #{record.itemname,jdbcType=OTHER},
+      </if>
+      <if test="record.deptid != null" >
+        DEPTID = #{record.deptid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cost != null" >
+        COST = #{record.cost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update VIEWMULTIQUERY
+    set ACCOUNTNAME = #{record.accountname,jdbcType=OTHER},
+      PERSONINFOID = #{record.personinfoid,jdbcType=DECIMAL},
+      IDENTITY = #{record.identity,jdbcType=OTHER},
+      NAME = #{record.name,jdbcType=OTHER},
+      AGE = #{record.age,jdbcType=DECIMAL},
+      SEX = #{record.sex,jdbcType=OTHER},
+      TELEPHONE = #{record.telephone,jdbcType=OTHER},
+      ACCOUNT = #{record.account,jdbcType=OTHER},
+      BARCODE = #{record.barcode,jdbcType=DECIMAL},
+      GUIDEID = #{record.guideid,jdbcType=DECIMAL},
+      STATE = #{record.state,jdbcType=DECIMAL},
+      TIME = #{record.time,jdbcType=OTHER},
+      ALLSUMMARY = #{record.allsummary,jdbcType=OTHER},
+      OVERTIME = #{record.overtime,jdbcType=OTHER},
+      ITEMID = #{record.itemid,jdbcType=DECIMAL},
+      SUMMARY = #{record.summary,jdbcType=OTHER},
+      EXAMTIME = #{record.examtime,jdbcType=OTHER},
+      ITEMNAME = #{record.itemname,jdbcType=OTHER},
+      DEPTID = #{record.deptid,jdbcType=DECIMAL},
+      COST = #{record.cost,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

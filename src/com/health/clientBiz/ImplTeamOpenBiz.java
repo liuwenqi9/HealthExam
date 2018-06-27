@@ -18,8 +18,8 @@ import com.health.entity.Packages;
 import com.health.entity.PackagesExample;
 import com.health.entity.Personinfo;
 import com.health.entity.PersoninfoExample;
-import com.health.entity.Viewpersonguideitemdept;
-import com.health.entity.ViewpersonguideitemdeptExample;
+import com.health.entity.Viewpersonguidepack;
+import com.health.entity.ViewpersonguidepackExample;
 import com.health.mapper.ChargeMapper;
 import com.health.mapper.ChargepackMapper;
 import com.health.mapper.GuideMapper;
@@ -28,7 +28,7 @@ import com.health.mapper.GuidepackMapper;
 import com.health.mapper.PackagesMapper;
 import com.health.mapper.PackitemMapper;
 import com.health.mapper.PersoninfoMapper;
-import com.health.mapper.ViewpersonguideitemdeptMapper;
+import com.health.mapper.ViewpersonguidepackMapper;
 import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Woodstox;
 
 /**
@@ -54,9 +54,9 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	@Resource
 	private ChargepackMapper chargepackMapper;
 	@Resource
-	private ViewpersonguideitemdeptMapper viewPgidMapper;
+	private ViewpersonguidepackMapper viewPgidMapper;
 	@Resource
-	private ViewpersonguideitemdeptExample viewPgidExample;
+	private ViewpersonguidepackExample viewPgidExample;
 	@Resource 
 	private GuidepackMapper guidepackMapper;
 	@Resource
@@ -196,11 +196,11 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	 * @author 罗杭春  6月20日
 	 */
 	@Override
-	public ArrayList<Viewpersonguideitemdept> getOrderInfo(String account) {
+	public ArrayList<Viewpersonguidepack> getOrderInfo(String account) {
 		viewPgidExample.clear();
-		ViewpersonguideitemdeptExample.Criteria criteria = viewPgidExample.createCriteria();
+		ViewpersonguidepackExample.Criteria criteria = viewPgidExample.createCriteria();
 		criteria.andAccountEqualTo(account);
-		return (ArrayList<Viewpersonguideitemdept>) viewPgidMapper.selectByExample(viewPgidExample);
+		return (ArrayList<Viewpersonguidepack>) viewPgidMapper.selectByExample(viewPgidExample);
 	}
 
 	/**

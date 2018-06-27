@@ -1,16 +1,15 @@
 package com.health.biz;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.health.entity.Viewpersonguideitemdept;
-import com.health.entity.ViewpersonguideitemdeptExample;
+import com.health.entity.Viewpersonguidepack;
+import com.health.entity.ViewpersonguidepackExample;
 import com.health.mapper.AccountMapper;
-import com.health.mapper.ViewpersonguideitemdeptMapper;
+import com.health.mapper.ViewpersonguidepackMapper;
 
 @Service
 public class ImplPrintPaperBiz implements PrintPaperBiz {
@@ -18,21 +17,10 @@ public class ImplPrintPaperBiz implements PrintPaperBiz {
 	@Resource
 	private AccountMapper accountMapper;
 	@Resource
-	private ViewpersonguideitemdeptMapper viewPgidMapper;
+	private ViewpersonguidepackMapper viewPgidMapper;
 	@Resource
-	private ViewpersonguideitemdeptExample ViewPgidExample;
+	private ViewpersonguidepackExample ViewPgidExample;
 	
-	/**
-	 * 用于根据一个企业的账号来查询该账号下的所有的导检单
-	 * @param 企业账号 account
-	 * @return 返回一个列表
-	 * @author 罗杭春 6月21日
-	 */
-	@Override
-	public ArrayList<Viewpersonguideitemdept> getGuideListByAccount() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	 * 根据企业账户ID号来获取这个企业下所有的待体检人员的导检信息
@@ -40,11 +28,11 @@ public class ImplPrintPaperBiz implements PrintPaperBiz {
 	 * @return 返回承载数据的Map
 	 */
 	@Override
-	public List<Viewpersonguideitemdept> getGuideDataByAccount(String accountId) {
+	public List<Viewpersonguidepack> getGuideDataByAccount(String accountId) {
 		ViewPgidExample.clear();
-		ViewpersonguideitemdeptExample.Criteria criteria = ViewPgidExample.createCriteria();
+		ViewpersonguidepackExample.Criteria criteria = ViewPgidExample.createCriteria();
 		criteria.andAccountEqualTo(accountId);
-		List<Viewpersonguideitemdept> list = viewPgidMapper.selectByExample(ViewPgidExample);
+		List<Viewpersonguidepack> list = viewPgidMapper.selectByExample(ViewPgidExample);
 		return list;
 		
 	}
