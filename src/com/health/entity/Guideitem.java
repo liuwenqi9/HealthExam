@@ -1,3 +1,4 @@
+
 package com.health.entity;
 
 import org.springframework.stereotype.Component;

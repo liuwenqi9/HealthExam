@@ -28,7 +28,19 @@ public class DeptService {
 	public List<Dept> checkDepts(){	
 		deptExample.clear();//清空Where条件
 		deptExample.setOrderByClause("deptid DESC"); //对ID进行倒序排列
+		Criteria criteria = deptExample.createCriteria();
+		criteria.andStateEqualTo(0);
 		List<Dept> list = deptMapper.selectByExample(deptExample);		
+		return list;
+	}
+	
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=true)
+	public List<Dept> isDeptReapt(String deptname) { //判断科室是否重复
+		deptExample.clear();//清空Where条件
+		Criteria criteria = deptExample.createCriteria();
+		criteria.andDeptnameEqualTo(deptname);
+		criteria.andStateEqualTo(0);
+		List<Dept> list = deptMapper.selectByExample(deptExample);
 		return list;
 	}
 	
@@ -45,8 +57,8 @@ public class DeptService {
 	}
 	
 	//删除科室
-	public void delDept(int deptid) {
-		deptMapper.deleteByPrimaryKey(deptid);
+	public void delDept(Dept record) {
+		deptMapper.updateByPrimaryKeySelective(record);
 	}
 	
 	//搜索科室
@@ -56,6 +68,7 @@ public class DeptService {
 		Criteria criteria = deptExample.createCriteria();
 		String sql = "%" + name + "%";
 		criteria.andDeptnameLike(sql);
+		criteria.andStateEqualTo(0);
 		deptExample.setOrderByClause("deptid DESC"); //对ID进行倒序排列
 		List<Dept> list = deptMapper.selectByExample(deptExample);
 		return list;

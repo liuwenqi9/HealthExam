@@ -19,7 +19,7 @@ var currentIndex;
 var req = new Vue({
 	el:"#dataBind",
 	data:{
-		billList:[], //科室列表
+		billList:[], //订单
 		pageCount:[], //页码
 		currentPage:"", //当前页
 		billObj:"",
@@ -45,12 +45,12 @@ var req = new Vue({
 		recoderBill:function(){ //记账
 			$.ajax({
 				url:"recoderBill.action",
-				data:{"chargeid":currentid, "state":0},
+				data:{"chargeid":currentid, "state":1},
 				method:"post",
 				dataType:"json",
 				success:function(data){
 					req.billList[currentIndex].time = data.time;
-					req.billList[currentIndex].state = 0;
+					req.billList[currentIndex].state = 1;
 					$("#bill-modal").modal("hide");	
 				},
 				error:function(){

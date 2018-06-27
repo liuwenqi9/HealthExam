@@ -61,26 +61,47 @@ public class DepMgController {
 	@RequestMapping(value = "/addDeptMg.action")
 	public @ResponseBody Map<String, Object> addDepMg(String deptname) {
 		
-		//增加科室
-		dept.setDeptname(deptname);
-		deptService.addDept(dept);
-		//重新加载科室
-		deptMsg = loadingDept();
+		//查询是否科室重复
+		List<Dept> list = deptService.isDeptReapt(deptname);
+		
+		if(list.size() == 0) {			
+			//增加科室
+			dept.setDeptname(deptname);
+			dept.setState(0);
+			deptService.addDept(dept);
+			//重新加载科室
+			deptMsg = loadingDept();
+			
+		}else {
+			deptMsg.put("dept", "Exist");
+		}
+		
 		return deptMsg;
 	}
 	
 	@RequestMapping(value = "/changeDepMg.action")
 	public @ResponseBody Dept changeName(Dept dept) {
-		//科室更改
-		deptService.updateDelt(dept);		
+		
+		//查询是否科室重复
+		String deptname = (String) dept.getDeptname();
+		List<Dept> list = deptService.isDeptReapt(deptname);
+
+		if(list.size() == 0) {			
+			//科室更改
+			deptService.updateDelt(dept);				
+		}else {
+			dept.setDeptname("Exist");
+		}
+				
 		return dept;
 	}
 	
 	@RequestMapping(value = "/deletDepMg.action")
-	public @ResponseBody Map<String, Object> deltDept(String deptid){
+	public @ResponseBody Map<String, Object> deltDept(Dept dept){
 				
 		//删除科室
-		deptService.delDept(Integer.parseInt(deptid));
+		dept.setState(1);
+		deptService.delDept(dept);
 		//重新加载科室
 		deptMsg = loadingDept();
 		return deptMsg;

@@ -176,6 +176,7 @@ public class ImplTeamOpenBiz implements TeamOpenBiz {
 	 */
 	@Override
 	public String getPriceByPackageId(String packageId) {
+		 
 		return packagesMapper.getPriceByPackageId(packageId);
 	}
 
