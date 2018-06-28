@@ -15,6 +15,10 @@
 		<result column="BARCODE" property="barcode" jdbcType="DECIMAL" />
 	</resultMap>
 	
+	<select id="employeeList" parameterType="String"  resultType="com.health.entity.Personinfo" >
+	       select * from Personinfo where  ACCOUNT=#{account}
+	</select>
+	
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria"

@@ -23,16 +23,16 @@
 
 				<li class="light-blue dropdown-modal"><a data-toggle="dropdown"
 					href="#" class="dropdown-toggle"> <span class="user-info">
-							<small>欢迎</small> <%=session.getAttribute("WorkerName")%>
+							<small>欢迎</small> <%=session.getAttribute("AccountID")%>
 					</span> <i class="ace-icon fa fa-caret-down"></i>
 				</a>
 
 					<ul
 						class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-						<li><a href="updatePwd.action"> <i
+						<li><a onclick="$('#updata-modal').modal('show');"> <i
 								class="ace-icon fa fa-power-off"></i> 修改密码
 						</a></li>
-						<li><a href="<%=request.getContextPath()%>/jsp/login.action">
+						<li><a href="loginClietJsp.action">
 								<i class="ace-icon fa fa-power-off"></i> 退出
 						</a></li>
 					</ul></li>
@@ -142,6 +142,7 @@
 
 
 	</ul>
+	
 	<!-- /.nav-list -->
 
 	<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -150,4 +151,6 @@
 			data-icon1="ace-icon fa fa-angle-double-left"
 			data-icon2="ace-icon fa fa-angle-double-right"></i>
 	</div>
+	
+	
 </div>

@@ -75,12 +75,7 @@
 												</span>
 												</label>
 
-												<!-- 													验证码:<input type="text" name="checkWorker" id="checkWorker" -->
-												<!-- 														maxlength="4" size="4"> <img -->
-												<%-- 														src="<%=path%>/imageServlet" alt="验证码" id="imageWorker" /> --%>
-												<!-- 													<a href="javascript:reloadWorker();"><label>看不清</label></a> -->
-
-												验证码：		<input type="text" size="10px" id="VerificationCode" name="VerificationCode"
+													<input type="text" size="10px" id="VerificationCode" name="VerificationCode"
 													placeholder="请输入验证码" id="VerificationCode" />
 					 <img id="image-code" src=<%=path + "/createImage.action"%> onclick="changeCodes()"  align="middle">
 

@@ -17,19 +17,25 @@ import com.health.clientBiz.LoginClientBiz;
 import com.health.entity.Account;
 import com.health.entity.Worker;
 
+/*
+ * 用于前端门户的登陆
+ * 
+ * @author 毛聪
+ * @date 6月14日
+ */
+
 @Controller
 public class CloginController {
 
 	@Resource
-	LoginClientBiz implLoginClientBiz;
-
-	@Resource
-	private ImplLoginBiz impLoginBiz; // 后端接口-用于实现登陆
+	LoginClientBiz implLoginClientBiz; // 后端接口-用于实现登陆
 
 	PrintWriter printWriter;
 
 	/*
-	 * 时间：2018.6.14 后台界面显示
+	 * 时间：2018.6.14 打开企业登陆界面
+	 * 
+	 * @autuor 毛聪
 	 */
 	@RequestMapping("loginClietJsp.action")
 	public ModelAndView loginClietJsp() {
@@ -37,6 +43,11 @@ public class CloginController {
 		return mav;
 	}
 
+	/*
+	 * 时间：2018.6.14 登陆、验证码
+	 * 
+	 * @autuor 毛聪
+	 */
 	@RequestMapping("loginCliet.action")
 	public void loginAdmin(HttpSession session, HttpServletResponse response, HttpServletRequest request,
 			Account account) throws IOException {
@@ -52,6 +63,8 @@ public class CloginController {
 
 			Account login = implLoginClientBiz.loginClient(account);
 			if (login != null) {
+				session.setAttribute("AccountID", account.getAccount());
+				session.setAttribute("AccountPwd", account.getPassword());
 				printWriter.print("OK");
 				printWriter.flush();
 				printWriter.close();
@@ -70,11 +83,29 @@ public class CloginController {
 		}
 	}
 
+	/*
+	 * 时间：2018.6.14 打开企业端界面
+	 * 
+	 * @autuor 毛聪
+	 */
 	@RequestMapping("loginClientThis.action")
 	public ModelAndView loginClientThis() {
 		ModelAndView mav = new ModelAndView("jsp/clientJsp/userHome");
 
 		return mav;
+	}
+
+	/*
+	 * 修改密码 时间：2018.6.27
+	 * 
+	 * @autuor 毛聪
+	 */
+	@RequestMapping("userUpdatePwd.action")
+	public ModelAndView updatePwd() {
+		ModelAndView mav = new ModelAndView("jsp/clientJsp/updatepwd");
+		
+		return mav;
+
 	}
 
 }
