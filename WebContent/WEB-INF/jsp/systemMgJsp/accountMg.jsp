@@ -82,7 +82,7 @@
 										varStatus="idx">
 										<tr id="tr_ofAccount">
 
-											<td><c:out value="${idx.index+1}"></c:out></td>
+<%-- 											<td><c:out value="${idx.index+1}"></c:out></td> --%>
 
 
 											
