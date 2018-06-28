@@ -11,6 +11,8 @@ import com.health.entity.Guide;
 import com.health.entity.GuideExample;
 import com.health.entity.Guideitem;
 import com.health.entity.GuideitemExample;
+import com.health.entity.Guideitemsview;
+import com.health.entity.GuideitemsviewExample;
 import com.health.entity.Items;
 import com.health.entity.ItemsExample;
 import com.health.entity.GuideExample.Criteria;
@@ -18,6 +20,7 @@ import com.health.entity.Personinfo;
 import com.health.entity.PersoninfoExample;
 import com.health.mapper.GuideMapper;
 import com.health.mapper.GuideitemMapper;
+import com.health.mapper.GuideitemsviewMapper;
 import com.health.mapper.ItemsMapper;
 import com.health.mapper.PersoninfoMapper;
 
@@ -44,8 +47,10 @@ public class ImpDoctorWork  implements DoctorWorkBiz{
 	private ItemsExample itemsExample;//体检项目表
 	@Resource
 	private ItemsMapper itemsMapper;//体检项目表mapper
-	
-	
+	@Resource
+	private GuideitemsviewExample guideitemsviewExample;//导检体检视图
+	@Resource
+	private GuideitemsviewMapper guideitemsviewMapper;//导检体检mapper
 	//通过导诊卡id查找导诊卡对象
 	@Override
 	public Guide findGuideById(Integer id) {
@@ -74,25 +79,42 @@ public class ImpDoctorWork  implements DoctorWorkBiz{
 		List<Guideitem>	guideitemList =guideitemMapper.selectByExample(guideitemExample);
 		return guideitemList;
 	}
-	//根据体检项目表ID查找体检项目表对象
+	
+	//根据体检项目表ID查找视图体检项目对象
 	@Override
-	public Items findItemByid(Integer id) {
-		itemsExample.clear();
-		com.health.entity.ItemsExample.Criteria	criteria=itemsExample.createCriteria();
-		criteria.andItemidEqualTo(id);
-		Items items=itemsMapper.selectByPrimaryKey(id);
-		
-		return items;
+	public 	List<Guideitemsview> findGuideItemsViewByid(Integer guideitemId,Integer itemId) {
+		guideitemsviewExample.clear();
+		List<Guideitemsview> guideitemsviewList=null;
+		com.health.entity.GuideitemsviewExample.Criteria criteria=guideitemsviewExample.createCriteria();
+		criteria.andGuideitemidEqualTo(guideitemId);
+		criteria.andItemidEqualTo(itemId);	
+		 guideitemsviewList= guideitemsviewMapper.selectByExample(guideitemsviewExample);	
+		return guideitemsviewList;
 	}
 	//根据体检项目表ID修改体检项目关系表中的体检时间
 	@Override
-	public int updateExamTimeByid(Integer id,String time) {
+	public int updateExamTimeByid(Integer guideitemId,Integer itemId,String time) {
 		guideitemExample.clear();
 		com.health.entity.GuideitemExample.Criteria criteria = guideitemExample.createCriteria();
-		criteria.andItemidEqualTo(id);
+		criteria.andItemidEqualTo(itemId);
+		criteria.andGuideitemidEqualTo(guideitemId);
 		Guideitem guideitem=new Guideitem();
 		guideitem.setExamtime(time);
 		 int result=guideitemMapper.updateByExampleSelective(guideitem, guideitemExample);
+		return result;
+	}
+
+	
+	//根据体检项目表ID修改体检项目关系表中的体检小结
+	@Override
+	public int updateSummaryByid(Integer guideitemId, Integer itemId, String summary) {
+		guideitemExample.clear();
+		com.health.entity.GuideitemExample.Criteria criteria = guideitemExample.createCriteria();
+		criteria.andItemidEqualTo(itemId);
+		criteria.andGuideitemidEqualTo(guideitemId);
+		Guideitem guideitem=new Guideitem();
+		guideitem.setSummary(summary);
+		int result=guideitemMapper.updateByExampleSelective(guideitem, guideitemExample);	
 		return result;
 	}
 

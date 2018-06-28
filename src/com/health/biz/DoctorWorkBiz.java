@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.health.entity.Guide;
 import com.health.entity.Guideitem;
+import com.health.entity.Guideitemsview;
 import com.health.entity.Items;
 import com.health.entity.Personinfo;
 
@@ -21,7 +22,12 @@ public interface DoctorWorkBiz {
 			//根据体检表id查找导检项目关系表项目id
 			public List<Guideitem> findItemIdByid(Integer id);
 			//根据体检项目表ID查找体检项目表对象
-			public Items findItemByid(Integer id);
+			public 	List<Guideitemsview> findGuideItemsViewByid(Integer guideId,Integer itemId);
 			//根据体检项目表ID修改体检项目关系表中的体检时间
-			public int updateExamTimeByid(Integer id, String time);
+			public int updateExamTimeByid(Integer guideitemId,Integer itemId, String time);
+			//根据体检项目表ID修改体检项目关系表中的体检小结
+			public int updateSummaryByid(Integer guideitemId,Integer itemId, String summary);
+			
+			
 }
+

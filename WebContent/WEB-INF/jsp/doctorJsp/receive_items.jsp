@@ -151,21 +151,34 @@ String basePath=request.getScheme()+"://"
 										</td>	
 								
 										<td >{{todo.itemname}}</td>
-										<td >{{todo.deptid}}</td>
+										<td >{{todo.deptname}}</td>
 										<td >{{todo.cost}}</td>
 									
-								<td>
-								<div class="hidden-sm hidden-xs action-buttons">
-																
-									<button class="btn btn-success  btn-sm  apt_btn"  v-on:click="showModal(''+todo.itemname,todo.itemid)">
+								<td >
+								<div class="hidden-sm hidden-xs action-buttons"  v-if=(todo.examtime)==null>
+									<!-- 判断时间是否为空 -->	
+															
+									<button class="btn btn-success  btn-sm  apt_btn"  v-on:click="showModal(''+todo.itemname,todo.itemid,todo.guideitemid)">
 									<span class="ace-icon fa fa-search-plus bigger-130"></span>
 									接收</button>	
-									<button class="btn btn-info  btn-sm  "  >
+										
+																											
+									</div>	
+									<div class="hidden-sm hidden-xs action-buttons" v-else=(todo.examtime)!=null>
+									
+															
+									<button class="btn btn-default  btn-sm  apt_btn"   >
+									<span class="glyphicon glyphicon-ok"></span>
+									已接收</button>	
+									<button class="btn btn-info  btn-sm  " v-on:click="showModal2(''+todo.itemid,todo.guideitemid)" >
 									<span class="glyphicon glyphicon-pencil"></span>
 									体检小结</button>	
 																											
-									</div>													
-									</td>								
+									</div>	
+									
+																					
+									</td>	
+															
 								</tr>		
 							<!--第一行数据结束-->													
 											
@@ -176,7 +189,7 @@ String basePath=request.getScheme()+"://"
 									</div>
 								</div>
 								<!--需要的表格内容结束-->	
-<!-- 接收项目模态框开始 -->
+<!-- 接收项目模态框开始1 -->
 	 <div id="accept-modal" class="modal fade in" tabindex="-1" style="display: none;">
 		 	<form id="read-form" role="form" >
 				<div class="modal-dialog">
@@ -203,6 +216,58 @@ String basePath=request.getScheme()+"://"
 			</form>
 		</div>
 	<!-- 接收项目模态框结束 -->
+	<!-- 接收项目模态框开始2 -->
+	<div id="summary-modal" class="modal fade in" tabindex="-1" style="display: none;">
+		 	<form  role="form"  id="summary_form"  >
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="smaller lighter blue no-margin">体检小结：</h3>
+						</div>
+
+						<div class="modal-body" > 
+					
+							<div class="row">
+								<div class="col-xs-12">
+								<h4>描述：</h4>
+<textarea rows="6" cols="50" id="description_text" name="description_text"  maxlength="300"  placeholder="请输入...">
+根据体检结果 ,
+							
+							
+建议：
+   多吃水果，多锻炼，愉悦身心。
+		</textarea>
+						
+								</div>
+								</div>
+								<div class="row">
+								<div class="col-xs-4">
+										<h4>医生签名：</h4>
+										<!-- 待添加登录信息到session里的时候操作 -->
+							<input type="text" id="doctorname"  name="doctorname" class="form-control" placeholder="医生姓名" autocomplete="off" required/>
+								
+								</div>
+								
+								</div>
+			
+							
+							
+							<div class="hr hr-14 hr-dotted"></div>
+							
+						</div>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-primary"  v-on:click="summaryUp">提交</button>
+					</div>
+					
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</form>
+		</div>
+	<!-- 接收项目模态框结束2 -->
+	
+	
+	
 	</div>
 </div>
 <!--内容结束  -->
