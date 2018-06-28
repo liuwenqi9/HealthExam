@@ -1,5 +1,7 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,6 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8" />
 <title>菜单管理</title>
+<style type="text/css">
+	th {
+	text-align: center;
+}
+</style>
 </head>
 <body class="no-skin">
 		<%@ include file="menu.jsp"%>
@@ -29,94 +36,98 @@
 				<div class="page-content" id="dataBind">
 					<div class="page-header">
 				<a href="javascript:window.location.reload();" class="btn btn-sm btn-purple"><i class="ace-icon fa fa-undo bigger-110"></i>刷新</a>
-				<!-- 绑定模态框 -->
-				<div id="dialog-form"  class="btn btn-sm btn-success" onclick="$('#edit-modal').modal('show');"><i class="glyphicon glyphicon-plus bigger-110"></i>新增菜单</div>
 				<!-- <span class="text-error" data-bind="text:errormsg"></span> -->
 				
 				<div class="pull-right"><!-- 查询细项 -->
 					<form class="form-inline">
 					  <div class="form-group">
-					    <input type="text" placeholder="菜单名称" class="form-control" v-model="searchModel.S_workerName">
+					    <input name = "menuname" id = "menunamed" type="text" placeholder="菜单名称" class="form-control" v-model="searchModel.S_workerName">
 					  </div>
-					  <div class="form-group">
-					    <select class="form-control" placeholder="菜单级别" v-model="searchModel.S_userStatus"> 
-					   		<option value="" selected>菜单级别</option>
-					    	<option value="0">一级菜单</option>
-					    	<option value="1">二级菜单</option>
-					    </select>
-					 
-					  </div>
-					  <a href="#" class="btn btn-sm btn-success" v-on:click="selectBtn" ><i class="glyphicon  glyphicon-search bigger-110"></i>查询</a>
+					  <button id="querymuMg" class="btn btn-sm btn-success" v-on:click="selectBtn" ><i class="glyphicon  glyphicon-search bigger-110"></i>查询</button>
 					</form>	
 				</div>
-				<div class="row">
-				<div class="col-xs-12">
-					<table id="grid-table" class="table table-striped table-bordered table-hover">
-						<thead>
-							<tr>
-								  <th width="5%">
+				<div style="text-align: center;" class="row">
+				<div  class="col-xs-12">
+					<table style="text-align: center;" id="grid-table" class="table table-striped table-bordered table-hover">
+						<thead >
+							<tr style="text-align: center;">
+								  <th  width="5%">
 								   	序号
 								  </th>
 								  <th width="15%">
 								   	 菜单名称
 								  </th>
-								  <th width="30%">
+								  <th width="25%">
 								  	二级菜单路径
 								  </th>
-								  <th width="25%">
-								   	对应以及菜单名称
-								  </th>
-								  <th width="10%">
-								   	状态
-								  </th>
 								  <th width="15%">
+								   	对应一级菜单名称
+								  </th>
+								  <th width="25%">
 									  操作
 								  </th>
 							</tr>
 						</thead>
 
 						<tbody >
-							<tr class="" v-for="(todo, index) in ret">
-								 <td>
-									<span>{{index+1}}</span>
-								 </td>
-								 <td>
-									<span>{{todo.WORKER_NAME}}</span>
-								 </td>
-								 <td>
-									<span>{{todo.PARAMETER_NAME}}</span>
-								 </td>
-								 <td>
-								 	<span>{{todo.PARAMTER_NO}}}}</span>
-								 </td>
-								 <td>
-								 	<span>{{todo.PARAMTER_state}}}}</span>
-								 </td>
+						<c:forEach var="menu" items="${muList}" varStatus="number">
+								<tr class="tr_ofMenu" title="${menu.getMenuid()}">
+								<td class = "menuid" value="" style="display: none">${menu.getMenuid()}</td>
+								 <td>${number.index+1}</td>
+								<td>${menu.getMenuname()}</td>
+								<c:choose>
+									<c:when test="${menu.getUrl() == null}">
+										<td style="color: red;">该路径为最高路径</td>
+									</c:when>
+									<c:otherwise>
+									 <td  style="color:green;">${menu.getUrl()}</td>
+									</c:otherwise>
+								</c:choose>
+							 <c:choose>
+								 <c:when test="${menu.getParentid() eq '0'}">
+								 	<td style="color: red">暂无</td>
+								 </c:when>
+								 <c:when test="${menu.getParentid() eq '2'}">
+								 	<td style="color:blue;">系统管理</td>
+								 </c:when>
+								 <c:when test="${menu.getParentid() eq '3'}">
+								 	<td  style="color:fuchsia;">体检工作</td>
+								 </c:when>
+								 <c:when test="${menu.getParentid() eq '4'}">
+								 	<td  style="color:green;">统计查询</td>
+								 </c:when>
+								 <c:when test="${menu.getParentid() eq '5'}">
+								 	<td  style="color:maroon;">医生工作站</td>
+								 </c:when>
+								 <c:when test="${menu.getParentid() eq '6'}">
+								 	<td  style="color:purple;">辅助功能</td>
+								 </c:when>
+								</c:choose>
+								
 								 
-								<td>
+								 <td>
 									<div class="btn-group" style="text-align: center;">
 										    
-										<button class="btn btn-xs btn-info" title="修改" onclick="$('#update-modal').modal('show');">
+										<button class="btn btn-xs btn-info" title="修改" name="${menu.menuid}" menuID="${menu.getMenuid()}" onclick="updataMenu(this)">
 											修改
 										</button>
-										
-										
-										<button class="btn btn-xs btn-success" title="启用"  value="1" onclick="$('#enable-modal').modal('show');">
-											启用
-										</button>
-										<button class="btn btn-xs btn-danger" title="禁用"  value="0" onclick="$('#disable-modal').modal('show');">
-											禁用
+										<button class="btn btn-xs btn-danger" title="删除"  onclick="deleteMenu(this)" >
+											删除
 										</button>
 																									
 									</div>
 								</td>
 							</tr>
+						</c:forEach>
+						
 						</tbody>
-						<tbody v-if="ret.length<1">
-							<tr>
-								<td colspan="6"  class="center">没有数据</td>
-							</tr>
-						</tbody>
+						<c:if test="${muList==null}">
+							<tbody>
+								<tr>
+									<td colspan="7"  class="center">没有数据</td>
+								</tr>
+							</tbody>
+							</c:if>
 						
 					</table>
 
@@ -145,25 +156,17 @@
 							<div class="modal-body" style="height: 300px;"> 
 								<div class="row">
 								<div class="form-group">
-						    	<select class="form-control" title="菜单级别" placeholder="菜单级别" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 15px;"> 
-							   		<option value="" selected>菜单级别</option>
-							    	<option value="0">一级菜单</option>
-							    	<option value="1">二级菜单</option>
-						    	</select>
 						    	</div>
 						    	<label style="margin-left: 15px;font-size: 20px;">菜单名称:</label>
 								<br>
 								<input type="text" style="margin-left: 15px" class="col-xs-10 col-sm-5" id="form-input-readonly">
 								<br><br>
-								<label style="margin-left: 15px;font-size: 20px;">菜单路径:</label>
-								<br>
-								<input type="text" style="margin-left: 15px" class="col-xs-10 col-sm-5" id="form-input-readonly">
 								</div>
 								
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">确定修改</button>
+							<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="updatamenu(this)">确定修改</button>
 							<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
 						</div>
 						</div><!-- /.modal-content -->
@@ -263,51 +266,6 @@
 						</form>
 					</div><!-- /.modal-dialog -->
 				</div>
-		<!-- 增加菜单的模态框  -->
-		 <div id="edit-modal" class="modal fade in" tabindex="-1" style="display: none;">
-			<form id="edit-form" role="form">
-					<div class="modal-dialog" style="margin-top: 220px">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 class="smaller lighter blue no-margin">新增菜单</h3>
-							</div>
-
-							<div class="modal-body" style="height: 200px;"> 
-								<div class="row">
-									<div class="col-xs-6">
-										<span class="col-xs-8"><input type="text" title="菜单名称" placeholder="菜单名称" class="form-control"  style="margin-left: 15px;width: 480px;"></span>
-									</div>
-									<br><br>
-									<div class="col-xs-6">
-										<span class="col-xs-8"><input type="text" title="二级菜单路径" placeholder="二级菜单路径" class="form-control"  style="margin-left: 15px;width: 480px;"></span>
-									</div>
-									
-								</div>
-								<div class="hr hr-14 hr-dotted"></div><!-- 横线，单行 -->
-								<div class="row">
-									
-								<div class="form-group">
-						    	<select class="form-control" title="对应一级菜单名称" placeholder="对应一级菜单名称" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 40px;"> 
-							   		<option value="" selected>对应一级菜单名称</option>
-							    	<option value="0">xxmenu</option>
-							    	<option value="1">yymenu</option>
-							    	<option value="3">zzmenu</option>
-						    	</select>
-						    	</div>
-							
-
-								
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">确定提交</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
-						</div>
-						</div><!-- /.modal-content -->
-					</div><!-- /.modal-dialog -->
-				</form>
-				</div>
 
 			</div><!-- /.main-content -->
 
@@ -337,17 +295,82 @@
 			$("a[href='menuMg.action']").parent().parent().parent().addClass("active");
 			$("a[href='menuMg.action']").parent().parent().parent().addClass("open");
 			$("a[href='menuMg.action']").parent().addClass("active");
+			
+			$("#querymuMg").click(function(){
+			var n = $("#menunamed").val()=="";
+					$.ajax({
+						url : "menuMg.action",
+						type : "post",
+						dataType : "text",
+						data : {
+						}
+					});
+					
 		});
-		/* //新增人员弹出
-		bootbox.setDefaults("locale","zh_CN");  //弹窗设置中文
-		bootbox.confirm("投票已结束，是否直接查看投票结果？",function(re){
-	 	if(re) {
-	       voteResults(id,title); 
-	  		}
 		});
- */
-
-	
+		function deleteMenu(node) {
+			var con;
+			con = confirm("此操作为永久删除，您确定要进行删除菜单吗?")
+			if (con) {
+				var chileArr = node.parentElement.parentElement.parentElement;  //获取当前节点的所需要的父级节点
+				var nodes = filterSpaceNode(chileArr); 
+				var rowNum = nodes.rowIndex;  //当前点击行号
+				var menuname = document.getElementById('grid-table').rows[rowNum].cells[2].innerText;
+				$.ajax({
+					url : "deleteMenuMg.action",
+					type : "POST",
+					dataType : "text",
+					data : {
+						"menuname" : menuname
+					},
+					success : function (data) {
+						if (data == "OK") {
+							alert("删除成功");
+							parent.location.reload();
+						} else {
+							alert("删除失败,请检查网络连接状况");
+						}
+					}
+				});
+				
+			}
+			
+		}
+		function filterSpaceNode(nodes) {
+			for (var i = 0; i < nodes.length; i++) {
+				if (nodes[i].nodeType == 3 && /^\s+$/.test(nodes[i].nodeValue)) {
+					// 得到空白节点之后，移到父节点上，删除子节点
+					nodes[i].parentNode.removeChild(nodes[i]);
+				}
+			}
+			return nodes;
+		}
+	var updatamenuid;
+	function updatamenu() {
+		$.ajax({
+			url : "updatamenuMg.action",
+			type : "POST",
+			dataType : "text",
+			data : {
+				"menuname" : $("#form-input-readonly").val(),
+				"menuid" : updatamenuid
+				
+			},
+			success : function(data) {
+				if (data=="OK") {
+					alert("修改成功");
+					parent.location.reload();
+				} else {
+					alert("修改失败");
+				}
+			}
+			
+		});
+	}
+	function updataMenu(node){	
+ 		updatamenuid = node.getAttribute("name");
+ 		$('#update-modal').modal('show')
+	}
 			
 		</script>
 </html>

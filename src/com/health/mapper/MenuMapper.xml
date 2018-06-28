@@ -7,6 +7,15 @@
     <result column="MENUNAME" property="menuname" jdbcType="OTHER" />
     <result column="URL" property="url" jdbcType="OTHER" />
   </resultMap>
+  <update id="updataMenu" parameterType="com.health.entity.Menu">
+  	 update menu set menuname=#{menuname}  where menuid=#{menuid}
+  </update>
+  <delete id="deleteMenu">
+  	delete from menu where menuname = #{menuname}
+  </delete>
+  <select id="querymenuName" parameterType="String" resultType="com.health.entity.Menu" >
+  	select * from Menu where menuname like  #{menuname} ORDER BY menuid ASC
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

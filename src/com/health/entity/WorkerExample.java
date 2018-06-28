@@ -412,6 +412,13 @@ public class WorkerExample {
         protected Criteria() {
             super();
         }
+
+		public Criteria andWorkerLike(Object value) {
+			// TODO Auto-generated method stub
+			addCriterion("name like",value,"worker");
+			return (Criteria) this;
+			
+		}
     }
 
     public static class Criterion {
