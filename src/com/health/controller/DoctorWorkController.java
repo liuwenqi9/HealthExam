@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.health.biz.DoctorWorkBiz;
 import com.health.entity.Guide;
 import com.health.entity.Guideitem;
+import com.health.entity.Guideitemsview;
 import com.health.entity.Items;
 import com.health.entity.Personinfo;
 import com.health.util.MyTimeUtil;
@@ -82,16 +83,17 @@ public class DoctorWorkController {
 		 List<Guideitem> guideitemList= impDoctorWork.findItemIdByid( guide.getGuideid());
 						if(guideitemList!=null) { //获得导检项目关系表集合
 							//定义一个对象数组
-							List<Items> ItemsList=new ArrayList<Items>();
+							System.out.println("--导检项目关系表中对应的数量"+guideitemList.size());
+							List<Guideitemsview> ItemsList=new ArrayList<Guideitemsview>();
 							for (int i = 0; i < guideitemList.size(); i++) {
-							
-								
-					System.out.println("获得体检项目ID"+guideitemList.get(i).getItemid());	//获得体检项目ID
-						Items items=impDoctorWork.findItemByid(guideitemList.get(i).getItemid());
-						ItemsList.add(items);
+							//通过体检项目ID和导检表id查找出对应的体检项目
+								System.out.println("获得体检项目ID"+guideitemList.get(i).getItemid());	//获得体检项目ID
+								ItemsList.addAll(impDoctorWork.findGuideItemsViewByid(guideitemList.get(i).getGuideitemid(),guideitemList.get(i).getItemid()));
 								
 							}
+							
 							System.out.println("-------发送体检项目集合到js");
+							System.out.println("发往接收的数组大小："+ItemsList.size());
 							 sendMessage.put("itemsList", ItemsList);
 							 
 						}
@@ -120,14 +122,15 @@ public class DoctorWorkController {
 	 * @date 6月26日
 	 */
 	@RequestMapping(value = "/updateGuideItemTime.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public @ResponseBody String changeStatus(HttpServletRequest req,String items_id ) {
+	public @ResponseBody String changeStatus(HttpServletRequest req,String itemId, String guideItemid) {
 		System.out.println("-----执行到修改导检项目关系表");
-		if(items_id!=null) {//不为空
+		if(itemId!=null&&guideItemid!=null) {//不为空
 		
 		System.out.println("---填入的时间:"+MyTimeUtil.getTimeNowTogether());	
 		//字符串转integer
-		Integer id=Integer.valueOf(items_id);
-		int reuslt=impDoctorWork.updateExamTimeByid(id, MyTimeUtil.getTimeNowTogether());
+		Integer itemid=Integer.valueOf(itemId);
+		Integer gitemid=Integer.valueOf(guideItemid);
+		int reuslt=impDoctorWork.updateExamTimeByid(gitemid,itemid, MyTimeUtil.getTimeNowTogether());
 			if(reuslt>0) {//更新成功
 				sendMesg="success";
 			}else {
@@ -136,11 +139,44 @@ public class DoctorWorkController {
 			
 		}
 		
-		
+		System.out.println("--修改体检时间返回数据："+sendMesg);
 		return sendMesg;
 		
 	}
-	
+	/**
+	 * 
+	 * @param req
+	 * @param itemId
+	 * @param guideid
+	 * @param descriptionText
+	 * @param doctorName
+	 * @return
+	 * @date 6月27日
+	 */
+	@RequestMapping(value = "/updateSummary.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+	public   @ResponseBody String UpdateDescription(HttpServletRequest req,String itemId, String guideItemid,String descriptionText, String doctorName) {
+		System.out.println("-----执行到填入体检小结");
+		if(itemId!=null&&guideItemid!=null &&descriptionText!=null) {
+			System.out.println("--体检项目ID:"+itemId);
+			System.out.println("--体检项目关系表ID:"+guideItemid);
+			System.out.println("--体检小结:"+descriptionText);
+		/*	System.out.println("医生姓名："+doctorName);*/
+			Integer itemid=Integer.valueOf(itemId);
+			Integer gitemid=Integer.valueOf(guideItemid);
+			System.out.println("执行到627");
+			/*int reuslt=impDoctorWork.updateSummaryByid(gitemid, itemid, descriptionText);
+			if(reuslt>0) {//更新成功
+				sendMesg="success";
+			}else {
+				sendMesg="failure";
+			}*/
+		}
+		
+		
+		System.out.println("--修改体检小结返回的数据："+sendMesg);
+		return sendMesg;
+		
+	}
 	
 	
 	
