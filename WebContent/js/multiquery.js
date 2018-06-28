@@ -64,7 +64,6 @@ var req = new Vue({
 				success : function(data) {
 					req.multiInfoList = data.multiInfoList;
 					req.pageCount = data.pageContanier;
-					alert(req.pageCount.length);
 					// 判断当前页数是否合法
 					if (page < 1) {
 						page = 1;
