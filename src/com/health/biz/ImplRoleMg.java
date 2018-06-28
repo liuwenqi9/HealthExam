@@ -21,12 +21,31 @@ public class ImplRoleMg implements RoleMgBiz {
 	
 	@Resource
 	RoleMapper roleMapper;
+	@Resource
+	RoleExample example;
 	
 	@Override
 	public ArrayList<Role> queryRoleList() {
-		RoleExample example = new RoleExample();
 		ArrayList<Role> rlList = (ArrayList<Role>) roleMapper.selectByExample(example);
 		return rlList;
+	}
+
+	@Override
+	public int deleteRole(String rolename) {
+		int i = roleMapper.deleteRole(rolename);
+		return i;
+	}
+
+	@Override
+	public int insertRole(Role role) {
+		int i = roleMapper.insertRole(role);
+		return i;
+	}
+
+	@Override
+	public int lengthId() {
+		int i = roleMapper.lengthId();
+		return 0;
 	}
 
 }

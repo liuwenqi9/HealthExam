@@ -2,6 +2,7 @@ package com.health.biz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.health.entity.Worker;
 import com.health.entity.WorkerExample;
+import com.health.entity.WorkerExample.Criteria;
 import com.health.mapper.WorkerMapper;
 
 /**
@@ -23,30 +25,6 @@ public class ImplWorkerMg implements WorkerMgBiz{
 	WorkerMapper workerMapper;
 	@Resource
 	WorkerExample example;
-
-	/*@Override
-	public int insertWorker() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteWork(String workerId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Worker queryOneWorker(Worker worker) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int updateWork(String worker) {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
 	/**
 	 * 实现查询所用工作人员的信息
 	 * @author 范帅
@@ -68,12 +46,53 @@ public class ImplWorkerMg implements WorkerMgBiz{
 		return result;
 	}
 
-	/*@Override
-	public int changeWorkerState(HashMap<String, String> dataMap) {
-		对工作人员进行禁用与启用
-		int result = workerMapper.changeAccountState(dataMap);
+	@Override
+	public int lengthid() {
+		int i = workerMapper.lengthId();
+		return i;
+	}
+	/**
+	 * 增加接口的实现
+	 * @author 范帅
+	 * @date 6-25
+	 */
+	@Override
+	public int insertWorker(Worker worker) {
+		int i = workerMapper.insertWorker(worker);
+		return i;
+	}
+
+	@Override
+	public int deleteWork(String name) {
+		int i = workerMapper.deleteWork(name);
+		return i;
+	}
+
+	@Override
+	public Worker queryOneWorker(Worker worker) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updateWork(String worker) {
+		// TODO Auto-generated method stub
 		return 0;
-	}*/
+	}
+
+	@Override
+	public ArrayList<Worker> queryWorker(String name) {
+		ArrayList<Worker> queryListWorker = workerMapper.queryworkerName(name);
+		return queryListWorker;
+	}
+
+	@Override
+	public ArrayList<Worker> queryWorkerState(String state) {
+		ArrayList<Worker> queryListWorker = workerMapper.queryworkerState(state);
+		return queryListWorker;
+	}
+
+
 	
 
 }

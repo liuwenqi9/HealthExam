@@ -28,4 +28,7 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+    int deleteRole(String rolename);
+    int insertRole(Role role);
+    int lengthId();
 }

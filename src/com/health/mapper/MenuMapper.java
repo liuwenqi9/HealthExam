@@ -2,11 +2,17 @@ package com.health.mapper;
 
 import com.health.entity.Menu;
 import com.health.entity.MenuExample;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface MenuMapper {
+	int deleteMenu(String menuname);
+	int updataMenu(Menu menu);
+	public ArrayList<Menu> querymenuName(String menuname);
+	
     int countByExample(MenuExample example);
 
     int deleteByExample(MenuExample example);
