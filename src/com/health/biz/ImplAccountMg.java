@@ -78,8 +78,8 @@ public class ImplAccountMg implements AccountMgBiz {
 
 	}
 	@Override
-	public ArrayList<Account> queryAccount(String name) {
-		ArrayList<Account> queryListAcc=accountMapper.queryAccountName(name);
+	public ArrayList<Account> queryAccount(Account account) {
+		ArrayList<Account> queryListAcc=accountMapper.queryAccountName(account);
 		
 		return queryListAcc;
 

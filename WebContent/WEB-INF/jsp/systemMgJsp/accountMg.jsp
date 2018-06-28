@@ -49,13 +49,14 @@
 									class="form-control" v-model="searchModel.S_cardNum">
 							</div>
 							<div class="form-group">
-								<select id="opt" class="form-control" v-model="searchModel.S_cardStatus">
+								<select id="opt" name="state" class="form-control"
+									v-model="searchModel.S_cardStatus">
 									<option value="" selected="selected">账户状态</option>
 									<option value="1">启用</option>
 									<option value="0">禁用</option>
 								</select>
 							</div>
-							<button id="queryAcMg" type="button"
+							<button id="queryAcMg" type="submit"
 								class="btn btn-sm btn-success" v-on:click="selectBtn">
 								<i class="glyphicon  glyphicon-search bigger-110"></i>查询
 							</button>
@@ -136,9 +137,11 @@
 							</table>
 
 							<ul class="pagination">
-								<li v-on:click=(pageItem(currentPage-1))><a href="#">&laquo;</a></li>
-								<li v-for="todo in pageCount" v-bind:class="{active:todo==currentPage}" v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
-								<li v-on:click=(pageItem(currentPage+1))><a href="#">&raquo;</a></li>
+								<li v-on:click=(pageItem(1))><a href="#">&laquo;</a></li>
+								<li v-for="todo in pageCount"
+									v-bind:class="{active:todo==currentPage}"
+									v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
+								<li v-on:click=(pageItem(2))><a href="#">&raquo;</a></li>
 							</ul>
 							<!-- PAGE CONTENT ENDS -->
 						</div>
@@ -202,7 +205,7 @@
 		class="btn-scroll-up btn btn-sm btn-inverse"> <i
 		class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 	</a>
-
+	
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement)
 			document
@@ -210,96 +213,7 @@
 							+ "<"+"/script>");
 	</script>
 	<%@ include file="footer.jsp"%>
-	<script>
-	var updataAccid ;
-		$(function() {
-		   $("#queryAcMg").click(function(){
-			   alert("查询");
-			   
-			   var state=document.getElementById("opt").value;
-			   alert(state);
-			   
-			   $.ajax({
-					type : "POST",
-					url : "AccountMg.action",
-					data : {
-						'name':$("#name").val(),
-					     'state':state
-					},
-					success : function(result) {
-						
-					}
-			   });
-		   })
-			
-			
-			
-			$(".changeState").click(function() {
-				var currentState = $(this).attr("title");
-				$.ajax({
-					type : "POST",
-					url : "changeAccountState.action",
-					data : {
-						"accountId" : $(this).attr("value"),
-						"state" : $(this).attr("title")
-					},
-					success : function(result) {
-						window.location.reload(); //刷新
-					}
-
-				});
-			});
-
-			$("#updataDept").click(
-					function() {
-						$.ajax({
-							url : "upataAccName.action",
-							type : "post",
-							dataType : "text",
-							data : {
-                                'account':updataAccid,
-								'name' : $("#updataName").val()
-								
-							},
-							success : function(data) {
-								if (data == "OK") {
-									alert("修改成功")
-									var formNode = document.getElementById("updata-form");
-
-									formNode.action = 'AccountMg.action';
-									formNode.submit();
-
-								} else if (data == "FAIL") {
-
-									alert("已存在");
-
-								}
-							}
-						})
-
-					})
-
-		});
-
-		function updataBtn(node) {
-			$('#updata-modal').modal('show')
-			var chileArr = node.parentElement.parentElement.parentElement; // 获取当前节点的所需要的父级节点
-			var nodes = filterSpaceNode(chileArr);
-			var rowNum = nodes.rowIndex; // 当前点击行号
-			updataAccid = document.getElementById('grid-table').rows[rowNum].cells[1].innerText; //获取要修改的参数名称
-		
-		}
-
-		function filterSpaceNode(nodes) {
-			for (var i = 0; i < nodes.length; i++) {
-				if (nodes[i].nodeType == 3 && /^\s+$/.test(nodes[i].nodeValue)) {
-					// 得到空白节点之后，移到父节点上，删除子节点
-					nodes[i].parentNode.removeChild(nodes[i]);
-
-				}
-			}
-			return nodes;
-		}
-	</script>
+	
+	<script src="<%=request.getContextPath()%>/js/accountMg.js"></script>
 </body>
 </html>

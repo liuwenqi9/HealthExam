@@ -19,7 +19,7 @@ public interface AccountMapper {
 	
 	public Account loginClient(Account account);  //登陆
 	
-	public ArrayList<Account> queryAccountName(String name);  //团检单位模糊查询
+	public ArrayList<Account> queryAccountName(Account account);  //团检单位模糊查询
 	
 	int updateAcName(Account account);    //团检单位名称修改
 	

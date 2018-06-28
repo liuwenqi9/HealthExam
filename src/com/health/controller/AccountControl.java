@@ -40,16 +40,16 @@ public class AccountControl {
 	PrintWriter out;
 
 	@RequestMapping("AccountMg.action")
-	public ModelAndView getAccountMg(HttpServletRequest request,String name) {
+	public ModelAndView getAccountMg(HttpServletRequest request, Account account) {
 		ModelAndView mav = new ModelAndView("jsp/systemMgJsp/accountMg");
-		System.out.println(name);
-		if (name == null) {
+		System.out.println(account.getName() + "" + account.getState());
+		if (account.getName() == null ) {
 			ArrayList<Account> acList = implAccountMg.queryAccountList();
 			mav.addObject("acList", acList);
-		} else {
-			String state= request.getParameter("state");
-			System.out.println(state);
-			ArrayList<Account> resultList = implAccountMg.queryAccount("%" + name + "%");
+		}else {
+
+			account.setName("%" + account.getName() + "%");
+			ArrayList<Account> resultList = implAccountMg.queryAccount(account);
 			mav.addObject("acList", resultList);
 		}
 		return mav;

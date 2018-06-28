@@ -31,6 +31,6 @@ public interface AccountMgBiz {
 
 	public Account queryAccountById(String accountId);
 
-	public ArrayList<Account> queryAccount(String name);  //用于团检单位 模糊查询
+	public ArrayList<Account> queryAccount(Account account);  //用于团检单位 模糊查询
 
 }

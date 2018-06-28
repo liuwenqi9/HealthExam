@@ -148,8 +148,6 @@
 
 	<%@ include file="footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/js/teamOpen.js"></script>
-	<script>
-		
-	</script>
+	
 </body>
 </html>

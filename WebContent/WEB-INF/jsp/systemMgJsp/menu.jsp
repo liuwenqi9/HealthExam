@@ -217,4 +217,5 @@
 			data-icon1="ace-icon fa fa-angle-double-left"
 			data-icon2="ace-icon fa fa-angle-double-right"></i>
 	</div>
+
 </div>
