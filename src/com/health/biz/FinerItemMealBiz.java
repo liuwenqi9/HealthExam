@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.health.entity.Dept;
 import com.health.entity.Detail;
+import com.health.entity.Itemdetail;
 import com.health.entity.Items;
 import com.health.entity.Parameter;
 
@@ -32,5 +33,15 @@ public interface FinerItemMealBiz {
 	public List<Dept> selectAllDept();
 	
 	public List<Detail> selectDetailByItemId(Integer itemId);
+	
+	public int updateByItem(Items item);
+	
+	public int deleteItemById(Integer itemId);
+	
+	public int insertItem(Items item);
+	
+	public int insertItemdetail(Itemdetail itemdetail);
+	
+	public int selectItemidByItemname(String itemname);
 	
 }

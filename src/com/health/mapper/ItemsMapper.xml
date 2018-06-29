@@ -6,6 +6,7 @@
     <result column="ITEMNAME" property="itemname" jdbcType="OTHER" />
     <result column="DEPTID" property="deptid" jdbcType="DECIMAL" />
     <result column="COST" property="cost" jdbcType="DECIMAL" />
+    <result column="CLASSIFY" property="classify" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.health.entity.Items" >
     insert into ITEMS (ITEMID, ITEMNAME, DEPTID, 
-      COST)
+      COST,classify)
     values (#{itemid,jdbcType=DECIMAL}, #{itemname,jdbcType=OTHER}, #{deptid,jdbcType=DECIMAL}, 
-      #{cost,jdbcType=DECIMAL})
+      #{cost,jdbcType=DECIMAL}),#{classify,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.health.entity.Items" >
     insert into ITEMS
@@ -156,6 +157,9 @@
       <if test="record.cost != null" >
         COST = #{record.cost,jdbcType=DECIMAL},
       </if>
+      <if test="record.classify != null" >
+        CLASSIFY = #{record.classify,jdbcType=DECIMAL},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +170,8 @@
     set ITEMID = #{record.itemid,jdbcType=DECIMAL},
       ITEMNAME = #{record.itemname,jdbcType=OTHER},
       DEPTID = #{record.deptid,jdbcType=DECIMAL},
-      COST = #{record.cost,jdbcType=DECIMAL}
+      COST = #{record.cost,jdbcType=DECIMAL},
+      CLASSIFY = #{record.classify,jdbcType=DECIMAL}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +188,9 @@
       <if test="cost != null" >
         COST = #{cost,jdbcType=DECIMAL},
       </if>
+      <if test="classify != null" >
+        CLASSIFY = #{classify,jdbcType=DECIMAL},
+      </if>
     </set>
     where ITEMID = #{itemid,jdbcType=DECIMAL}
   </update>
@@ -190,7 +198,8 @@
     update ITEMS
     set ITEMNAME = #{itemname,jdbcType=OTHER},
       DEPTID = #{deptid,jdbcType=DECIMAL},
-      COST = #{cost,jdbcType=DECIMAL}
+      COST = #{cost,jdbcType=DECIMAL},
+      CLASSIFY = #{classify,jdbcType=DECIMAL}
     where ITEMID = #{itemid,jdbcType=DECIMAL}
   </update>
   
@@ -202,5 +211,9 @@
   	<if test="sItemName != null">
   		and d.ITEMNAME like concat(concat('%',#{sItemName}),'%')
   	</if>
+  </select>
+  
+  <select id="selectItemidByItemname" parameterType="String" resultType="int">
+  	select ITEMID from ITEMS where ITEMNAME = #{itemname}
   </select>
 </mapper>
