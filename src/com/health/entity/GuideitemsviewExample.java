@@ -3,8 +3,6 @@ package com.health.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-@Component
 public class GuideitemsviewExample {
     protected String orderByClause;
 
@@ -646,6 +644,66 @@ public class GuideitemsviewExample {
             return (Criteria) this;
         }
 
+        public Criteria andPictureurlIsNull() {
+            addCriterion("PICTUREURL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlIsNotNull() {
+            addCriterion("PICTUREURL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlEqualTo(Object value) {
+            addCriterion("PICTUREURL =", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlNotEqualTo(Object value) {
+            addCriterion("PICTUREURL <>", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlGreaterThan(Object value) {
+            addCriterion("PICTUREURL >", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlGreaterThanOrEqualTo(Object value) {
+            addCriterion("PICTUREURL >=", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlLessThan(Object value) {
+            addCriterion("PICTUREURL <", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlLessThanOrEqualTo(Object value) {
+            addCriterion("PICTUREURL <=", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlIn(List<Object> values) {
+            addCriterion("PICTUREURL in", values, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlNotIn(List<Object> values) {
+            addCriterion("PICTUREURL not in", values, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlBetween(Object value1, Object value2) {
+            addCriterion("PICTUREURL between", value1, value2, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlNotBetween(Object value1, Object value2) {
+            addCriterion("PICTUREURL not between", value1, value2, "pictureurl");
+            return (Criteria) this;
+        }
+
         public Criteria andItemidIsNull() {
             addCriterion("ITEMID is null");
             return (Criteria) this;
@@ -823,6 +881,66 @@ public class GuideitemsviewExample {
 
         public Criteria andCostNotBetween(Long value1, Long value2) {
             addCriterion("COST not between", value1, value2, "cost");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyIsNull() {
+            addCriterion("CLASSIFY is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyIsNotNull() {
+            addCriterion("CLASSIFY is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyEqualTo(Short value) {
+            addCriterion("CLASSIFY =", value, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyNotEqualTo(Short value) {
+            addCriterion("CLASSIFY <>", value, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyGreaterThan(Short value) {
+            addCriterion("CLASSIFY >", value, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyGreaterThanOrEqualTo(Short value) {
+            addCriterion("CLASSIFY >=", value, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyLessThan(Short value) {
+            addCriterion("CLASSIFY <", value, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyLessThanOrEqualTo(Short value) {
+            addCriterion("CLASSIFY <=", value, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyIn(List<Short> values) {
+            addCriterion("CLASSIFY in", values, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyNotIn(List<Short> values) {
+            addCriterion("CLASSIFY not in", values, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyBetween(Short value1, Short value2) {
+            addCriterion("CLASSIFY between", value1, value2, "classify");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassifyNotBetween(Short value1, Short value2) {
+            addCriterion("CLASSIFY not between", value1, value2, "classify");
             return (Criteria) this;
         }
 

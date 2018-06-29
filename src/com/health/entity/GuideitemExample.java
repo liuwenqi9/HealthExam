@@ -1,11 +1,8 @@
-
 package com.health.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-@Component
 public class GuideitemExample {
     protected String orderByClause;
 
@@ -404,6 +401,66 @@ public class GuideitemExample {
 
         public Criteria andExamtimeNotBetween(Object value1, Object value2) {
             addCriterion("EXAMTIME not between", value1, value2, "examtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlIsNull() {
+            addCriterion("PICTUREURL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlIsNotNull() {
+            addCriterion("PICTUREURL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlEqualTo(Object value) {
+            addCriterion("PICTUREURL =", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlNotEqualTo(Object value) {
+            addCriterion("PICTUREURL <>", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlGreaterThan(Object value) {
+            addCriterion("PICTUREURL >", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlGreaterThanOrEqualTo(Object value) {
+            addCriterion("PICTUREURL >=", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlLessThan(Object value) {
+            addCriterion("PICTUREURL <", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlLessThanOrEqualTo(Object value) {
+            addCriterion("PICTUREURL <=", value, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlIn(List<Object> values) {
+            addCriterion("PICTUREURL in", values, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlNotIn(List<Object> values) {
+            addCriterion("PICTUREURL not in", values, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlBetween(Object value1, Object value2) {
+            addCriterion("PICTUREURL between", value1, value2, "pictureurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureurlNotBetween(Object value1, Object value2) {
+            addCriterion("PICTUREURL not between", value1, value2, "pictureurl");
             return (Criteria) this;
         }
     }

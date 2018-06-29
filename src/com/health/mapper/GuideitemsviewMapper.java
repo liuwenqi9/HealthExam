@@ -4,8 +4,7 @@ import com.health.entity.Guideitemsview;
 import com.health.entity.GuideitemsviewExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-@Repository
+
 public interface GuideitemsviewMapper {
     int countByExample(GuideitemsviewExample example);
 
