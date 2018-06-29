@@ -1,9 +1,5 @@
-
 package com.health.entity;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Guideitem {
     private Integer guideitemid;
 
@@ -14,6 +10,8 @@ public class Guideitem {
     private Object summary;
 
     private Object examtime;
+
+    private Object pictureurl;
 
     public Integer getGuideitemid() {
         return guideitemid;
@@ -53,5 +51,13 @@ public class Guideitem {
 
     public void setExamtime(Object examtime) {
         this.examtime = examtime;
+    }
+
+    public Object getPictureurl() {
+        return pictureurl;
+    }
+
+    public void setPictureurl(Object pictureurl) {
+        this.pictureurl = pictureurl;
     }
 }
