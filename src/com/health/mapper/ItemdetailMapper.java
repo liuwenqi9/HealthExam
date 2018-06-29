@@ -2,6 +2,8 @@ package com.health.mapper;
 
 import com.health.entity.Itemdetail;
 import com.health.entity.ItemdetailExample;
+import com.health.entity.Items;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

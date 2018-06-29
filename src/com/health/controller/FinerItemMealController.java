@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,10 +21,12 @@ import com.github.pagehelper.PageHelper;
 import com.health.biz.FinerItemMealBiz;
 import com.health.entity.Dept;
 import com.health.entity.Detail;
+import com.health.entity.Itemdetail;
 import com.health.entity.Items;
 import com.health.entity.Parameter;
 import com.health.util.PageUtil;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /*
@@ -62,7 +68,7 @@ public class FinerItemMealController {
 	@RequestMapping("detailMgPage.action")
 	public @ResponseBody Map<String, Object> detailMgPage(int page,String sItemName) {
 		
-		PageHelper.startPage(1, 10);
+		PageHelper.startPage(page, 10);
 		List<Detail> list = implFinerItemMealBiz.selectDetailPage(sItemName);	
 		
 		//获取参数列表
@@ -103,13 +109,17 @@ public class FinerItemMealController {
 		return reqMsg;
 	}
 	
+	//Item
 	@RequestMapping("itemMgPage.action")
 	public @ResponseBody Map<String, Object> itemMgPage(int page,String sItemName) {
-		PageHelper.startPage(1, 10);
+		PageHelper.startPage(page, 10);
 		List<Items> list = implFinerItemMealBiz.selectItemPage(sItemName);	
 		
 		//获取科室列表
 		List<Dept> dList = implFinerItemMealBiz.selectAllDept();
+		
+		//获取细项列表
+		List<Detail> detailList = implFinerItemMealBiz.selectDetailPage(null);
 		
 		//分页
 		List<Object> pageContanier = PageUtil.displayPage(list, page);		
@@ -119,6 +129,7 @@ public class FinerItemMealController {
 		reqMsg.put("pageCount", pageContanier);	
 		reqMsg.put("pageNum", page);	
 		reqMsg.put("deptList", dList);
+		reqMsg.put("detailList", detailList);
 	    
 		return reqMsg;
 	}
@@ -127,8 +138,47 @@ public class FinerItemMealController {
 	public @ResponseBody Map<String, Object> itemSelectDetailList(Integer itemid) {
 		List<Detail> dList = implFinerItemMealBiz.selectDetailByItemId(itemid);
 		reqMsg.clear();
-		reqMsg.put("detailList", dList);
+		reqMsg.put("itemDetailList", dList);
 	    
 		return reqMsg;
 	}
+	
+	
+	@RequestMapping("itemMgUpdate.action")
+	public @ResponseBody Map<String, Object> itemMgUpdate(Items item) {
+		int status1 = implFinerItemMealBiz.updateByItem(item);
+		
+		reqMsg.clear();
+		reqMsg.put("status", status1);	
+		return reqMsg;
+	}
+	
+	@RequestMapping("itemMgDelete.action")
+	public @ResponseBody Map<String, Object> itemMgDelete(Integer itemid) {
+		reqMsg.clear();
+		reqMsg.put("status", implFinerItemMealBiz.deleteItemById(itemid)==1?"删除成功":"删除失败");	
+		return reqMsg;
+	}
+	
+	@RequestMapping(value = "itemMgInsert.action", method = RequestMethod.POST, produces = "application/json;charset=utf-8") // 获取药品列表
+	public @ResponseBody Map<String, Object> itemMgInsert(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		JSONObject jObject = JSONObject.fromObject(request.getParameter("send"));
+		Items item = (Items) JSONObject.toBean(JSONObject.fromObject(jObject.get("item")), Items.class);
+		JSONArray jArray = (JSONArray) jObject.get("detailList");
+		List<Detail> detailList = JSONArray.toList(jArray, Detail.class);
+		implFinerItemMealBiz.insertItem(item);
+		int itemid = implFinerItemMealBiz.selectItemidByItemname((String) item.getItemname());
+		for (Detail detail : detailList) {
+			if (detail.isChecked()) {
+				Itemdetail itemdetail = new Itemdetail();
+				itemdetail.setDetailid(detail.getDetailid());
+				itemdetail.setItemid(itemid);
+				implFinerItemMealBiz.insertItemdetail(itemdetail);
+			}
+		}
+		reqMsg.clear();
+		reqMsg.put("status", "新增成功");
+		return reqMsg;
+	}
+	
 }
