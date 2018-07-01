@@ -27,7 +27,8 @@ public interface DoctorWorkBiz {
 			public int updateExamTimeByid(Integer guideitemId,Integer itemId, String time);
 			//根据体检项目表ID修改体检项目关系表中的体检小结
 			public int updateSummaryByid(Integer guideitemId,Integer itemId, String summary);
-			
+			//根据部门id查找体检项目关系表对象
+			public List<Guideitemsview> findGuideItemsViewByDeptId(Integer deptId);
 			
 }
 

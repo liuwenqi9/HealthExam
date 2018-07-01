@@ -91,6 +91,11 @@ public class ImpDoctorWork  implements DoctorWorkBiz{
 		 guideitemsviewList= guideitemsviewMapper.selectByExample(guideitemsviewExample);	
 		return guideitemsviewList;
 	}
+	
+	
+	
+	
+	
 	//根据体检项目表ID修改体检项目关系表中的体检时间
 	@Override
 	public int updateExamTimeByid(Integer guideitemId,Integer itemId,String time) {
@@ -116,6 +121,19 @@ public class ImpDoctorWork  implements DoctorWorkBiz{
 		guideitem.setSummary(summary);
 		int result=guideitemMapper.updateByExampleSelective(guideitem, guideitemExample);	
 		return result;
+	}
+	//根据部门id查找体检项目关系表对象
+	@Override
+	public List<Guideitemsview> findGuideItemsViewByDeptId(Integer deptId) {
+		System.out.println("----------" + deptId);
+		guideitemsviewExample.clear();
+		List<Guideitemsview> guideitemsviewList=null;
+		com.health.entity.GuideitemsviewExample.Criteria criteria=guideitemsviewExample.createCriteria();
+		criteria.andDeptidEqualTo(deptId);
+		criteria.andSummaryIsNull();
+		criteria.andExamtimeIsNotNull();
+		 guideitemsviewList= guideitemsviewMapper.selectByExample(guideitemsviewExample);	
+		return guideitemsviewList;
 	}
 
 	
