@@ -16,7 +16,7 @@ String basePath=request.getScheme()+"://"
 <link rel="stylesheet" type="text/css" href=<%=path+"/css/buttons.dataTables.min.css" %>>
 <style type="text/css">
 /*输入框提示语设置  */
-#search_div .error, #message_h3{
+#search_div .error, #message_h3 , .modal-body .error{
 	
   color: #FF5722;  
 }
@@ -39,7 +39,7 @@ String basePath=request.getScheme()+"://"
 			<ul class="breadcrumb">
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a
 					href="<%=request.getContextPath()%>/web/index.jsp">首页</a></li>
-				<li>上传建档</li>
+				<li>体检小结</li>
 					<li class="active">上传名单</li>
 			</ul>
 			<!-- /.breadcrumb -->
@@ -164,19 +164,49 @@ String basePath=request.getScheme()+"://"
 										
 																											
 									</div>	
-									<div class="hidden-sm hidden-xs action-buttons" v-else=(todo.examtime)!=null>
+									<!--普通小结  -->
+									<div class="hidden-sm hidden-xs action-buttons" v-if=(todo.examtime)!=null&&(todo.classify)==1>
 									
 															
 									<button class="btn btn-default  btn-sm  apt_btn"   >
 									<span class="glyphicon glyphicon-ok"></span>
 									已接收</button>	
-									<button class="btn btn-info  btn-sm  " v-on:click="showModal2(''+todo.itemid,todo.guideitemid)" >
+									
+									<button class="btn btn-info  btn-sm"    v-on:click="showModal2(''+todo.itemid,todo.guideitemid)" >
 									<span class="glyphicon glyphicon-pencil"></span>
-									体检小结</button>	
+									体检小结1</button>	
+										
+								
+									
 																											
 									</div>	
+									<!-- 普通小结 -->
+									<!-- 图片小结 -->
+									<div class="hidden-sm hidden-xs action-buttons" v-if=(todo.examtime)!=null&&(todo.classify)==2>
+										<button class="btn btn-default  btn-sm  apt_btn"   >
+									<span class="glyphicon glyphicon-ok"></span>
+									已接收</button>	
 									
-																					
+										 <button class="btn btn-info  btn-sm"   v-on:click="showModal3()" >
+									<span class="glyphicon glyphicon-pencil"></span>
+									体检小结2</button> 
+									
+									</div>	
+										<!-- 图片小结结束 -->
+									<!-- 细项小结 -->
+										<div class="hidden-sm hidden-xs action-buttons" v-if=(todo.examtime)!=null&&(todo.classify)==3>
+										<button class="btn btn-default  btn-sm  apt_btn"   >
+									<span class="glyphicon glyphicon-ok"></span>
+									已接收</button>	
+									
+										<button class="btn btn-info  btn-sm"    v-on:click="showModal4(''+todo.itemid)" >
+										<span class="glyphicon glyphicon-pencil"></span>
+									体检小结3</button>	
+									
+									</div>	
+									<!-- 细项小结结束 -->
+									
+																			
 									</td>	
 															
 								</tr>		
@@ -216,9 +246,9 @@ String basePath=request.getScheme()+"://"
 			</form>
 		</div>
 	<!-- 接收项目模态框结束 -->
-	<!-- 接收项目模态框开始2 -->
-	<div id="summary-modal" class="modal fade in" tabindex="-1" style="display: none;">
-		 	<form  role="form"  id="summary_form"  >
+	<!-- 普通文字小结模态框开始2 -->
+	<div id="summary-modal1" class="modal fade in" tabindex="-1" style="display: none;">
+		 	<form  role="form"  id="summary_form1"  >
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -233,11 +263,65 @@ String basePath=request.getScheme()+"://"
 								<h4>描述：</h4>
 <textarea rows="6" cols="50" id="description_text" name="description_text"  maxlength="300"  placeholder="请输入...">
 根据体检结果 ,
-							
-							
+														
 建议：
    多吃水果，多锻炼，愉悦身心。
 		</textarea>
+			</div>
+				</div>
+			<div class="row">
+			<div class="col-xs-4">
+			<h4>医生签名：</h4>
+					<!-- 待添加登录信息到session里的时候操作 -->
+			<input type="text" id="doctorname"  name="doctorname" class="form-control" placeholder="医生姓名" autocomplete="off" required/>
+								
+				</div>
+								
+				</div>
+			
+							
+							
+				<div class="hr hr-14 hr-dotted"></div>
+							
+				</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary" >提交</button>
+			</div>
+					
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</form>
+		</div>
+	<!--  普通文字小结模态框结束2 -->
+	<!--  图片小结模态框开始3 -->
+		<div id="summary-modal2" class="modal fade in" tabindex="-1" style="display: none;">
+		 	<form  role="form"  id="summary_form2"  method="post" enctype="multipart/form-data" >
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="smaller lighter blue no-margin">体检小结：</h3>
+						</div>
+
+						<div class="modal-body" > 
+					
+							<div class="row">
+								<div class="col-xs-12">
+								<h4>体检图片：</h4>
+								请选择图片:<input type="file" name="files"class="file">
+							</div>
+							</div>
+					
+					
+							<div class="row">
+								<div class="col-xs-12">
+								<h4>描述：</h4>
+<textarea rows="6" cols="50" id="description_text2" name="description_text2"  maxlength="300"  placeholder="请输入...">
+根据体检结果 ,
+													
+建议：
+   多吃水果，多锻炼，愉悦身心。
+</textarea>
 						
 								</div>
 								</div>
@@ -245,7 +329,7 @@ String basePath=request.getScheme()+"://"
 								<div class="col-xs-4">
 										<h4>医生签名：</h4>
 										<!-- 待添加登录信息到session里的时候操作 -->
-							<input type="text" id="doctorname"  name="doctorname" class="form-control" placeholder="医生姓名" autocomplete="off" required/>
+							<input type="text" id="doctorname2"  name="doctorname2" class="form-control" placeholder="医生姓名" autocomplete="off" required/>
 								
 								</div>
 								
@@ -257,17 +341,131 @@ String basePath=request.getScheme()+"://"
 							
 						</div>
 					<div class="modal-footer">
-							<button type="button" class="btn btn-primary"  v-on:click="summaryUp">提交</button>
+							<button type="submit" class="btn btn-primary" >提交</button>
 					</div>
 					
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</form>
 		</div>
-	<!-- 接收项目模态框结束2 -->
 	
-	
-	
+		<!--  图片小结模态框结束3 -->
+			<!--  细项小结模态框开始4 -->
+			<div id="summary-modal3" class="modal fade in" tabindex="-1" style="display: none;">
+		 	<form  role="form"  id="summary_form3"  method="post" enctype="multipart/form-data" >
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="smaller lighter blue no-margin">体检小结：</h3>
+						</div>
+
+						<div class="modal-body" > 
+					
+							<div class="row">
+								<div class="col-xs-12">
+					<!-- 需添加表格数据 -->
+							<table id="grid-table" class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th width="5%">
+												序号
+											</th>
+											<th width="20%">
+												细项名称
+											</th>
+											<th width="20%">
+												计量单位
+											</th>
+											<th width="20%">
+												上限值
+											</th>
+											<th width="20%">
+												下限值
+											</th>
+											
+										</tr>
+									</thead> 
+			
+									<tbody >
+										<tr class="" v-for="(todo, index) in ret">
+											 <td>
+												<span>{{index+1}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.name}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.paramname}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.uplimit}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.lowlimit}}</span>
+											 </td>
+											
+										</tr>
+									</tbody>
+									<tbody v-if="ret.length<1">
+										<tr>
+											<td colspan="8"  class="center">没有数据</td>
+										</tr>
+									</tbody>
+									
+								</table>
+			
+								<ul class="pagination">
+								    <li v-on:click="pageItem(pageNum-1)" v-if="pageNum > 1"><a href="#">&laquo;</a></li>
+								    <li class="disabled" v-if="pageNum == 1"><a href="#">&laquo;</a></li>
+								    <li class="" v-for="todo in pageCount" v-bind:class="{active:todo==pageNum}" v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
+								    <li v-on:click="pageItem(pageNum+1)" v-if="pageNum < pageCount.length"><a href="#">&raquo;</a></li>
+								    <li class="disabled" v-if="pageNum == pageCount.length"><a href="#">&raquo;</a></li>
+								</ul>
+								<!-- PAGE CONTENT ENDS -->		
+									
+							</div><!--  col-->
+							</div><!--row  -->
+					
+					
+							<div class="row">
+								<div class="col-xs-12">
+								<h4>描述：</h4>
+<textarea rows="4" cols="50" id="description_text3" name="description_text3"  maxlength="300"  placeholder="请输入...">
+根据体检结果 ,
+													
+建议：
+   多吃水果，多锻炼，愉悦身心。
+</textarea>
+						
+								</div>
+								</div>
+								<div class="row">
+								<div class="col-xs-4">
+										<h4>医生签名：</h4>
+										<!-- 待添加登录信息到session里的时候操作 -->
+							<input type="text" id="doctorname3"  name="doctorname3" class="form-control" placeholder="医生姓名" autocomplete="off" required/>
+								
+								</div>
+								
+								</div>
+			
+							
+							
+							<div class="hr hr-14 hr-dotted"></div>
+							
+						</div>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-primary"  v-on:click="">提交</button>
+					</div>
+					
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</form>
+		</div>
+		
+			<!--  细项小结模态框结束4 -->
+		
 	</div>
 </div>
 <!--内容结束  -->
