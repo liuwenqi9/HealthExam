@@ -34,7 +34,7 @@ public class DownloadAndUploadController {
 	 * @date 6月19日
 	 * @return
 	 */
-	@RequestMapping("openExam.action")
+	@RequestMapping("downloadTemp.action")
 	public ModelAndView showDownloadView() {
 		System.out.println("跳转下载界面");
 	ModelAndView mav=new ModelAndView("jsp/clientJsp/download_template");	

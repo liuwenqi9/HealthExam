@@ -36,76 +36,52 @@
 			<div class="page-content" id="dataBind">
 				<div class="page-header">
 
-					<div class="pull-left">
-						<form id="accountForm" action="printGuide.action"
-							class="form-inline">
-							<div class="form-group">
-								<select class="form-control">
-									<option value="" selected="selected">选择企业账号</option>
-									<option v-for="todo in accountList" v-bind:value="todo.account"
-										v-on:click="accountChange(todo.account,todo.name,todo.amount)">{{todo.name}}</option>
-								</select> <span id="userName" style="color: green"></span> <span
-									id="currentAmount" style="color: green"></span>
-							</div>
-						</form>
-						<button class="btn btn-xs btn-success">打印此企业员工的导检单</button>
-						<a
-							class="dt-button buttons-print btn btn-white btn-primary btn-bold"
-							tabindex="0" aria-controls="dynamic-table" data-original-title=""
-							title="">
-							<span><i class="fa fa-print bigger-110 grey"></i>
-								<span class="hidden">Print</span>
-							</span>
-						</a>
 
-					</div>
-					<form action="makeCharge.action">
-						<div class="row">
-
-							<div class="col-xs-12">
-								<table id="dynamic-table"
-									class="table table-striped table-bordered table-hover">
-									<thead>
-										<tr>
-											<th class="center" width="20%">序号</th>
-											<th class="center" width="20%">姓名</th>
-											<th class="center" width="20%">开单时间</th>
-											<th class="center" width="20%">检查项目</th>
-											<th class="center" width="20%">接收科室</th>
-										</tr>
-									</thead>
-
-									<tbody>
-										<tr class="" v-for="(todo, index) in guideInfoList">
-											<td class="center">{{todo.rownumber}}</td>
-											<td class="center">{{todo.name}}</td>
-											<td class="center">{{todo.time}}</td>
-											<td class="center">{{todo.itemname}}</td>
-											<td class="center">{{todo.deptname}}</td>
-<%-- 											<td v-if="(todo.length) < 1">没有该企业的导检信息</td> --%>
-										</tr>
-
-									</tbody>
-
-									<tbody>
-									</tbody>
-
-
-								</table>
-
-								<!-- 分页  -->
-								<ul class="pagination">
-									<li v-on:click=(pageItem(currentPage-1))><a href="#">&laquo;</a></li>
-									<li v-for="todo in pageCount"
-										v-bind:class="{active:todo==currentPage}"
-										v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
-									<li v-on:click=(pageItem(currentPage+1))><a href="#">&raquo;</a></li>
-								</ul>
-
-								<!-- PAGE CONTENT ENDS -->
-							</div>
+					<div class="pull-left form-inline">
+						<div class="form-group">
+							<input type="text" placeholder="输入导检单号" v-model="guideId"
+								class="form-control">
+							<button class="btn btn-sm btn-success"
+								v-on:click="getGuideInfo(guideId)">
+								<i class="glyphicon  glyphicon-search bigger-110"></i>查询
+							</button>
 						</div>
-					</form>
+					</div>
+
+					<div class="row">
+
+						<div class="col-xs-12">
+							<table id="dynamic-table"
+								class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th class="center" width="5%">姓名</th>
+										<th class="center" width="17%">所属公司</th>
+										<th class="center" width="15%">身份证号</th>
+										<th class="center" width="8%">性别/体重</th>
+										<th class="center" width="5%">条码号</th>
+										<th class="center" width="10%">检查项目</th>
+										<th class="center" width="7%">体检科室</th>
+										<th class="center" width="18%">科室医生</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr v-for="(todo, index) in guideInfoList">
+										<td class="center">{{todo.name}}</td>
+										<td class="center">{{todo.accountname}}</td>
+										<td class="center">{{todo.identity}}</td>
+										<td class="center">{{todo.sex}} / {{todo.age}}</td>
+										<td class="center">{{todo.barcode}}</td>
+										<td class="center">{{todo.itemname}}</td>
+										<td class="center">{{todo.deptname}}</td>
+										<td class="center">{{todo.totoldoctors}}</td>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div>
 					<!-- /.row -->
 				</div>
 				<!-- /.page-content -->
