@@ -15,11 +15,14 @@ import com.health.entity.Dept;
 import com.health.entity.DeptExample;
 import com.health.entity.Detail;
 import com.health.entity.DetailExample;
+import com.health.entity.Itemdetail;
 import com.health.entity.Items;
 import com.health.entity.Parameter;
 import com.health.mapper.DeptMapper;
 import com.health.mapper.DetailMapper;
+import com.health.mapper.ItemdetailMapper;
 import com.health.mapper.ItemsMapper;
+import com.health.mapper.PackagesMapper;
 import com.health.mapper.PackitemMapper;
 
 /*
@@ -35,6 +38,10 @@ public class ImplFinerItemMealBiz implements FinerItemMealBiz{
 	DetailMapper detailMapper;
 	@Resource
 	ItemsMapper itemsMapper;
+	@Resource
+	PackagesMapper packagesMapper;
+	@Resource
+	ItemdetailMapper itemdetailMapper;
 	@Resource
 	PackitemMapper packitemMapper;
 	@Resource
@@ -96,6 +103,26 @@ public class ImplFinerItemMealBiz implements FinerItemMealBiz{
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, readOnly=true)
 	public List<Detail> selectDetailByItemId(Integer itemId){
 		return detailMapper.selectByItemId(itemId);
+	}
+	
+	public int updateByItem(Items item){
+		return itemsMapper.updateByPrimaryKey(item);
+	}
+
+	public int deleteItemById(Integer itemId){
+		return detailMapper.deleteByPrimaryKey(itemId);
+	}
+	
+	public int insertItem(Items item) {
+		return itemsMapper.insert(item);
+	}
+	
+	public int insertItemdetail(Itemdetail itemdetail) {
+		return itemdetailMapper.insert(itemdetail);
+	}
+	
+	public int selectItemidByItemname(String itemname) {
+		return itemsMapper.selectItemidByItemname(itemname);
 	}
 	
 }

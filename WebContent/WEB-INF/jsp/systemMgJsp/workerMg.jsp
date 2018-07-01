@@ -45,29 +45,29 @@
 				<div class="pull-right">
 					<form class="form-inline">
 					  <div class="form-group">
-					    <input type="text" placeholder="人员姓名" class="form-control" v-model="searchModel.S_workerName">
+					    <input id="namea" name="name" type="text" placeholder="人员姓名" class="form-control" v-model="searchModel.S_workerName">
 					  </div>
-					  <div class="form-group">
+					 <!--  <div class="form-group">
 					    <select id="sdepartment" class="form-control" name="department" v-model="searchModel.S_parameterId" required="required">
 					    	<option value="">科室</option>
 							<option v-for="todo in departmentList"  v-bind:value="todo.PARAMETER_ID">{{todo.PARAMETER_NAME}}</option>
 						</select>
-					  </div>
-					  <div class="form-group">
+					  </div> -->
+					  <!-- <div class="form-group">
 					 	<select id="role" class="form-control" name="role" v-model="searchModel.S_roleName" required="required">
 					 		<option value="">角色</option>
 							<option v-for="(todo, index) in roleList"  v-bind:value="todo.ROLE_NAME" v-if="todo.ROLE_ID!=4">{{todo.ROLE_NAME}}</option>
 						</select>
-					  </div>
+					  </div> -->
 					  <div class="form-group">
-					    <select class="form-control" placeholder="用户状态" v-model="searchModel.S_userStatus"> 
+					    <select id="userstate" name="state" class="form-control" placeholder="用户状态" v-model="searchModel.S_userStatus"> 
 					   		<option value="" selected>用户状态</option>
 					    	<option value="0">禁用</option>
 					    	<option value="1">启用</option>
 					    </select>
 					 
 					  </div>
-					  <a href="#" class="btn btn-sm btn-success" v-on:click="selectBtn" ><i class="glyphicon  glyphicon-search bigger-110"></i>查询</a>
+					  <button id="querywkMg"  class="btn btn-sm btn-success" ><i  class="glyphicon  glyphicon-search bigger-110"></i>查询</button>
 					</form>	
 				</div>
 				
@@ -113,12 +113,12 @@
 						<tbody id="tbody" >
 						<c:forEach var="worker" items="${wkList}" varStatus="number">
 							<tr id="tr_ofWorker">
-								<td><c:out value="${worker.getWorkerid() }"></c:out></td>
+								<td><c:out value="${number.index+1}"></c:out></td>
 								<td><c:out value="${worker.getName()}"></c:out></td>
 								<td><c:out value="待定"></c:out></td>
 								<td><c:out value="待定"></c:out></td>
 								<td><c:out value="待定"></c:out></td>
-								<%-- <td><c:out value="${worker.getState()}"></c:out> --%>
+								
 								<c:choose>
 									<c:when test="${worker.getState() eq '1' }">
 										<td id="state" style="color: green;" ><c:out value="启用"><font ></font></c:out></td>
@@ -147,7 +147,7 @@
 														</c:otherwise>
 													</c:choose>
 										
-										<button class="btn btn-xs btn-danger" title="删除" onclick="$('#delete-modal').modal('show');">
+										<button  class="btn btn-xs btn-danger" title="删除" onclick="deleteWorker(this);">
 											删除
 										</button>
 										
@@ -232,28 +232,7 @@
 						</div><!-- /.modal-content -->
 						</form>
 					</div><!-- /.modal-dialog -->
-					<!-- 删除。。。。。。 -->
-					<div id="delete-modal" class="modal fade in" tabindex="-1" style="display: none;">
-					<form id="delete-form" role="form">
-					<div class="modal-dialog" style="margin-top: 220px">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 class="smaller lighter blue no-margin">删除</h3>
-							</div>
-							<div class="modal-body" style="height: 250px;"> 
-								<div class="row">
-									<h2 style="margin-left: 30px;">温馨提示！<br><br>您是否要删除{{本行的姓名}}这位工作人员的<br>所有信息?</h2>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">删除</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-						</div>
-						</div><!-- /.modal-content -->
-						</form>
-					</div><!-- /.modal-dialog -->
+					
 						<!-- 重置密码。。。。。。 -->
 					<div id="resetpassword-modal" class="modal fade in" tabindex="-1" style="display: none;">
 					<form id="resetpassword-form" role="form">
@@ -290,15 +269,15 @@
 							<div class="modal-body" style="height: 300px;"> 
 								<div class="row">
 									<div class="col-xs-6">
-										<span class="col-xs-8"><input type="text" title="人员姓名" placeholder="人员姓名" class="form-control"  style="margin-left: 15px;width: 480px;"></span>
+										<span class="col-xs-8"><input onblur="" type="text" id="name" title="人员姓名" placeholder="人员姓名" class="form-control"  style="margin-left: 15px;width: 480px;"></span>
 									</div>
 									<br><br>
 									<div class="col-xs-6">
-										<span class="col-xs-8"><input type="text" title="账号" placeholder="账号" class="form-control" style="margin-left: 15px;width: 200px;"></span>
+										<span class="col-xs-8"><input id="number" type="text" title="账号" placeholder="账号" class="form-control" style="margin-left: 15px;width: 200px;"></span>
 										<!-- 这里要进行正则验证 -->
 									</div>
 									<div class="col-xs-6">
-										<span class="col-xs-8"><input type="password" title="密码" placeholder="密码" class="form-control" style="width: 200px"></span>
+										<span class="col-xs-8"><input id="password" type="password" title="密码" placeholder="密码" class="form-control" style="width: 200px"></span>
 										<!-- 这里要进行正则验证 -->
 									</div>
 								</div>
@@ -323,7 +302,7 @@
 						    	</div>
 					  			
 					  				<div class="form-inline">
-						    	<select class="form-control" title="用户状态" placeholder="用户状态" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 40px;"> 
+						    	<select class="form-control" id="state" title="用户状态" placeholder="用户状态" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 40px;"> 
 							   		<option value="" selected>用户状态</option>
 							    	<option value="0">启用</option>
 							    	<option value="1">禁用</option>
@@ -334,7 +313,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">确定提交</button>
+							<button onclick="addWorker()" type="submit" class="btn btn-success" data-dismiss="modal">确定提交</button>
 							<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
 						</div>
 						</div><!-- /.modal-content -->
@@ -372,6 +351,33 @@
 			$("a[href='workerMg.action']").parent().addClass("active");
 			//获取系统时间
 			setInterval('sysTime()',1000);
+			
+			$("#querywkMg").click(function(){
+				var n = $("#namea").val()=="";
+				var s = ($("#userstate").val()==1||$("#userstate").val()==0)&&($("#userstate").val()!="");
+				if (!n) {
+					$.ajax({
+						url : "WorkerMg.action",
+						type : "post",
+						dataType : "text",
+						data : {
+						}
+					});
+					
+				}
+				if (s) {	
+					$.ajax({
+						url : "selectWorkerByState.action",
+						type : "post",
+						dataType : "text",
+						data : {
+							
+						}
+					});
+				}
+				});
+				
+		
 			
 		});
 		/* 点击修改获取对应行号的姓名 */
@@ -417,11 +423,101 @@
 					);
 			 
 		}
+		/* 新增人员 */
+		function addWorker() {
+			$.ajax({
+				url : "insertworkerMg.action",
+				type : "POST",
+				dataType : "text",
+				data : {
+					"name" :$("#name").val(),
+					"password" : $("#password").val(),
+					/* "deptid" : deptid, */
+					"state" : $("#state").val()
+				},
+			success : function(data) {
+				if (data ="OK") {
+					alert("增加成功");
+					parent.location.reload();
+				}else {
+					alert("增加失败,可能网络异常");
+				}
+				
+			}
+			});
+			
+			
+		}
+		/* 删除员工*/
+		function deleteWorker(node) {
+			var con;
+			con = confirm("确定要删除该员工吗?")
+			if (con) {
+				var chileArr = node.parentElement.parentElement.parentElement;  //获取当前节点的所需要的父级节点
+				var nodes = filterSpaceNode(chileArr); 
+				var rowNum = nodes.rowIndex;  //当前点击行号
+				var name = document.getElementById('grid-table').rows[rowNum].cells[1].innerText;
+				$.ajax({
+					url : "deletworkerMg.action",
+					type : "POST",
+					dataType : "text",
+					data : {
+						"name" : name
+					},
+					success : function(data) {
+						if (data=="OK") {
+							alert("删除成功");
+							parent.location.reload();
+						} else {
+							alert("删除失败,请检查网络连接状况");
+						}
+					}
+				});
+			}
+			
+			
+		}
+		function filterSpaceNode(nodes) {
+			for (var i = 0; i < nodes.length; i++) {
+				if (nodes[i].nodeType == 3 && /^\s+$/.test(nodes[i].nodeValue)) {
+					// 得到空白节点之后，移到父节点上，删除子节点
+					nodes[i].parentNode.removeChild(nodes[i]);
+				}
+			}
+			return nodes;
+		}
+	
+	
 		function sysTime() {
 			var today = new Date();// 系统时间（今天）
 			var dateAndTime = today.toLocaleString();
 			$("#sp_sysTime").html(dateAndTime+"&nbsp;&nbsp;"); 
 		}
+		/* $("#password").blur(function() {
+			var n = $("#password").val();
+			if (n==null||n=="" ) {
+				alert("密码不能为空");
+				$("#password").val() = "";
+			}
+			
+		});
+		$("#number").blur(function() {
+			var n = $("#number").val();
+			if (n==null||n=="" ) {
+				alert("账号不能为空");
+				$("#number").val() = "";
+			}
+			
+		}); */
+		/* $("#name").blur(function() {
+			var n = $("#name").val();
+			if (n==null||n=="" ) {
+				alert("用户名不能为空");
+				$("#name").val() = "";
+			}
+			
+		}); */
+		
 			
 		</script>
 </html>

@@ -9,9 +9,14 @@
     <result column="STATE" property="state" jdbcType="DECIMAL" />
   </resultMap>
   
-  
+  <select id="queryworkerName" parameterType="String" resultType="com.health.entity.Worker" >
+  	select * from Worker where name like  #{name} ORDER BY workerid ASC
+  </select>
   <select id="loginAdmin" parameterType="com.health.entity.Worker"   resultType="com.health.entity.Worker">
        select * from Worker where name=#{name} and password=#{password}
+  </select>
+  <select id="queryworkerState" parameterType="String" resultType="com.health.entity.Worker">
+  	select * from Worker where state like  #{state} ORDER BY workerid ASC
   </select>
   
   <update id="changeWorkerState"
@@ -19,7 +24,15 @@
 		update worker set state = #{state} where workerid = #{workerid}
 	</update>
   
-  
+  <insert id="insertWorker" parameterType="com.health.entity.Worker">
+   insert into worker values(#{workerid}, #{name},#{password},2,0)
+   </insert>
+  <delete id="deleteWork">
+  	delete from worker where name=#{name}
+  </delete>
+  <select id="lengthId" resultType="int">
+  select max(workerid) from worker
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

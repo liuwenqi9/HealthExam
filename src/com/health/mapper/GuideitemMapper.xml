@@ -7,9 +7,8 @@
     <result column="ITEMID" property="itemid" jdbcType="DECIMAL" />
     <result column="SUMMARY" property="summary" jdbcType="OTHER" />
     <result column="EXAMTIME" property="examtime" jdbcType="OTHER" />
+    <result column="PICTUREURL" property="pictureurl" jdbcType="OTHER" />
   </resultMap>
-  
-   
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    GUIDEITEMID, GUIDEID, ITEMID, SUMMARY, EXAMTIME
+    GUIDEITEMID, GUIDEID, ITEMID, SUMMARY, EXAMTIME, PICTUREURL
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.GuideitemExample" >
     select
@@ -103,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.health.entity.Guideitem" >
     insert into GUIDEITEM (GUIDEITEMID, GUIDEID, ITEMID, 
-      SUMMARY, EXAMTIME)
+      SUMMARY, EXAMTIME, PICTUREURL
+      )
     values (#{guideitemid,jdbcType=DECIMAL}, #{guideid,jdbcType=DECIMAL}, #{itemid,jdbcType=DECIMAL}, 
-      #{summary,jdbcType=OTHER}, #{examtime,jdbcType=OTHER})
+      #{summary,jdbcType=OTHER}, #{examtime,jdbcType=OTHER}, #{pictureurl,jdbcType=OTHER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.health.entity.Guideitem" >
     insert into GUIDEITEM
@@ -125,6 +126,9 @@
       <if test="examtime != null" >
         EXAMTIME,
       </if>
+      <if test="pictureurl != null" >
+        PICTUREURL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="guideitemid != null" >
@@ -141,6 +145,9 @@
       </if>
       <if test="examtime != null" >
         #{examtime,jdbcType=OTHER},
+      </if>
+      <if test="pictureurl != null" >
+        #{pictureurl,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
@@ -168,6 +175,9 @@
       <if test="record.examtime != null" >
         EXAMTIME = #{record.examtime,jdbcType=OTHER},
       </if>
+      <if test="record.pictureurl != null" >
+        PICTUREURL = #{record.pictureurl,jdbcType=OTHER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -179,7 +189,8 @@
       GUIDEID = #{record.guideid,jdbcType=DECIMAL},
       ITEMID = #{record.itemid,jdbcType=DECIMAL},
       SUMMARY = #{record.summary,jdbcType=OTHER},
-      EXAMTIME = #{record.examtime,jdbcType=OTHER}
+      EXAMTIME = #{record.examtime,jdbcType=OTHER},
+      PICTUREURL = #{record.pictureurl,jdbcType=OTHER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -199,6 +210,9 @@
       <if test="examtime != null" >
         EXAMTIME = #{examtime,jdbcType=OTHER},
       </if>
+      <if test="pictureurl != null" >
+        PICTUREURL = #{pictureurl,jdbcType=OTHER},
+      </if>
     </set>
     where GUIDEITEMID = #{guideitemid,jdbcType=DECIMAL}
   </update>
@@ -207,7 +221,8 @@
     set GUIDEID = #{guideid,jdbcType=DECIMAL},
       ITEMID = #{itemid,jdbcType=DECIMAL},
       SUMMARY = #{summary,jdbcType=OTHER},
-      EXAMTIME = #{examtime,jdbcType=OTHER}
+      EXAMTIME = #{examtime,jdbcType=OTHER},
+      PICTUREURL = #{pictureurl,jdbcType=OTHER}
     where GUIDEITEMID = #{guideitemid,jdbcType=DECIMAL}
   </update>
 </mapper>

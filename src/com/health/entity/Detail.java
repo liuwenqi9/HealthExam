@@ -16,6 +16,8 @@ public class Detail {
     private BigDecimal lowlimit;
     
     private Object paramname;
+    
+    private boolean checked;
 
     public Integer getDetailid() {
         return detailid;
@@ -64,5 +66,13 @@ public class Detail {
 	public void setParamname(Object paramname) {
 		this.paramname = paramname;
 	}
-    
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
 }

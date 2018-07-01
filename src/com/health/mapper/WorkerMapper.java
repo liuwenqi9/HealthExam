@@ -2,13 +2,20 @@ package com.health.mapper;
 
 import com.health.entity.Worker;
 import com.health.entity.WorkerExample;
+import com.mysql.fabric.xmlrpc.base.Array;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkerMapper {
+	int insertWorker(Worker worker);
+    int lengthId();
+    int deleteWork(String name);
+    public ArrayList<Worker> queryworkerName(String name);
+    public  ArrayList<Worker> queryworkerState(String state);
 	
 	public Worker loginAdmin(Worker worker);  //登陆
 	

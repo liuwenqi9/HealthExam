@@ -52,16 +52,19 @@
 											<th width="5%">
 												序号
 											</th>
-											<th width="25%">
+											<th width="20%">
 												项目名称
 											</th>
-											<th width="25%">
+											<th width="20%">
 												科室
 											</th>
-											<th width="25%">
+											<th width="20%">
 												金额
 											</th>
 											<th width="20%">
+												类别
+											</th>
+											<th width="15%">
 												操作
 											</th>
 										</tr>
@@ -80,6 +83,9 @@
 											 </td>
 											 <td>
 												<span>{{todo.cost}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.classify == 1?"常规":todo.classify == 2?"拍片":todo.classify == 3?"血液":"未知"}}</span>
 											 </td>
 											<td>
 											<div class="btn-group">
@@ -146,10 +152,21 @@
 												<span class="col-xs-4">金额:</span>
 												<input class="col-xs-8" type="text" id="cost" name="cost" v-model="addItem.cost" required="required"/>
 											</div>
+											<div class="col-xs-6">
+												<span class="col-xs-4">类别:</span>
+												<select class="col-xs-8" v-model="addItem.classify">
+													<option value="">科室</option>
+													<option value="1">常规</option>
+													<option value="2">拍片</option>
+													<option value="3">血液</option>
+												</select>
+											</div>
 										</div>
 										<div class="hr hr-14 hr-dotted"></div>
 										<div class="row">
-											
+											<div class="col-xs-4" v-for="todo in detailList">
+                                            	<input type="checkbox" v-bind:value="todo.detailid" v-bind:checked="todo.checked" v-on:click="todo.checked = !todo.checked" />{{todo.name}}
+                                            </div>
 										</div>
 									</div>
 									
@@ -192,6 +209,21 @@
 												<span class="col-xs-4">金额:</span>
 												<input class="col-xs-8" type="text" id="cost" name="cost" v-model="editItem.cost" required="required"/>
 											</div>
+											<div class="col-xs-6">
+												<span class="col-xs-4">类别:</span>
+												<select class="col-xs-8" v-model="editItem.classify">
+													<option value="">科室</option>
+													<option value="1">常规</option>
+													<option value="2">拍片</option>
+													<option value="3">血液</option>
+												</select>
+											</div>
+										</div>
+										<div class="hr hr-14 hr-dotted"></div>
+										<div class="row">
+											<div class="col-xs-4" v-for="todo in detailList">
+                                            	<input type="checkbox" v-bind:value="todo.detailid" v-bind:checked="todo.checked" v-on:click="todo.checked = !todo.checked" />{{todo.name}}
+                                            </div>
 										</div>
 									</div>
 									
@@ -245,13 +277,14 @@
 				addItem:{},
 				editItem:{},
 				deptList:[],
+				itemDetailList:[],
 				detailList:[]
 			},
 			methods:{
 				deleteItem:function(detailid,index){
 					if(window.confirm("确定要删除吗？")){
 						$.ajax({
-							url: "detailMgDelete.action",
+							url: "itemMgDelete.action",
 							method: "POST",
 							data: { detailid: detailid },
 							dataType: "json",
@@ -271,7 +304,16 @@
 						data: { itemid: item.itemid },
 						dataType: "json",
 						success: function(msg){
-							req.detailList = msg.detailList;
+							req.itemDetailList = msg.itemDetailList;
+							for(var i=0;i<req.detailList.length;i++){
+								req.detailList[i].checked = false;
+								for(var j=0;j<req.itemDetailList.length;j++){
+									if(req.detailList[i].detailid == req.itemDetailList[j].detailid){
+										req.detailList[i].checked = true;
+										
+									}
+								}
+							}
 							req.editItem = item;
 							$('#edit-modal').modal('show');
 						},
@@ -282,7 +324,7 @@
 				},
 				updateBtn:function(detail){
 					 $.ajax({
-						url: "detailMgUpdate.action",
+						url: "itemMgUpdate.action",
 						method: "POST",
 						data: {detailid:detail.detailid,name:detail.name,parameterid:detail.parameterid,lowlimit:detail.lowlimit,uplimit:detail.uplimit},
 						dataType: "json",
@@ -296,17 +338,21 @@
 					 });
 				},
 				addButton:function(){
+					 for(var i=0;i<req.detailList.length;i++){
+					 	req.detailList[i].checked = false;
+					 }
 					$('#add-modal').modal('show');
 				},
 				insertBtn:function(detail){
+					var send = {item:req.addItem ,detailList:req.detailList};
 					$.ajax({
-						url: "detailMgInsert.action",
+						url: "itemMgInsert.action",
 						method: "POST",
-						data: {detailid:detail.detailid,name:detail.name,parameterid:detail.parameterid,lowlimit:detail.lowlimit,uplimit:detail.uplimit},
+						data: {send: JSON.stringify(send)},
 						dataType: "json",
 						success: function(msg){
-							alert(msg.status);
-							window.location.reload();
+//							alert(msg.status);
+//							window.location.reload();
 						},
 						error: function(){
 							alert("获取失败");
@@ -349,6 +395,7 @@
 				req.S_itemName = msg.sItemName;
 				req.deptList = msg.deptList;
 				req.selectItem = false; 
+				req.detailList = msg.detailList;
 			},
 			error: function(){
 				alert("获取失败");

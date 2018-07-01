@@ -12,6 +12,8 @@ public class Items {
 
     private Long cost;
     
+    private Integer classify;
+    
     private Object deptname;
 
     public Integer getItemid() {
@@ -52,5 +54,13 @@ public class Items {
 
 	public void setDeptname(Object deptname) {
 		this.deptname = deptname;
+	}
+
+	public Integer getClassify() {
+		return classify;
+	}
+
+	public void setClassify(Integer classify) {
+		this.classify = classify;
 	}
 }

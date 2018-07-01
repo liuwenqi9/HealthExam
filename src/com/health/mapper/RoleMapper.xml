@@ -5,6 +5,15 @@
     <id column="ROLEID" property="roleid" jdbcType="DECIMAL" />
     <result column="ROLENAME" property="rolename" jdbcType="OTHER" />
   </resultMap>
+  <delete id="deleteRole" parameterType="com.health.entity.Role" >
+       delete from role where rolename=#{rolename}
+  </delete>
+   <insert id="insertRole" parameterType="com.health.entity.Role">
+     insert into role values(#{roleid}, #{rolename})
+  </insert>
+  <select id="lengthId" resultType="int">
+       select max(roleid) from role
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
