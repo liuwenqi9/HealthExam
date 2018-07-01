@@ -20,4 +20,7 @@ public interface GuideitemsviewMapper {
     int updateByExampleSelective(@Param("record") Guideitemsview record, @Param("example") GuideitemsviewExample example);
 
     int updateByExample(@Param("record") Guideitemsview record, @Param("example") GuideitemsviewExample example);
+    
+  
+    
 }

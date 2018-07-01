@@ -17,13 +17,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageHelper;
 import com.health.biz.DoctorWorkBiz;
+import com.health.biz.FinerItemMealBiz;
+import com.health.entity.Detail;
 import com.health.entity.Guide;
 import com.health.entity.Guideitem;
 import com.health.entity.Guideitemsview;
 import com.health.entity.Items;
 import com.health.entity.Personinfo;
 import com.health.util.MyTimeUtil;
+import com.health.util.PageUtil;
 
 
 /**
@@ -35,6 +39,8 @@ import com.health.util.MyTimeUtil;
 public class DoctorWorkController {
 	@Resource
 	private DoctorWorkBiz impDoctorWork;
+	@Resource
+	private FinerItemMealBiz implFinerItemMealBiz;
 
 	private  String sendMesg =null;//接收反馈信息
 	private Map<String, Object> sendMessage = new HashMap<String, Object>(); //ajax数据回传
@@ -45,9 +51,22 @@ public class DoctorWorkController {
 	@RequestMapping(value="/acceptItem.action")
 	public ModelAndView showDoctorReceiveItemsView() {
 		System.out.println("跳转医生接收项目界面");
-	ModelAndView mav=new ModelAndView("jsp/doctorJsp/receive_items");	
+	ModelAndView mav=new ModelAndView("jsp/doctorJsp/receive_item");	
 		return mav;
 	}
+
+	/**
+	 * @date 6月30日
+	 * @return
+	 */
+	@RequestMapping(value="/summary.action")
+	public ModelAndView showSummaryView() {
+		System.out.println("跳转体检小结界面");
+		ModelAndView mav=new ModelAndView("jsp/doctorJsp/summary_view");	
+		
+		return mav;	
+	}
+	
 	
 	/**
 	 * 
@@ -55,10 +74,10 @@ public class DoctorWorkController {
 	 * @param res
 	 * @param guide_id
 	 * @author JSY
-	 * 根据导诊卡ID查找病人信息
+	 * 根据导诊卡ID查找病人信息及病人体检项目
 	 */
 	@RequestMapping(value = "/searchDetails.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public @ResponseBody Map<String, Object> checkName(HttpServletRequest req,HttpServletResponse res,String guide_id) {
+	public @ResponseBody Map<String, Object> checkName(String guide_id,int page) {
 		sendMessage.clear();//清空map
 		System.out.println("------执行了根据导诊卡查找体检者信息");
 	//获取前端界面数据
@@ -89,12 +108,17 @@ public class DoctorWorkController {
 							//通过体检项目ID和导检表id查找出对应的体检项目
 								System.out.println("获得体检项目ID"+guideitemList.get(i).getItemid());	//获得体检项目ID
 								ItemsList.addAll(impDoctorWork.findGuideItemsViewByid(guideitemList.get(i).getGuideitemid(),guideitemList.get(i).getItemid()));
-								
 							}
+							System.out.println("----页数:"+page);
+							/*PageHelper.startPage(page);*/
+							//分页
+							/*List<Object> pageContanier = PageUtil.displayPage(ItemsList, page);	*/
 							
 							System.out.println("-------发送体检项目集合到js");
 							System.out.println("发往接收的数组大小："+ItemsList.size());
-							 sendMessage.put("itemsList", ItemsList);
+					/*		sendMessage.put("pageCount", pageContanier);	
+							sendMessage.put("pageNum", page);	*/							
+							sendMessage.put("itemsList", ItemsList);
 							 
 						}
 						
@@ -115,15 +139,15 @@ public class DoctorWorkController {
 	
 	
 	/**
-	 * 
+	 * 接收项目
 	 * @param req
 	 * @param items_id
 	 * @return
 	 * @date 6月26日
 	 */
 	@RequestMapping(value = "/updateGuideItemTime.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public @ResponseBody String changeStatus(HttpServletRequest req,String itemId, String guideItemid) {
-		System.out.println("-----执行到修改导检项目关系表");
+	public void changeStatus(HttpServletResponse res,String itemId, String guideItemid) {
+		System.out.println("-----执行到接收项目");
 		if(itemId!=null&&guideItemid!=null) {//不为空
 		
 		System.out.println("---填入的时间:"+MyTimeUtil.getTimeNowTogether());	
@@ -138,13 +162,45 @@ public class DoctorWorkController {
 			}
 			
 		}
-		
 		System.out.println("--修改体检时间返回数据："+sendMesg);
-		return sendMesg;
+		feedBackData(res,sendMesg);
+		
 		
 	}
+	//通过输入科室查找项目关系视图数据0701
 	/**
 	 * 
+	 * @param dept
+	 * @param page
+	 * @return
+	 * @date 7月1号
+	 * 查询体检小结数据
+	 */
+	@RequestMapping(value = "/findGuideItemByDept.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+	public @ResponseBody Map<String, Object> findGuideItemByDept(Integer dept ,int page) {
+		
+		System.out.println("-----执行到提交小结查找已接收待小结的项目");
+		System.out.println("--部门id"+dept);
+		System.out.println("--page"+page);
+		PageHelper.startPage(page, 10);
+		
+		List<Guideitemsview> GuideitemsviewList =impDoctorWork.findGuideItemsViewByDeptId(dept);
+			if(GuideitemsviewList!=null) {//不为空，则表示找到数据
+				for (int i = 0; i < GuideitemsviewList.size(); i++) {
+					System.out.println("-----"+GuideitemsviewList.get(i).getDeptname());
+				}
+				List<Object> pageContanier = PageUtil.displayPage(GuideitemsviewList, page);		
+				sendMessage.put("itemsList", GuideitemsviewList);
+				sendMessage.put("pageCount", pageContanier);	
+				sendMessage.put("pageNum", page);
+			}
+		return sendMessage;
+		
+	}
+	
+	
+	/**
+	 * 文字体检小结
 	 * @param req
 	 * @param itemId
 	 * @param guideid
@@ -156,20 +212,20 @@ public class DoctorWorkController {
 	@RequestMapping(value = "/updateSummary.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
 	public   @ResponseBody String UpdateDescription(HttpServletRequest req,String itemId, String guideItemid,String descriptionText, String doctorName) {
 		System.out.println("-----执行到填入体检小结");
-		if(itemId!=null&&guideItemid!=null &&descriptionText!=null) {
+		if(itemId!=null&&guideItemid!=null &&descriptionText!=null&&doctorName!=null) {
 			System.out.println("--体检项目ID:"+itemId);
 			System.out.println("--体检项目关系表ID:"+guideItemid);
 			System.out.println("--体检小结:"+descriptionText);
-		/*	System.out.println("医生姓名："+doctorName);*/
+			System.out.println("医生姓名："+doctorName);
 			Integer itemid=Integer.valueOf(itemId);
 			Integer gitemid=Integer.valueOf(guideItemid);
 			System.out.println("执行到627");
-			/*int reuslt=impDoctorWork.updateSummaryByid(gitemid, itemid, descriptionText);
+			int reuslt=impDoctorWork.updateSummaryByid(gitemid, itemid, descriptionText);
 			if(reuslt>0) {//更新成功
 				sendMesg="success";
 			}else {
 				sendMesg="failure";
-			}*/
+			}
 		}
 		
 		
@@ -178,7 +234,34 @@ public class DoctorWorkController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param req
+	 * @param itemId
+	 * @date 6月30日
+	 */
+	public @ResponseBody  Map<String, Object> searchDetail(HttpServletRequest req,String itemId) {
+		System.out.println("-----执行到填入细项体检小结");
+		if(itemId!=null) {//不为空，则在项目细项关系表查找
+			sendMessage.clear();//清空map
+			Integer id=Integer.valueOf(itemId);
+		List<Detail> detailList = implFinerItemMealBiz.selectDetailByItemId(id);	
+			if(detailList!=null) {
+				
+				
+				
+				sendMessage.put("detailList", detailList);
+				
+				
+			}else {
+				
+				System.out.println("---查不到项目细项数据");
+			}		
+		}
+		return sendMessage;
+	}
 	
+
 	
 	
 	
@@ -213,6 +296,9 @@ public class DoctorWorkController {
 		return sendMesg;
 	}
 
+	public void setSendMesg(String sendMesg) {
+		this.sendMesg = sendMesg;
+	}
 	public DoctorWorkBiz getImpDoctorWork() {
 		return impDoctorWork;
 	}
@@ -221,9 +307,14 @@ public class DoctorWorkController {
 		this.impDoctorWork = impDoctorWork;
 	}
 
-	public void setSendMesg(String sendMesg) {
-		this.sendMesg = sendMesg;
+	public FinerItemMealBiz getImplFinerItemMealBiz() {
+		return implFinerItemMealBiz;
 	}
+
+	public void setImplFinerItemMealBiz(FinerItemMealBiz implFinerItemMealBiz) {
+		this.implFinerItemMealBiz = implFinerItemMealBiz;
+	}
+
 	
 	
 	
