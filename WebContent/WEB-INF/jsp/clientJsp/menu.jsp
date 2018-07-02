@@ -29,7 +29,7 @@
 
 					<ul
 						class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-						<li><a onclick="$('#updata-modal').modal('show');"> <i
+						<li><a href="" > <i
 								class="ace-icon fa fa-power-off"></i> 修改密码
 						</a></li>
 						<li><a href="loginClietJsp.action">
