@@ -3,6 +3,7 @@ package com.health.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -73,6 +74,7 @@ public class RoleMgControl {
 	@RequestMapping("insertroleMg.action")
 	public void insertRole(HttpServletResponse response, Role role) throws IOException {
 		int lengthid = implRoleMg.lengthId();
+		System.out.println(role.getRolename()+"_----------------");
 		role.setRoleid(lengthid+1);
 		int i = implRoleMg.insertRole(role);
 		printWriter = response.getWriter();
@@ -87,5 +89,31 @@ public class RoleMgControl {
 			printWriter.close();
 			System.out.println("增加失败");
 		}
+	}
+	
+	/**
+	 * 修改角色名称
+	 * @author 范帅
+	 */
+	@RequestMapping("updateRole.action")
+	public void updateRole(HttpServletResponse response,String roleid,String rolename) throws IOException {
+		System.out.println(roleid);
+		System.out.println(rolename);
+		
+		HashMap<String, String>map = new HashMap<>();
+		map.put("roleid", roleid);
+		map.put("rolename", rolename);
+		int updateRole = implRoleMg.updateRole (map);
+		printWriter = response.getWriter();
+		if (updateRole>0) {
+			printWriter.print("OK");
+			printWriter.flush();
+			printWriter.close();
+		} else {
+			printWriter.println("FAIL");
+			printWriter.flush();
+			printWriter.close();
+		}
+		
 	}
 }
