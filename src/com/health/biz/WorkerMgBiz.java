@@ -10,12 +10,22 @@ import com.health.entity.Account;
 import com.health.entity.Worker;
 /**
  * 人员设置功能的BIZ
+ * 后期有时间进行更改人员管理的科室和角色字段
+ * 进行了创建视图，在VEWORKER的表
  * @author 范帅
  * @date 6月18日
  *
  */
 @Service
 public interface WorkerMgBiz {
+	public int updateWorker(Integer workerid,Integer deptid);
+	public int deleteWorkerrole(Integer workerid,Integer roleid);
+	
+	public int deleteFkWork(String name);//删除workerrole中的关系表，这样才能删除员工表，否则id被占用
+	
+	public int resetPassword(String name);//重置密码
+	
+	public int queryMaxId();
 	
 	public int lengthid();//得到表格的id号码
 	

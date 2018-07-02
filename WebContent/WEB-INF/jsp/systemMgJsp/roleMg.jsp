@@ -79,12 +79,13 @@
 						<tbody >
 							<c:forEach var = "role" items="${rlList}" varStatus="number" >
 								<tr id="tr_ofRole">
+									
 									<td><c:out value="${number.index+1}"></c:out></td>
 									<td><c:out value="${role.getRolename()}"></c:out></td>
 									<td>
 										<div class="btn-group" style="text-align: center;">
 											    
-											<button class="btn btn-info" title="修改" onclick="$('#update-modal').modal('show');">
+											<button class="btn btn-info" title="修改" onclick="i(this)">
 												修改
 											</button>
 											<button class="btn btn-purple" title="删除"  onclick="deleteRole(this)">
@@ -92,8 +93,8 @@
 											</button>
 										</div>
 								</td>
+								<td style="display: none;"><c:out value="${role.getRoleid() }"></c:out></td>
 								</tr>
-								
 							
 							</c:forEach  >
 								
@@ -135,14 +136,14 @@
 								<div class="row">
 						    	<label style="margin-left: 15px;font-size: 20px;">角色名称:</label>
 								<br>
-								<input type="text" style="margin-left: 15px" class="col-xs-10 col-sm-5" id="form-input-readonly">
+								<input id = "ro" type="text" style="margin-left: 15px" class="col-xs-10 col-sm-5" id="form-input-readonly">
 								<br><br>
 								</div>
 								
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">确定修改</button>
+							<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="update();">确定修改</button>
 							<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
 						</div>
 						</div><!-- /.modal-content -->
@@ -173,7 +174,7 @@
 							<div class="modal-body" style="height: 200px;"> 
 								<div class="row">
 									<div class="col-xs-6">
-										<span class="col-xs-8"><input id="rolename" type="text" title="角色名称" placeholder="角色名称" class="form-control"  style="margin-left: 15px;width: 480px;"></span>
+										<span class="col-xs-8"><input id="rolena" type="text" title="角色名称" placeholder="角色名称" class="form-control"  style="margin-left: 15px;width: 480px;"></span>
 									</div>
 									<br><br>
 									
@@ -229,6 +230,7 @@
 			setInterval('sysTime()',1000);
 		});
 		
+		
 		function sysTime() {
 			var today = new Date();// 系统时间（今天）
 			var dateAndTime = today.toLocaleString();
@@ -276,15 +278,44 @@
 			}
 			return nodes;
 		}
+		var id;
+		function i(node) {
+			$('#update-modal').modal('show');
+			var chileArr = node.parentElement.parentElement.parentElement;  //获取当前节点的所需要的父级节点
+			var nodes = filterSpaceNode(chileArr); 
+			var rowNum = nodes.rowIndex;  //当前点击行号
+			id = document.getElementById('grid-table').rows[rowNum].cells[3].innerText;
+			
+		}
+		function update() {
+			alert("更新");
+			var rol = $("#ro").val();
+			 $.ajax({
+				url : "updateRole.action",
+				type : "POST",
+				dataType : "text",
+				data : {
+					"rolename" : rol,
+					"roleid" : id
+				},
+			 success : function(data) {
+				if (data == "OK") {
+					alert("修改成功");
+					parent.location.reload();
+				} else {
+					alert("修改失败，请检查网络连接");
+				}
+			}
+			}); 
+		}
 		
 		function addRole() {
-			alert("增加");
 			$.ajax({
 				url:"insertroleMg.action",
 				type:"POST",
 				dataType:"text",
 				data:{
-					"rolename":$("#rolename").val()
+					"rolename":$("#rolena").val()
 				},
 				success : function(data) {
 					if (data="OK") {

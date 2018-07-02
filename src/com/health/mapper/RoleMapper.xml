@@ -5,6 +5,9 @@
     <id column="ROLEID" property="roleid" jdbcType="DECIMAL" />
     <result column="ROLENAME" property="rolename" jdbcType="OTHER" />
   </resultMap>
+  <update id="updateRole" parameterType="java.util.HashMap">
+  	update role set rolename = #{rolename} where roleid = #{roleid}
+  </update>
   <delete id="deleteRole" parameterType="com.health.entity.Role" >
        delete from role where rolename=#{rolename}
   </delete>

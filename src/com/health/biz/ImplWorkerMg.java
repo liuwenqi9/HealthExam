@@ -12,6 +12,7 @@ import com.health.entity.Worker;
 import com.health.entity.WorkerExample;
 import com.health.entity.WorkerExample.Criteria;
 import com.health.mapper.WorkerMapper;
+import com.health.mapper.WorkerroleMapper;
 
 /**
  * 后台人员设置的BIZ的实现类
@@ -25,6 +26,8 @@ public class ImplWorkerMg implements WorkerMgBiz{
 	WorkerMapper workerMapper;
 	@Resource
 	WorkerExample example;
+	@Resource
+	WorkerroleMapper workerroleMapper;
 	/**
 	 * 实现查询所用工作人员的信息
 	 * @author 范帅
@@ -90,6 +93,37 @@ public class ImplWorkerMg implements WorkerMgBiz{
 	public ArrayList<Worker> queryWorkerState(String state) {
 		ArrayList<Worker> queryListWorker = workerMapper.queryworkerState(state);
 		return queryListWorker;
+	}
+
+	@Override
+	public int queryMaxId() {
+		int i = workerMapper.queryMaxId();
+		return i;
+	}
+
+	@Override
+	public int resetPassword(String name) {
+		int i = workerMapper.resetPassword(name);
+		return i;
+	}
+
+	@Override
+	public int deleteFkWork(String name) {
+		int i = workerMapper.deleteFkWork(name);
+		return i;
+	}
+
+
+	@Override
+	public int updateWorker(Integer workerid, Integer deptid) {
+		int i = workerMapper.updateWorker( workerid,deptid);
+		return i;
+	}
+
+	@Override
+	public int deleteWorkerrole(Integer workerid, Integer roleid) {
+		int i = workerroleMapper.deleteWorkerrole(workerid,roleid);
+		return i;
 	}
 
 

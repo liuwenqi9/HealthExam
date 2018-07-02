@@ -7,13 +7,15 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkerroleMapper {
+	int updateWorkerrole(Integer workerid,Integer roleid);
+	int deleteWorkerrole(Integer workerid,Integer roleid);
     int countByExample(WorkerroleExample example);
 
     int deleteByExample(WorkerroleExample example);
 
     int deleteByPrimaryKey(Integer workerroleid);
 
-    int insert(Workerrole record);
+    int insert(Workerrole workerrole);
 
     int insertSelective(Workerrole record);
 
