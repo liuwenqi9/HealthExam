@@ -68,8 +68,7 @@
 								class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-									
-										
+
 										<th width="5%">序号</th>
 										<th width="20%">企业账号</th>
 										<th width="25%">企业名称</th>
@@ -85,9 +84,13 @@
 										varStatus="idx">
 										<tr id="tr_ofAccount">					
 
-											<td class="center"><c:out value="${idx.index+1}"></c:out></td>
 
-											<td class="center"><c:out value="${account.getAccount()}"></c:out></td>
+											<td class="center"><c:out value="${idx.index+1}"></c:out></td>
+											<td class="center"><c:out
+													value="${account.getAccount()}"></c:out></td>
+
+
+
 											<td class="center"><c:out value="${account.getName()}"></c:out></td>
 											<c:choose>
 												<c:when test="${account.getState() eq '1'}">
@@ -207,7 +210,7 @@
 		class="btn-scroll-up btn btn-sm btn-inverse"> <i
 		class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 	</a>
-	
+
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement)
 			document
@@ -215,7 +218,7 @@
 							+ "<"+"/script>");
 	</script>
 	<%@ include file="footer.jsp"%>
-	
+
 	<script src="<%=request.getContextPath()%>/js/accountMg.js"></script>
 </body>
 </html>

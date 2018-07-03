@@ -23,6 +23,8 @@ public interface AccountMapper {
 	
 	int updateAcName(Account account);    //团检单位名称修改
 	
+	int updatePwd(Account account);        //团检单位修改密码
+	
     int countByExample(AccountExample example);
 
     int deleteByExample(AccountExample example);

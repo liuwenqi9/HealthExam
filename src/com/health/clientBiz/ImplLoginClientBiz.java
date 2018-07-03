@@ -25,4 +25,10 @@ public class ImplLoginClientBiz implements LoginClientBiz {
 		return ac;
 	}
 
+	@Override
+	public int updatePwd(Account account) {
+	   int updateRs	=accountMapper.updatePwd(account);
+		return updateRs;
+	}
+
 }

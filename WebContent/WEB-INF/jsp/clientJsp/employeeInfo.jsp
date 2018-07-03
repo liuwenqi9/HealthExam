@@ -58,11 +58,11 @@
 
 									<tr class="" v-for="(todo, index) in employeeList">
 										<td class="center">{{index+1}}</td>
-										<td>{{todo.name}}</td>
-										<td>{{todo.age}}</td>
-										<td>{{todo.sex}}</td>
-										<td>{{todo.telephone}}</td>
-										<td>{{todo.identity}}</td>
+										<td class="center" >{{todo.name}}</td>
+										<td class="center">{{todo.age}}</td>
+										<td class="center">{{todo.sex}}</td>
+										<td class="center">{{todo.telephone}}</td>
+										<td class="center">{{todo.identity}}</td>
 									</tr>
 
 								</tbody>
@@ -126,5 +126,6 @@
 	<%@ include file="footer.jsp"%>
 
 	<script src="<%=request.getContextPath()%>/js/employeeInfo.js"></script>
+	
 </body>
 </html>

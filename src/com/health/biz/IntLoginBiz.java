@@ -12,5 +12,7 @@ import com.health.entity.Worker;
 public interface IntLoginBiz {
 	
 	public Worker loginAdmin(Worker worker);
+	
+	public int updatePwdWorker(Worker worker);
 
 }

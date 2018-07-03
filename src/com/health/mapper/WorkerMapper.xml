@@ -11,6 +11,9 @@
   <update id="resetPassword" parameterType="java.lang.String">
   	update worker set password = '123456' where name = #{name}
   </update>
+  <select id="queryWorkerName" parameterType="java.lang.String" resultType="com.health.entity.Worker">
+  	select * from worker where name = #{name}
+  </select>
   <select id="queryMaxId" resultType="java.lang.Integer">
   	select max(workerid) from worker
   </select>
@@ -23,6 +26,11 @@
   <select id="queryworkerState" parameterType="String" resultType="com.health.entity.Worker">
   	select * from Worker where state like  #{state} ORDER BY workerid ASC
   </select>
+  
+  <update id="updatePwdWorker" parameterType="com.health.entity.Worker">
+	    update  Worker set password=#{password} where name=#{name}
+	
+	</update>
   
   <update id="changeWorkerState"
 		parameterType="java.util.HashMap">

@@ -25,6 +25,11 @@
 		resultType="com.health.entity.Account">
 		select * from ACCOUNT
 	</select>
+	
+	<update id="updatePwd" parameterType="com.health.entity.Account">
+	    update  ACCOUNT set password=#{password} where account=#{account}
+	
+	</update>
 
 	<select id="queryAccountName" parameterType="com.health.entity.Account" resultType="com.health.entity.Account">
 		<!-- select * from ACCOUNT where name like #{name} ORDER BY account ASC -->

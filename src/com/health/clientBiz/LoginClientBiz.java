@@ -13,4 +13,6 @@ import com.health.entity.Account;
 public interface LoginClientBiz {
 
 	public Account loginClient(Account account);
+	
+	public int  updatePwd(Account account);
 }

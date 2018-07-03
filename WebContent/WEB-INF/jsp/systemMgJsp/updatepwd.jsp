@@ -32,7 +32,7 @@
 			<ul class="breadcrumb">
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a
 					href="<%=request.getContextPath()%>/web/index.jsp">首页</a></li>
-				<li>系统指南与辅助</li>
+				<li>辅助功能</li>
 				<li class="active">修改密码</li>
 			</ul>
 			<div class="page-content" id="dataBind">
@@ -110,7 +110,7 @@
 			$("#updateBtn").click(function() {
 				alert("修改");
 				$.ajax({
-					url : "updatePwd.action",
+					url : "updatePwdWorker.action",
 					type : "post",
 					dataType : "text",
 					data : {
