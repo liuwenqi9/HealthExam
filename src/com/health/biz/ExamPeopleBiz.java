@@ -40,6 +40,17 @@ public class ExamPeopleBiz {
 		return list;
 	}
 	
+	//报告打印模块 -- 体检人信息
+	public Exampeople pplMsg(Integer guideid){
+		examPeopleExample.clear();
+		Criteria criteria = examPeopleExample.createCriteria();
+		criteria.andGuideidEqualTo(guideid);
+		List<Exampeople> list = examPeopleMapper.selectPeopleMsg(examPeopleExample);
+		
+		
+		return list.get(0);
+	}
+	
 	public List<Exampeople> search(String name, String telephone, String barcode, String startTime, String endTime){
 		examPeopleExample.clear();
 		Criteria criteria = examPeopleExample.createCriteria();

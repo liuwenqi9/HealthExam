@@ -1,6 +1,7 @@
 package com.health.biz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 
@@ -46,6 +47,12 @@ public class ImplRoleMg implements RoleMgBiz {
 	public int lengthId() {
 		int i = roleMapper.lengthId();
 		return 0;
+	}
+
+	@Override
+	public int updateRole(HashMap<String, String>map) {
+		int i = roleMapper.updateRole (map);
+		return i ;
 	}
 
 }

@@ -14,6 +14,16 @@
 }
 </style>
 <%@ include file="header.jsp"%>
+
+<script language="javascript" type="text/javascript"
+	src="<%=request.getContextPath()%>/js/LodopFuncs.js"></script>
+<object id="LODOP_OB"
+	classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0"
+	height="0">
+	<embed id="LODOP_EM" type="application/x-print-lodop" width="0"
+		height="0" pluginspage="Lodop/install_lodop32.exe"></embed>
+</object>
+
 </head>
 <body class="no-skin">
 	<%@ include file="menu.jsp"%>
@@ -45,37 +55,52 @@
 								v-on:click="getGuideInfo(guideId)">
 								<i class="glyphicon  glyphicon-search bigger-110"></i>查询
 							</button>
+
+							<button class="btn btn-sm btn-success"
+								v-on:click="createPrintPage();LODOP.PRINT_DESIGN()">打印导检单</button>
 						</div>
 					</div>
 
 					<div class="row">
 
-						<div class="col-xs-12">
-							<table id="dynamic-table"
-								class="table table-striped table-bordered table-hover">
+						<div id="dynamicTableDiv" class="col-xs-12">
+							<table class="table table-striped table-bordered table-hover">
+
+								<tr v-for="(todo, index) in guideInfoList" v-if="index==0">
+									<td class="center">姓名：{{todo.name}}</td>
+								</tr>
+								<tr v-for="(todo, index) in guideInfoList" v-if="index==0">
+									<td class="center">所属企业：{{todo.accountname}}</td>
+								</tr>
+								<tr v-for="(todo, index) in guideInfoList" v-if="index==0">
+									<td class="center">身份证号码：{{todo.identity}}</td>
+								</tr>
+								<tr v-for="(todo, index) in guideInfoList" v-if="index==0">
+									<td class="center">性别/年龄：{{todo.sex}}/ {{todo.age}}</td>
+								</tr>
+								<tr v-for="(todo, index) in guideInfoList" v-if="index==0">
+									<td class="center">条形码：{{todo.barcode}}</td>
+								</tr>
+							</table>
+								
+							<table class="table table-striped table-bordered table-hover">
 								<thead>
-									<tr>
-										<th class="center" width="5%">姓名</th>
-										<th class="center" width="17%">所属公司</th>
-										<th class="center" width="15%">身份证号</th>
-										<th class="center" width="8%">性别/体重</th>
-										<th class="center" width="5%">条码号</th>
-										<th class="center" width="10%">检查项目</th>
-										<th class="center" width="7%">体检科室</th>
-										<th class="center" width="18%">科室医生</th>
+									<tr tr v-for="(todo, index) in guideInfoList" v-if="index==0">
+										<th class="center" width="20%">检查项目</th>
+										<th class="center" width="20%">体检科室</th>
+										<th class="center" width="30%">科室医生</th>
+										<th class="center" width="30%">医生签名</th>
+
 									</tr>
 								</thead>
 
 								<tbody>
 									<tr v-for="(todo, index) in guideInfoList">
-										<td class="center">{{todo.name}}</td>
-										<td class="center">{{todo.accountname}}</td>
-										<td class="center">{{todo.identity}}</td>
-										<td class="center">{{todo.sex}} / {{todo.age}}</td>
-										<td class="center">{{todo.barcode}}</td>
 										<td class="center">{{todo.itemname}}</td>
 										<td class="center">{{todo.deptname}}</td>
 										<td class="center">{{todo.totoldoctors}}</td>
+										<td class="center"></td>
+
 									</tr>
 								</tbody>
 

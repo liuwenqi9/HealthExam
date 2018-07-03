@@ -15,9 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.health.biz.DeptService;
+import com.health.biz.RoleMgBiz;
 import com.health.biz.WorkerMgBiz;
+import com.health.biz.WorkerroleMgBiz;
+import com.health.entity.Dept;
+import com.health.entity.Role;
 import com.health.entity.Worker;
 import com.health.entity.WorkerExample.Criteria;
+import com.health.entity.Workerrole;
 import com.health.util.PageUtil;
 
 /**
@@ -31,29 +37,13 @@ import com.health.util.PageUtil;
 public class WorkControl {
 	@Resource
 	WorkerMgBiz implWorkerMg;
+	@Resource
+	WorkerroleMgBiz implWorkerroleBiz;
 	PrintWriter printWriter;
 	
 	private int dataNum = 10; //每页显示数据
 	@Resource
 	private Map<String, Object> billMsg; //ajax数据回传
-	/**
-	 * 主界面点击系统管理->人员设置选项的时候进行的页面跳转
-	 * @author 范帅
-	 * @date 6月18日
-	 * 
-	 */
-	@RequestMapping("workerMg.action")
-	public ModelAndView getWorkerMg( String name) {
-		ModelAndView mav = new ModelAndView("jsp/systemMgJsp/workerMg");;
-		if (name==null) {
-			ArrayList<Worker>wkList = implWorkerMg.queryWorkerList();
-			mav.addObject("wkList",wkList);
-		} else {
-			ArrayList<Worker>resultList = implWorkerMg.queryWorker("%"+name+"%");
-			mav.addObject("wkList",resultList);
-		}
-		return mav;
-	}
 	/**
 	 * 修改用户状态启用/禁用
 	 * Ajax
@@ -81,11 +71,19 @@ public class WorkControl {
 	 * @date 6月25日
 	 */
 	@RequestMapping("insertworkerMg.action")
-	public void  insertWorker(HttpServletResponse response, Worker worker) throws IOException {
+	public void  insertWorker(HttpServletResponse response, Worker worker,Integer roleid) throws IOException {
 		printWriter = response.getWriter();
 		int lengthid = implWorkerMg.lengthid();
 		worker.setWorkerid(lengthid+1);
 		int i = implWorkerMg.insertWorker(worker);
+		//通过查询worker的最大ID号 就是当前插入的ID号 
+		int workerid = implWorkerMg.queryMaxId();
+		//roleid即使形参 可以获取
+		Workerrole wr = new Workerrole();
+		wr.setWorkerid(workerid);
+		wr.setRoleid(roleid);
+		int j = implWorkerroleBiz.insert(wr);
+	//	System.out.println(j+"这个的意思是已经把角色人员表添加进去成功了");
 		if (i!=-1) {
 			printWriter.print("OK");
 			printWriter.flush();
@@ -107,10 +105,15 @@ public class WorkControl {
 	@RequestMapping("deletworkerMg.action")
 	public void deleteWorker(HttpServletResponse response, String name) throws IOException {
 		int delResult = 0;
+		int delFk = 0;
+		System.out.println(name);
+		delFk = implWorkerMg.deleteFkWork(name);
+		System.out.println(delFk+"----------------");
 		delResult = implWorkerMg.deleteWork(name);
 		System.out.println(delResult);
+		System.out.println(delResult+"----------------");
 		printWriter = response.getWriter();
-		if (delResult>0) {
+		if (delFk>0&&delResult>0) {
 			printWriter.print("OK");
 			printWriter.flush();
 			printWriter.close();
@@ -123,14 +126,28 @@ public class WorkControl {
 			
 		}
 	}
-	@RequestMapping("selectWorkerByState.action")
-	public ModelAndView selectWorkerByState( String state) {
-		ModelAndView mav = new ModelAndView("jsp/systemMgJsp/workerMg");
-		System.out.println("状态名字为："+state);
-		ArrayList<Worker>resultList = implWorkerMg.queryWorkerState("%"+state+"%");
-		mav.addObject("wkList",resultList);
-		return mav;
+	/**
+	 * 更新重置密码功能
+	 * @author 范帅
+	 * @data 6-30
+	 */
+	@RequestMapping("resetPwd.action")
+	public void resetPassword(HttpServletResponse response , String name) throws IOException {
+		int reset = 0;
+		reset = implWorkerMg.resetPassword(name);
+		printWriter = response.getWriter();
+		if (reset>0) {
+			System.out.println("成功");
+			printWriter.print("OK");
+			printWriter.flush();
+			printWriter.close();
+		} else {
+			printWriter.print("FAIL");
+			printWriter.flush();
+			printWriter.close();
+		}
+		
 	}
-
+	
 
 }

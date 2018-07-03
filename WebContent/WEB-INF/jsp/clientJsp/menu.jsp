@@ -29,11 +29,11 @@
 
 					<ul
 						class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-						<li><a href="" > <i
+						<li><a onclick="$('#updata-modal').modal('show');"> <i
 								class="ace-icon fa fa-power-off"></i> 修改密码
 						</a></li>
-						<li><a href="loginClietJsp.action">
-								<i class="ace-icon fa fa-power-off"></i> 退出
+						<li><a href="loginClientJsp.action"> <i
+								class="ace-icon fa fa-power-off"></i> 退出
 						</a></li>
 					</ul></li>
 			</ul>
@@ -131,6 +131,9 @@
 		</a> <b class="arrow"></b>
 
 			<ul class="submenu">
+				<li class=""><a href="recharge.action"> <i
+						class="menu-icon fa fa-caret-right"></i> 账户充值
+				</a> <b class="arrow"></b></li>
 				<li class=""><a href="examHistory.action"> <i
 						class="menu-icon fa fa-caret-right"></i> 体检历史
 				</a> <b class="arrow"></b></li>
@@ -142,7 +145,7 @@
 
 
 	</ul>
-	
+
 	<!-- /.nav-list -->
 
 	<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -151,6 +154,6 @@
 			data-icon1="ace-icon fa fa-angle-double-left"
 			data-icon2="ace-icon fa fa-angle-double-right"></i>
 	</div>
-	
-	
+
+
 </div>

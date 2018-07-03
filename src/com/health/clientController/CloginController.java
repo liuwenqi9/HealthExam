@@ -37,7 +37,7 @@ public class CloginController {
 	 * 
 	 * @autuor 毛聪
 	 */
-	@RequestMapping("loginClietJsp.action")
+	@RequestMapping("loginClientJsp.action")
 	public ModelAndView loginClietJsp() {
 		ModelAndView mav = new ModelAndView("jsp/loginEnterprise");
 		return mav;

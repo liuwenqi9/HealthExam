@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.http.HttpRequest;
@@ -53,14 +54,13 @@ public class TeamOpenControl {
 
 	/**
 	 * 获取该企业的人员列表和所有的套餐列表
-	 * 
 	 * @return 返回装载了数据的map
 	 * @author 罗杭春 6月24日
 	 */
 	@RequestMapping("getOriginalData.action")
-	public @ResponseBody HashMap<String, Object> getOriginalData() {
+	public @ResponseBody HashMap<String, Object> getOriginalData(HttpSession session) {
 		// 此处要根据登录的企业账号来搜索该账号下所有的员工
-		ArrayList<Personinfo> personList = implTeamOpenBiz.getPersonListByAccount("4399kj"); // 获取所有的员工信息
+		ArrayList<Personinfo> personList = implTeamOpenBiz.getPersonListByAccount((String)session.getAttribute("AccountID")); // 获取所有的员工信息
 		// 获取所有的套餐信息，发送到前端
 		ArrayList<Packages> packageList = implTeamOpenBiz.getAllPackages();
 
@@ -71,19 +71,11 @@ public class TeamOpenControl {
 
 	/**
 	 * 企业用户对自己员工添加体检套餐
-	 * 
 	 * @author 罗杭春 6月19日
 	 * @return 返回一个模型和视图的对象，转发到相应页面
 	 */
 	@RequestMapping("makeCharge.action")
-	public ModelAndView makeCharge(String[] personIdList, String[] packageIdList) {
-//		System.out.println("!!!!!--------请求makeCharge");
-//		for (int i = 0; i < personIdList.length; i++) {
-//			System.out.println(personIdList[i]);
-//		}
-//		for (int i = 0; i < packageIdList.length; i++) {
-//			System.out.println(packageIdList[i]);
-//		}
+	public ModelAndView makeCharge(HttpSession session, String[] personIdList, String[] packageIdList) {
 
 		String maxChargeId = null; // 当前最大的订单ID号
 		int maxGuideId; // 当前最大的导检单ID号
@@ -93,7 +85,7 @@ public class TeamOpenControl {
 
 		// 第三步：定义一条新的订单记账记录，插入到记账表中，并且如果成功，则查询插入记录的ID号
 		Charge currentCharge = new Charge();
-		currentCharge.setAccount("4399kj"); // 此时从session中获取账号???????????????????????????????????????
+		currentCharge.setAccount(session.getAttribute("AccountID")); // 此时从session中获取账号
 		currentCharge.setAmount(0L);
 		currentCharge.setPretime(MyTimeUtil.getTimeNowTogether());
 		currentCharge.setState(chargeState);
