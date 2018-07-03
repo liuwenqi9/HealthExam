@@ -23,6 +23,9 @@ public interface ExampeopleMapper {
     
     //额外添加 -- 获取人员详细信息
     List<Exampeople> selectPeopleDetail(ExampeopleExample example);
+    
+    //额外添加 -- 人员信息
+    List<Exampeople> selectPeopleMsg(ExampeopleExample example);
 
     int updateByExampleSelective(@Param("record") Exampeople record, @Param("example") ExampeopleExample example);
 

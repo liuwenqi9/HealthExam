@@ -121,6 +121,15 @@
     group by GUIDEID, ALLSUMMARY, CHECKSTATE
   </select>
   
+  <!-- 额外添加 人员信息 -->
+   <select id="selectPeopleMsg" resultMap="BaseResultMap" parameterType="com.health.entity.ExampeopleExample">
+	select distinct name, age, sex, telephone, account
+	from exampeople 
+	<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
   <delete id="deleteByExample" parameterType="com.health.entity.ExampeopleExample" >
     delete from EXAMPEOPLE
     <if test="_parameter != null" >
