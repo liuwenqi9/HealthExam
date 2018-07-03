@@ -44,8 +44,8 @@
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
-											<th width="50%">选择</th>
-											<th width="50%">员工</th>
+											<th class="center" width="50%">选择</th>
+											<th class="center" width="50%">员工</th>
 										</tr>
 									</thead>
 
@@ -78,9 +78,9 @@
 									class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
-											<th width="25%">选择</th>
-											<th width="50%">套餐名称</th>
-											<th width="25%">套餐价格</th>
+											<th class="center" width="25%">选择</th>
+											<th class="center" width="50%">套餐名称</th>
+											<th class="center" width="25%">套餐价格</th>
 										</tr>
 									</thead>
 
