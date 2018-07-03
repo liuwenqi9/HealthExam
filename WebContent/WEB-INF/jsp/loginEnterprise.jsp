@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Login Page - Ace Admin</title>
+<title>健康团检企业登录</title>
 
 <meta name="description" content="User login page" />
 <meta name="viewport"
@@ -40,10 +40,10 @@
 					<div class="login-container">
 						<div class="center">
 							<h1>
-								<i class="ace-icon fa fa-leaf green"></i> <span class="red">企业</span>
-								<span class="white" id="id-text2">健康体检</span>
+								<i class="ace-icon fa fa-leaf green"></i> <span class="red">健康团检</span>
+								<span class="white" id="id-text2">企业登录</span>
 							</h1>
-							<h4 class="blue" id="id-company-text">&copy; Company Name</h4>
+							<h4 class="blue" id="id-company-text">&copy; 传一科技JX1711健康团队</h4>
 						</div>
 
 						<div class="space-6"></div>
@@ -60,12 +60,14 @@
 
 										<div class="space-6"></div>
 
-										<form action="loginClietJsp.action" method="post" id="loginFrom" path=<%=path%>>
+										<form action="loginClietJsp.action" method="post"
+											id="loginFrom" path=<%=path%>>
 											<fieldset>
 												<label class="block clearfix"> <span
 													class="block input-icon input-icon-right"> <input
-														id="account" type="text" name="account" class="form-control"
-														placeholder="Username" /> <i class="ace-icon fa fa-user"></i>
+														id="account" type="text" name="account"
+														class="form-control" placeholder="Username" /> <i
+														class="ace-icon fa fa-user"></i>
 												</span>
 												</label> <label class="block clearfix"> <span
 													class="block input-icon input-icon-right"> <input
@@ -73,11 +75,11 @@
 														class="form-control" placeholder="Password" /> <i
 														class="ace-icon fa fa-lock"></i>
 												</span>
-												</label>
-
-													<input type="text" size="10px" id="VerificationCode" name="VerificationCode"
-													placeholder="请输入验证码" id="VerificationCode" />
-					 <img id="image-code" src=<%=path + "/createImage.action"%> onclick="changeCodes()"  align="middle">
+												</label> <input type="text" size="10px" id="VerificationCode"
+													name="VerificationCode" placeholder="请输入验证码"
+													id="VerificationCode" /> <img id="image-code"
+													src=<%=path + "/createImage.action"%>
+													onclick="changeCodes()" align="middle">
 
 
 
@@ -99,7 +101,10 @@
 										</form>
 
 										<div class="social-or-login center">
-											<span class="bigger-110">Or Login Using</span>
+											<span class="bigger-110"><a
+												href="<%=request.getContextPath()%>/loginJsp.action"
+												data-target="#signup-box" style="font-size: 20px">我是医院工作人员，前往工作人员登录页 </a>
+											</span> 
 										</div>
 
 										<div class="space-6"></div>
@@ -117,17 +122,13 @@
 									<!-- /.widget-main -->
 
 									<div class="toolbar clearfix">
-										<div>
-											<a href="#" data-target="#forgot-box"
-												class="forgot-password-link"> <i
-												class="ace-icon fa fa-arrow-left"></i> I forgot my password
-											</a>
-										</div>
+										<div></div>
 
 										<div>
-											<a href="#" data-target="#signup-box"
-												class="user-signup-link"> I want to register <i
-												class="ace-icon fa fa-arrow-right"></i>
+											<a
+												href="<%=request.getContextPath()%>/register/register.action"
+												data-target="#signup-box" class="user-signup-link">
+												前往企业注册页面 <i class="ace-icon fa fa-arrow-right"></i>
 											</a>
 										</div>
 									</div>
@@ -275,56 +276,56 @@
 
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
+		$("#login").click(
+				function() {
+					var account = $("#account").val();
+					var password = $("#password").val();
+					var veriCode = $("#VerificationCode").val();
+					// 			var ret = /^[^\u4e00-\u9fa5]+$/;
+					if (account == null || account == "") {
+						alert("请输入帐户名")
+					} else if (password == null || password == "") {
+						alert("请输入密码")
+					} else if (veriCode == null || veriCode == "") {
+						alert("请输入验证码");
+					} else {
+						// 				alert($("#userName").val());
+						// 				alert($("#password").val());
+						$.ajax({
+							url : "loginCliet.action",
+							type : "post",
+							dataType : "text",
+							data : {
+								"account" : account,
+								"password" : password,
+								"VerificationCode" : veriCode
 
-		$("#login").click(function() {
-			var account = $("#account").val();
-			var password = $("#password").val();
-			var veriCode=$("#VerificationCode").val();
-			// 			var ret = /^[^\u4e00-\u9fa5]+$/;
-			if (account == null || account == "") {
-				alert("请输入帐户名")
-			} else if (password == null || password == "") {
-				alert("请输入密码")
-			}
-			else if (veriCode==null || veriCode=="") {
-				alert("请输入验证码");
-			} 	
-			else {
-// 				alert($("#userName").val());
-// 				alert($("#password").val());
-				$.ajax({
-					url : "loginCliet.action",
-					type : "post",
-					dataType : "text",
-					data : {
-						"account" :account,
-						"password" : password,
-						"VerificationCode":veriCode
+							},
+							success : function(data) {
+								if (data == "OK") {
+									alert("登陆成功");
+									var formNode = document
+											.getElementById("loginFrom");
+									var basepath = formNode
+											.getAttribute("path");
 
-					},
-					success : function(data) {
-						if (data == "OK") {
-							alert("登陆成功");
-							var formNode = document.getElementById("loginFrom");
-							var basepath = formNode.getAttribute("path");
+									formNode.action = 'loginClientThis.action';
+									formNode.submit();
 
-							formNode.action = 'loginClientThis.action';
-							formNode.submit();
+								} else if (data == "FAIL") {
 
-						} else if (data == "FAIL") {
+									alert("账户或密码错误");
 
-							alert("账户或密码错误");
+								} else if (data == "FAILCode") {
+									alert("验证码错误");
+									changeCodes();
+								}
+							}
+						})
 
-						}else if(data=="FAILCode"){
-							alert("验证码错误");
-							changeCodes();
-						}
 					}
-				})
 
-			}
-
-		});
+				});
 
 		var temp;
 		$(function() {
@@ -337,8 +338,6 @@
 			$("#image-code")
 					.attr("src", temp + "?data=" + new Date().getTime());
 		}
-		
-		
 	</script>
 
 

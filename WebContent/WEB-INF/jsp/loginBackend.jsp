@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Login Page - Ace Admin</title>
+<title>健康体检团检系统后台登录</title>
 
 <meta name="description" content="User login page" />
 <meta name="viewport"
@@ -40,10 +40,11 @@
 					<div class="login-container">
 						<div class="center">
 							<h1>
-								<i class="ace-icon fa fa-leaf green"></i> <span class="red">后台</span>
+								<i class="ace-icon fa fa-leaf green"></i> <span class="red">健康团检后台</span>
 								<span class="white" id="id-text2">管理系统</span>
 							</h1>
-							<h4 class="blue" id="id-company-text">&copy; Company Name</h4>
+							<h4 class="blue" id="id-company-text">&copy;
+								传一科技JX1711-健康体检团检团队</h4>
 						</div>
 
 						<div class="space-6"></div>
@@ -76,17 +77,19 @@
 												</span>
 												</label>
 
-												<!-- 													验证码:<input type="text" name="checkWorker" id="checkWorker" -->
-												<!-- 														maxlength="4" size="4"> <img -->
-												<%-- 														src="<%=path%>/imageServlet" alt="验证码" id="imageWorker" /> --%>
-												<!-- 													<a href="javascript:reloadWorker();"><label>看不清</label></a> -->
+<!-- 													验证码:<input type="text" name="checkWorker" id="checkWorker" -->
+<!-- 														maxlength="4" size="4"> <img -->
+<%-- 														src="<%=path%>/imageServlet" alt="验证码" id="imageWorker" /> --%>
+<!-- 													<a href="javascript:reloadWorker();"><label>看不清</label></a> -->
 
 
-						<input type="text" size="10px" id="VerificationCode" name="VerificationCode"
-													placeholder="请输入验证码" id="VerificationCode" />
-					 <img id="image-code" src=<%=path + "/createImage.action"%> onclick="changeCodes()"  align="middle">
+												<input type="text" size="10px" id="VerificationCode"
+													name="VerificationCode" placeholder="请输入验证码"
+													id="VerificationCode" /> <img id="image-code"
+													src=<%=path + "/createImage.action"%>
+													onclick="changeCodes()" align="middle">
 
-											
+
 
 
 
@@ -127,15 +130,12 @@
 
 									<div class="toolbar clearfix">
 										<div>
-											<a href="#" data-target="#forgot-box"
-												class="forgot-password-link"> <i
-												class="ace-icon fa fa-arrow-left"></i> I forgot my password
-											</a>
+	
 										</div>
 
 										<div>
 											<a href="#" data-target="#signup-box"
-												class="user-signup-link"> I want to register <i
+												class="user-signup-link">前往注册 <i
 												class="ace-icon fa fa-arrow-right"></i>
 											</a>
 										</div>
@@ -288,16 +288,15 @@
 				function() {
 					var name = $("#userName").val();
 					var password = $("#password").val();
-					var veriCode=$("#VerificationCode").val();
+					var veriCode = $("#VerificationCode").val();
 					// 			var ret = /^[^\u4e00-\u9fa5]+$/;
 					if (name == null || name == "") {
 						alert("请输入帐户名")
 					} else if (password == null || password == "") {
 						alert("请输入密码")
-					}else if (veriCode==null || veriCode=="") {
+					} else if (veriCode == null || veriCode == "") {
 						alert("请输入验证码");
-					} 
-					else {
+					} else {
 						// 				alert($("#userName").val());
 						// 				alert($("#password").val());
 						$.ajax({
@@ -306,8 +305,8 @@
 							dataType : "text",
 							data : {
 								"name" : name,
-								"password" :password,
-								"VerificationCode":veriCode
+								"password" : password,
+								"VerificationCode" : veriCode
 
 							},
 							success : function(data) {
@@ -325,7 +324,7 @@
 
 									alert("账户或密码错误");
 
-								}else if(data=="FAILCode"){
+								} else if (data == "FAILCode") {
 									alert("验证码错误");
 									changeCodes();
 								}
@@ -335,7 +334,6 @@
 					}
 
 				});
-
 
 		var temp;
 		$(function() {
