@@ -7,12 +7,16 @@
     <result column="MENUNAME" property="menuname" jdbcType="OTHER" />
     <result column="URL" property="url" jdbcType="OTHER" />
   </resultMap>
+  <select id="queryDept"></select>
   <update id="updataMenu" parameterType="com.health.entity.Menu">
   	 update menu set menuname=#{menuname}  where menuid=#{menuid}
   </update>
   <delete id="deleteMenu">
   	delete from menu where menuname = #{menuname}
   </delete>
+  <select id="queryMenuid" parameterType="int" resultType="com.health.entity.Menu">
+  	select * from menu where menuid = #{menuid}
+  </select>
   <select id="querymenuName" parameterType="String" resultType="com.health.entity.Menu" >
   	select * from Menu where menuname like  #{menuname} ORDER BY menuid ASC
   </select>

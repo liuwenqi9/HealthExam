@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.health.entity.Role;
 import com.health.entity.Rolepower;
 
 /**
@@ -15,5 +16,6 @@ import com.health.entity.Rolepower;
 public interface RolepowerMgBiz {
 	
 	public ArrayList<Rolepower> queryRolepowerList();
+	public ArrayList<Role>queryRole();
 
 }

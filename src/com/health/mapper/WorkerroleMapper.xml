@@ -9,6 +9,9 @@
   <delete id="deleteWorkerrole" parameterType="java.lang.Integer">
   	delete from workerrole where workerid = #{workerid}
   </delete>
+  <select id="queryWorkerrole" parameterType="int" resultType="com.health.entity.Workerrole">
+  	select * from workerrole where workerid= #{workerid}
+  </select> 
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

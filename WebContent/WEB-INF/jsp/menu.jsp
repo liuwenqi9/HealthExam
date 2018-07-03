@@ -1,6 +1,8 @@
 
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="header.jsp"%>
 
 <div id="navbar" class="navbar navbar-default          ace-save-state">
 	<div class="navbar-container ace-save-state" id="navbar-container">
@@ -24,6 +26,7 @@
 				<li class="light-blue dropdown-modal"><a data-toggle="dropdown"
 					href="#" class="dropdown-toggle"> <span class="user-info">
 							<small>欢迎</small> <%=session.getAttribute("WorkerName")%>
+							
 					</span> <i class="ace-icon fa fa-caret-down"></i>
 				</a>
 
@@ -61,15 +64,49 @@
 		}
 	</script>
 
+
 	<ul class="nav nav-list" style="top: 0px;">
-		<li class=""><a href="index.action"> <i
+	<c:forEach var="menu" items='<%=session.getAttribute("mList") %>'>
+		<c:choose>
+			<c:when test="${menu.getUrl() eq 'index.action'}">
+			<li class=""><a href="index.action"> <i
 				class="menu-icon fa fa-desktop"></i> <span class="menu-text">
 					首页 </span>
-		</a> <b class="arrow"></b></li>
-
-		<li class=""><a href="#" class="dropdown-toggle"> <i
+			</a> <b class="arrow"></b>
+			</c:when>
+			<c:when test="${menu.getUrl() eq null}"><!-- 一级菜单 -->
+				<li class=""><a href="#" class="dropdown-toggle"> <i
 				class="menu-icon fa fa-list"></i> <span class="menu-text">
-					系统管理 </span> <b class="arrow fa fa-angle-down"></b>
+					${menu.getMenuname()}</span> <b class="arrow fa fa-angle-down"></b>
+					</a> <b class="arrow"></b>
+				<ul class="submenu"> 
+				<c:forEach var="menu2" items="${mList}">
+				
+				<c:choose>
+					<c:when test="${menu.getMenuid() == menu2.getParentid()}">
+						<li class=""><a href="${menu2.getUrl()}"> <i
+						class="menu-icon fa fa-caret-right"></i> ${menu2.getMenuname()}
+				</a> <b class="arrow"></b></li>
+					</c:when>
+				</c:choose>
+				
+				</c:forEach>
+			
+				
+
+			</ul> </li>
+		
+			</c:when>
+			
+		</c:choose>
+	</c:forEach>
+	</ul>
+	 	
+
+
+		<!-- <li class=""><a href="#" class="dropdown-toggle"> <i
+				class="menu-icon fa fa-list"></i> <span class="menu-text">
+					系统管理</span> <b class="arrow fa fa-angle-down"></b>
 		</a> <b class="arrow"></b>
 
 			<ul class="submenu">
@@ -209,7 +246,7 @@
 
 			</ul></li>
 
-	</ul>
+	</ul>  -->
 	<!-- /.nav-list -->
 
 	<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -218,4 +255,7 @@
 			data-icon1="ace-icon fa fa-angle-double-left"
 			data-icon2="ace-icon fa fa-angle-double-right"></i>
 	</div>
+	
+		
+
 </div>

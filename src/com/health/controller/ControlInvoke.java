@@ -3,10 +3,12 @@ package com.health.controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,10 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.health.biz.ImplAccountMg;
 import com.health.biz.ImplLoginBiz;
 import com.health.entity.Account;
+import com.health.biz.MenuMgBiz;
+import com.health.entity.Menu;
+import com.health.entity.Rolepower;
 import com.health.entity.Worker;
+import com.health.entity.Workerrole;
 import com.health.util.ImageUtil;
 
 @Controller
@@ -28,9 +35,11 @@ public class ControlInvoke {
 
 	@Resource
 	ImplAccountMg ImplAccountMg;
-
+	@Resource
+	MenuMgBiz implMenuMg;
 	
 	PrintWriter printWriter;
+	Worker worker;
 	/*
 	 * 跳转模板 用户转发到自己需要的jsp 自己复制这个模板，修改请求路径action、修改 转发路径
 	 * 
@@ -61,18 +70,18 @@ public class ControlInvoke {
 			throws IOException {
 		response.setContentType("text/text");
 		response.setCharacterEncoding("UTF-8");
+		this.worker = worker;
 		System.out.println(worker.getName() + "" + worker.getPassword());
 
 		String verCode = request.getParameter("VerificationCode");
 		System.out.println(verCode + "验证码" + session.getAttribute("imageCode"));
 
-		 printWriter = response.getWriter();
+		PrintWriter printWriter = response.getWriter();
 		if (verCode.equalsIgnoreCase(session.getAttribute("imageCode").toString())) {
 
 			Worker login = impLoginBiz.loginAdmin(worker);
 			if (login != null) {
 				session.setAttribute("WorkerName", worker.getName());
-				session.setAttribute("WorkerPwd", worker.getPassword());
 				printWriter.print("OK");
 				printWriter.flush();
 				printWriter.close();
@@ -94,9 +103,50 @@ public class ControlInvoke {
 	}
 
 	@RequestMapping("loginThis.action")
-	public ModelAndView loginThis() {
+	public ModelAndView loginThis(HttpServletRequest request,HttpSession session) {
+		
 		ModelAndView mav = new ModelAndView("jsp/index");
-
+		/**
+		 * 这块为范帅添加
+		 * @author 范帅
+		 */
+		//进行查找 worker表
+		Worker wor = implMenuMg.queryWorker((String) worker.getName());
+		if (wor != null) {
+			//进行再一步查询
+			int workerid = wor.getWorkerid();
+			Workerrole workerrole = implMenuMg.queryWorkerrole(workerid);
+			if (workerrole != null) {
+				int roleid = workerrole.getRoleid();
+				ArrayList<Rolepower> rolepowers = new ArrayList<>();
+				rolepowers = implMenuMg.queryRolePower(roleid);
+				ArrayList<Menu> mList = new ArrayList<>();
+				if (rolepowers != null) {
+					for (Rolepower rolepower : rolepowers) {
+						int menuid = rolepower.getMenuid();
+						Menu menus =null;
+						menus = implMenuMg.queryMenuid(menuid);
+						System.out.println(menus);
+						mList.add(menus);
+					}
+					Gson gson = new Gson();
+					String gson_mList = gson.toJson(mList);
+					System.out.println(gson_mList);
+					session.setAttribute("mList", mList);
+					/*mav.addObject("mList",mList);*/
+				}
+				String rp = new Gson().toJson(rolepowers);
+				System.out.println(rp);
+			}
+			String wr = new Gson().toJson(workerrole);
+			System.out.println(wr);
+		}
+		
+		Gson gson = new Gson();
+		String gson_work = gson.toJson(wor);
+		
+		System.out.println(gson_work);
+		
 		return mav;
 	}
 
