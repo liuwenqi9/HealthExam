@@ -4,11 +4,12 @@
 
 $(function () {
 	//加载搜索
+	console.log("session里面的部门id:"+req.sessionDeptid)
 	$.ajax({
 		url: "findGuideItemByDept.action",
 		method: "POST",
 		data: {page:1,
-			 dept:2//暂时写死
+			 dept:req.sessionDeptid//0703
 			},
 
 		success: function(msg){
@@ -76,8 +77,12 @@ $(function () {
 			                	  console.log("-----普通小结接收失败");
 			                  }
 
-			                } 	
-			    		
+			                },
+			    			 error:function(){
+									alert("获取失败，请确认是否联网");
+									console.log("获取失败");
+									
+								}	
 			    	}); 
 		    	  
 		    	  
@@ -100,6 +105,156 @@ $(function () {
 			return this.optional(element)||(reg.test(value));  
 		},"*体检小结1~300字");	
 //----界线 
+	 //细项体检小结表单验证
+	 $("#summary_form3").validate({
+		 rules: {//规则
+			 description_text3:{//细项体检小结
+				 required:true,
+				 textLength:false
+			 }, 
+			 doctorname3:{//细项医生名称
+				 required:true,
+		
+		  }
+	 	
+	 
+		 },
+		 messages: {//提示内容
+			 description_text3:{
+				  required:"请做小结"
+			  },
+			  
+			  doctorname3:{
+				  required:"请签名！"
+			  }
+			
+			  
+		  },
+		  submitHandler:function(form){ //符合规则提交
+				 //将表单序列化，提交
+				
+				  console.log("--运行到细项小结提交");
+			    	      			    	  
+			    	  $.ajax({
+				    		url: "updateSummary.action",  
+				    		 type: 'post',  
+				    		 data: { 
+				    			 'itemId': req.itemId,
+				    			 'guideItemid': req.guideItemid,
+				    			 'descriptionText': req.descriptionText3,
+				    			 'doctorName':req.docName3
+				    			 },
+				    		 success: function(result){
+				    			  console.log("-----细项小结接收反馈结果"+result);
+				                  if(result=="success"){//注册成功
+				                	  console.log("-----细项小结接收成功");
+				                	  alert("提交成功");
+				                	  $("#summary-modal3").modal('hide');
+				                	
+				                	  
+				                	  
+				                	  
+				                  }else{//注册失败
+				                	  alert("提交失败");
+				                	  $("#summary-modal3").modal('hide');
+				                	  console.log("-----细项小结接收失败");
+				                  }
+				                 //刷新界面 	
+				                  window.location.reload();
+				                  				          
+				                },
+				                error:function(){
+									alert("获取失败，请确认是否联网");
+									console.log("获取失败");
+									
+								}	 
+				    	}); 
+			    	  			    	    
+			  },
+			  errorPlacement: function(error, element) {//错误提示位置  
+		             error.appendTo(element.parent());  
+		            /* error.insertAfter(element.parent());*/
+		     }
+		 
+		 
+		
+		 
+		 
+	 });
+//图片小结模态框
+	 $("#summary_form2").validate({
+		 rules: {//规则
+			 description_text2:{//细项体检小结
+				 required:true,
+				 textLength:false
+			 }, 
+			 doctorname2:{//细项医生名称
+				 required:true,
+		
+		  }
+	 	
+	 
+		 },
+		 messages: {//提示内容
+			 description_text2:{
+				  required:"请做小结"
+			  },
+			  
+			  doctorname2:{
+				  required:"请签名！"
+			  }
+			
+			  
+		  },
+		  submitHandler:function(form){ //符合规则提交
+				 //将表单序列化，提交
+				
+				  console.log("--运行到图片小结提交");
+			    	      			    	  
+			    	  $.ajax({
+				    		url: "",  
+				    		 type: 'post',  
+				    		 data: { 
+				    			 'itemId': req.itemId,
+				    			 'guideItemid': req.guideItemid,
+				    			 'descriptionText': req.descriptionText2,
+				    			 'doctorName':req.docName2
+				    			 },
+				    		 success: function(result){
+				    			  console.log("-----细项小结接收反馈结果"+result);
+				                  if(result=="success"){//注册成功
+				                	  console.log("-----细项小结接收成功");
+				                	  alert("提交成功");
+				                	  $("#summary-modal2").modal('hide');
+				                	
+				                	  
+				                	  
+				                	  
+				                  }else{//注册失败
+				                	  alert("提交失败");
+				                	  $("#summary-modal2").modal('hide');
+				                	  console.log("-----细项小结接收失败");
+				                  }
+				                 //刷新界面 	
+				                  window.location.reload();
+				                  				          
+				                },
+				                error:function(){
+									alert("获取失败，请确认是否联网");
+									console.log("获取失败");
+									
+								}	 
+				    	}); 
+			    	  			    	    
+			  },
+			  errorPlacement: function(error, element) {//错误提示位置  
+		             error.appendTo(element.parent());  
+		            /* error.insertAfter(element.parent());*/
+		     }
+			  
+			  
+		 
+	 });
 	 
 	 
 	 
@@ -110,6 +265,7 @@ var req= new Vue({
 	  el: '#datapart',
 	  data: {		
 		 itemsList:[],//体检项目集合
+		 ret:[],
 		 pageCount:[],
 		 pageNum:"",
 		 dept:{}, //需加入科室选择
@@ -118,55 +274,62 @@ var req= new Vue({
 	    descriptionText:"根据体检结果 ：\n\n" +
 	    				"建议：  \n\n"+
 	    				"注意事项：",
-		docName:""
+	    descriptionText2:"根据体检结果 ：\n\n" +
+		    			"建议：  \n\n"+
+		    			"注意事项：",				
+	    descriptionText3:"根据体检结果 ：\n\n" +
+			    		"建议：  \n\n"+
+			    		"注意事项：",				
+		    			
+		docName:"",
+		docName2:"",
+		docName3:"",
+		sessionDeptid:window.sessionStorage.getItem("deptid")
 	  },
+	  
 	  methods:{
-		  showModal1:function(itemsid,guideitemid){//显示模态框2
-			  console.log("点击了显示模态框2");
+		  showModal1:function(itemsid,guideitemid){//文字模态框
+			  console.log("---普通文字小结模态框");
 			  $("#summary-modal1").modal('show');
 			  req.itemId=itemsid;
 			  req.guideItemid=guideitemid;
 			  
 		  },
-		/*  //体检小结
-			summaryUp1:function(){//点击提交体检小结
-				  console.log("----执行了提交文字体检小结");
-				   var  reg = /^.{1,300}$/;//非空验证
-				  if(!reg.test(req.descriptionText)){
-					  alert("请描述在1~300字符");
-				  } 
-				  //ajax
-					$.ajax({
-			    		url: "updateSummary.action",  
-			    		 type: 'post',  
-			    		 data:{ 
-			    			 'itemId': req.itemId,
-			    			 'guideItemid': req.guideItemid,
-			    			 'descriptionText': req.descriptionText,
-			    			 'doctorName':req.docName
-			    			 },
-			    		 
-			    		 success: function(result){
-			    			  console.log("-----体检小结接收"+result);
-			                  if(result=="success"){//注册成功
-			                	  console.log("-----体检小结提交成功");
-			                	  alert("提交成功");
-			                	  $("#summary-modal1").modal('hide');
-			                	  //跳转至登录界面
-			                  }else{//注册失败
-			                	  alert("提交失败");
-			                	  $("#summary-modal1").modal('hide');
-			                	  console.log("-----体检小结提交失败");
-			                  }
-
-			                } 	
-			    		
-			    	}); 
-				  
-				  
-				  
-			  },*/
-		  
-		  
+		  showModal2:function(itemsid,guideitemid){//图片模态框
+			  console.log("---图片小结模态框");
+			  $("#summary-modal2").modal('show');
+			  req.itemId=itemsid;
+			  req.guideItemid=guideitemid;
+			  
+		  },
+		  showModal3:function(itemsid,guideitemid){//细项模态框
+			  console.log("---图片小结模态框");
+			  $("#summary-modal3").modal('show');
+			  req.itemId=itemsid;
+			  req.guideItemid=guideitemid;
+			  //通过Ajax发送到服务器
+			  $.ajax({
+		    		url: "findDetaildataViewbyid.action",  
+		    		 type: 'post',  
+		    		 data: { 
+		    			 'page':1,
+		    			 'itemid': req.itemId,
+		    			 'guideitemid': req.guideItemid
+		    			 },
+		    		 success: function(result){
+		    			 console.log("--细项数据接收返回");
+		    				 req.ret=result.detailList;
+		    			
+		                },
+		                error:function(){
+							alert("获取失败，请确认是否联网");
+							console.log("获取失败");
+							
+						}
+		    		
+		    	});
+			  	  
+		  }
+		    
 	  }
 	});

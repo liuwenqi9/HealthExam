@@ -59,6 +59,14 @@
 	</a>
 
 	<%@include file="footer.jsp"%>
+		<script type="text/javascript">
+$(function(){
+	$("a[href='uploadNameList.action']").parent().parent().parent().addClass("active");
+	$("a[href='uploadNameList.action']").parent().parent().parent().addClass("open");
+	$("a[href='uploadNameList.action']").parent().addClass("active");
+	
+});
+</script>
 	<script src="<%=request.getContextPath()%>/js/parameter.js"></script>
 </body>
 </html>

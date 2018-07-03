@@ -151,12 +151,12 @@ $(function () {
 			$.validator.addMethod("caccount",function(value,element,params){  
 				 var reg2 = /^[0-9a-zA-Z]{4,9}$/;//字母/数字/字母+数字
 				return this.optional(element)||(reg2.test(value));  
-			},"*请输入正确的公司账号"); 
+			},"*公司账号为4~9位字母/数字/字母+数字"); 
 			
 			$.validator.addMethod("pwd",function(value,element,params){  
 				 var reg3 = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,10}$/;//5~10位字母+数字混合
 				return this.optional(element)||(reg3.test(value));  
-			},"*请输入正确的密码"); 
+			},"*密码为5~10位字母+数字混合"); 
 			  
 	
 		 

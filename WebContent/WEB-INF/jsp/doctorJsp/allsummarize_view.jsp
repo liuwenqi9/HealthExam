@@ -5,16 +5,16 @@ String path=request.getContextPath();
 String basePath=request.getScheme()+"://"
 	+request.getServerName()+":"+request.getServerPort()
 	+path+"/";
-%>     
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>医生接收项目窗口</title>
+<title>总结窗口</title>
 <%@ include file="header.jsp"%>
 <style type="text/css">
 /*输入框提示语设置  */
-#search_div .error, #message_h3 , .modal-body .error{
+#search_div .error,#submit_form .error{
 	
   color: #FF5722;  
 }
@@ -23,10 +23,10 @@ String basePath=request.getScheme()+"://"
 </head>
 <body class="no-skin">
 <%@ include file="menu.jsp"%>
-<!-- 主内容开始 -->
-<div class="main-content">
-	<!-- 面包屑开始 -->
-	<div class="breadcrumbs" id="breadcrumbs">
+
+<div class="main-content"><!-- 主内容开始 -->
+
+	<div class="breadcrumbs" id="breadcrumbs"><!-- 面包屑开始 -->
 					<script type="text/javascript">
 						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
 					</script>
@@ -39,9 +39,9 @@ String basePath=request.getScheme()+"://"
 
 					<!-- /.breadcrumb -->
 		</div>	<!-- 面包屑结束 -->
-<div class="page-content" id="showview_div">
+<div class="page-content" id="showview_div" ><!--主内容开始  -->
 <div class="page-header"><!--页头开始  -->
-	<div class="row">
+<div class="row">
 	 <div class="col-xs-12">
 							<!--需要的开始-->
 				<div class="widget-box">
@@ -56,7 +56,7 @@ String basePath=request.getScheme()+"://"
 						<!--第一行查询卡开始  -->
 					<div class="col-xs-9 col-sm-5" >
 					<div class="input-group input-group-lg " >										
-						<input type="text"  class="form-control search-query" name="guide_id"   v-model="guide_id" id="guide_id" placeholder="输入卡号" autocomplete="off" required/>
+						<input type="text"  class="form-control search-query" name="guide_id"  v-model="guide_id"  id="guide_id" placeholder="输入卡号" autocomplete="off" required/>
 						<span class="input-group-btn">
 						<button type="submit" class="btn btn-purple btn-lg">
 						<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
@@ -96,7 +96,9 @@ String basePath=request.getScheme()+"://"
 		</div>				
 	</div>
 		<!-- 第一行结束 -->
-</div><!-- 页头结束 -->
+
+
+</div><!--页头结束  -->
 <div class="page-body"><!--页面体开始  -->
 <div class="row"  id="show_items_div">
 		<div class="col-xs-12">
@@ -126,28 +128,42 @@ String basePath=request.getScheme()+"://"
 					<td >{{todo.deptname}}</td>
 					<td >{{todo.cost}}</td>	
 					<td >
-				<div class="hidden-sm hidden-xs action-buttons"  v-if=(todo.examtime)==null&&(todo.classify)!=3>
-					<!-- 判断时间是否为空 -->	
+					<!--未接收  -->
+				<div class="hidden-sm hidden-xs action-buttons"  v-if=(todo.examtime)==null>
+					
 															
-				<button class="btn btn-success  btn-sm  apt_btn"  v-on:click="showModal(''+todo.itemname,todo.itemid,todo.guideitemid,todo.deptid)">
+				<button class="btn btn-success  btn-sm  apt_btn"  >
 				<span class="ace-icon fa fa-search-plus bigger-130"></span>
-				接收</button>																																					
+				待接收</button>																																					
 			    </div>	
 			    
-			    <!--细项接收  -->
-			    <div class="hidden-sm hidden-xs action-buttons"  v-if=(todo.examtime)==null&&(todo.classify)==3><!--需添加用户的科室对比  -->
-					<!-- 判断时间是否为空 -->	
+			    
+			    
+			    
+			    <!--已接收未小结  -->
+			    <div class="hidden-sm hidden-xs action-buttons"  v-if=(todo.examtime)!=null&&(todo.summary)==null>
+					
 															
-				<button class="btn btn-success  btn-sm  apt_btn"  v-on:click="showModal2(''+todo.itemname,todo.itemid,todo.guideitemid,todo.deptid)">
-				<span class="ace-icon fa fa-search-plus bigger-130"></span>
-				测试接收</button>																																					
-			    </div>
-					<!--普通文字小结  -->
-				<div class="hidden-sm hidden-xs action-buttons" v-if=(todo.examtime)!=null>
-												
 				<button class="btn btn-default  btn-sm  apt_btn"   >
 				<span class="glyphicon glyphicon-ok"></span>
 				已接收</button>	
+				<button class="btn btn-success  btn-sm  apt_btn"  >
+				<span class="glyphicon glyphicon-pencil"></span>
+				未小结</button>																																				
+			    </div>
+			    
+			    
+					<!--已接收已小结  -->
+				<div class="hidden-sm hidden-xs action-buttons" v-if=(todo.examtime)!=null&&(todo.summary)!=null>
+												
+				<button class="btn btn-default  btn-sm  apt_btn"   >
+				<span class="glyphicon glyphicon-ok"></span>
+				已接收</button>		
+				<button class="btn btn-success  btn-sm  apt_btn"  >
+				<span class="glyphicon glyphicon-ok-circle"></span>
+				已小结</button>			
+							
+							
 																																		
 				</div>	
 														
@@ -174,68 +190,68 @@ String basePath=request.getScheme()+"://"
 					</div><!-- /.col -->
 					</div><!-- /.row -->
 
+
 </div><!--页面体结束  -->
+<br>
+<div class="page-footer"  id="page_footer"><!--页面底部开始  -->
+<form action="" id="submit_form">
 
-<!-- 接收项目模态框开始1 -->
-	 <div id="accept-modal" class="modal fade in" tabindex="-1" style="display: none;">
-		 	<form id="read-form" role="form" >
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h3 class="smaller lighter blue no-margin">体检项目：</h3>
-						</div>
-
-						<div class="modal-body" > 
-							<div class="row">
-								<div class="col-xs-12">
-								<h4>是否接收？</h4>
-								<h4 id="item_h4">&nbsp;</h4>
-								</div>
-							</div>
-							<div class="hr hr-14 hr-dotted"></div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary"  v-on:click="hideModal()">接收</button>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</form>
+<div class="row" >
+		<div class="col-xs-12">
+	
+		<div class="table-header">
+		体检总结：
 		</div>
-	<!-- 接收项目模态框结束 -->
-<!-- 接收项目模态框开始2 -->
-	 <div id="accept-modal2" class="modal fade in" tabindex="-1" style="display: none;">
-		 	<form id="read-form1" role="form" >
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h3 class="smaller lighter blue no-margin">体检项目：</h3>
-						</div>
+			<br>
+	<textarea rows="6" cols="100" id="description_text"
+		name="description_text"  v-model="descriptionText" placeholder="请输入..." required>
 
-						<div class="modal-body" > 
-							<div class="row">
-								<div class="col-xs-12">
-								<h4>是否接收？？</h4>
-								<h4 id="item_h44">&nbsp;</h4>
-								</div>
-							</div>
-							<div class="hr hr-14 hr-dotted"></div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary"  v-on:click="hideModal2()">接收</button>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</form>
+	</textarea>
+
 		</div>
-	<!-- 接收项目模态框结束 -->
-
-
-
+		</div>
+		<br>
+		<div class="row">
+		<div class="col-xs-3">
+		<h4>医生签名：</h4>
+			<!-- 待添加登录信息到session里的时候操作 -->
+		<input type="text" id="doctorname" name="doctorname" v-model="docName"
+			class="form-control" placeholder="医生姓名" autocomplete="off"
+					required />
+		</div>
+		</div>
+		<br>
+		<div class="row">
+		<div class="col-xs-4">
+		
+			<button type="submit" class="btn btn-primary"  >提交</button>
+		</div>
+		</div>
+	</form>
+<br>	
 </div>
-</div>
-<!--主内容结束 -->
+
+
+
+
+</div><!--主内容结束  -->
+
+
+
+
+
+
+
+
+</div><!-- 主内容结束 -->
+
+
+
+
+
+
+
+
 
 <!-- 页脚 -->
 <div class="footer">
@@ -260,15 +276,16 @@ String basePath=request.getScheme()+"://"
 <%@ include file="footer.jsp"%>
 <script type="text/javascript">
 $(function(){
-	$("a[href='acceptItem.action']").parent().parent().parent().addClass("active");
-	$("a[href='acceptItem.action']").parent().parent().parent().addClass("open");
-	$("a[href='acceptItem.action']").parent().addClass("active");
+	$("a[href='allSummary.action']").parent().parent().parent().addClass("active");
+	$("a[href='allSummary.action']").parent().parent().parent().addClass("open");
+	$("a[href='allSummary.action']").parent().addClass("active");	
 	$("#message_div").hide();
 	$("#person_div").hide();
 	$("#hr_div").hide();
 	$("#show_items_div").hide();
+	$("#page_footer").hide();
 });
 </script>
-<script type="text/javascript"  src=<%=path+"/jscommon/receive_item.js" %>></script>
+<script type="text/javascript"  src=<%=path+"/jscommon/allsummarize_view.js" %>></script>
 </body>
 </html>

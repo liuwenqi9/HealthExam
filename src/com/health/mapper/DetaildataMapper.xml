@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.health.mapper.DetaildataMapper" >
+  <resultMap id="BaseResultMap" type="com.health.entity.Detaildata" >
+    <id column="DATAID" property="dataid" jdbcType="DECIMAL" />
+    <result column="GUIDEITEMID" property="guideitemid" jdbcType="DECIMAL" />
+    <result column="DETAILID" property="detailid" jdbcType="DECIMAL" />
+    <result column="DETAILDATA" property="detaildata" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DATAID, GUIDEITEMID, DETAILID, DETAILDATA
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.DetaildataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DETAILDATA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from DETAILDATA
+    where DATAID = #{dataid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from DETAILDATA
+    where DATAID = #{dataid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.health.entity.DetaildataExample" >
+    delete from DETAILDATA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.health.entity.Detaildata" >
+    insert into DETAILDATA (DATAID, GUIDEITEMID, DETAILID, 
+      DETAILDATA)
+    values (#{dataid,jdbcType=DECIMAL}, #{guideitemid,jdbcType=DECIMAL}, #{detailid,jdbcType=DECIMAL}, 
+      #{detaildata,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.health.entity.Detaildata" >
+    insert into DETAILDATA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        DATAID,
+      </if>
+      <if test="guideitemid != null" >
+        GUIDEITEMID,
+      </if>
+      <if test="detailid != null" >
+        DETAILID,
+      </if>
+      <if test="detaildata != null" >
+        DETAILDATA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        #{dataid,jdbcType=DECIMAL},
+      </if>
+      <if test="guideitemid != null" >
+        #{guideitemid,jdbcType=DECIMAL},
+      </if>
+      <if test="detailid != null" >
+        #{detailid,jdbcType=DECIMAL},
+      </if>
+      <if test="detaildata != null" >
+        #{detaildata,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.health.entity.DetaildataExample" resultType="java.lang.Integer" >
+    select count(*) from DETAILDATA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DETAILDATA
+    <set >
+      <if test="record.dataid != null" >
+        DATAID = #{record.dataid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.guideitemid != null" >
+        GUIDEITEMID = #{record.guideitemid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.detailid != null" >
+        DETAILID = #{record.detailid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.detaildata != null" >
+        DETAILDATA = #{record.detaildata,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DETAILDATA
+    set DATAID = #{record.dataid,jdbcType=DECIMAL},
+      GUIDEITEMID = #{record.guideitemid,jdbcType=DECIMAL},
+      DETAILID = #{record.detailid,jdbcType=DECIMAL},
+      DETAILDATA = #{record.detaildata,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.health.entity.Detaildata" >
+    update DETAILDATA
+    <set >
+      <if test="guideitemid != null" >
+        GUIDEITEMID = #{guideitemid,jdbcType=DECIMAL},
+      </if>
+      <if test="detailid != null" >
+        DETAILID = #{detailid,jdbcType=DECIMAL},
+      </if>
+      <if test="detaildata != null" >
+        DETAILDATA = #{detaildata,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where DATAID = #{dataid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.health.entity.Detaildata" >
+    update DETAILDATA
+    set GUIDEITEMID = #{guideitemid,jdbcType=DECIMAL},
+      DETAILID = #{detailid,jdbcType=DECIMAL},
+      DETAILDATA = #{detaildata,jdbcType=DECIMAL}
+    where DATAID = #{dataid,jdbcType=DECIMAL}
+  </update>
+</mapper>
