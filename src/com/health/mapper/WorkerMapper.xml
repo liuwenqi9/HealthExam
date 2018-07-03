@@ -24,6 +24,11 @@
   	select * from Worker where state like  #{state} ORDER BY workerid ASC
   </select>
   
+  <update id="updatePwdWorker" parameterType="com.health.entity.Worker">
+	    update  Worker set password=#{password} where name=#{name}
+	
+	</update>
+  
   <update id="changeWorkerState"
 		parameterType="java.util.HashMap">
 		update worker set state = #{state} where workerid = #{workerid}

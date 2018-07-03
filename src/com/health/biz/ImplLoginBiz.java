@@ -27,6 +27,12 @@ public class ImplLoginBiz implements IntLoginBiz {
 		return wokers;
 	}
 
+	@Override
+	public int updatePwdWorker(Worker worker) {
+		int upResult=workerMapper.updatePwdWorker(worker);
+		return upResult;
+	}
+
 
 
 

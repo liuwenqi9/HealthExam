@@ -199,7 +199,7 @@
 		</a> <b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class=""><a href="updatePassword.action"> <i
+				<li class=""><a href="workerUpdatePwd.action"> <i
 						class="menu-icon fa fa-caret-right"></i> 修改密码
 				</a> <b class="arrow"></b></li>
 

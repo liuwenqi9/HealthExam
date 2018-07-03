@@ -86,11 +86,6 @@
 
 
 											<td class="center"><c:out value="${idx.index+1}"></c:out></td>
-
-											<td class="center"><c:out value="${account.getAccount()}"></c:out></td>
-
-
-
 											<td class="center"><c:out
 													value="${account.getAccount()}"></c:out></td>
 
