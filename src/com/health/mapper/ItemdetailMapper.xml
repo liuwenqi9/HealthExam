@@ -178,4 +178,7 @@
       DETAILID = #{detailid,jdbcType=DECIMAL}
     where ITEMDETAILID = #{itemdetailid,jdbcType=DECIMAL}
   </update>
+  <delete id="deleteByItemid" parameterType="java.lang.Integer">
+  	delete from ITEMDETAIL where ITEMID = #{itemid}
+  </delete>
 </mapper>

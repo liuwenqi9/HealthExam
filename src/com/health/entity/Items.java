@@ -15,6 +15,8 @@ public class Items {
     private Integer classify;
     
     private Object deptname;
+    
+    private boolean checked;
 
     public Integer getItemid() {
         return itemid;
@@ -62,5 +64,13 @@ public class Items {
 
 	public void setClassify(Integer classify) {
 		this.classify = classify;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 }

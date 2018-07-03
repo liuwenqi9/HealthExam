@@ -183,4 +183,7 @@
       ITEMID = #{itemid,jdbcType=DECIMAL}
     where PACKITEMID = #{packitemid,jdbcType=DECIMAL}
   </update>
+  <delete id="deleteByPackid" parameterType="java.lang.Integer">
+  	delete from PACKITEM where PACKAGEID = #{packid}
+  </delete>
 </mapper>

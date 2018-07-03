@@ -203,4 +203,15 @@
       PRICE = #{price,jdbcType=DECIMAL}
     where PACKAGEID = #{packageid,jdbcType=DECIMAL}
   </update>
+  
+  <select id="selectPageList" parameterType="String" resultMap="BaseResultMap">
+  	select * from PACKAGES 
+  	<if test="sItemName != null">
+  		where PACKNAME like concat(concat('%',#{sItemName}),'%')
+  	</if>
+  </select>
+  
+  <select id="selectPackidByPackname" parameterType="String" resultType="int">
+  	select PACKAGEID from PACKAGES where PACKNAME = #{packname}
+  </select>
 </mapper>

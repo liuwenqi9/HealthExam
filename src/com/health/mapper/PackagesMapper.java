@@ -37,6 +37,10 @@ public interface PackagesMapper {
     int updateByPrimaryKey(Packages record);
 
 	String getPriceByPackageId(String packageId); //根据套餐ID号来获取该套餐的价格
+	
+	List<Packages> selectPageList(@Param("sItemName") String sItemName);
+
+	int selectPackidByPackname(String packname);
 
 
 }

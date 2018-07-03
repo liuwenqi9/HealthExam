@@ -31,4 +31,6 @@ public interface PackitemMapper {
     int updateByPrimaryKeySelective(Packitem record);
 
     int updateByPrimaryKey(Packitem record);
+
+	void deleteByPackid(Integer packid);
 }

@@ -94,7 +94,7 @@
 													配置
 												</button>
 												
-												<button class="btn btn-xs btn-danger" title="删除" v-on:click="deleteItem(todo.detailid,index)">
+												<button class="btn btn-xs btn-danger" title="删除" v-on:click="deleteItem(todo.itemid,index)">
 													<i class="ace-icon fa fa-trash-o bigger-120"></i>
 												</button>
 												
@@ -155,7 +155,7 @@
 											<div class="col-xs-6">
 												<span class="col-xs-4">类别:</span>
 												<select class="col-xs-8" v-model="addItem.classify">
-													<option value="">科室</option>
+													<option value="">类别</option>
 													<option value="1">常规</option>
 													<option value="2">拍片</option>
 													<option value="3">血液</option>
@@ -212,7 +212,7 @@
 											<div class="col-xs-6">
 												<span class="col-xs-4">类别:</span>
 												<select class="col-xs-8" v-model="editItem.classify">
-													<option value="">科室</option>
+													<option value="">类别</option>
 													<option value="1">常规</option>
 													<option value="2">拍片</option>
 													<option value="3">血液</option>
@@ -281,12 +281,12 @@
 				detailList:[]
 			},
 			methods:{
-				deleteItem:function(detailid,index){
+				deleteItem:function(itemid,index){
 					if(window.confirm("确定要删除吗？")){
 						$.ajax({
 							url: "itemMgDelete.action",
 							method: "POST",
-							data: { detailid: detailid },
+							data: { itemid: itemid },
 							dataType: "json",
 							success: function(msg){
 								req.ret.splice(index, 1);
@@ -323,10 +323,11 @@
 					});
 				},
 				updateBtn:function(detail){
+					var send = {item:req.editItem ,detailList:req.detailList};
 					 $.ajax({
 						url: "itemMgUpdate.action",
 						method: "POST",
-						data: {detailid:detail.detailid,name:detail.name,parameterid:detail.parameterid,lowlimit:detail.lowlimit,uplimit:detail.uplimit},
+						data: {send: JSON.stringify(send)},
 						dataType: "json",
 						success: function(msg){
 							alert(msg.status);
@@ -351,8 +352,8 @@
 						data: {send: JSON.stringify(send)},
 						dataType: "json",
 						success: function(msg){
-//							alert(msg.status);
-//							window.location.reload();
+							alert(msg.status);
+							window.location.reload();
 						},
 						error: function(){
 							alert("获取失败");
