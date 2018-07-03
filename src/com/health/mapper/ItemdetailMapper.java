@@ -30,4 +30,6 @@ public interface ItemdetailMapper {
     int updateByPrimaryKeySelective(Itemdetail record);
 
     int updateByPrimaryKey(Itemdetail record);
+
+	void deleteByItemid(Integer itemid);
 }

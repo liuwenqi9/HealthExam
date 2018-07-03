@@ -216,4 +216,8 @@
   <select id="selectItemidByItemname" parameterType="String" resultType="int">
   	select ITEMID from ITEMS where ITEMNAME = #{itemname}
   </select>
+	
+	<select id="selectByPackId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select i.* from ITEMS i,PACKITEM pi where i.ITEMID = pi.ITEMID and pi.PACKAGEID = #{packid,jdbcType=DECIMAL}
+	</select>
 </mapper>

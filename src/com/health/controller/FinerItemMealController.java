@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +21,8 @@ import com.health.entity.Dept;
 import com.health.entity.Detail;
 import com.health.entity.Itemdetail;
 import com.health.entity.Items;
+import com.health.entity.Packages;
+import com.health.entity.Packitem;
 import com.health.entity.Parameter;
 import com.health.util.PageUtil;
 
@@ -143,7 +143,6 @@ public class FinerItemMealController {
 		return reqMsg;
 	}
 	
-	
 	@RequestMapping("itemMgUpdate.action")
 	public @ResponseBody Map<String, Object> itemMgUpdate(Items item) {
 		int status1 = implFinerItemMealBiz.updateByItem(item);
@@ -156,11 +155,12 @@ public class FinerItemMealController {
 	@RequestMapping("itemMgDelete.action")
 	public @ResponseBody Map<String, Object> itemMgDelete(Integer itemid) {
 		reqMsg.clear();
+		implFinerItemMealBiz.deleteItemdetailByItemid(itemid);
 		reqMsg.put("status", implFinerItemMealBiz.deleteItemById(itemid)==1?"删除成功":"删除失败");	
 		return reqMsg;
 	}
 	
-	@RequestMapping(value = "itemMgInsert.action", method = RequestMethod.POST, produces = "application/json;charset=utf-8") // 获取药品列表
+	@RequestMapping(value = "itemMgInsert.action", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public @ResponseBody Map<String, Object> itemMgInsert(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		JSONObject jObject = JSONObject.fromObject(request.getParameter("send"));
 		Items item = (Items) JSONObject.toBean(JSONObject.fromObject(jObject.get("item")), Items.class);
@@ -178,6 +178,107 @@ public class FinerItemMealController {
 		}
 		reqMsg.clear();
 		reqMsg.put("status", "新增成功");
+		return reqMsg;
+	}
+	
+	@RequestMapping(value = "itemMgUpdate.action", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody Map<String, Object> itemMgUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		JSONObject jObject = JSONObject.fromObject(request.getParameter("send"));
+		Items item = (Items) JSONObject.toBean(JSONObject.fromObject(jObject.get("item")), Items.class);
+		JSONArray jArray = (JSONArray) jObject.get("detailList");
+		List<Detail> detailList = JSONArray.toList(jArray, Detail.class);
+		implFinerItemMealBiz.updateByItem(item);
+		implFinerItemMealBiz.deleteItemdetailByItemid(item.getItemid());
+		for (Detail detail : detailList) {
+			if (detail.isChecked()) {
+				Itemdetail itemdetail = new Itemdetail();
+				itemdetail.setDetailid(detail.getDetailid());
+				itemdetail.setItemid(item.getItemid());
+				implFinerItemMealBiz.insertItemdetail(itemdetail);
+			}
+		}
+		reqMsg.clear();
+		reqMsg.put("status", "修改成功");
+		return reqMsg;
+	}
+	
+	//packages
+	@RequestMapping("packMgPage.action")
+	public @ResponseBody Map<String, Object> packMgPage(int page,String sItemName) {
+		PageHelper.startPage(page, 10);
+		List<Packages> list = implFinerItemMealBiz.selectPackPage(sItemName);	
+		
+		//获取项目列表
+		List<Items> detailList = implFinerItemMealBiz.selectItemPage(null);	
+		
+		//分页
+		List<Object> pageContanier = PageUtil.displayPage(list, page);
+		reqMsg.clear();
+//				//数据
+		reqMsg.put("req", list);
+		reqMsg.put("pageCount", pageContanier);	
+		reqMsg.put("pageNum", page);	
+		reqMsg.put("detailList", detailList);
+	    
+		return reqMsg;
+	}
+	
+	@RequestMapping("packSelectItemList.action")
+	public @ResponseBody Map<String, Object> packSelectItemList(Integer packid) {
+		List<Items> dList = implFinerItemMealBiz.selectItemByPackId(packid);
+		reqMsg.clear();
+		reqMsg.put("itemDetailList", dList);
+	    
+		return reqMsg;
+	}
+	
+	@RequestMapping(value = "packMgUpdate.action", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody Map<String, Object> packMgUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		JSONObject jObject = JSONObject.fromObject(request.getParameter("send"));
+		Packages item = (Packages) JSONObject.toBean(JSONObject.fromObject(jObject.get("item")), Packages.class);
+		JSONArray jArray = (JSONArray) jObject.get("detailList");
+		List<Items> detailList = JSONArray.toList(jArray, Items.class);
+		implFinerItemMealBiz.updateByPack(item);
+		implFinerItemMealBiz.deletePackitemByPackid(item.getPackageid());
+		for (Items it : detailList) {
+			if (it.isChecked()) {
+				Packitem packitem = new Packitem();
+				packitem.setItemid(it.getItemid());
+				packitem.setPackageid(item.getPackageid());
+				implFinerItemMealBiz.insertPackitem(packitem);
+			}
+		}
+		reqMsg.clear();
+		reqMsg.put("status", "修改成功");
+		return reqMsg;
+	}
+	
+	@RequestMapping(value = "packMgInsert.action", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody Map<String, Object> packMgInsert(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		JSONObject jObject = JSONObject.fromObject(request.getParameter("send"));
+		Packages item = (Packages) JSONObject.toBean(JSONObject.fromObject(jObject.get("item")), Packages.class);
+		JSONArray jArray = (JSONArray) jObject.get("detailList");
+		List<Items> detailList = JSONArray.toList(jArray, Items.class);
+		implFinerItemMealBiz.insertPack(item);
+		int packid = implFinerItemMealBiz.selectPackidByPackname((String) item.getPackname());
+		for (Items it : detailList) {
+			if (it.isChecked()) {
+				Packitem packitem = new Packitem();
+				packitem.setItemid(it.getItemid());
+				packitem.setPackageid(packid);
+				implFinerItemMealBiz.insertPackitem(packitem);
+			}
+		}
+		reqMsg.clear();
+		reqMsg.put("status", "新增成功");
+		return reqMsg;
+	}
+	
+	@RequestMapping("packMgDelete.action")
+	public @ResponseBody Map<String, Object> packMgDelete(Integer packageid) {
+		reqMsg.clear();
+		implFinerItemMealBiz.deletePackitemByPackid(packageid);
+		reqMsg.put("status", implFinerItemMealBiz.deletePackById(packageid)==1?"删除成功":"删除失败");	
 		return reqMsg;
 	}
 	

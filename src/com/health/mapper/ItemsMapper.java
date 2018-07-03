@@ -32,4 +32,6 @@ public interface ItemsMapper {
     List<Items> selectPageList(@Param("sItemName") String sItemName);
     
     int selectItemidByItemname(String itemname);
+    
+    List<Items> selectByPackId(Integer packid);
 }

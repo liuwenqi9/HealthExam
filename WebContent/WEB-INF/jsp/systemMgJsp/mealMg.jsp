@@ -1,5 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -30,13 +31,13 @@
 				<div class="page-content" id="dataBind">
 					<div class="page-header">
 						<a href="javascript:window.location.reload();" class="btn btn-sm btn-purple"><i class="ace-icon fa fa-undo bigger-110"></i>刷新</a>
-						<a href="#" class="btn btn-sm btn-success" v-on:click="addButton"><i class="glyphicon glyphicon-plus bigger-110"></i>新增细项</a>
+						<a href="#" class="btn btn-sm btn-success" v-on:click="addButton"><i class="glyphicon glyphicon-plus bigger-110"></i>新增套餐</a>
 						<!-- <span class="text-error" data-bind="text:errormsg"></span> -->
 						
 						<div class="pull-right">
 							<form class="form-inline">
 							  <div class="form-group">
-							    <input type="text" placeholder="细项名称" class="form-control" v-model="S_itemName">
+							    <input type="text" placeholder="套餐名称" class="form-control" v-model="S_itemName">
 							  </div>
 							  <a href="#" class="btn btn-sm btn-success" v-on:click="selectBtn" ><i class="glyphicon  glyphicon-search bigger-110"></i>查询</a>
 							</form>	
@@ -51,17 +52,11 @@
 											<th width="5%">
 												序号
 											</th>
-											<th width="20%">
-												细项名称
+											<th width="40%">
+												套餐名称
 											</th>
-											<th width="20%">
-												计量单位
-											</th>
-											<th width="20%">
-												上限值
-											</th>
-											<th width="20%">
-												下限值
+											<th width="40%">
+												套餐价格
 											</th>
 											<th width="15%">
 												操作
@@ -75,29 +70,23 @@
 												<span>{{index+1}}</span>
 											 </td>
 											 <td>
-												<span>{{todo.name}}</span>
+												<span>{{todo.packname}}</span>
 											 </td>
 											 <td>
-												<span>{{todo.paramname}}</span>
-											 </td>
-											 <td>
-												<span>{{todo.uplimit}}</span>
-											 </td>
-											 <td>
-												<span>{{todo.lowlimit}}</span>
+												<span>{{todo.price}}</span>
 											 </td>
 											<td>
-											<div class="btn-group">
-												    
-												<button class="btn btn-xs btn-success" title="审核" v-on:click="editButton(todo)">
-													修改
-												</button>
-												
-												<button class="btn btn-xs btn-danger" title="删除" v-on:click="deleteItem(todo.detailid,index)">
-													<i class="ace-icon fa fa-trash-o bigger-120"></i>
-												</button>
-												
-											</div>
+												<div class="btn-group">
+													    
+													<button class="btn btn-xs btn-success" title="配置" v-on:click="editButton(todo)">
+														配置
+													</button>
+													
+													<button class="btn btn-xs btn-danger" title="删除" v-on:click="deleteItem(todo.packageid,index)">
+														<i class="ace-icon fa fa-trash-o bigger-120"></i>
+													</button>
+													
+												</div>
 											</td>
 										</tr>
 									</tbody>
@@ -128,44 +117,37 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h3 class="smaller lighter blue no-margin">添加细项</h3>
+										<h3 class="smaller lighter blue no-margin">添加套餐</h3>
 									</div>
 									
 									<div class="modal-body" style="height: 300px"> 
 										<div class="row">
-											<div class="col-xs-12">
-												<span class="col-xs-2">细项名称:</span>
-												<input class="col-xs-10" type="text" id="detailName" name="detailName" v-model="addItem.name" required="required"/>
+											<div class="col-xs-6">
+												<span class="col-xs-4">套餐名称:</span>
+												<input class="col-xs-8" type="text" id="packname" name="packname" v-model="addItem.packname" required="required"/>
+											</div>
+											<div class="col-xs-6">
+												<span class="col-xs-4">套餐价格:</span>
+												<input class="col-xs-8" type="text" id="price" name="price" v-model="addItem.price" required="required"/>
 											</div>
 										</div>
 										<div class="hr hr-14 hr-dotted"></div>
 										<div class="row">
 											<div class="col-xs-12">
-												<span class="col-xs-2">计量单位:</span>
-												<select class="col-xs-10" v-model="addItem.parameterid">
-													<option v-for="todo in paramList" v-bind:value="todo.parameterid">{{todo.paramname}}</option>
-												</select>
+												<span class="col-xs-2">套餐详情:</span>
+												<input class="col-xs-10" type="text" id="packdetail" name="packdetail" v-model="addItem.packdetail" required="required"/>
 											</div>
 										</div>
 										<div class="hr hr-14 hr-dotted"></div>
 										<div class="row">
-											<div class="col-xs-12">
-												<span class="col-xs-2">上限值:</span>
-												<input class="col-xs-10" type="number" id="uplimit" name="uplimit" v-model="addItem.uplimit" min="0" required="required"/>
-											</div>
+											<div class="col-xs-4" v-for="todo in detailList">
+                                            	<input type="checkbox" v-bind:value="todo.itemid" v-bind:checked="todo.checked" v-on:click="todo.checked = !todo.checked" />{{todo.itemname}}
+                                            </div>
 										</div>
-										<div class="hr hr-14 hr-dotted"></div>
-										<div class="row">
-											<div class="col-xs-12">
-												<span class="col-xs-2">下限值:</span>
-												<input class="col-xs-10" type="number" id="lowlimit" name="lowlimit" v-model="addItem.lowlimit" min="0" required="required"/>
-											</div>
-										</div>
-										<div class="hr hr-14 hr-dotted"></div>
 									</div>
 									
 									<div class="modal-footer">
-										<button type="button" class="btn btn-primary" v-on:click="insertBtn(addItem)">添加</button>
+										<button type="button" class="btn btn-primary" v-on:click="insertBtn()">修改</button>
 										<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 									</div>
 								</div><!-- /.modal-content -->
@@ -185,39 +167,32 @@
 									
 									<div class="modal-body" style="height: 300px"> 
 										<div class="row">
-											<div class="col-xs-12">
-												<input class="col-xs-10" type="text" id="detailName" name="detailName" v-model="editItem.name" required="required"/>
+											<div class="col-xs-6">
+												<span class="col-xs-4">套餐名称:</span>
+												<input class="col-xs-8" type="text" id="packname" name="packname" v-model="editItem.packname" required="required"/>
+											</div>
+											<div class="col-xs-6">
+												<span class="col-xs-4">套餐价格:</span>
+												<input class="col-xs-8" type="text" id="price" name="price" v-model="editItem.price" required="required"/>
 											</div>
 										</div>
 										<div class="hr hr-14 hr-dotted"></div>
 										<div class="row">
 											<div class="col-xs-12">
-												<span class="col-xs-2">计量单位:</span>
-												<select class="col-xs-10" v-model="editItem.parameterid">
-													<option value="">计量单位</option>
-													<option v-for="todo in paramList" v-bind:value="todo.parameterid">{{todo.paramname}}</option>
-												</select>
+												<span class="col-xs-2">套餐详情:</span>
+												<input class="col-xs-10" type="text" id="packdetail" name="packdetail" v-model="editItem.packdetail" required="required"/>
 											</div>
 										</div>
 										<div class="hr hr-14 hr-dotted"></div>
 										<div class="row">
-											<div class="col-xs-12">
-												<span class="col-xs-2">上限值:</span>
-												<input class="col-xs-10" type="number" id="uplimit" name="uplimit" v-model="editItem.uplimit" min="0" required="required"/>
-											</div>
+											<div class="col-xs-4" v-for="todo in detailList">
+                                            	<input type="checkbox" v-bind:value="todo.itemid" v-bind:checked="todo.checked" v-on:click="todo.checked = !todo.checked" />{{todo.itemname}}
+                                            </div>
 										</div>
-										<div class="hr hr-14 hr-dotted"></div>
-										<div class="row">
-											<div class="col-xs-12">
-												<span class="col-xs-2">下限值:</span>
-												<input class="col-xs-10" type="number" id="lowlimit" name="lowlimit" v-model="editItem.lowlimit" min="0" required="required"/>
-											</div>
-										</div>
-										<div class="hr hr-14 hr-dotted"></div>
 									</div>
 									
 									<div class="modal-footer">
-										<button type="button" class="btn btn-primary" v-on:click="updateBtn(editItem)">修改</button>
+										<button type="button" class="btn btn-primary" v-on:click="updateBtn()">修改</button>
 										<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 									</div>
 								</div><!-- /.modal-content -->
@@ -265,15 +240,17 @@
 				searchModel: {},
 				addItem:{},
 				editItem:{},
-				paramList:[]
+				deptList:[],
+				itemDetailList:[],
+				detailList:[]
 			},
 			methods:{
-				deleteItem:function(detailid,index){
+				deleteItem:function(packageid,index){
 					if(window.confirm("确定要删除吗？")){
 						$.ajax({
-							url: "detailMgDelete.action",
+							url: "packMgDelete.action",
 							method: "POST",
-							data: { detailid: detailid },
+							data: { packageid: packageid },
 							dataType: "json",
 							success: function(msg){
 								req.ret.splice(index, 1);
@@ -285,14 +262,36 @@
 					}
 				},
 				editButton:function(item){
-					req.editItem = item;
-					$('#edit-modal').modal('show');
-				},
-				updateBtn:function(detail){
-					 $.ajax({
-						url: "detailMgUpdate.action",
+					$.ajax({
+						url: "packSelectItemList.action",
 						method: "POST",
-						data: {detailid:detail.detailid,name:detail.name,parameterid:detail.parameterid,lowlimit:detail.lowlimit,uplimit:detail.uplimit},
+						data: { packid: item.packageid },
+						dataType: "json",
+						success: function(msg){
+							req.itemDetailList = msg.itemDetailList;
+							for(var i=0;i<req.detailList.length;i++){
+								req.detailList[i].checked = false;
+								for(var j=0;j<req.itemDetailList.length;j++){
+									if(req.detailList[i].itemid == req.itemDetailList[j].itemid){
+										req.detailList[i].checked = true;
+										
+									}
+								}
+							}
+							req.editItem = item;
+							$('#edit-modal').modal('show');
+						},
+						error: function(){
+							alert("获取失败");
+						}
+					});
+				},
+				updateBtn:function(){
+					var send = {item:req.editItem ,detailList:req.detailList};
+					 $.ajax({
+						url: "packMgUpdate.action",
+						method: "POST",
+						data: {send: JSON.stringify(send)},
 						dataType: "json",
 						success: function(msg){
 							alert(msg.status);
@@ -304,13 +303,17 @@
 					 });
 				},
 				addButton:function(){
+					 for(var i=0;i<req.detailList.length;i++){
+					 	req.detailList[i].checked = false;
+					 }
 					$('#add-modal').modal('show');
 				},
-				insertBtn:function(detail){
+				insertBtn:function(){
+					var send = {item:req.addItem ,detailList:req.detailList};
 					$.ajax({
-						url: "detailMgInsert.action",
+						url: "packMgInsert.action",
 						method: "POST",
-						data: {detailid:detail.detailid,name:detail.name,parameterid:detail.parameterid,lowlimit:detail.lowlimit,uplimit:detail.uplimit},
+						data: {send: JSON.stringify(send)},
 						dataType: "json",
 						success: function(msg){
 							alert(msg.status);
@@ -323,7 +326,7 @@
 				},
 				pageItem:function(index){
 					 $.ajax({
-							url: "detailMgPage.action",
+							url: "packMgPage.action",
 							method: "POST",
 							data: {page:index,sItemName:req.S_itemName,selectItem:req.selectItem},
 							dataType: "json",
@@ -346,7 +349,7 @@
 		});
 		
 		var request = $.ajax({
-			url: "detailMgPage.action",
+			url: "packMgPage.action",
 			method: "POST",
 			data: {page:1,sItemName:req.S_itemName,selectItem: false},
 			dataType: "json",
@@ -355,8 +358,9 @@
 				req.pageCount = msg.pageCount;
 				req.pageNum = msg.pageNum;
 				req.S_itemName = msg.sItemName;
-				req.paramList = msg.paramList;
+				req.deptList = msg.deptList;
 				req.selectItem = false; 
+				req.detailList = msg.detailList;
 			},
 			error: function(){
 				alert("获取失败");

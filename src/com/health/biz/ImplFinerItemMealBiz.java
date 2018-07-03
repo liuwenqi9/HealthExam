@@ -17,6 +17,8 @@ import com.health.entity.Detail;
 import com.health.entity.DetailExample;
 import com.health.entity.Itemdetail;
 import com.health.entity.Items;
+import com.health.entity.Packages;
+import com.health.entity.Packitem;
 import com.health.entity.Parameter;
 import com.health.mapper.DeptMapper;
 import com.health.mapper.DetailMapper;
@@ -123,6 +125,52 @@ public class ImplFinerItemMealBiz implements FinerItemMealBiz{
 	
 	public int selectItemidByItemname(String itemname) {
 		return itemsMapper.selectItemidByItemname(itemname);
+	}
+
+	@Override
+	public void deleteItemdetailByItemid(Integer itemid) {
+		itemdetailMapper.deleteByItemid(itemid);
+	}
+
+	@Override
+	public List<Packages> selectPackPage(String sItemName) {
+		List<Packages> list = packagesMapper.selectPageList(sItemName);
+		return list;
+	}
+
+	@Override
+	public List<Items> selectItemByPackId(Integer packid) {
+		return itemsMapper.selectByPackId(packid);
+	}
+
+	@Override
+	public int updateByPack(Packages pack) {
+		return packagesMapper.updateByPrimaryKey(pack);
+	}
+
+	@Override
+	public void deletePackitemByPackid(Integer packid) {
+		packitemMapper.deleteByPackid(packid);
+	}
+
+	@Override
+	public int insertPackitem(Packitem packitem) {
+		return packitemMapper.insert(packitem);
+	}
+
+	@Override
+	public int insertPack(Packages pack) {
+		return packagesMapper.insert(pack);
+	}
+
+	@Override
+	public int selectPackidByPackname(String packname) {
+		return packagesMapper.selectPackidByPackname(packname);
+	}
+
+	@Override
+	public int deletePackById(Integer itemId) {
+		return packagesMapper.deleteByPrimaryKey(itemId);
 	}
 	
 }

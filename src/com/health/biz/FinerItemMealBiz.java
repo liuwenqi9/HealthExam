@@ -6,6 +6,8 @@ import com.health.entity.Dept;
 import com.health.entity.Detail;
 import com.health.entity.Itemdetail;
 import com.health.entity.Items;
+import com.health.entity.Packages;
+import com.health.entity.Packitem;
 import com.health.entity.Parameter;
 
 /*
@@ -28,6 +30,7 @@ public interface FinerItemMealBiz {
 	
 	public int deleteDetailById(Integer detailid);
 
+	
 	public List<Items> selectItemPage(String sItemName);
 	
 	public List<Dept> selectAllDept();
@@ -43,5 +46,25 @@ public interface FinerItemMealBiz {
 	public int insertItemdetail(Itemdetail itemdetail);
 	
 	public int selectItemidByItemname(String itemname);
+
+	public void deleteItemdetailByItemid(Integer itemid);
+	
+	
+	public List<Packages> selectPackPage(String sItemName);
+	
+	public List<Items> selectItemByPackId(Integer packid);
+	
+	public int updateByPack(Packages pack);
+
+	public void deletePackitemByPackid(Integer packid);
+	
+	public int insertPackitem(Packitem packitem);
+	
+	public int insertPack(Packages pack);
+	
+	public int selectPackidByPackname(String packname);
+	
+	public int deletePackById(Integer itemId);
+	
 	
 }
