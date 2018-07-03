@@ -32,7 +32,7 @@
 						<li><a href="updatePwd.action"> <i
 								class="ace-icon fa fa-power-off"></i> 修改密码
 						</a></li>
-						<li><a href="<%=request.getContextPath()%>/jsp/login.action">
+						<li><a href="<%=request.getContextPath()%>/loginJsp.action">
 								<i class="ace-icon fa fa-power-off"></i> 退出
 						</a></li>
 					</ul></li>
@@ -199,7 +199,7 @@
 		</a> <b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class=""><a href="updatePassword.action"> <i
+				<li class=""><a href="workerUpdatePwd.action"> <i
 						class="menu-icon fa fa-caret-right"></i> 修改密码
 				</a> <b class="arrow"></b></li>
 

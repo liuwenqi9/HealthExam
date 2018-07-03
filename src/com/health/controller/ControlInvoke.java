@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.health.biz.ImplAccountMg;
 import com.health.biz.ImplLoginBiz;
+import com.health.entity.Account;
 import com.health.entity.Worker;
 import com.health.util.ImageUtil;
 
@@ -28,6 +29,8 @@ public class ControlInvoke {
 	@Resource
 	ImplAccountMg ImplAccountMg;
 
+	
+	PrintWriter printWriter;
 	/*
 	 * 跳转模板 用户转发到自己需要的jsp 自己复制这个模板，修改请求路径action、修改 转发路径
 	 * 
@@ -63,12 +66,13 @@ public class ControlInvoke {
 		String verCode = request.getParameter("VerificationCode");
 		System.out.println(verCode + "验证码" + session.getAttribute("imageCode"));
 
-		PrintWriter printWriter = response.getWriter();
+		 printWriter = response.getWriter();
 		if (verCode.equalsIgnoreCase(session.getAttribute("imageCode").toString())) {
 
 			Worker login = impLoginBiz.loginAdmin(worker);
 			if (login != null) {
 				session.setAttribute("WorkerName", worker.getName());
+				session.setAttribute("WorkerPwd", worker.getPassword());
 				printWriter.print("OK");
 				printWriter.flush();
 				printWriter.close();
@@ -124,6 +128,48 @@ public class ControlInvoke {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping(value = "workerUpdatePwd.action")
+	public String employeeInfoJsp() {
+		
+		
+		return "jsp/systemMgJsp/updatepwd";
+	}
+	
+	
+	/*
+	 * 
+	 * 修改密码
+	 * 
+	 * @data：2018.6.28
+	 * 
+	 * @autuor 毛聪
+	 */
+	@RequestMapping(value ="updatePwdWorker.action")
+	public void updatePwd(HttpSession session, HttpServletResponse response,String oldPwd,String newPwd1,String newPwd2) throws IOException {
+		String pwd=session.getAttribute("WorkerPwd").toString();
+		System.out.println(oldPwd+newPwd1+newPwd2+pwd);
+		Worker worker=new Worker();
+		printWriter = response.getWriter();	
+		if(oldPwd.equals(pwd) ){
+			worker.setName(session.getAttribute("WorkerName").toString());
+			worker.setPassword(newPwd1);
+			impLoginBiz.updatePwdWorker(worker);
+			printWriter.print("OK");
+			printWriter.flush();
+			printWriter.close();
+			System.out.println("修改成功");
+		}else {
+			
+			printWriter.print("FAIL");
+			printWriter.flush();
+			printWriter.close();
+			System.out.println("原密码错误");
+
+		}
+		
+		
 	}
 
 }
