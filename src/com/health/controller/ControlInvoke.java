@@ -82,6 +82,8 @@ public class ControlInvoke {
 			Worker login = impLoginBiz.loginAdmin(worker);
 			if (login != null) {
 				session.setAttribute("WorkerName", worker.getName());
+				session.setAttribute("WorkerDeptId", login.getDeptid());//jsy0708补充
+				System.out.println("登录的工作人员部门ID"+login.getDeptid());//jsy0708补充
 				printWriter.print("OK");
 				printWriter.flush();
 				printWriter.close();

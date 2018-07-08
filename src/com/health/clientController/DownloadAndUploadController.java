@@ -1,10 +1,13 @@
 package com.health.clientController;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +61,7 @@ public class DownloadAndUploadController {
 		 */
 	
 		@RequestMapping(value = "/filehandle.action", method = RequestMethod.POST)
-		public void  fileact(HttpServletRequest req, @RequestParam("files") MultipartFile files) {
+		public void  fileact(HttpServletRequest req,HttpServletResponse res, @RequestParam("files") MultipartFile files) {
 			System.out.println("执行到文件上传");
 			if(files!=null) {
 		String filePath = req.getSession().getServletContext().getRealPath("upload/"); 
@@ -78,23 +81,42 @@ public class DownloadAndUploadController {
 				
 					System.out.println(personinfo.getName()+"###");
 					
-				/*int result=	impPersoninfo.addPersoninfo(personinfo);
+				int result=	impPersoninfo.addPersoninfo(personinfo);
 				if(result>0) {
 					sendMesg="success";//添加人员成功
 				}else {
-					sendMesg="failure";//添加人员失败
-				}*/
+					sendMesg="failure";//添加人员失败0703
+				}
 				}
 			}
-			
-			
-			
-			/*ModelAndView mav = new ModelAndView();
-			mav.setViewName("charge");*/
-			
+	
+				
 			}
 					
 		}
+		
+		
+		
+		/**
+		   * 通过PrintWriter将响应数据写入response
+		   * @date 7月3日
+		   * @param response
+		   * @param data 
+		   */
+		  private void feedBackData(HttpServletResponse response, String data) {
+		    PrintWriter printWriter = null;
+		    try {
+		      printWriter = response.getWriter();
+		      printWriter.print(data);
+		    } catch (IOException ex) {
+		    } finally {
+		      if (null != printWriter) {
+		        printWriter.flush();
+		        printWriter.close();
+		      }
+		    }
+		  }
+		
 		
 		
 		//get/set

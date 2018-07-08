@@ -87,7 +87,7 @@ String basePath=request.getScheme()+"://"
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" id="company_pwd"  name="password" class="form-control" placeholder="密码为5~14位非空字符" autocomplete="off" required/>
+															<input type="password" id="company_pwd"  name="password" class="form-control" placeholder="密码为5~10位字母+数字混合" autocomplete="off" required/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 														
@@ -139,9 +139,9 @@ String basePath=request.getScheme()+"://"
 										</div>
 
 										<div class="toolbar center">
-											<a href="#" data-target="#login-box" class="back-to-login-link">
+											<a href=<%=path+"/loginClientJsp.action" %> data-target="#login-box" class="back-to-login-link">
 												<i class="ace-icon fa fa-arrow-left"></i>
-												返回首页
+												返回登录
 											</a>
 										</div>
 									</div><!-- /.widget-body -->

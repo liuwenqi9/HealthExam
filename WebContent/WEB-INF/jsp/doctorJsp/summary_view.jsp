@@ -131,6 +131,9 @@
 				</div>
 				<!-- /.row -->
 			</div>
+			 <h2 id="workdeptid_h2" > ${sessionScope.WorkerDeptId }</h2> 
+			
+			
 			<!--页面体结束  -->
 			<!--普通文字小结开始  -->
 			<div id="summary-modal1" class="modal fade in" tabindex="-1"
@@ -151,7 +154,7 @@
 						<textarea rows="6" cols="50" id="description_text"
 		name="description_text"  v-model="descriptionText" placeholder="请输入..." required>
 
-</textarea>
+					</textarea>
 									</div>
 								</div>
 								<div class="row">
@@ -175,6 +178,169 @@
 				</form>
 			</div>
 			<!--普通文字小结结束  -->
+<!--  图片小结模态框开始 -->
+		<div id="summary-modal2" class="modal fade in" tabindex="-1" style="display: none;">
+		 	<form  role="form"  id="summary_form2"  >
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="smaller lighter blue no-margin">体检小结：</h3>
+						</div>
+
+						<div class="modal-body" > 
+					
+							<div class="row">
+								<div class="col-xs-12">
+								<h4>体检图片：</h4>
+								请选择图片:<input type="file" name="files"class="file">
+							</div>
+							</div>
+					
+					
+					<div class="row">
+						<div class="col-xs-12">
+						<h4>描述：</h4>
+<textarea rows="5" cols="50" id="description_text2" name="description_text2" v-model="descriptionText2"    placeholder="请输入..." required>
+
+</textarea>
+						
+						</div>
+						</div>
+						<div class="row">
+						<div class="col-xs-4">
+						<h4>医生签名：</h4>
+					<!-- 待添加登录信息到session里的时候操作 -->
+					<input type="text" id="doctorname2"  name="doctorname2" class="form-control"  v-model="docName2"  placeholder="医生姓名" autocomplete="off" required/>
+								
+						</div>
+								
+						</div>
+	
+					<div class="hr hr-14 hr-dotted"></div>
+							
+						</div>
+					<div class="modal-footer">
+							<button type="submit" class="btn btn-primary" >提交</button>
+					</div>
+					
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</form>
+		</div>
+	
+		<!--  图片小结模态框结束 -->		
+		<!--  细项小结模态框开始 -->
+			<div id="summary-modal3" class="modal fade in" tabindex="-1" style="display: none;">
+		 	<form  role="form"  id="summary_form3"  >
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="smaller lighter blue no-margin">体检小结：</h3>
+						</div>
+
+						<div class="modal-body" > 
+					
+							<div class="row">
+								<div class="col-xs-12">
+					<!-- 需添加表格数据 -->
+							<table id="grid-table" class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th width="20%">
+												序号
+											</th>
+											<th width="20%">
+												细项名称
+											</th>
+											<th width="20%">
+												计量单位
+											</th>
+											<th width="20%">
+												测量值
+											</th>
+											<th width="20%">
+												参考值
+											</th>
+											
+										</tr>
+									</thead> 
+			
+									<tbody >
+										<tr class="" v-for="(todo, index) in ret">
+											 <td>
+												<span>{{index+1}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.name}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.paramname}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.detaildata}}</span>
+											 </td>
+											 <td>
+												<span>{{todo.lowlimit}}</span>~
+												<span>{{todo.uplimit}}</span>
+											 </td>
+											
+										</tr>
+									</tbody>
+									<tbody v-if="ret.length<1">
+										<tr>
+											<td colspan="8"  class="center">没有数据</td>
+										</tr>
+									</tbody>
+									
+								</table>
+			
+								<%-- <ul class="pagination">
+								    <li v-on:click="pageItem(pageNum-1)" v-if="pageNum > 1"><a href="#">&laquo;</a></li>
+								    <li class="disabled" v-if="pageNum == 1"><a href="#">&laquo;</a></li>
+								    <li class="" v-for="todo in pageCount" v-bind:class="{active:todo==pageNum}" v-on:click="pageItem(todo)"><a href="#">{{todo}}</a></li>
+								    <li v-on:click="pageItem(pageNum+1)" v-if="pageNum < pageCount.length"><a href="#">&raquo;</a></li>
+								    <li class="disabled" v-if="pageNum == pageCount.length"><a href="#">&raquo;</a></li>
+								</ul> --%>
+								<!-- PAGE CONTENT ENDS -->		
+									
+							</div><!--  col-->
+							</div><!--row  -->
+					
+					
+							<div class="row">
+								<div class="col-xs-12">
+								<h4>描述：</h4>
+<textarea rows="5" cols="50" id="description_text3" name="description_text3"  v-model="descriptionText3"  placeholder="请输入..." required>
+
+</textarea>
+				
+								</div>
+								</div>
+								<div class="row">
+								<div class="col-xs-4">
+										<h4>医生签名：</h4>
+										<!-- 待添加登录信息到session里的时候操作 -->
+	<input type="text" id="doctorname3"  name="doctorname3" class="form-control" v-model="docName3" placeholder="医生姓名" autocomplete="off" required/>
+								
+								</div>
+								
+								</div>
+			
+							<div class="hr hr-14 hr-dotted"></div>
+							
+						</div>
+					<div class="modal-footer">
+							<button type="submit" class="btn btn-primary"  v-on:click="">提交</button>
+					</div>
+					
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</form>
+		</div>
+			<!--  细项小结模态框结束 -->
+
 
 
 
@@ -220,7 +386,7 @@
 			$("a[href='summary.action']").parent().parent().parent().addClass(
 					"open");
 			$("a[href='summary.action']").parent().addClass("active");
-
+		 	$("#workdeptid_h2").hide(); 
 		});
 	</script>
 	<script type="text/javascript"

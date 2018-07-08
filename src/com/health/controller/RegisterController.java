@@ -45,7 +45,7 @@ public class RegisterController {
 	 * @param res 
 	 */
 	@RequestMapping(value = "/checkName.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public @ResponseBody String checkName(HttpServletRequest req,HttpServletResponse res,String name) {
+	public void checkName(HttpServletResponse res,String name) {
 		System.out.println("------执行了公司名称查找");
 		sendMesg=null;
 	//获取前端界面数据
@@ -62,7 +62,7 @@ public class RegisterController {
 			System.out.println("--返回的消息:"+sendMesg);
 		}
 	
-		return sendMesg;
+		feedBackData(res, sendMesg);
 	}
 	/**
 	 * 公司账号唯一性查找
@@ -71,7 +71,7 @@ public class RegisterController {
 	 * @param account 6月18日补充
 	 */
 	@RequestMapping(value = "/checkAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public @ResponseBody String checkAccount(HttpServletRequest req,HttpServletResponse res,String account) {
+	public void checkAccount(HttpServletResponse res,String account) {
 		System.out.println("---------执行了公司账号查找");
 	//获取前端界面数据
 		sendMesg=null;
@@ -89,7 +89,7 @@ public class RegisterController {
 		
 		}
 	
-		return sendMesg;
+		feedBackData(res, sendMesg);
 	}
 	/**
 	 * 注册用户
@@ -99,7 +99,7 @@ public class RegisterController {
 	 * @param account 对象 6月18日
 	 */
 	@RequestMapping(value = "/addAccount.action" , method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-	public @ResponseBody String addAccount(HttpServletRequest req,HttpServletResponse res,
+	public void addAccount(HttpServletResponse res,
 			String name,String account,String password,String locationname) {
 		sendMesg=null;
 		
@@ -128,7 +128,7 @@ public class RegisterController {
 		
 		}
 		System.out.println("--注册结果：--"+sendMesg);
-		return sendMesg;
+		feedBackData(res, sendMesg);
 	}
 	
 	

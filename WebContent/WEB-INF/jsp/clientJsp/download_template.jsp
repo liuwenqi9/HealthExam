@@ -173,7 +173,14 @@ if('ontouchstart' in document.documentElement) document.write("<script src='../j
 	<script type="text/javascript"  src=<%=path+"/js/buttons.print.min.js" %>></script>
 	<script type="text/javascript"  src=<%=path+"/js/buttons.colVis.min.js" %>></script>
 	<script type="text/javascript"  src=<%=path+"/js/dataTables.select.min.js" %>></script>	
-			
+	<script type="text/javascript">
+$(function(){
+	$("a[href='downloadTemp.action']").parent().parent().parent().addClass("active");
+	$("a[href='downloadTemp.action']").parent().parent().parent().addClass("open");
+	$("a[href='downloadTemp.action']").parent().addClass("active");
+	
+});
+</script>		
 			
 
 
