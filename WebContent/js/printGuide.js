@@ -1,4 +1,4 @@
-var req = new Vue({    //定义绑定的数据
+var req = new Vue({ // 定义绑定的数据
 	el : "#dataBind",
 	data : {
 		guideId : "", // 导检ID号
@@ -19,7 +19,7 @@ var req = new Vue({    //定义绑定的数据
 					dataType : "json",
 					success : function(data) {
 						req.guideInfoList = data;
-						if(data.length == 0){
+						if (data.length == 0) {
 							alert("没有导检单号为" + guideId + "的导检信息");
 						}
 					},
@@ -30,6 +30,17 @@ var req = new Vue({    //定义绑定的数据
 				});
 			}
 
+		},
+
+		createPrintPage : function() {
+//			if (guideId == "") {
+//				alert("请先输入导检单号");
+//			} else {
+				var LODOP = getLodop();
+				LODOP.ADD_PRINT_HTM(100, 100, "100%", "100%", document
+						.getElementById("dynamicTableDiv").innerHTML);
+				LODOP.PRINT_DESIGN();
+//			}
 		}
 	}
 });

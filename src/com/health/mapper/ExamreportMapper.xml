@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.health.mapper.ExamreportMapper" >
+  <resultMap id="BaseResultMap" type="com.health.entity.Examreport" >
+    <result column="GUIDEID" property="guideid" jdbcType="DECIMAL" />
+    <result column="GUIDETIME" property="guidetime" jdbcType="OTHER" />
+    <result column="ALLSUMMARY" property="allsummary" jdbcType="OTHER" />
+    <result column="OVERTIME" property="overtime" jdbcType="OTHER" />
+    <result column="ITEMID" property="itemid" jdbcType="DECIMAL" />
+    <result column="SUMMARY" property="summary" jdbcType="OTHER" />
+    <result column="PICTUREURL" property="pictureurl" jdbcType="OTHER" />
+    <result column="DEPTID" property="deptid" jdbcType="DECIMAL" />
+    <result column="ITEMNAME" property="itemname" jdbcType="OTHER" />
+    <result column="DETAILID" property="detailid" jdbcType="DECIMAL" />
+    <result column="DETAILNAME" property="detailname" jdbcType="OTHER" />
+    <result column="UPLIMIT" property="uplimit" jdbcType="DECIMAL" />
+    <result column="LOWLIMIT" property="lowlimit" jdbcType="DECIMAL" />
+    <result column="PARAMETERID" property="parameterid" jdbcType="DECIMAL" />
+    <result column="PARAMNAME" property="paramname" jdbcType="OTHER" />
+    <result column="DEPTNAME" property="deptname" jdbcType="OTHER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    GUIDEID, GUIDETIME, ALLSUMMARY, OVERTIME, ITEMID, SUMMARY, PICTUREURL, DEPTID, ITEMNAME, 
+    DETAILID, DETAILNAME, UPLIMIT, LOWLIMIT, PARAMETERID, PARAMNAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.health.entity.ExamreportExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EXAMREPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <!-- 额外添加  获取项目列表-->
+  <select id="selectItemsByExample" resultMap="BaseResultMap" parameterType="com.health.entity.ExamreportExample" >
+  	select distinct itemname, deptname
+    from EXAMREPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <!-- 额外添加  获取项目报告-->
+  <select id="selectDetailByExample" resultMap="BaseResultMap" parameterType="com.health.entity.ExamreportExample">
+  	select distinct itemname, detailname, uplimit, lowlimit, paramname,summary, pictureUrl 
+    from EXAMREPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+   <!-- 额外添加  获取总结报告-->
+   <select id="selectAllSummaryByExample" resultMap="BaseResultMap" parameterType="com.health.entity.ExamreportExample">
+  	select distinct allsummary 
+    from EXAMREPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+   
+  <delete id="deleteByExample" parameterType="com.health.entity.ExamreportExample" >
+    delete from EXAMREPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.health.entity.Examreport" >
+    insert into EXAMREPORT (GUIDEID, GUIDETIME, ALLSUMMARY, 
+      OVERTIME, ITEMID, SUMMARY, 
+      PICTUREURL, DEPTID, ITEMNAME, 
+      DETAILID, DETAILNAME, UPLIMIT, 
+      LOWLIMIT, PARAMETERID, PARAMNAME
+      )
+    values (#{guideid,jdbcType=DECIMAL}, #{guidetime,jdbcType=OTHER}, #{allsummary,jdbcType=OTHER}, 
+      #{overtime,jdbcType=OTHER}, #{itemid,jdbcType=DECIMAL}, #{summary,jdbcType=OTHER}, 
+      #{pictureurl,jdbcType=OTHER}, #{deptid,jdbcType=DECIMAL}, #{itemname,jdbcType=OTHER}, 
+      #{detailid,jdbcType=DECIMAL}, #{detailname,jdbcType=OTHER}, #{uplimit,jdbcType=DECIMAL}, 
+      #{lowlimit,jdbcType=DECIMAL}, #{parameterid,jdbcType=DECIMAL}, #{paramname,jdbcType=OTHER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.health.entity.Examreport" >
+    insert into EXAMREPORT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="guideid != null" >
+        GUIDEID,
+      </if>
+      <if test="guidetime != null" >
+        GUIDETIME,
+      </if>
+      <if test="allsummary != null" >
+        ALLSUMMARY,
+      </if>
+      <if test="overtime != null" >
+        OVERTIME,
+      </if>
+      <if test="itemid != null" >
+        ITEMID,
+      </if>
+      <if test="summary != null" >
+        SUMMARY,
+      </if>
+      <if test="pictureurl != null" >
+        PICTUREURL,
+      </if>
+      <if test="deptid != null" >
+        DEPTID,
+      </if>
+      <if test="itemname != null" >
+        ITEMNAME,
+      </if>
+      <if test="detailid != null" >
+        DETAILID,
+      </if>
+      <if test="detailname != null" >
+        DETAILNAME,
+      </if>
+      <if test="uplimit != null" >
+        UPLIMIT,
+      </if>
+      <if test="lowlimit != null" >
+        LOWLIMIT,
+      </if>
+      <if test="parameterid != null" >
+        PARAMETERID,
+      </if>
+      <if test="paramname != null" >
+        PARAMNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="guideid != null" >
+        #{guideid,jdbcType=DECIMAL},
+      </if>
+      <if test="guidetime != null" >
+        #{guidetime,jdbcType=OTHER},
+      </if>
+      <if test="allsummary != null" >
+        #{allsummary,jdbcType=OTHER},
+      </if>
+      <if test="overtime != null" >
+        #{overtime,jdbcType=OTHER},
+      </if>
+      <if test="itemid != null" >
+        #{itemid,jdbcType=DECIMAL},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=OTHER},
+      </if>
+      <if test="pictureurl != null" >
+        #{pictureurl,jdbcType=OTHER},
+      </if>
+      <if test="deptid != null" >
+        #{deptid,jdbcType=DECIMAL},
+      </if>
+      <if test="itemname != null" >
+        #{itemname,jdbcType=OTHER},
+      </if>
+      <if test="detailid != null" >
+        #{detailid,jdbcType=DECIMAL},
+      </if>
+      <if test="detailname != null" >
+        #{detailname,jdbcType=OTHER},
+      </if>
+      <if test="uplimit != null" >
+        #{uplimit,jdbcType=DECIMAL},
+      </if>
+      <if test="lowlimit != null" >
+        #{lowlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="parameterid != null" >
+        #{parameterid,jdbcType=DECIMAL},
+      </if>
+      <if test="paramname != null" >
+        #{paramname,jdbcType=OTHER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.health.entity.ExamreportExample" resultType="java.lang.Integer" >
+    select count(*) from EXAMREPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update EXAMREPORT
+    <set >
+      <if test="record.guideid != null" >
+        GUIDEID = #{record.guideid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.guidetime != null" >
+        GUIDETIME = #{record.guidetime,jdbcType=OTHER},
+      </if>
+      <if test="record.allsummary != null" >
+        ALLSUMMARY = #{record.allsummary,jdbcType=OTHER},
+      </if>
+      <if test="record.overtime != null" >
+        OVERTIME = #{record.overtime,jdbcType=OTHER},
+      </if>
+      <if test="record.itemid != null" >
+        ITEMID = #{record.itemid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.summary != null" >
+        SUMMARY = #{record.summary,jdbcType=OTHER},
+      </if>
+      <if test="record.pictureurl != null" >
+        PICTUREURL = #{record.pictureurl,jdbcType=OTHER},
+      </if>
+      <if test="record.deptid != null" >
+        DEPTID = #{record.deptid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemname != null" >
+        ITEMNAME = #{record.itemname,jdbcType=OTHER},
+      </if>
+      <if test="record.detailid != null" >
+        DETAILID = #{record.detailid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.detailname != null" >
+        DETAILNAME = #{record.detailname,jdbcType=OTHER},
+      </if>
+      <if test="record.uplimit != null" >
+        UPLIMIT = #{record.uplimit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lowlimit != null" >
+        LOWLIMIT = #{record.lowlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.parameterid != null" >
+        PARAMETERID = #{record.parameterid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paramname != null" >
+        PARAMNAME = #{record.paramname,jdbcType=OTHER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update EXAMREPORT
+    set GUIDEID = #{record.guideid,jdbcType=DECIMAL},
+      GUIDETIME = #{record.guidetime,jdbcType=OTHER},
+      ALLSUMMARY = #{record.allsummary,jdbcType=OTHER},
+      OVERTIME = #{record.overtime,jdbcType=OTHER},
+      ITEMID = #{record.itemid,jdbcType=DECIMAL},
+      SUMMARY = #{record.summary,jdbcType=OTHER},
+      PICTUREURL = #{record.pictureurl,jdbcType=OTHER},
+      DEPTID = #{record.deptid,jdbcType=DECIMAL},
+      ITEMNAME = #{record.itemname,jdbcType=OTHER},
+      DETAILID = #{record.detailid,jdbcType=DECIMAL},
+      DETAILNAME = #{record.detailname,jdbcType=OTHER},
+      UPLIMIT = #{record.uplimit,jdbcType=DECIMAL},
+      LOWLIMIT = #{record.lowlimit,jdbcType=DECIMAL},
+      PARAMETERID = #{record.parameterid,jdbcType=DECIMAL},
+      PARAMNAME = #{record.paramname,jdbcType=OTHER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

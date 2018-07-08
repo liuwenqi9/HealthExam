@@ -8,6 +8,9 @@
   <update id="updateRole" parameterType="java.util.HashMap">
   	update role set rolename = #{rolename} where roleid = #{roleid}
   </update>
+  <select id="queryRole" resultType="com.health.entity.Role">
+  	select * from role
+  </select>
   <delete id="deleteRole" parameterType="com.health.entity.Role" >
        delete from role where rolename=#{rolename}
   </delete>

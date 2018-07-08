@@ -6,6 +6,9 @@
     <result column="ROLEID" property="roleid" jdbcType="DECIMAL" />
     <result column="MENUID" property="menuid" jdbcType="DECIMAL" />
   </resultMap>
+  <select id="queryRplePower" parameterType="int" resultType="com.health.entity.Rolepower">
+  	select * from Rolepower where roleid = #{roleid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

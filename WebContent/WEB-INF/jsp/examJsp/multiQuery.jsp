@@ -57,13 +57,6 @@
 								</button>
 							</div>
 
-						<a
-							class="dt-button buttons-print btn btn-white btn-primary btn-bold"
-							tabindex="0" aria-controls="dynamic-table" data-original-title=""
-							title=""> <span><i class="fa fa-print bigger-110 grey"></i>
-								<span class="hidden">Print</span> </span>
-						</a>
-
 					</div>
 					<form action="makeCharge.action">
 						<div class="row">

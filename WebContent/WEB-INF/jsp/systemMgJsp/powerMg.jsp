@@ -1,5 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.Date,java.text.SimpleDateFormat" %>
  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,7 +37,7 @@
 						<div class="widget-header" >
 							<h5 class="widget-title bigger lighter">
 							<font style="vertical-align: inherit;">
-								权限配置
+								权限配置 
 								<span style="float:right" id="sp_sysTime"></span>
 							</font>
 							</h5>
@@ -86,20 +87,24 @@
 		}
 	</script>
 <ul class="nav nav-list" style="top: 0px;">
-		<li class="" style="width: 100%;">
+<c:forEach var="role" items="${rlList}">
+<li class="" style="width: 100%;">
+		
 		<a href="#" class="dropdown-toggle" style="width: 100%;"> 
 		<i class="menu-icon fa fa-list">
-		</i> <span class="menu-text">管理员 </span><b class="arrow fa fa-angle-down"></b>
+		</i> <span class="menu-text">${role.getRolename()} </span><b class="arrow fa fa-angle-down"></b>
 		</a> 
 		<b class="arrow"></b>
 
 			<ul class="submenu">
 
-				<li class=""><a href="AccountMg.action"> <i
-						class="menu-icon fa fa-caret-right"></i> 管理员
+				<li value="${role.getRoleid()}" class=""><a href="#" onclick="creatHavePower(this);"> <i
+						class="menu-icon fa fa-caret-right"></i> ${role.getRolename()}	
 				</a> <b class="arrow"></b></li>
 			</ul>
 		</li>
+</c:forEach>
+		
 	</ul>
 </div>
 								 </td>
@@ -233,16 +238,14 @@
 			var dateAndTime = today.toLocaleString();
 			$("#sp_sysTime").html(dateAndTime+"&nbsp;&nbsp;"); 
 		}
-
-		
-				/* //新增人员弹出
-		bootbox.setDefaults("locale","zh_CN");  //弹窗设置中文
-		bootbox.confirm("投票已结束，是否直接查看投票结果？",function(re){
-	 	if(re) {
-	       voteResults(id,title); 
-	  		}
-		});
- */
+		function creatHavePower(event) {
+			var person_name = $(event).parent().val();
+			alert(person_name);
+			//ajax上传进行查询已经存在的菜单
+			/* $.ajax({
+				url : 
+			}); */
+		}
 
 	
 			
