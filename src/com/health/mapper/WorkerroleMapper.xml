@@ -6,6 +6,12 @@
     <result column="WORKERID" property="workerid" jdbcType="DECIMAL" />
     <result column="ROLEID" property="roleid" jdbcType="DECIMAL" />
   </resultMap>
+  <delete id="deleteWorkerrole" parameterType="java.lang.Integer">
+  	delete from workerrole where workerid = #{workerid}
+  </delete>
+  <select id="queryWorkerrole" parameterType="int" resultType="com.health.entity.Workerrole">
+  	select * from workerrole where workerid= #{workerid}
+  </select> 
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -97,11 +103,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.health.entity.Workerrole" >
-    insert into WORKERROLE (WORKERROLEID, WORKERID, ROLEID
-      )
-    values (#{workerroleid,jdbcType=DECIMAL}, #{workerid,jdbcType=DECIMAL}, #{roleid,jdbcType=DECIMAL}
-      )
+  <insert id="insert" parameterType="com.health.entity.Workerrole"  >
+      
+      insert into workerrole (workerid,roleid) values(#{workerid},#{roleid})
   </insert>
   <insert id="insertSelective" parameterType="com.health.entity.Workerrole" >
     insert into WORKERROLE

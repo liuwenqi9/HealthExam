@@ -2,11 +2,15 @@ package com.health.mapper;
 
 import com.health.entity.Rolepower;
 import com.health.entity.RolepowerExample;
+import com.mysql.fabric.xmlrpc.base.Array;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface RolepowerMapper {
+	ArrayList<Rolepower> queryRplePower(int roleid);
     int countByExample(RolepowerExample example);
 
     int deleteByExample(RolepowerExample example);

@@ -8,7 +8,15 @@
     <result column="DEPTID" property="deptid" jdbcType="DECIMAL" />
     <result column="STATE" property="state" jdbcType="DECIMAL" />
   </resultMap>
-  
+  <update id="resetPassword" parameterType="java.lang.String">
+  	update worker set password = '123456' where name = #{name}
+  </update>
+  <select id="queryWorkerName" parameterType="java.lang.String" resultType="com.health.entity.Worker">
+  	select * from worker where name = #{name}
+  </select>
+  <select id="queryMaxId" resultType="java.lang.Integer">
+  	select max(workerid) from worker
+  </select>
   <select id="queryworkerName" parameterType="String" resultType="com.health.entity.Worker" >
   	select * from Worker where name like  #{name} ORDER BY workerid ASC
   </select>
@@ -19,15 +27,26 @@
   	select * from Worker where state like  #{state} ORDER BY workerid ASC
   </select>
   
+  <update id="updatePwdWorker" parameterType="com.health.entity.Worker">
+	    update  Worker set password=#{password} where name=#{name}
+	
+	</update>
+  
   <update id="changeWorkerState"
 		parameterType="java.util.HashMap">
 		update worker set state = #{state} where workerid = #{workerid}
 	</update>
+	<update id="updateWorker" parameterType="java.lang.Integer">
+		update worker set deptid = #{deptid} where workerid = #{workerid}
+	</update>
   
   <insert id="insertWorker" parameterType="com.health.entity.Worker">
-   insert into worker values(#{workerid}, #{name},#{password},2,0)
+   insert into worker values(#{workerid}, #{name},#{password},#{deptid},0)
    </insert>
-  <delete id="deleteWork">
+   <delete id="deleteFkWork" parameterType = "java.lang.String">
+   	delete from workerrole where workerrole.workerid =  (select worker.workerid from worker where worker.name = #{name}) 
+   </delete>
+  <delete id="deleteWork" parameterType = "java.lang.String">
   	delete from worker where name=#{name}
   </delete>
   <select id="lengthId" resultType="int">

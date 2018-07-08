@@ -37,12 +37,12 @@ public class CloginController {
 	 * 
 	 * @autuor 毛聪
 	 */
-	@RequestMapping("loginClietJsp.action")
+	@RequestMapping("loginClientJsp.action")
 	public ModelAndView loginClietJsp() {
 		ModelAndView mav = new ModelAndView("jsp/loginEnterprise");
 		return mav;
 	}
-
+    
 	/*
 	 * 时间：2018.6.14 登陆、验证码
 	 * 
@@ -96,16 +96,59 @@ public class CloginController {
 	}
 
 	/*
-	 * 修改密码 时间：2018.6.27
+	 * 
+	 * 修改密码界面
+	 * 
+	 * @data：2018.6.27
 	 * 
 	 * @autuor 毛聪
 	 */
-	@RequestMapping("userUpdatePwd.action")
-	public ModelAndView updatePwd() {
-		ModelAndView mav = new ModelAndView("jsp/clientJsp/updatepwd");
+//	@RequestMapping("userUpdatePwd.action")
+//	public ModelAndView updatePwdJsp() {
+//		ModelAndView mav = new ModelAndView("jsp/clientJsp/updatepwd");		
+//		return mav;
+//
+//	}
+	@RequestMapping(value = "userUpdatePwd.action")
+	public String employeeInfoJsp() {
 		
-		return mav;
+		
+		return "jsp/clientJsp/updatepwd";
+	}
+	
+	
+	/*
+	 * 
+	 * 修改密码
+	 * 
+	 * @data：2018.6.28
+	 * 
+	 * @autuor 毛聪
+	 */
+	@RequestMapping(value ="updatePwd.action")
+	public void updatePwd(HttpSession session, HttpServletResponse response,String oldPwd,String newPwd1,String newPwd2) throws IOException {
+		String pwd=session.getAttribute("AccountPwd").toString();
+		System.out.println(oldPwd+newPwd1+newPwd2+pwd);
+		Account account=new Account();
+		printWriter = response.getWriter();	
+		if(oldPwd.equals(pwd) ){
+			account.setAccount(session.getAttribute("AccountID").toString());
+			account.setPassword(newPwd1);
+			implLoginClientBiz.updatePwd(account);
+			printWriter.print("OK");
+			printWriter.flush();
+			printWriter.close();
+			System.out.println("修改成功");
+		}else {
+			
+			printWriter.print("FAIL");
+			printWriter.flush();
+			printWriter.close();
+			System.out.println("原密码错误");
 
+		}
+		
+		
 	}
 
 }

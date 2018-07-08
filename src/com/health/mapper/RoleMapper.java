@@ -2,11 +2,16 @@ package com.health.mapper;
 
 import com.health.entity.Role;
 import com.health.entity.RoleExample;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleMapper {
+	ArrayList<Role>queryRole();
+	int updateRole (HashMap<String, String>map);
     int countByExample(RoleExample example);
 
     int deleteByExample(RoleExample example);

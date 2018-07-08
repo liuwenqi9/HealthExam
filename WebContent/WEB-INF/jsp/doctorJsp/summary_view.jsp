@@ -131,6 +131,9 @@
 				</div>
 				<!-- /.row -->
 			</div>
+			 <h2 id="workdeptid_h2" > ${sessionScope.WorkerDeptId }</h2> 
+			
+			
 			<!--页面体结束  -->
 			<!--普通文字小结开始  -->
 			<div id="summary-modal1" class="modal fade in" tabindex="-1"
@@ -336,7 +339,6 @@
 				</div><!-- /.modal-dialog -->
 			</form>
 		</div>
-		
 			<!--  细项小结模态框结束 -->
 
 
@@ -384,7 +386,7 @@
 			$("a[href='summary.action']").parent().parent().parent().addClass(
 					"open");
 			$("a[href='summary.action']").parent().addClass("active");
-
+		 	$("#workdeptid_h2").hide(); 
 		});
 	</script>
 	<script type="text/javascript"

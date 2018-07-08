@@ -291,8 +291,9 @@ public class DoctorWorkController {
 		System.out.println("--部门id"+dept);
 		System.out.println("--page"+page);
 		PageHelper.startPage(page, 10);
-		System.out.println("登录的工作人员部门id"+session.getAttribute("deptid"));
+		System.out.println("登录的工作人员部门id"+session.getAttribute("WorkerDeptId"));
 		List<Guideitemsview> GuideitemsviewList =impDoctorWork.findGuideItemsViewByDeptId(dept);
+/*		List<Guideitemsview> GuideitemsviewList =impDoctorWork.findGuideItemsViewByDeptId((Integer) session.getAttribute("WorkerDeptId"));*/
 			if(GuideitemsviewList!=null) {//不为空，则表示找到数据
 				for (int i = 0; i < GuideitemsviewList.size(); i++) {
 					System.out.println("-----"+GuideitemsviewList.get(i).getDeptname());

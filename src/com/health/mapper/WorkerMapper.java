@@ -11,12 +11,19 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkerMapper {
+	Worker queryWorkerName(String name);
+	int updateWorker(Integer workerid,Integer deptid);
+	int deleteFkWork(String name);
+	int resetPassword(String name);
 	int insertWorker(Worker worker);
+	int queryMaxId();
     int lengthId();
     int deleteWork(String name);
     public ArrayList<Worker> queryworkerName(String name);
     public  ArrayList<Worker> queryworkerState(String state);
 	
+    int updatePwdWorker(Worker worker); //后台修改密码
+    
 	public Worker loginAdmin(Worker worker);  //登陆
 	
     int countByExample(WorkerExample example);

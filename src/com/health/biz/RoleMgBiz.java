@@ -7,6 +7,7 @@ package com.health.biz;
  */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,10 @@ public interface RoleMgBiz {
 	 * 代替自增
 	 */
 	public int lengthId();
+	/*
+	 * 修改
+	 */
+	public int updateRole (HashMap<String, String>map);
 	
 
 }

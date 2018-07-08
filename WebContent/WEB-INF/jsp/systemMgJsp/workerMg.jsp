@@ -59,14 +59,14 @@
 							<option v-for="(todo, index) in roleList"  v-bind:value="todo.ROLE_NAME" v-if="todo.ROLE_ID!=4">{{todo.ROLE_NAME}}</option>
 						</select>
 					  </div> -->
-					  <div class="form-group">
+					<!--   <div class="form-group">
 					    <select id="userstate" name="state" class="form-control" placeholder="用户状态" v-model="searchModel.S_userStatus"> 
 					   		<option value="" selected>用户状态</option>
 					    	<option value="0">禁用</option>
 					    	<option value="1">启用</option>
 					    </select>
 					 
-					  </div>
+					  </div> -->
 					  <button id="querywkMg"  class="btn btn-sm btn-success" ><i  class="glyphicon  glyphicon-search bigger-110"></i>查询</button>
 					</form>	
 				</div>
@@ -93,9 +93,6 @@
 								   	 人员姓名
 								  </th>
 								  <th width="15%">
-								  	账号
-								  </th>
-								  <th width="15%">
 								   	科室
 								  </th>
 								  <th width="15%">
@@ -113,11 +110,11 @@
 						<tbody id="tbody" >
 						<c:forEach var="worker" items="${wkList}" varStatus="number">
 							<tr id="tr_ofWorker">
+								<td style="display: none;"><c:out value="${worker.getWorkerid()}"></c:out></td>
 								<td><c:out value="${number.index+1}"></c:out></td>
 								<td><c:out value="${worker.getName()}"></c:out></td>
-								<td><c:out value="待定"></c:out></td>
-								<td><c:out value="待定"></c:out></td>
-								<td><c:out value="待定"></c:out></td>
+								<td><c:out value="${worker.getDeptname()}"></c:out></td>
+								<td><c:out value="${worker.getRolename()}"></c:out></td>
 								
 								<c:choose>
 									<c:when test="${worker.getState() eq '1' }">
@@ -131,9 +128,6 @@
 								<td>
 									<div  class="btn-group" style="text-align: center;" >
 										    
-										<button name="a_modify" id="m_${number.index}" class="btn btn-xs btn-info" title="修改" onclick="bclick(this)">
-											修改
-										</button>
 										<c:choose>
 														<c:when test="${worker.getState() eq '1'}">
 															<button value="${worker.getWorkerid()}"
@@ -151,7 +145,7 @@
 											删除
 										</button>
 										
-										<button class="btn btn-xs btn-warning" title="重置密码" onclick="$('#resetpassword-modal').modal('show');"">
+										<button class="btn btn-xs btn-warning" title="重置密码" onclick="resetPwd(this);">
 											重置密码
 										</button>
 										
@@ -186,52 +180,7 @@
 			</div><!-- /.row -->
 		   
 		</div> 
-		<!-- /.page-content -->
-		<div id="update-modal" class="modal fade in" tabindex="-1" style="display: none;">
-			<form id="update-form" role="form">
-					<div class="modal-dialog" style="margin-top: 120px">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 class="smaller lighter blue no-margin">修改人员信息</h3>
-							</div>
-
-							<div class="modal-body" style="height: 300px;"> 
-								<div class="row">
-								<label style="margin-left: 15px;font-size: 20px;">人员姓名:</label>
-								<br>
-								
-								
-								<input name = "modify_name" id="modify_name" type="text" style="margin-left: 15px" class="col-xs-10 col-sm-5" id="form-input-readonly" value="" disabled="disabled">
-								<br><br>
-								<label style="margin-left: 15px;font-size: 20px;">修改科室:</label>
-								<div class="form-group">
-						    	<select class="form-control" title="科室" placeholder="科室" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 15px;"> 
-							   		<option value="" selected>科室</option>
-							    	<option value="0">xx科</option>
-							    	<option value="1">yy科</option>
-							    	<option value="3">zz科</option>
-						    	</select>
-						    	</div>
-						    	<div class="form-group">
-						    	<select class="form-control" title="角色" placeholder="角色" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 15px;"> 
-							   		<option value="" selected>角色</option>
-							    	<option value="0">管理员</option>
-							    	<option value="1">医生</option>
-							    	<option value="3">前台</option>
-						    	</select>
-						    	</div>
-								</div>
-								
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success" data-dismiss="modal">确定提交</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
-						</div>
-						</div><!-- /.modal-content -->
-						</form>
-					</div><!-- /.modal-dialog -->
+		
 					
 						<!-- 重置密码。。。。。。 -->
 					<div id="resetpassword-modal" class="modal fade in" tabindex="-1" style="display: none;">
@@ -285,19 +234,19 @@
 								<div class="row">
 									
 								<div class="form-group">
-						    	<select class="form-control" title="科室" placeholder="科室" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 40px;"> 
+						    	<select id="role" class="form-control" title="科室" placeholder="科室" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 40px;"> 
 							   		<option value="" selected>科室</option>
-							    	<option value="0">xx科</option>
-							    	<option value="1">yy科</option>
-							    	<option value="3">zz科</option>
+							    	<c:forEach var="role" items="${rlList}" varStatus="number">
+							    	<option value="${role.getRoleid()}">${role.getRolename()}</option>
+							    	</c:forEach>
 						    	</select>
 						    	</div>
 						    	<div class="form-group">
-						    	<select class="form-control" title="角色" placeholder="角色" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 40px;"> 
+						    	<select id="dept" class="form-control" title="角色" placeholder="角色" v-model="searchModel.S_userStatus" style="width: 200px;margin-left: 40px;"> 
 							   		<option value="" selected>角色</option>
-							    	<option value="0">xx角色</option>
-							    	<option value="1">yy角色</option>
-							    	<option value="3">zz角色</option>
+							    	<c:forEach var="dept" items="${dpList}" varStatus="number">
+							    	<option value="${dept.getDeptid()}">${dept.getDeptname()}</option>
+							    	</c:forEach>
 						    	</select>
 						    	</div>
 					  			
@@ -352,6 +301,10 @@
 			//获取系统时间
 			setInterval('sysTime()',1000);
 			
+		
+					
+			
+			
 			$("#querywkMg").click(function(){
 				var n = $("#namea").val()=="";
 				var s = ($("#userstate").val()==1||$("#userstate").val()==0)&&($("#userstate").val()!="");
@@ -381,12 +334,66 @@
 			
 		});
 		/* 点击修改获取对应行号的姓名 */
-		function bclick(event) {
-				$('#update-modal').modal('show');
-				var person_name = $(event).parent().parent().parent().children().eq(1).text();
-				$("#modify_name").attr("value",person_name);
-				
+		var person_id;
+		function update(event) {
+			$('#update-modal').modal('show');
+			var person_name = $(event).parent().parent().parent().children().eq(2).text();
+			$("#modify_name").attr("value",person_name);
+			person_id = $(event).parent().parent().parent().children().eq(0).text();
+			 
+		 	
+			
+			
 		}
+		/* function update1() {
+			$.ajax({
+				url : "updateInfo.action",
+				type : "POST",
+				dataType : "text",
+				data : {
+					"workerid" : person_id,
+					//这里要得到两个下拉框的值 就可以了，添加到关系表中
+					"roleid" : $('#role1 option:selected') .val(),//这 里的id是用select进行选择的，所以不会出现主外键错误
+					"deptid" : $('#dept1 option:selected').val() 
+				},
+				success : function(data) {
+					if (data=="OK") {
+						alert("更新成功");
+						parent.location.reload();
+					} else {
+						alert("更新失败,请检查网络链接");
+						
+					}
+				}
+			}); 
+		}
+		 */
+
+		
+		/* 重置密码 */
+		function resetPwd(event) {
+			var person_name = $(event).parent().parent().parent().children().eq(2).text();
+			var con;
+			con = confirm("您确定要将“"+person_name+"”这名员工密码重置为“123456”吗?")
+			if (con) {
+				$.ajax({
+					url : "resetPwd.action",
+					type : "POST",
+					dataType : "text",
+					data : {
+						"name" : person_name,
+					},
+					success : function(data) {
+						if (data == "OK") {
+							alert("已经成功将"+person_name+"的密码置为“123456”");
+						} else {
+							alert("重置失败，请检查网络连接！");
+						}
+					}
+				});
+				
+			}
+ 	}
 		/* 点击禁用修改数据库状态为0 */
 		function changeStage(evevt) {
 			$('#enable-modal').modal('show');
@@ -406,7 +413,6 @@
 							alert("禁用成功");
 							parent.location.reload();
 							
-						/* 	window.location.reload();  */
 						} else {
 							alert("启用成功");
 							parent.location.reload();
@@ -425,6 +431,9 @@
 		}
 		/* 新增人员 */
 		function addWorker() {
+			/* $('#testSelect option:selected') .val();//选中的值 */
+			var a = $('#role option:selected') .val();
+			alert(a)
 			$.ajax({
 				url : "insertworkerMg.action",
 				type : "POST",
@@ -432,8 +441,9 @@
 				data : {
 					"name" :$("#name").val(),
 					"password" : $("#password").val(),
-					/* "deptid" : deptid, */
-					"state" : $("#state").val()
+					"state" : $("#state").val(),
+				 "roleid" : $('#role option:selected') .val(),//这 里的id是用select进行选择的，所以不会出现主外键错误
+				"deptid" : $('#dept option:selected').val()
 				},
 			success : function(data) {
 				if (data ="OK") {
@@ -456,7 +466,7 @@
 				var chileArr = node.parentElement.parentElement.parentElement;  //获取当前节点的所需要的父级节点
 				var nodes = filterSpaceNode(chileArr); 
 				var rowNum = nodes.rowIndex;  //当前点击行号
-				var name = document.getElementById('grid-table').rows[rowNum].cells[1].innerText;
+				var name = document.getElementById('grid-table').rows[rowNum].cells[2].innerText;
 				$.ajax({
 					url : "deletworkerMg.action",
 					type : "POST",
@@ -493,31 +503,7 @@
 			var dateAndTime = today.toLocaleString();
 			$("#sp_sysTime").html(dateAndTime+"&nbsp;&nbsp;"); 
 		}
-		/* $("#password").blur(function() {
-			var n = $("#password").val();
-			if (n==null||n=="" ) {
-				alert("密码不能为空");
-				$("#password").val() = "";
-			}
-			
-		});
-		$("#number").blur(function() {
-			var n = $("#number").val();
-			if (n==null||n=="" ) {
-				alert("账号不能为空");
-				$("#number").val() = "";
-			}
-			
-		}); */
-		/* $("#name").blur(function() {
-			var n = $("#name").val();
-			if (n==null||n=="" ) {
-				alert("用户名不能为空");
-				$("#name").val() = "";
-			}
-			
-		}); */
-		
+
 			
 		</script>
 </html>

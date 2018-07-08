@@ -1,5 +1,6 @@
 package com.health.mapper;
 
+import com.health.entity.Account;
 import com.health.entity.Charge;
 import com.health.entity.ChargeExample;
 
@@ -16,8 +17,16 @@ public interface ChargeMapper {
     int deleteByPrimaryKey(Integer chargeid);
 
     int insert(Charge record);
+    
+    Account queryMoney(Charge charge);  //通过企业账号查找账户余额
+    
+    int updateMoney(Account account);  //通过企业账号修改账户余额
+    
+    int updateState(Charge charge);    //修改账单状态
 
     int insertSelective(Charge record);
+    
+    List<Charge>  queryBill();
 
     List<Charge> selectByExample(ChargeExample example);
 

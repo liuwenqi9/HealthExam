@@ -4,15 +4,17 @@
 
 $(function () {
 	//加载搜索
-	console.log("session里面的部门id:"+req.sessionDeptid)
+/*	console.log("session里面的部门id:"+req.sessionDeptid);*/
+	var dep=$("#workdeptid_h2").html();
+	console.log("session里面的部门id:"+dep);
 	$.ajax({
 		url: "findGuideItemByDept.action",
 		method: "POST",
 		data: {page:1,
-			 dept:req.sessionDeptid//0703
+			 dept:dep//0703
 			},
-
 		success: function(msg){
+			
 			console.log("--加载信息返回了0701");
 			console.log(msg.pageNum);
 			req.itemsList = msg.itemsList;
@@ -284,7 +286,8 @@ var req= new Vue({
 		docName:"",
 		docName2:"",
 		docName3:"",
-		sessionDeptid:window.sessionStorage.getItem("deptid")
+		/*sessionDeptid:4*/
+		sessionDeptid:""
 	  },
 	  
 	  methods:{
