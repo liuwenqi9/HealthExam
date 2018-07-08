@@ -113,33 +113,39 @@ public class ControlInvoke {
 		//进行查找 worker表
 		Worker wor = implMenuMg.queryWorker((String) worker.getName());
 		if (wor != null) {
-			//进行再一步查询
-			int workerid = wor.getWorkerid();
-			Workerrole workerrole = implMenuMg.queryWorkerrole(workerid);
-			if (workerrole != null) {
-				int roleid = workerrole.getRoleid();
-				ArrayList<Rolepower> rolepowers = new ArrayList<>();
-				rolepowers = implMenuMg.queryRolePower(roleid);
-				ArrayList<Menu> mList = new ArrayList<>();
-				if (rolepowers != null) {
-					for (Rolepower rolepower : rolepowers) {
-						int menuid = rolepower.getMenuid();
-						Menu menus =null;
-						menus = implMenuMg.queryMenuid(menuid);
-						System.out.println(menus);
-						mList.add(menus);
+			ArrayList<Menu> mList = new ArrayList<>();
+			if (!wor.getName().equals("superadmin")) {
+				//进行再一步查询
+				int workerid = wor.getWorkerid();
+				Workerrole workerrole = implMenuMg.queryWorkerrole(workerid);
+				if (workerrole != null) {
+					int roleid = workerrole.getRoleid();
+					ArrayList<Rolepower> rolepowers = new ArrayList<>();
+					rolepowers = implMenuMg.queryRolePower(roleid);
+					if (rolepowers != null) {
+						for (Rolepower rolepower : rolepowers) {
+							int menuid = rolepower.getMenuid();
+							Menu menus =null;
+							menus = implMenuMg.queryMenuid(menuid);
+							System.out.println(menus);
+							mList.add(menus);
+						}
+						Gson gson = new Gson();
+						String gson_mList = gson.toJson(mList);
+						System.out.println(gson_mList);
+						session.setAttribute("mList", mList);
+						/*mav.addObject("mList",mList);*/
 					}
-					Gson gson = new Gson();
-					String gson_mList = gson.toJson(mList);
-					System.out.println(gson_mList);
-					session.setAttribute("mList", mList);
-					/*mav.addObject("mList",mList);*/
+					
 				}
-				String rp = new Gson().toJson(rolepowers);
-				System.out.println(rp);
+			} else {
+				mList = implMenuMg.queryAllMenu();
+				for (Menu menu : mList) {
+					System.out.println("哈哈"+menu.getUrl());
+				}
+				session.setAttribute("mList", mList);
 			}
-			String wr = new Gson().toJson(workerrole);
-			System.out.println(wr);
+		
 		}
 		
 		Gson gson = new Gson();

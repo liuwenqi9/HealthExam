@@ -118,6 +118,7 @@
 	</script>
 </div>
 <div id="sidebar" style="width: 100%;"
+
 	class="sidebar responsive ace-save-state"data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
 	<script type="text/javascript">
 		try {
@@ -125,13 +126,18 @@
 		} catch (e) {
 		}
 	</script>
+	<!-- 这里是已有权限 -->
 <ul class="nav nav-list" style="top: 0px;">
-		<li class="" style="width: 100%;">
+
+<c:forEach var="havemenu" items="${menus}">
+	<li class="" style="width: 100%;">
 		<a href="#" class="dropdown-toggle" style="width: 100%;"> 
 		<i class="menu-icon fa fa-list">
 		</i> <span class="menu-text">辅助功能 </span><b class="arrow fa fa-angle-down"></b>
 		</a> 
 		<b class="arrow"></b>
+</c:forEach>
+		
 
 			<ul class="submenu">
 
@@ -205,7 +211,7 @@
 					<div class="footer-content">
 						<span class="bigger-120">
 							<span class="blue bolder">Ace</span>
-							ShuaiFanDare © 2017 - 2018
+							ShuaiFanDare © 2017 - 2018 
 						</span>
 					</div>
 				</div>
@@ -239,12 +245,23 @@
 			$("#sp_sysTime").html(dateAndTime+"&nbsp;&nbsp;"); 
 		}
 		function creatHavePower(event) {
-			var person_name = $(event).parent().val();
-			alert(person_name);
+			var rid = $(event).parent().val();
+			alert(rid);
 			//ajax上传进行查询已经存在的菜单
-			/* $.ajax({
-				url : 
-			}); */
+			 $.ajax({
+				url : "queryHavePower.action",
+				type : "post",
+				dataType : "text",
+				data : {
+					"roleid" : rid
+				},
+				success : function(data) {
+					if (data == "OK") {
+						parent.location.reload();
+					}
+				}
+			}); 
+			
 		}
 
 	

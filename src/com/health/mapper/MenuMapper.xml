@@ -7,6 +7,9 @@
     <result column="MENUNAME" property="menuname" jdbcType="OTHER" />
     <result column="URL" property="url" jdbcType="OTHER" />
   </resultMap>
+  <select id="queryAllMenu" resultType="com.health.entity.Menu">
+  	select * from Menu
+  </select>
   <select id="queryDept"></select>
   <update id="updataMenu" parameterType="com.health.entity.Menu">
   	 update menu set menuname=#{menuname}  where menuid=#{menuid}

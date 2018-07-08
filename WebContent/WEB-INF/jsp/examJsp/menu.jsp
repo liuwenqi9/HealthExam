@@ -32,10 +32,10 @@
 
 					<ul
 						class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-						<li><a href="updatePwd.action"> <i
+						<!-- <li><a href="updatePwd.action"> <i
 								class="ace-icon fa fa-power-off"></i> 修改密码
-						</a></li>
-						<li><a href="<%=request.getContextPath()%>/jsp/login.action">
+						</a></li> -->
+						<li><a href="<%=request.getContextPath()%>/loginJsp.action">
 								<i class="ace-icon fa fa-power-off"></i> 退出
 						</a></li>
 					</ul></li>
