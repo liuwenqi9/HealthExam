@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface MenuMapper {
+	ArrayList<Menu>queryAllMenu();
 	Menu queryMenuid(int menuid);
 	String queryDept(String name);
 	int deleteMenu(String menuname);

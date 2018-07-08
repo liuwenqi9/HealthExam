@@ -103,4 +103,11 @@ public class ImplMenuMg implements MenuMgBiz {
 		return menus;
 	}
 
+
+	@Override
+	public ArrayList<Menu> queryAllMenu() {
+		ArrayList<Menu>menus = menuMapper.queryAllMenu();
+		return menus;
+	}
+
 }
