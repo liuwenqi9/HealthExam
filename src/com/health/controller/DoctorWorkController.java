@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ import com.health.entity.Guideitemsview;
 import com.health.entity.Itemdetail;
 import com.health.entity.Items;
 import com.health.entity.Personinfo;
+import com.health.util.FormatConversionUtil;
 import com.health.util.MyTimeUtil;
 import com.health.util.PageUtil;
 
@@ -251,7 +253,11 @@ public class DoctorWorkController {
 					Detail de=	impDoctorWork.findDetailById(list.get(i).getDetailid());
 							System.out.println("下限："+de.getLowlimit());
 							System.out.println("上限："+de.getUplimit());
-							BigDecimal b=new BigDecimal(3.5);
+						
+							/*new Random().nextDouble().*/
+							BigDecimal b=FormatConversionUtil.createNum(de.getUplimit(), de.getLowlimit());
+							//0709修补点
+						/*	BigDecimal b=new BigDecimal(3.5);*/
 							System.out.println("生成的b:"+b);
 							//插入细项数据表	
 			int re=impDoctorWork.insertDetaildata(gitemid, de.getDetailid(), b);	
