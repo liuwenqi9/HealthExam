@@ -49,7 +49,7 @@ String basePath=request.getScheme()+"://"
 			②表头：<span style="color: #FF5722">企业（医院注册）账号-（体检）员工姓名、身份证、性别、年龄、电话;</span>
 			<span style="color: #307ECC">请勿删除！！！</span>以免影响之后的读取数据。<br>
 			③第一行示例参考数据：<span style="color: 	#FFA500">CYKJ123-小简-350627199308014567-男-25-15759581890;</span>
-			<span style="color: #FF4500">请在登记数据时删除！</span>以免影响上传数据出错！
+			<span style="color: #FF4500">请在登记数据时，勿删除！</span>以免影响上传数据出错！
 			</h4>
 		</div>
 			<!--分隔线-->

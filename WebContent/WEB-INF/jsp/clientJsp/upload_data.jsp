@@ -103,7 +103,7 @@ String basePath=request.getScheme()+"://"
 			<h4>①请点击（或拖拽至）下面的上传名单区域，选择需要上传的文件<span style="color: #FF5722">（严格要求上传的文件为门户下载的登记模板<br>"传一人民医院-企业注册人员模板.xlsx"）请注意文件格式为xlsx。</span><br>		
 			②请确保表头包含：<span style="color: #FF5722">企业（医院注册）账号-（体检）员工姓名、身份证、性别、年龄、电话;</span>以确保数据读取准确。<br>		
 			③登记体检人数据如：<span style="color: 	#FFA500">CYKJ123-小简-350627199308014567-男-25-15759581890;</span>请确保身份证和电话正常显示！<br>	
-			<span style="color: #FF4500">（错误的显示为科学计数法的手机号：1.58E+10,将影响数据的准确读取）。</span>
+			<span style="color: #FF4500">（首行为模板，请勿删除！错误的显示为科学计数法的手机号：1.58E+10,将影响数据的准确读取）。</span>
 			</h4>
 		    </div>
 		    <!--陈述上传说明结束  -->
@@ -112,7 +112,7 @@ String basePath=request.getScheme()+"://"
 				<div class="col-xs-3">
 				<!--上传按钮位置-->
 			 	<div class="clearfix">
-						按钮位置 
+						
 					 <div class="pull-left">
 							<label class="control-label" for="">上传文件按钮： </label>
 							

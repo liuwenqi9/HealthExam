@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,8 +99,12 @@ public class ReadExcelUtil {
 		    		count++;
 		    		continue;
 		    	}
+		    	if(count == 1){
+		    		count++;
+		    		continue;
+		    	}
 		    	// 如果当前行没有数据，跳出循环
-		    	if(row.getCell(0).toString().equals("")){
+		    	if(row.getCell(0) == null){
 	        		return  tableList;
 	        	}
 		    	  List<String> rowList = new ArrayList<String>();
@@ -229,12 +233,20 @@ public class ReadExcelUtil {
 			break;
 			case 5: //人员年龄
 				/*Integer age = Integer.parseInt(list.get(i));//字符串转整型
-*/				String s=list.get(i).trim();
-				System.out.println(s.getClass().toString());
-				if(s.equals("25")) {
-					System.out.println("值为20");
+*/				
+
+				int age =0;
+				System.out.println("age = " + age);
+				
+				try {
+					age = Integer.parseInt(list.get(i));
+				} catch (NumberFormatException e) {
+				    e.printStackTrace();
 				}
-				Integer age = Integer.valueOf(s);
+//				if(s.equals("25")) {
+//					System.out.println("值为25");
+//				}
+				
 				personinfo.setAge(age);
 			break;
 			case 6: //人员电话
