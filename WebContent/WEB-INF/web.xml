@@ -3,8 +3,10 @@
   <display-name>HealthExamSystem</display-name>
   <welcome-file-list>
 
-  	<welcome-file>/WEB-INF/jsp/loginEnterprise.jsp</welcome-file>  
-   <!--  <welcome-file>/WEB-INF/jsp/clientJsp/userHome.jsp</welcome-file>    --> 
+
+    <welcome-file>/WEB-INF/jsp/loginEnterprise.jsp</welcome-file>  
+<!--   	<welcome-file>/WEB-INF/jsp/loginBackend.jsp</welcome-file>   -->
+
 
   </welcome-file-list>
   
