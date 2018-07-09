@@ -65,23 +65,21 @@ function pageHead(){
 	LODOP.ADD_PRINT_TEXT(24,5,308,19,"健   康   体   检   中   心");
 	LODOP.SET_PRINT_STYLEA(0,"FontName","隶书");
 	LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
-	LODOP.ADD_PRINT_TEXT(31,626,174,16,"体检日期：" + currentDate);
+	LODOP.ADD_PRINT_TEXT(26,626,174,16,"体检日期：2018-6-9");
 	LODOP.SET_PRINT_STYLEA(0,"FontSize",10);
-	LODOP.ADD_PRINT_TEXT(111,133,534,20,"公司：");
+	LODOP.ADD_PRINT_TEXT(157,131,329,31,"公司账户：cykj123");
 	LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
-	LODOP.ADD_PRINT_TEXT(157,131,329,31,"公司账户：" + req.peopleMsg.account);
+	LODOP.ADD_PRINT_TEXT(212,134,193,25,"姓名：蔡志海");
 	LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
-	LODOP.ADD_PRINT_TEXT(212,134,193,25,"姓名：" + req.peopleMsg.name);
+	LODOP.ADD_PRINT_TEXT(215,455,110,31,"性别：男");
 	LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
-	LODOP.ADD_PRINT_TEXT(215,455,110,31,"性别：" + req.peopleMsg.sex);
+	LODOP.ADD_PRINT_TEXT(260,133,100,25,"年龄：28");
 	LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
-	LODOP.ADD_PRINT_TEXT(260,133,100,25,"年龄：" + req.peopleMsg.age);
+	LODOP.ADD_PRINT_TEXT(261,454,265,26,"手机：13333333388");
 	LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
-	LODOP.ADD_PRINT_TEXT(261,454,265,26,"手机：" + req.peopleMsg.telephone);
-	LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
-	LODOP.ADD_PRINT_TEXT(344,192,191,34,"打印日期：" + currentDate);
+	LODOP.ADD_PRINT_TEXT(344,192,191,34,"打印日期：2018-6-9");
 	LODOP.SET_PRINT_STYLEA(0,"FontSize",14);
-	LODOP.ADD_PRINT_BARCODE(316,418,100,60,"QRCode","传一科技");
+	LODOP.ADD_PRINT_BARCODE(316,448,182,118,"QRCode","http://localhost:8080/HealthExamSystem/");
 	
 	LODOP.NewPage();
 	//承接下一页
@@ -192,6 +190,7 @@ function sixthPage(){
 		LODOP.ADD_PRINT_TEXT(31,626,174,16,"体检日期：" + currentDate);
 		LODOP.ADD_PRINT_HTM(190,102,598,570,document.getElementById(i).innerHTML);
 		LODOP.NewPage();
-	}	
+	}
 	lodop.PREVIEW();
+//	lodop.PRINT_DESIGN();
 }

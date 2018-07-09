@@ -88,7 +88,9 @@
 					</div>
 					
 					<div class="" v-for="(ttd,index) in detailList" v-bind:id="index">
-				 		<p>{{ttd.itemName}}</p> 
+						<div class="hidden">	
+				 		 <p>{{ttd.itemName}}</p>
+						</div>
 						<table class="hidden" style="width: 100%;" border="0" cellpadding="0" cellspacing="0" bgcolor="#DCDCDC">
 							<thead>						
 								<tr>
@@ -109,6 +111,9 @@
 								</tr>
 							</tbody>
 						</table>
+						<div class="hidden" v-for="(tsd, index) in ttd.list">
+							<p v-if="(tsd.summary)!=null">医生小结：{{tsd.summary}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
