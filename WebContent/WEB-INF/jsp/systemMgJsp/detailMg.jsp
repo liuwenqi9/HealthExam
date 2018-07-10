@@ -187,6 +187,7 @@
 									<div class="modal-body" style="height: 300px"> 
 										<div class="row">
 											<div class="col-xs-12">
+												<span class="col-xs-2">细项名称:</span>
 												<input class="col-xs-10" type="text" id="detailName" name="detailName" v-model="editItem.name" required="required"/>
 											</div>
 										</div>
@@ -266,7 +267,9 @@
 				pageCount:[],
 				pageNum:"",
 				searchModel: {},
-				addItem:{},
+				addItem:{
+					parameterid:7
+				},
 				editItem:{},
 				paramList:[]
 			},

@@ -31,7 +31,7 @@
 				<div class="page-content" id="dataBind">
 					<div class="page-header">
 						<a href="javascript:window.location.reload();" class="btn btn-sm btn-purple"><i class="ace-icon fa fa-undo bigger-110"></i>刷新</a>
-						<a href="#" class="btn btn-sm btn-success" v-on:click="addButton"><i class="glyphicon glyphicon-plus bigger-110"></i>新增细项</a>
+						<a href="#" class="btn btn-sm btn-success" v-on:click="addButton"><i class="glyphicon glyphicon-plus bigger-110"></i>新增项目</a>
 						<!-- <span class="text-error" data-bind="text:errormsg"></span> -->
 						
 						<div class="pull-right">
