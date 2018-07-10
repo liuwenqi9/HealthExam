@@ -17,4 +17,5 @@
 <script src="<%=request.getContextPath() %>/js/jquery.validate.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/messages_zh.js"></script>
 <script src="<%=request.getContextPath() %>/js/vue-fullcalendar.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/Chart.bundle.js"> </script>
 

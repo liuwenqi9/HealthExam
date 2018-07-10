@@ -103,7 +103,7 @@
     insert into ITEMS (ITEMID, ITEMNAME, DEPTID, 
       COST,classify)
     values (#{itemid,jdbcType=DECIMAL}, #{itemname,jdbcType=OTHER}, #{deptid,jdbcType=DECIMAL}, 
-      #{cost,jdbcType=DECIMAL}),#{classify,jdbcType=DECIMAL})
+      #{cost,jdbcType=DECIMAL},#{classify,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.health.entity.Items" >
     insert into ITEMS
